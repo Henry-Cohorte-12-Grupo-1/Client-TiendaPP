@@ -1,11 +1,19 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import logo from "./logo.svg";
 import "../../styles/App/App.css";
+import { Route, RouteComponentProps, Switch } from "react-router-dom";
+
+
+import Home from '../Home/Home'
+import Client from '../Client/Client'
+import ProductForm from '../ProductForm/ProductForm'
+import routes from '../../config/routes'
 
 //redux stuff
 import { StoreType } from "../../redux/reducers/index";
 import { masUno } from "../../redux/actions/index";
+import { formatDiagnostic } from "typescript";
+import { resourceLimits } from "worker_threads";
 
 function App() {
     const counter = useSelector<StoreType, number>((state) => state.counter); //redux store counter varible
@@ -19,20 +27,28 @@ function App() {
     return (
         <div className="App">
             <button onClick={onButtonClick}>{counter}</button>
-            {/* <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header> */}
+            {/* <Route exact path='/' component={Home}/>
+        <Route exact path='/client' component={Client}/> 
+        <Route exact path='/client/create' component={ProductForm}/> */}
+            <Switch>
+                {routes.map((route, index) => {
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            exact={route.exact}
+                            render={(props: RouteComponentProps<any>) => (
+                                <route.component
+                                    name={route.name}
+                                    {...props}
+                                    {...route.props}
+                                />
+                            )}
+                        />
+                    )
+                })}
+            </Switch>
+
         </div>
     );
 }
