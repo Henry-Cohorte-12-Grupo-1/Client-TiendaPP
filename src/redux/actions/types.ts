@@ -4,4 +4,5 @@ export enum ActionTypes {
     ACTION_0,
     ACTION_1,
     ACTION_N,
+    SEARCH_PRODUCT,
 }
