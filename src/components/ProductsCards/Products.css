@@ -9,3 +9,12 @@
     height:150px;
     margin-left: 3.5rem;
 }
+
+#colorB {
+    background-color: #2c666e;
+    border: none;
+}
+
+#colorB:hover{
+    background-color: #07393c;
+}
