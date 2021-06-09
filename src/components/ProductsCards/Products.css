@@ -7,7 +7,7 @@
 #image{
     width:150px;
     height:150px;
-    margin-left: 3.5rem;
+    margin-left: 1rem;
 }
 
 #colorB {
@@ -17,4 +17,8 @@
 
 #colorB:hover{
     background-color: #07393c;
+}
+
+#imageSize{
+    height:150px;
 }
