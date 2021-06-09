@@ -22,5 +22,25 @@ export const bringProducts = () => {
                 type: ActionTypes.BRING_PRODUCTS,
                 payload: productos.data
             })
+            console.log('PRODUCT',productos.data)
     } 
+}
+
+export const searchProduct = (product: string) => {
+    const URL: string = 'https://localhost:3001/search';
+    const params = {
+        product
+    }
+      try {
+            return async function (dispatch: any) {                       
+              const productData = await axios.get(URL, { params });
+              dispatch({
+                type: ActionTypes.SEARCH_PRODUCT,
+                products: productData,
+                })
+            } 
+    }
+     catch (error) {
+            return console.log("No se pudo realizar la busqueda");
+    }
 }

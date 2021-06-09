@@ -6,23 +6,16 @@ import obj from '../../interfaces/products';
 import ProductsCards from '../ProductsCards/ProductsCards'
 
 function Home (){ 
-    const producto = useSelector<StoreType, obj[]>((state) => state.products)
+    const producto = useSelector<StoreType, obj[]>((state) => state.productList)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(bringProducts())
-    })
+    }, [])
 
     return (
         <div>
             <h2>Recomendados</h2>
-            <li>{producto.map(p => (
-                <ProductsCards
-                    name = {p.name}
-                    price = {p.price}
-                    image = {p.image}
-                />
-            ))}</li>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import Home from '../Home/Home'
 import Client from '../Client/Client'
 import ProductForm from '../ProductForm/ProductForm'
 import routes from '../../config/routes'
+import Nav from '../Nav/Nav';
 
 //redux stuff
 import { StoreType } from "../../redux/reducers/index"; 

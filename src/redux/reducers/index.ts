@@ -4,18 +4,21 @@ import obj from '../../interfaces/products';
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
 export interface StoreType {
     counter: number;
-    products: obj[]
+    productList: obj[]
+    products: [];
 }
 
 //State iniciales del store
 const initialState: StoreType = {
     counter: 0,
-    products: []
+    products: [],
+    productList: []
 };
 
 interface actionI {
     type: number;
-    payload: obj[]
+    productList: obj[]
+    products: [];
 }
 
 export default function reducer(
@@ -28,12 +31,16 @@ export default function reducer(
             return state;
 
         case ActionTypes.BRING_PRODUCTS:
-            // state.products
             return {
                 ...state,  
-                products: [...state.products]
+                productList: action.productList
             }
         default:
             return state;
+       case ActionTypes.SEARCH_PRODUCT:
+           return {
+            ...state,
+            products: action.products
+           } 
     }
 }
