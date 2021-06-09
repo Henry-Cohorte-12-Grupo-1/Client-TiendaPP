@@ -1,5 +1,7 @@
 import { ActionTypes } from "./types";
+import obj from '../../interfaces/products';
 import axios from 'axios';
+import { Dispatch } from 'redux';
 
 export const masUno = () => {
     return {
@@ -7,6 +9,22 @@ export const masUno = () => {
         payload: null,
     };
 };
+
+export interface AxiosProducts {
+    type: ActionTypes.BRING_PRODUCTS;
+    payload: obj[];
+}
+
+export const bringProducts = () => {
+    return async (dispatch: Dispatch) => {
+        const productos = await axios.get<obj[]>('http://localhost:3001/products')                                                 
+            dispatch<AxiosProducts>({
+                type: ActionTypes.BRING_PRODUCTS,
+                payload: productos.data
+            })
+            console.log('PRODUCT',productos.data)
+    } 
+}
 
 export const searchProduct = (product: string) => {
     const URL: string = 'http://localhost:3001/search';
@@ -26,5 +44,3 @@ export const searchProduct = (product: string) => {
             return console.log("No se pudo realizar la busqueda");
     }
 }
-
-

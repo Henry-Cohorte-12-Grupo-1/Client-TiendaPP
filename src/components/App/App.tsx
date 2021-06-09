@@ -11,7 +11,7 @@ import routes from '../../config/routes'
 import Nav from '../Nav/Nav';
 
 //redux stuff
-import { StoreType } from "../../redux/reducers/index";
+import { StoreType } from "../../redux/reducers/index"; 
 import { masUno } from "../../redux/actions/index";
 import { formatDiagnostic } from "typescript";
 import { resourceLimits } from "worker_threads";
@@ -30,7 +30,9 @@ function App() {
             <button onClick={onButtonClick}>{counter}</button>
             {/* <Route exact path='/' component={Home}/>
         <Route exact path='/client' component={Client}/> 
-        <Route exact path='/client/create' component={ProductForm}/> */}
+        <Route exact path='/client/create' component={ProductForm/> */}
+
+            {/* Para agregar rutas, agregar un objeto en config/routes */}
             <Switch>
                 {routes.map((route, index) => {
                     return (
