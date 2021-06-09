@@ -9,7 +9,7 @@ function ProductsCards(props: {name: string; price: number; image: string}){
             <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
                 <p className="card-text">${props.price}</p>
-                <a href="#" className="btn btn-primary">Buy</a>
+                <a href="#" className="btn btn-primary" id='colorB'>Buy</a>
             </div>
         </div>
     )
