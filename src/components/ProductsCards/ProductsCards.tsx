@@ -1,11 +1,16 @@
+import CSS from 'csstype'; 
+import './Products.css';
+
 function ProductsCards(props: {name: string; price: number; image: string}){
 
     return(
-        <div>
-            <h1>Card</h1>
-            <h2>{props.name}</h2>
-            <h3>{props.price}</h3>
-            <img>{props.image}</img>
+        <div className="card" id='firstDiv'>
+            <img className="card-img-top" src="..." alt={props.image} />
+            <div className="card-body">
+                <h5 className="card-title">{props.name}</h5>
+                <p className="card-text">${props.price}</p>
+                <a href="#" className="btn btn-primary">Buy</a>
+            </div>
         </div>
     )
 }
