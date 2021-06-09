@@ -2,6 +2,7 @@ import IRoute from '../interfaces/route';
 import Client from '../components/Client/Client';
 import ProductForm from '../components/ProductForm/ProductForm'
 import Nav from '../components/Nav/Nav';
+import Home from '../components/Home/Home';
 
 const routes: IRoute[] = [
     {
@@ -15,6 +16,12 @@ const routes: IRoute[] = [
         name:'Create',
         component: ProductForm,
         exact: true
+    },
+    {
+        path: '/home',
+        name: 'Home',
+        component: Home,
+        exact:true
     },
     {
        path: '/',

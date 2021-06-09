@@ -11,7 +11,7 @@ import routes from '../../config/routes'
 import Nav from '../Nav/Nav';
 
 //redux stuff
-import { StoreType } from "../../redux/reducers/index";
+import { StoreType } from "../../redux/reducers/index"; 
 import { masUno } from "../../redux/actions/index";
 import { formatDiagnostic } from "typescript";
 import { resourceLimits } from "worker_threads";
