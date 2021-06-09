@@ -9,7 +9,7 @@ export const masUno = () => {
 };
 
 export const searchProduct = (product: string) => {
-    const URL: string = 'https://localhost:3001/search';
+    const URL: string = 'http://localhost:3001/search';
     const params = {
         product
     }
