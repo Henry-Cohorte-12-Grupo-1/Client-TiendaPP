@@ -12,7 +12,7 @@ export default function ProductS (props: propsObj) {
   return (
         <div>
             <div>
-              <img src={props.image ? props.image : "https://media.istockphoto.com/photos/gun-picture-id534156339?k=6&m=534156339&s=612x612&w=0&h=W897KCMseZvYskj_0ekRvx93Gx5RLtgfiysaahw5YcI="} alt="Not available" width="300" height="210"/>
+              <img src={props.image ? props.image : "https://images-na.ssl-images-amazon.com/images/I/81vZaXuCQ-L._SL1500_.jpg"} alt="Not available" width="300" height="210"/>
             </div> 
             <div>
               <h3>Name: {props.name}</h3>
