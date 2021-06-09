@@ -1,9 +1,16 @@
 import { ActionTypes } from "../actions/types";
 
+interface propsObj {
+    image: string,
+    name: string,
+    description: string,
+    price: string,
+}
+
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
 export interface StoreType {
     counter: number;
-    products: [];
+    products: propsObj[];
 }
 
 //State iniciales del store
