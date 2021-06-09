@@ -13,10 +13,28 @@ function Home (){
         dispatch(bringProducts())
     }, [])
 
+    console.log('PRODUCTO!',producto)
+
     return (
         <div>
+            <div>
             <h2>Recomendados</h2>
+            <div>
+            {producto &&
+                <div className="row row-cols-1 row-cols-md-2">
+                {producto.map( p => {
+                    return (
+                        <ProductsCards
+                        name = {p.name}
+                        price = {p.price}
+                        image = {p.image} />
+                    )
+                })}
+                </div>
+            }
+            </div>
         </div>
+            </div>
     )
 }
 

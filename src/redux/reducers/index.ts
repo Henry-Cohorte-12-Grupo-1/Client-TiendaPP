@@ -17,7 +17,7 @@ const initialState: StoreType = {
 
 interface actionI {
     type: number;
-    productList: obj[]
+    payload: obj[]
     products: [];
 }
 
@@ -33,7 +33,7 @@ export default function reducer(
         case ActionTypes.BRING_PRODUCTS:
             return {
                 ...state,  
-                productList: action.productList
+                productList: action.payload
             }
         default:
             return state;
