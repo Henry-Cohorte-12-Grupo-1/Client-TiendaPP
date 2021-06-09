@@ -3,15 +3,18 @@ import { ActionTypes } from "../actions/types";
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
 export interface StoreType {
     counter: number;
+    products: [];
 }
 
 //State iniciales del store
 const initialState: StoreType = {
     counter: 0,
+    products: []
 };
 
 interface actionI {
     type: number;
+    products: [];
 }
 
 export default function reducer(
@@ -24,5 +27,10 @@ export default function reducer(
             return state;
         default:
             return state;
+       case ActionTypes.SEARCH_PRODUCT:
+           return {
+            ...state,
+            products: action.products
+           } 
     }
 }

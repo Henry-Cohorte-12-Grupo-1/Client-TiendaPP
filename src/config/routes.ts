@@ -1,6 +1,7 @@
 import IRoute from '../interfaces/route';
 import Client from '../components/Client/Client';
 import ProductForm from '../components/ProductForm/ProductForm'
+import Nav from '../components/Nav/Nav';
 
 const routes: IRoute[] = [
     {
@@ -15,6 +16,12 @@ const routes: IRoute[] = [
         component: ProductForm,
         exact: true
     },
+    {
+       path: '/',
+       name:'Nav',
+       component: Nav,
+       exact: false
+    }
 ]
 
 export default routes;
