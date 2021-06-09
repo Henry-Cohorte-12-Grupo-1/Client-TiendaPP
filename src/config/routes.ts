@@ -14,7 +14,7 @@ const routes: IRoute[] = [
         name:'Create',
         component: ProductForm,
         exact: true
-    }
+    },
 ]
 
 export default routes;
