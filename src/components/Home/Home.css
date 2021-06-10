@@ -1,0 +1,9 @@
+#buttonStyle{
+    color: #2c666e;
+    border: #2c666e;
+}
+
+#buttonStyle:hover {
+    color: #07393c;
+    border: #07393c;
+}

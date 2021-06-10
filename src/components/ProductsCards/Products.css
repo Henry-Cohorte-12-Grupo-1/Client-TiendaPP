@@ -3,3 +3,22 @@
     margin-right: 2rem;
     margin-bottom: 2rem;
 }
+
+#image{
+    width:150px;
+    height:150px;
+    margin-left: 1rem;
+}
+
+#colorB {
+    background-color: #2c666e;
+    border: none;
+}
+
+#colorB:hover{
+    background-color: #07393c;
+}
+
+#imageSize{
+    height:150px;
+}
