@@ -3,7 +3,8 @@ import {bringProducts, getCategories, orderByCategories} from '../../redux/actio
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import obj, { category } from '../../interfaces/products';
-import ProductsCards from '../ProductsCards/ProductsCards'
+import ProductsCards from '../ProductsCards/ProductsCards';
+import './Home.css'
 
 function Home (){ 
     const producto = useSelector<StoreType, obj[]>((state) => state.filterProducts)
@@ -23,16 +24,16 @@ function Home (){
         <div>
             <div>
                 <h3>Categorias</h3>
-                <div>
+                <div className='bStyle'>
                     {categorias && 
-                    <div>
+                    <div className='button'>
                     {categorias.map(c => {
                         return(
-                            <button type="button" className="btn btn-outline-secondary" onClick={() => handleClick(c.name)}>{c.name}</button>
+                            <button type="button" className="btn btn-outline-secondary btn-space" onClick={() => handleClick(c.name)}>{c.name}</button>
                         )
                     })}
+                    <button className="btn btn-outline-secondary btn-space" onClick={() => dispatch(bringProducts())}>Go back</button>
                     </div>}
-                    {console.log('CATEGORIAS',categorias)}
                 </div>
             </div>
             <div>
@@ -45,7 +46,8 @@ function Home (){
                         <ProductsCards
                         name = {p.name}
                         price = {p.price}
-                        image = {p.image} />
+                        image = {p.image}
+                        id = {p.id} />
                     )
                 })}
                 </div>

@@ -22,7 +22,6 @@ export const bringProducts = () => {
                 type: ActionTypes.BRING_PRODUCTS,
                 payload: productos.data
             })
-            console.log('PRODUCT',productos.data)
     } 
 }
 

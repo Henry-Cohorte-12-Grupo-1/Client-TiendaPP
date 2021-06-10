@@ -3,7 +3,8 @@ export default interface obj {
     image: string;
     description: string;
     price: number;
-    category: string
+    category: string;
+    id?: number;
 }
 
 export interface category {
