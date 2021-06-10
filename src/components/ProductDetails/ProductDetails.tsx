@@ -5,6 +5,7 @@ import { productInfo } from "../../redux/actions"
 import { RouteComponentProps } from "react-router-dom"
 import obj from '../../interfaces/products'
 
+//defino el tipado para match.params.id
 interface MatchParams {
     id: string;
 }
@@ -12,7 +13,6 @@ interface Props extends RouteComponentProps<MatchParams> {
 }
 
 function ProductDetails(props: Props) {
-
 
     const id = props.match.params.id
     const details = useSelector<StoreType, obj>((state) => state.productDetails)
@@ -22,9 +22,7 @@ function ProductDetails(props: Props) {
         (async () => {
             await dispatch(productInfo(id));
         })()
-    }, [])
-
-    console.log(details, "detailsssss")
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>
