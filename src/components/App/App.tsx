@@ -16,6 +16,8 @@ import { masUno } from "../../redux/actions/index";
 import { formatDiagnostic } from "typescript";
 import { resourceLimits } from "worker_threads";
 
+import './style.scss'
+
 function App() {
     const counter = useSelector<StoreType, number>((state) => state.counter); //redux store counter varible
     const dispatch = useDispatch(); //redux dispatch
