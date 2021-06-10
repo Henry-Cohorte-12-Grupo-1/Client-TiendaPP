@@ -1,0 +1,14 @@
+.btn-space{
+    margin-right: 2rem;
+    color: #2c666e;
+    border: 1px solid #2c666e;
+    margin-bottom: 3.5rem;
+    margin-top: 0.5rem;
+    background-color: #fff;
+}
+
+.btn-space:hover{
+    background-color: #2c666e;
+    color: #fff;
+    border: 1px solid #fff;
+}
