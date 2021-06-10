@@ -35,7 +35,7 @@ function ProductForm() {
 
     const history = useHistory();
 
-    var categories = ['Agro','Alimentos y Bebidas','Animales y Mascotas','Computación']
+    var categories = ['Agro', 'Alimentos y Bebidas', 'Animales y Mascotas', 'Computación']
 
 
     useEffect(() => {
@@ -105,14 +105,13 @@ function ProductForm() {
         }
     }
 
-    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>)=>{
+    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         console.log(event.target.value)
         setProduct({
             ...product,
             category: event.target.value
         })
     }
-
 
     function handleDelete(i: number) {
         console.log(i)
@@ -151,34 +150,32 @@ function ProductForm() {
                             <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} />
                             {errors?.price ? <Form.Text className='text-muted'>
                                 Debe indicar un precio
-
-                            
                                 <Form.Control as="select" onChange={handleCategoryChange}>
-                                    {categories.map((category,i) =>(
+                                    {categories.map((category, i) => (
                                         <option value={categories[i]}>{category}</option>
                                     ))}
-                                    
                                 </Form.Control>
-
                             </Form.Text> : <Form.Text className='text-secondary'>&#160;</Form.Text>}
                         </Form.Group>
                     </Col>
-
                     <Col md>
-                        <Form.File id="image">
-                            {/* <Form.File.Label>Regular file input</Form.File.Label> */}
-                            <Form.File.Input accept="image/png, image/jpeg" name='image' onChange={imageChangeHandler} />
-                        </Form.File>
+                        <div className="custom-file mt-3">
+                            <input
+                                type="file"
+                                className="h6 bg-secondary flat w-100"
+                                id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01"
+                                onChange={imageChangeHandler} />
+                            {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
+                        </div>
                         {imagesName.length > 0 ?
                             <Carousel>
                                 {imagesName.map((name, i) => (
                                     <Carousel.Item key={i}>
-                                        <Col >
-                                            <Button className="boton-prueb btn-secondary" onClick={() => handleDelete(i)}>X</Button>
-                                        </Col>
+                                        <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
                                         <img
                                             key={i}
-                                            className="d-block w-100"
+                                            className="carrousel-img"
                                             src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
                                             alt="First slide"
                                         />
@@ -189,15 +186,15 @@ function ProductForm() {
                             null}
                     </Col>
                 </Row>
-
                 <Row>
                     <Col className="text-center" md>
-                        <Button className="m-5 w-25" variant="secondary" type="submit" onClick={handleSubmit}>Enviar</Button>
+                        {(errors?.name === true || errors?.description === true || errors?.price === true) ?
+                            <Button className="m-5 w-25" variant="secondary" type="submit" disabled>Enviar</Button> :
+                            <Button className="m-5 w-25" variant="secondary" type="submit" onClick={handleSubmit}>Enviar</Button>
+                        }
                     </Col>
                 </Row>
-
             </Form>
-
         </Container>
     )
 }
