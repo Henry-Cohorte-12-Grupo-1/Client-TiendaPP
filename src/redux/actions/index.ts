@@ -15,6 +15,24 @@ export interface AxiosProducts {
     payload: obj[];
 }
 
+export interface ProductInfo {
+    type: ActionTypes.GET_DETAILS;
+    payload: obj
+}
+
+//Busca los detalles de un producto, por ahora hardcodeado del back
+export const productInfo = (id: string) => {
+    return async (dispatch: Dispatch) => {
+        const productDetails = await axios.get<object>('http://localhost:3001/productDetails/' + id)
+        dispatch(
+            {
+                type: ActionTypes.GET_DETAILS,
+                productDetails: productDetails.data
+            }
+        )
+    }
+}
+
 export const bringProducts = () => {
     return async (dispatch: Dispatch) => {
         const productos = await axios.get<obj[]>('http://localhost:3001/products')                                                 
@@ -22,7 +40,7 @@ export const bringProducts = () => {
                 type: ActionTypes.BRING_PRODUCTS,
                 payload: productos.data
             })
-    } 
+    }
 }
 
 export const getCategories = () => {
@@ -54,16 +72,16 @@ export const searchProduct = (product: string) => {
     const params = {
         product
     }
-      try {
-            return async function (dispatch: any) {                       
-              const productData = await axios.get(URL, { params });
-              dispatch({
+    try {
+        return async function (dispatch: any) {
+            const productData = await axios.get(URL, { params });
+            dispatch({
                 type: ActionTypes.SEARCH_PRODUCT,
                 products: productData,
-                })
-            } 
+            })
+        }
     }
-     catch (error) {
-            return console.log("No se pudo realizar la busqueda");
+    catch (error) {
+        return console.log("No se pudo realizar la busqueda");
     }
 }

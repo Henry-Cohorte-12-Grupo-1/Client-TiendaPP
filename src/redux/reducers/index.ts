@@ -1,7 +1,9 @@
 import { ActionTypes } from "../actions/types";
 import obj, { category } from '../../interfaces/products';
 
+
 interface propsObj {
+    id: number,
     image: string,
     name: string,
     description: string,
@@ -23,7 +25,14 @@ const initialState: StoreType = {
     products: [],
     filter: [],
     filterProducts: [],
-    productList: []
+    productList: [],
+    productDetails: {
+        id: 0,
+        name: "",
+        image: "",
+        description: "",
+        price: 0
+    }
 };
 
 interface actionI {
@@ -32,6 +41,7 @@ interface actionI {
     filter: category[];
     order: string;
     products: [];
+    productDetails: obj;
 }
 
 export default function reducer(
@@ -42,7 +52,6 @@ export default function reducer(
         case ActionTypes.ADD_ONE:
             state.counter++;
             return state;
-
         case ActionTypes.BRING_PRODUCTS:
             return {
                 ...state,  
@@ -65,6 +74,11 @@ export default function reducer(
             return {
                 ...state,
                 filterProducts: state.productList.filter(c => c.category === action.order)
+            }
+        case ActionTypes.GET_DETAILS:
+            return {
+                ...state,
+                productDetails: action.productDetails
             }
         default:
             return state;
