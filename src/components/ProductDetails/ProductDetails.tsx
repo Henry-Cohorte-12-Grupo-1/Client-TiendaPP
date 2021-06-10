@@ -43,16 +43,15 @@ function ProductDetails(props: Props) {
                                     <img src="https://image.ibb.co/jw55Ex/def_face.jpg" className="img img-rounded img-fluid" />
                                     <p className="text-secondary text-center">15 Minutes Ago</p>
                                 </div>
+                                <p>
+                                    <a className="float-left" href="#"><strong>Superpedro92</strong></a>
+                                    <span className="float-right"><i className="text-warning fa fa-star"></i></span>
+                                    <span className="float-right"><i className="text-warning fa fa-star"></i></span>
+                                    <span className="float-right"><i className="text-warning fa fa-star"></i></span>
+                                    <span className="float-right"><i className="text-warning fa fa-star"></i></span>
+                                </p>
                             </div>
                             <div className="col-md-10">
-                                <p>
-                                    <a className="float-left" href="#"><strong>Pedro Escuredo</strong></a>
-                                    <span className="float-right"><i className="text-warning fa fa-star"></i></span>
-                                    <span className="float-right"><i className="text-warning fa fa-star"></i></span>
-                                    <span className="float-right"><i className="text-warning fa fa-star"></i></span>
-                                    <span className="float-right"><i className="text-warning fa fa-star"></i></span>
-
-                                </p>
                                 <div className="clearfix"></div>
                                 <p>Muy buena la tele se ve todo re HD. Tuve que desenchufarla porque me abstraía del mundo externo. Recomiendo instalarla en un lugar que disponga de sillón o algo para sentarse, porque me gasté toda la guita en la tele y no me quedó ni para un puff. Vi Interestellar parado y me quedaron las piernas hipertrofiadas. Volvería a comprarla.</p>
                                 <p>
