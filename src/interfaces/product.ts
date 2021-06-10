@@ -3,4 +3,5 @@ export default interface IProduct {
     description: string,
     price: number,
     images?: Array<string>
+    category?: string
 }

@@ -7,6 +7,7 @@ import axios from 'axios'
 import './styles.scss'
 import { Button, Col, Container, Form, Jumbotron, Row, Image, Carousel, Alert, Badge } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { stringify } from 'querystring'
 
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
@@ -34,13 +35,7 @@ function ProductForm() {
 
     const history = useHistory();
 
-    // const cld = new Cloudinary({
-    //     cloud: {
-    //         cloudName: 'tiendapp'
-    //     }
-    // });
-    // https://cloudinary.com/documentation/react2_quick_start#landingpage
-    // myImage.resize(fill().width(250).height(250));
+    var categories = ['Agro','Alimentos y Bebidas','Animales y Mascotas','Computación']
 
 
     useEffect(() => {
@@ -110,6 +105,14 @@ function ProductForm() {
         }
     }
 
+    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>)=>{
+        console.log(event.target.value)
+        setProduct({
+            ...product,
+            category: event.target.value
+        })
+    }
+
 
     function handleDelete(i: number) {
         console.log(i)
@@ -148,7 +151,16 @@ function ProductForm() {
                             <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} />
                             {errors?.price ? <Form.Text className='text-muted'>
                                 Debe indicar un precio
-                    </Form.Text> : <Form.Text className='text-secondary'>&#160;</Form.Text>}
+
+                            
+                                <Form.Control as="select" onChange={handleCategoryChange}>
+                                    {categories.map((category,i) =>(
+                                        <option value={categories[i]}>{category}</option>
+                                    ))}
+                                    
+                                </Form.Control>
+
+                            </Form.Text> : <Form.Text className='text-secondary'>&#160;</Form.Text>}
                         </Form.Group>
                     </Col>
 
