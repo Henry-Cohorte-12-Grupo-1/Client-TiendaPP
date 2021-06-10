@@ -1,7 +1,6 @@
 import IRoute from '../interfaces/route';
 import Client from '../components/Client/Client';
 import ProductForm from '../components/ProductForm/ProductForm'
-import Nav from '../components/Nav/Nav';
 import Home from '../components/Home/Home';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
 
@@ -29,12 +28,6 @@ const routes: IRoute[] = [
         name: 'Details',
         component: ProductDetails,
         exact: true
-    },
-    {
-        path: '/',
-        name: 'Nav',
-        component: Nav,
-        exact: false
     }
 ]
 
