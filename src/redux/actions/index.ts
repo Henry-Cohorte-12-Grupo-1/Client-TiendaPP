@@ -26,6 +26,30 @@ export const bringProducts = () => {
     } 
 }
 
+export const getCategories = () => {
+   const URL: string = 'http://localhost:3001/categories';
+   try{
+       return async function (dispatch:any) {
+           const productCategory = await axios.get(URL);
+           dispatch({
+               type:ActionTypes.GET_CATEGORIES,
+               filter: productCategory.data
+           })
+       }
+   }
+   catch (error) {
+       return console.log('No se encontraron categorias')
+   }
+}
+
+export const orderByCategories = (payload: string) => {
+   return {
+       type: ActionTypes.ORDER_BY_CATEGORY,
+       order: payload
+   }
+}
+
+
 export const searchProduct = (product: string) => {
     const URL: string = 'https://localhost:3001/search';
     const params = {

@@ -1,10 +1,11 @@
 import { ActionTypes } from "../actions/types";
-import obj from '../../interfaces/products';
+import obj, { category } from '../../interfaces/products';
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
 export interface StoreType {
     counter: number;
-    productList: obj[]
+    productList: obj[];
+    filter: category[];
     products: [];
 }
 
@@ -12,12 +13,15 @@ export interface StoreType {
 const initialState: StoreType = {
     counter: 0,
     products: [],
+    filter: [],
     productList: []
 };
 
 interface actionI {
     type: number;
-    payload: obj[]
+    payload: obj[];
+    filter: category[];
+    order: string;
     products: [];
 }
 
@@ -35,12 +39,24 @@ export default function reducer(
                 ...state,  
                 productList: action.payload
             }
-        default:
-            return state;
+
+        case ActionTypes.GET_CATEGORIES:
+            return {
+                ...state,
+                filter: action.filter
+            }
        case ActionTypes.SEARCH_PRODUCT:
            return {
             ...state,
             products: action.products
            } 
+
+        case ActionTypes.ORDER_BY_CATEGORY:
+            return {
+                ...state,
+                productList: state.productList.filter(c => c.category === action.order)
+            }
+        default:
+            return state;
     }
 }
