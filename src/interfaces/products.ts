@@ -5,7 +5,6 @@ export default interface obj {
     description: string;
     price: number;
     category: string;
-    id?: number;
 }
 
 export interface category {

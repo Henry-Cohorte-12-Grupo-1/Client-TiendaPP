@@ -17,6 +17,7 @@ export interface StoreType {
     filter: category[];
     filterProducts: obj[];
     products: [];
+    productDetails: obj
 }
 
 //State iniciales del store
@@ -31,7 +32,8 @@ const initialState: StoreType = {
         name: "",
         image: "",
         description: "",
-        price: 0
+        price: 0,
+        category: ""
     }
 };
 
