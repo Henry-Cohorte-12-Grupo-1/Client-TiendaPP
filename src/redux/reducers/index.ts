@@ -1,5 +1,6 @@
 import { ActionTypes } from "../actions/types";
 import obj, { category } from '../../interfaces/products';
+import detailedProduct from '../../interfaces/detailedProduct'
 
 
 interface propsObj {
@@ -17,7 +18,7 @@ export interface StoreType {
     filter: category[];
     filterProducts: obj[];
     products: [];
-    productDetails: obj
+    productDetails: detailedProduct
 }
 
 //State iniciales del store
@@ -28,12 +29,15 @@ const initialState: StoreType = {
     filterProducts: [],
     productList: [],
     productDetails: {
-        id: 0,
-        name: "",
-        image: "",
+        Images: [],
+        Reviews: [],
+        quantity: 0,
+        categoryId: 0,
         description: "",
-        price: 0,
-        category: ""
+        name: "",
+        price: "",
+        productId: "",
+        userId: ""
     }
 };
 
@@ -56,7 +60,7 @@ export default function reducer(
             return state;
         case ActionTypes.BRING_PRODUCTS:
             return {
-                ...state,  
+                ...state,
                 productList: action.payload,
                 filterProducts: action.payload
             }
@@ -66,11 +70,11 @@ export default function reducer(
                 ...state,
                 filter: action.filter
             }
-       case ActionTypes.SEARCH_PRODUCT:
-           return {
-            ...state,
-            products: action.products
-           } 
+        case ActionTypes.SEARCH_PRODUCT:
+            return {
+                ...state,
+                products: action.products
+            }
 
         case ActionTypes.ORDER_BY_CATEGORY:
             return {
