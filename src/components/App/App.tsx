@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "../../styles/App/App.css";
+// import "../../styles/App/App.css";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
 
@@ -15,6 +15,8 @@ import { StoreType } from "../../redux/reducers/index";
 import { masUno } from "../../redux/actions/index";
 import { formatDiagnostic } from "typescript";
 import { resourceLimits } from "worker_threads";
+
+import './style.scss'
 
 function App() {
     const counter = useSelector<StoreType, number>((state) => state.counter); //redux store counter varible
