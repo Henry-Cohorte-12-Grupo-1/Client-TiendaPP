@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import obj, { category } from '../../interfaces/products';
 import ProductsCards from '../ProductsCards/ProductsCards';
+import Footer from '../Footer/Footer' 
 import './Home.css'
 
 function Home (){ 
@@ -53,6 +54,9 @@ function Home (){
                 </div>
             }
             </div>
+        </div>
+        <div>
+            <Footer />
         </div>
             </div>
     )

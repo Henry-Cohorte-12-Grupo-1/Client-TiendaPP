@@ -1,4 +1,5 @@
 import './Footer.css'
+import {Link} from 'react-router-dom'
 
 function Footer() {
    return(
@@ -15,6 +16,7 @@ function Footer() {
                         <h4>Home</h4>
                         <ul>
                             <li><a href='/home'>See products</a></li>
+                            {/* <Link to='/home'><li><a>See products</a></li></Link> */}
                         </ul>
                     </div>
                     <div className='footer-col'>
