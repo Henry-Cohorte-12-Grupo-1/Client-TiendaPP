@@ -75,7 +75,7 @@ export default function SearchBar() {
      console.log(e.target.value)
      //console.log(e.target)
      //console.log(state.product)
-     dispatch(searchProduct(state.product))
+     dispatch(searchProduct(e.target.value))
     //}
   }
 

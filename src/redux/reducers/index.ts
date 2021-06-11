@@ -10,18 +10,26 @@ interface propsObj {
     price: number,
 }
 
+interface ProductsType {
+  products: propsObj[],
+  pages: string,
+}
+
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
 export interface StoreType {
     counter: number;
     productList: obj[]
-    products: propsObj[];
+    products: ProductsType;
     productDetails: obj
 }
 
 //State iniciales del store
 const initialState: StoreType = {
     counter: 0,
-    products: [],
+    products: {
+        products: [],
+        pages: '0',
+    },
     productList: [],
     productDetails: {
         id: 0,
@@ -35,7 +43,7 @@ const initialState: StoreType = {
 interface actionI {
     type: number;
     payload: obj[]
-    products: [];
+    products: {};
     productDetails: obj;
 }
 

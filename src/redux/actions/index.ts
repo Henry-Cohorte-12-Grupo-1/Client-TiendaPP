@@ -54,7 +54,7 @@ export const searchProduct = (name: string) => {
             const productData = await axios.get(URL, { params });
             dispatch({
                 type: ActionTypes.SEARCH_PRODUCT,
-                products: productData,
+                products: productData.data,
             })
         }
     }

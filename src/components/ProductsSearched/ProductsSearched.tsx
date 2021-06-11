@@ -12,15 +12,21 @@ export default function ProductsSearched() {
         price: number,
     }
 
-  const products = useSelector<StoreType, propsObj[]>((state) => state.products);
+    interface ProductsType {
+      products: propsObj[],
+      pages: string,
+   }
+
+  const products = useSelector<StoreType, ProductsType>((state) => state.products);
+  
     
   return (
     <div>
-        {products.length === 0 ? (
+        { products.products && products.products.length === 0 ? (
             <h1>No Products to show</h1>
                   ) : (
             <div>
-              {products.map( (el): any => <ProductsCards
+              {products.products.map( (el): any => <ProductsCards
                 image={el.image}
                 name={el.name}
                 price={el.price}
