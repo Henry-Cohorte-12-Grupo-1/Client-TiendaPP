@@ -30,10 +30,10 @@ function Home (){
                     <div className='button'>
                     {categorias.map(c => {
                         return(
-                            <button type="button" className="btn btn-outline-secondary btn-space" onClick={() => handleClick(c.name)}>{c.name}</button>
+                            <button type="button" className="btn btn-outline-primary btn-space" onClick={() => handleClick(c.name)}>{c.name}</button>
                         )
                     })}
-                    <button className="btn btn-outline-secondary btn-space" onClick={() => dispatch(bringProducts())}>Go back</button>
+                    <button className="btn btn-outline-primary btn-space" onClick={() => dispatch(bringProducts())}>Go back</button>
                     </div>}
                 </div>
             </div>
