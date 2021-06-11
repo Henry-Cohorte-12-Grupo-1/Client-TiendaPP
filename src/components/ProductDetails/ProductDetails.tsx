@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { productInfo } from "../../redux/actions"
 import { RouteComponentProps } from "react-router-dom"
 import detailedProduct from "../../interfaces/detailedProduct"
-import { Button, Col, Container, Form, Jumbotron, Row, Image, Carousel, Alert, Badge } from 'react-bootstrap'
+import { Carousel } from 'react-bootstrap'
 
 //defino el tipado para match.params.id
 interface MatchParams {
