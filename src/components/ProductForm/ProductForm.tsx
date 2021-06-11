@@ -16,10 +16,12 @@ function ProductForm() {
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
     const [imagesUrl, setImagesUrl] = useState<string[]>([])
+    const [categories, setCategories] = useState<string[]>([])
     const [product, setProduct] = useState<IProduct>({
         name: '',
         description: '',
         price: 0,
+        quantity:1
     })
     const [errors, setErrors] = useState<IError>({
         name: true,
@@ -35,8 +37,13 @@ function ProductForm() {
 
     const history = useHistory();
 
-    var categories = ['Agro', 'Alimentos y Bebidas', 'Animales y Mascotas', 'Computación']
-
+    useEffect(() => {
+        (async () => {
+            let resp = await axios.get('http://localhost:3001/categories')
+            let categoriesArray: string[] = resp.data.map((category: any) => category.name)
+            setCategories(categoriesArray)
+        })()
+    }, [])
 
     useEffect(() => {
         (async () => {
@@ -56,7 +63,6 @@ function ProductForm() {
         if (event.target) {
             let tName = (event.target as HTMLButtonElement).name
             let tValue = (event.target as HTMLButtonElement).value
-            console.log(tValue)
             setProduct({
                 ...product,
                 [tName]: tValue
@@ -71,7 +77,6 @@ function ProductForm() {
                     ...errors,
                     [tName]: true
                 })
-                console.log(errors)
             }
         }
     }
@@ -84,7 +89,6 @@ function ProductForm() {
 
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
-        console.log(errors)
         if (errors?.name === true || errors?.description === true || errors?.price === true) {
             alert('No se creo el producto')
         } else {
@@ -93,9 +97,13 @@ function ProductForm() {
                 name: product.name,
                 description: product.description,
                 price: product.price,
-                images: imagesName
+                category: product.category,
+                images: imagesName,
+                quantity:product.quantity,
+
             }
-            const response = await axios.post('http://localhost:3001/user', newProduct)
+            console.log(newProduct)
+            const response = await axios.post('http://localhost:3001/product', newProduct)
                 .catch(() => alert('No se creo el producto'))
             console.log(response)
             if (response) {
@@ -106,17 +114,14 @@ function ProductForm() {
     }
 
     const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(event.target.value)
+
         setProduct({
             ...product,
-            category: event.target.value
+            category: (categories.findIndex(category => category === event.target.value)+1)
         })
     }
 
     function handleDelete(i: number) {
-        console.log(i)
-        console.log(imagesName)
-        console.log(imagesName[i])
         setImagesName(imagesName.filter(image => (image !== imagesName[i])))
     }
 
@@ -134,7 +139,7 @@ function ProductForm() {
                             <Form.Control className='label-success' type='input' placeholder="Name" name='name' onBlur={handleChange} />
                             {errors?.name ? <Form.Text className="text-muted">
                                 Nombre no puede estar vacio
-                    </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
+                            </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
                         </Form.Group>
 
                         <Form.Group controlId="description">
@@ -142,21 +147,36 @@ function ProductForm() {
                             <Form.Control as="textarea" rows={3} name='description' placeholder="Description" onBlur={handleChange} />
                             {errors?.description ? <Form.Text className="text-muted">
                                 La descripcion no puede estar vacia
-                    </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
+                            </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
                         </Form.Group>
 
-                        <Form.Group controlId="price">
+
+
+                        <Row>
+                            <Col>
                             <Form.Label className='text-secondary'>Precio</Form.Label>
-                            <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} />
-                            {errors?.price ? <Form.Text className='text-muted'>
-                                Debe indicar un precio
-                                <Form.Control as="select" onChange={handleCategoryChange}>
-                                    {categories.map((category, i) => (
-                                        <option value={categories[i]}>{category}</option>
-                                    ))}
-                                </Form.Control>
-                            </Form.Text> : <Form.Text className='text-secondary'>&#160;</Form.Text>}
-                        </Form.Group>
+                                <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} />
+                            </Col>
+                            <Col>
+                            <Form.Label className='text-secondary'>Cantidad</Form.Label>
+                            <input name='quantity' onBlur={handleChange} className="form-control" type='number' min="1" max="1000" defaultValue='1'></input>
+                            </Col>
+                        </Row>
+
+                        {errors?.price ? <Form.Text className='text-muted'>
+                            Debe indicar un precio
+                        </Form.Text> : <Form.Text className='text-secondary'>&#160;</Form.Text>}
+
+
+
+                        <br></br>
+                        <Form.Control as="select" onChange={handleCategoryChange}>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            {categories.map((category, i) => (
+                                <option value={categories[i]}>{category}</option>
+                            ))}
+                        </Form.Control>
+
                     </Col>
                     <Col md>
                         <div className="custom-file mt-3">
@@ -188,7 +208,7 @@ function ProductForm() {
                 </Row>
                 <Row>
                     <Col className="text-center" md>
-                        {(errors?.name === true || errors?.description === true || errors?.price === true) ?
+                        {(errors?.name === true || errors?.description === true || errors?.price === true || product.category === undefined) ?
                             <Button className="m-5 w-25" variant="secondary" type="submit" disabled>Enviar</Button> :
                             <Button className="m-5 w-25" variant="secondary" type="submit" onClick={handleSubmit}>Enviar</Button>
                         }
