@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 
 function Login() {
     const history = useHistory();
@@ -83,8 +83,8 @@ function Login() {
                         <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange} />
                     </Form.Group>
                     {(errors?.user === true || errors?.pass === true) ?
-                        <input className="m-5 w-25" disabled /> :
-                        <input className="m-5 w-25" type="button" onClick={handleSubmit} />
+                        <Button className="m-5 w-25" variant="secondary" disabled>Sign in</Button>:
+                        <Button className="m-5 w-25" variant="secondary" onClick={handleSubmit}>Sign in</Button>
                     }
                 </Form>
             </Container>
