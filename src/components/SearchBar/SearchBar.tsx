@@ -85,7 +85,7 @@ export default function SearchBar() {
           name="product" value={state.product} onChange={handleInputChange}
         />
           {errors.product && <p>{errors.product}</p>}
-          <button id='buttonSearch' className="btn btn-outline-success" type="submit"  value="Search" onClick={handleSubmit}> Search </button>
+          <button id='buttonSearch' className="btn" type="submit"  value="Search" onClick={handleSubmit}> Search </button>
     </form>
   );
 }
