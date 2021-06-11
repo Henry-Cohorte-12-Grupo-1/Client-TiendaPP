@@ -6,7 +6,7 @@ function Nav() {
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container-fluid">
-      <Link to='/home'><button className='btn btn-outline-secondary'  id='colorButton'>Home</button></Link>
+      <Link to='/home'><button className='btn'  id='colorButton'>Home</button></Link>
       <SearchBar />
       </div>
     </nav>

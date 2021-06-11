@@ -23,18 +23,18 @@ ul{
 }
 
 .footer{
-    background-color: #ffffff;
-    padding: 70px 0;
+    background-color: #07393c;
+    padding: 45px 0;
 }
 
 .footer-col{
-    width: 25%;
+    width: 30%;
     padding: 0 15px;
 }
 
 .footer-col h4{
     font-size: 18px;
-    color:#000000;
+    color:#fff;
     text-transform: capitalize;
     margin-bottom: 35px;
     font-weight: 500;
@@ -44,6 +44,7 @@ ul{
 .footer-col h4::before{
     content:'';
     position: absolute;
+    margin-left: 30%;
     left: 0;
     bottom: -10px;
     background-color: #e05104;
@@ -59,17 +60,17 @@ ul{
 .footer-col ul li a{
     font-size: 16px;
     text-transform: capitalize;
-    color: #000000;
+    color: #c6c5c8;
     text-decoration: none;
     font-weight: 300;
-    color: #000000;
+    color: #c6c5c8;
     display: block;
     transition: all 0.3s ease;
 }
 
 .footer-col ul li a:hover{
-    color:#2A1258;
-    padding-left: 8px;
+    color:#ffffff;
+    padding-left: 10px;
 }
 
 @media(max-widht: 767px){

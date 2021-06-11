@@ -1,11 +1,12 @@
 #colorButton {
     color: #2c666e;
-    border: 1px solid #2c666e;
     margin-left: 90rem;
+    border-bottom: 1px solid #2c666e !important;
+    border-radius: 0;
 }
 
 #colorButton:hover{
     background-color: #2c666e;
     color: #fff;
-    border: 1px solid #fff;
+    border-bottom: 1px solid #fff;
 }
