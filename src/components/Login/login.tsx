@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 
 function Login() {
     const history = useHistory();
 
-    let [user,setUser] = useState<string>()
+    let [user, setUser] = useState<string>()
+    let [redirect, setRedirect] = useState<string>()
     const [errors, setErrors] = useState<IError>({
         user: true,
         pass: true
@@ -33,7 +34,9 @@ function Login() {
                     ...errors,
                     [tName]: false,
                 })
-                setUser(tValue)
+                if(tName==='user'){
+                    setUser(tValue)
+                }
             } else {
                 setErrors({
                     ...errors,
@@ -45,37 +48,48 @@ function Login() {
     }
 
     const handleSubmit = () => {
-        console.log('sumiteo')
-        if(user==='admin'){
-            history.push('/admin');
+        console.log(user)
+        if (user === 'admin') {
+            setRedirect('/admin')
+            console.log(redirect)
         }
-        if(user==='admin'){
-            history.push('/user');
+        if (user === 'user') {
+            setRedirect('/user')
+            console.log(redirect)
         }
     }
 
-    return (
-        <Container style={{ width: '50%' }}>
-            <br></br>
-            <h2>Sign in</h2>
-            <Form className='bg-warning p-5 rounded'>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label className='text-secondary'>User</Form.Label>
-                    <Form.Control type="text" placeholder="Enter email" name='user' onChange={handleChange}/>
-                </Form.Group>
+    if (redirect) {
+        if(user==='admin'){
+            return <Redirect to="/admin" />
+        }
+        if(user==='user'){
+            return <Redirect to="/user" />
+        }
 
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label className='text-secondary'>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange}/>
-                </Form.Group>
-                {(errors?.user === true || errors?.pass === true ) ?
-                    <input className="m-5 w-25"  disabled/> :
-                    <input className="m-5 w-25" type="button"   onClick={handleSubmit}/>
-                }
-            </Form>
-        </Container>
-    )
-}
+    }
+    return (
+            <Container style={{ width: '50%' }}>
+                <br></br>
+                <h2>Sign in</h2>
+                <Form className='bg-warning p-5 rounded'>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label className='text-secondary'>User</Form.Label>
+                        <Form.Control type="text" placeholder="Enter email" name='user' onChange={handleChange} />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label className='text-secondary'>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange} />
+                    </Form.Group>
+                    {(errors?.user === true || errors?.pass === true) ?
+                        <input className="m-5 w-25" disabled /> :
+                        <input className="m-5 w-25" type="button" onClick={handleSubmit} />
+                    }
+                </Form>
+            </Container>
+        )
+    }
 
 
 export default Login
