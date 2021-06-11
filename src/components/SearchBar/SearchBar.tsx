@@ -1,7 +1,8 @@
-import { useDispatch } from "react-redux";
-import { useState, MouseEvent, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, MouseEvent } from "react";
 import { searchProduct } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
+import { StoreType } from '../../redux/reducers/index'
 
 // Interfaces
 
@@ -15,6 +16,19 @@ interface localState {
 interface errorState {
     product: string;
 };
+
+interface propsObj {
+  id: number,
+  image: string,
+  name: string,
+  description: string,
+  price: number,
+}
+
+interface ProductsType {
+products: propsObj[],
+pages: string,
+}
 
 
 // Función para validar el input del form controlado
@@ -37,6 +51,7 @@ function validate(state: localState) {
 export default function SearchBar() {
 
     const dispatch = useDispatch();  // hook de dispatch
+    const productsState = useSelector<StoreType, ProductsType>((state) => state.products);
 
 
   // Creo 2 Estados locales. El primero, en product va a guardar el string ingresado en la SearchBar por el user
@@ -67,17 +82,15 @@ export default function SearchBar() {
 
     setState({
       ...state,
+      activeSuggestion: 0,
+      showSuggestions: true,
       [e.target.name]: e.target.value
       }
     )
-
-   // if (state.product !== ''){
-     console.log(e.target.value)
-     //console.log(e.target)
-     //console.log(state.product)
      dispatch(searchProduct(e.target.value))
-    //}
   }
+
+  
 
 
   // funcion que realiza el dispatch de la action con el valor del input almacenado en el estado local
@@ -91,6 +104,8 @@ export default function SearchBar() {
       product:''
     })
   }
+
+  
 
   // Funcion onKeyDown
 
@@ -136,18 +151,18 @@ const onClick = (e: MouseEvent<HTMLLIElement, MouseEvent>): void => {
 
 // Logica del desplegable
 
-let suggestionsListComponent;
+var suggestionsListComponent;
 
 if (state.showSuggestions && state.product) {                  // Si el boolean en el estado para mostrar el desplegable y si el user esta escribiendo en el input son true...
-  if (state.filteredSuggestions.length) {                // Y si lo que me trae el selector tiene algo
+  if (productsState.products.length) {                // Y si lo que me trae el selector tiene algo
     suggestionsListComponent = (                   // me guardo en la suggestionsListComponent una lista desordenada cuyos items provengan de un map que le hago a lo que me trajo el selector
       <ul>
-        {state.filteredSuggestions.map((suggestion, index) => {
+        {productsState.products.map((suggestion, index) => {
           if (index === state.activeSuggestion) {
           }
           return (
-            <li key={suggestion} onClick={ (e:any) => onClick(e)}>
-              {suggestion}
+            <li key={index} onClick={ (e:any) => onClick(e)}>
+              {suggestion.name}
             </li>
           );
         })}
@@ -161,6 +176,8 @@ if (state.showSuggestions && state.product) {                  // Si el boolean 
     );
   }
 }
+
+
 
   // Form con el input y el botón de submit
 
