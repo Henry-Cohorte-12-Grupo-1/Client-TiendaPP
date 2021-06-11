@@ -5,8 +5,15 @@ import ProductForm from '../components/ProductForm/ProductForm'
 import Home from '../components/Home/Home';
 import User from '../components/User/User'
 import ProductDetails from '../components/ProductDetails/ProductDetails';
+import Landing from '../components/Landing/Landing';
 
 const routes: IRoute[] = [
+    {
+        path:'/',
+        name:'Landing',
+        component:Landing,
+        exact:true
+    },
     {
         path: '/login',
         name: 'Login',
