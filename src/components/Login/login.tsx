@@ -45,7 +45,7 @@ function Login() {
     }
 
     const handleSubmit = () => {
-    
+        console.log('sumiteo')
         if(user==='admin'){
             history.push('/admin');
         }

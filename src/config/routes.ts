@@ -1,5 +1,6 @@
 import IRoute from '../interfaces/route';
 import Login from '../components/Login/login';
+import Admin from '../components/Admin/admin'
 import ProductForm from '../components/ProductForm/ProductForm'
 import Home from '../components/Home/Home';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
@@ -27,6 +28,12 @@ const routes: IRoute[] = [
         path: '/Product/:id',
         name: 'Details',
         component: ProductDetails,
+        exact: true
+    },
+    {
+        path: '/admin',
+        name: 'Admin',
+        component: Admin,
         exact: true
     }
 ]
