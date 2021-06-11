@@ -23,7 +23,7 @@ function Home (){
     return (
         <div>
             <div>
-                <h3>Categorias</h3>
+                <h3 className='recomendados'>Categorias</h3>
                 <div className='bStyle'>
                     {categorias && 
                     <div className='button'>
@@ -37,7 +37,7 @@ function Home (){
                 </div>
             </div>
             <div>
-            <h2>Recomendados</h2>
+            <h2 className='recomendados'>Recomendados</h2>
             <div>
             {producto &&
                 <div className="row row-cols-1 row-cols-md-2">

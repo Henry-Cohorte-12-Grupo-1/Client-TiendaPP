@@ -1,11 +1,14 @@
-#colorButton {
+#buttonSearch {
     color: #2c666e;
     border: 1px solid #2c666e;
-    margin-left: 90rem;
 }
 
-#colorButton:hover{
+#buttonSearch:hover{
     background-color: #2c666e;
     color: #fff;
     border: 1px solid #fff;
+}
+
+.d-flex{
+    margin-right: 2rem;
 }

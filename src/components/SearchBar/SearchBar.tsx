@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { searchProduct } from "../../redux/actions/index";
+import './SearchBar.css'
 
 // Interfaces
 
@@ -78,14 +79,13 @@ export default function SearchBar() {
   // Form con el input y el botón de submit
 
   return (
-    <form>
-        <input
-          type="text"
-          placeholder="Search your product here!"
+    <form className="d-flex">
+        <input className="form-control me-2" type="search" aria-label="Search"
+          placeholder="Search product here!"
           name="product" value={state.product} onChange={handleInputChange}
         />
           {errors.product && <p>{errors.product}</p>}
-          <button type="submit"  value="Search" onClick={handleSubmit}> Search </button>
+          <button id='buttonSearch' className="btn btn-outline-success" type="submit"  value="Search" onClick={handleSubmit}> Search </button>
     </form>
   );
 }
