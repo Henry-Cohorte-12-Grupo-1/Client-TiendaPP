@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
 import { StoreType } from '../../redux/reducers/index'
-import ProductS from '../ProductS/ProductS';
+import ProductsCards from '../ProductsCards/ProductsCards';
 
 
-export function ProductsSearched() {
+export default function ProductsSearched() {
 
     interface propsObj {
         image: string,
         name: string,
         description: string,
-        price: string,
+        price: number,
     }
 
   const products = useSelector<StoreType, propsObj[]>((state) => state.products);
@@ -20,10 +20,9 @@ export function ProductsSearched() {
             <h1>No Products to show</h1>
                   ) : (
             <div>
-              {products.map( (el): any => <ProductS
+              {products.map( (el): any => <ProductsCards
                 image={el.image}
                 name={el.name}
-                description={el.description}
                 price={el.price}
               />)}
             </div>

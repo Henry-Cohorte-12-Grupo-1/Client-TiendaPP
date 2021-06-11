@@ -7,7 +7,7 @@ interface propsObj {
     image: string,
     name: string,
     description: string,
-    price: string,
+    price: number,
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)

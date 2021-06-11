@@ -44,10 +44,10 @@ export const bringProducts = () => {
     }
 }
 
-export const searchProduct = (product: string) => {
+export const searchProduct = (name: string) => {
     const URL: string = 'http://localhost:3001/search';
     const params = {
-        product
+        name
     }
     try {
         return async function (dispatch: any) {

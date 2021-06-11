@@ -3,6 +3,7 @@ import Client from '../components/Client/Client';
 import ProductForm from '../components/ProductForm/ProductForm'
 import Home from '../components/Home/Home';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
+import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
 
 const routes: IRoute[] = [
     {
@@ -28,7 +29,13 @@ const routes: IRoute[] = [
         name: 'Details',
         component: ProductDetails,
         exact: true
-    }
+    },
+    {
+        path: '/ProductsSearched',
+        name: 'ProductsSearched',
+        component: ProductsSearched,
+        exact:true
+    },
 ]
 
 export default routes;
