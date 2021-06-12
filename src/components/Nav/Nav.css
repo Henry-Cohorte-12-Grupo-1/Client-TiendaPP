@@ -1,6 +1,6 @@
 #colorButton {
     color: #2c666e;
-    margin-left: 90rem;
+    margin-left: 80rem;
     border:none;
 }
 
@@ -9,3 +9,14 @@
     border-bottom: 1px solid #2c666e;
     border-radius: 0;
 }
+
+#colorButton2{
+    color: #2c666e;
+    border:none;
+}
+
+#colorButton2:hover{
+    color: #2c666e;
+    border-bottom: 1px solid #2c666e;
+    border-radius: 0;
+} 

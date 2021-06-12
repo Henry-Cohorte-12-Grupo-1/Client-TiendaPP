@@ -38,7 +38,7 @@ function Home (){
                     </div>}
                 </div>
             </div>
-            <div>
+            <div id='separation'>
             <h2 className='recomendados'>Recomendados</h2>
             <Container className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
             {producto &&
