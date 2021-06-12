@@ -1,0 +1,15 @@
+#buttonSearch {
+    color: #2c666e;
+    border-bottom: 1px solid #2c666e;
+    border-radius: 0;
+}
+
+#buttonSearch:hover{
+    background-color: #2c666e;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.d-flex{
+    margin-right: 2rem;
+}

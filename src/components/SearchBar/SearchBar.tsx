@@ -3,6 +3,7 @@ import { useState, MouseEvent } from "react";
 import { searchProduct } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import { StoreType } from '../../redux/reducers/index'
+import './SearchBar.css'
 
 // Interfaces
 
@@ -183,16 +184,15 @@ if (state.showSuggestions && state.product) {                  // Si el boolean 
   // Form con el input y el botón de submit
 
   return (
-    <form>
-        <input
-          type="text"
-          placeholder="Search your product here!"
+    <form className="d-flex">
+        <input className="form-control me-2" type="search" aria-label="Search"
+          placeholder="Search product here!"
           name="product" value={state.product} onChange={handleInputChange}
           onKeyDown={onKeyDown}
         />
         {suggestionsListComponent}
           {errors.product && <p>{errors.product}</p>}
-          <Link to="/ProductsSearched"><button type="submit"  value="Search" onClick={ (e:any) => handleSubmit}> Search </button></Link>
+          <button id='buttonSearch' className="btn" type="submit"  value="Search" onClick={(e: any) => handleSubmit(e)}> Search </button>
     </form>
   );
 }

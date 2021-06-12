@@ -1,19 +1,27 @@
 import IRoute from '../interfaces/route';
-import Client from '../components/Client/Client';
+import Login from '../components/Login/login'
+import Admin from '../components/Admin/admin'
 import ProductForm from '../components/ProductForm/ProductForm'
 import Home from '../components/Home/Home';
+import User from '../components/User/User'
 import ProductDetails from '../components/ProductDetails/ProductDetails';
 import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
 
 const routes: IRoute[] = [
     {
-        path: '/client',
-        name: 'Client',
-        component: Client,
+        path: '/login',
+        name: 'Login',
+        component: Login,
         exact: true
     },
     {
-        path: '/client/create',
+        path: '/user/',
+        name: 'User',
+        component: User,
+        exact: true
+    },
+    {
+        path: '/user/create',
         name: 'Create',
         component: ProductForm,
         exact: true
@@ -36,6 +44,12 @@ const routes: IRoute[] = [
         component: ProductsSearched,
         exact:true
     },
+    {
+        path: '/admin',
+        name: 'Admin',
+        component: Admin,
+        exact: true
+    }
 ]
 
 export default routes;

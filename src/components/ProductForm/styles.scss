@@ -1,0 +1,22 @@
+  .carrousel-control-next{
+    margin: 80px 0px 80px 0px;
+  }
+
+  .form-control-file{
+    color: red;
+  }
+
+  .carrousel-img{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .carrousel-btn{
+    position: relative;
+    z-index: 2;
+    float: right;
+    top: 50px;
+
+  }

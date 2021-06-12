@@ -1,5 +1,6 @@
 import { ActionTypes } from "../actions/types";
-import obj from '../../interfaces/products';
+import obj, { category } from '../../interfaces/products';
+import detailedProduct from '../../interfaces/detailedProduct'
 
 
 interface propsObj {
@@ -18,9 +19,11 @@ interface ProductsType {
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
 export interface StoreType {
     counter: number;
-    productList: obj[]
+    productList: obj[];
+    filter: category[];
+    filterProducts: obj[];
     products: ProductsType;
-    productDetails: obj
+    productDetails: detailedProduct
 }
 
 //State iniciales del store
@@ -30,19 +33,27 @@ const initialState: StoreType = {
         products: [],
         pages: '0',
     },
+    filter: [],
+    filterProducts: [],
     productList: [],
     productDetails: {
-        id: 0,
-        name: "",
-        image: "",
+        Images: [],
+        Reviews: [],
+        quantity: 0,
+        categoryId: 0,
         description: "",
-        price: 0
+        name: "",
+        price: "",
+        productId: "",
+        userId: ""
     }
 };
 
 interface actionI {
     type: number;
-    payload: obj[]
+    payload: obj[];
+    filter: category[];
+    order: string;
     products: {};
     productDetails: obj;
 }
@@ -58,12 +69,25 @@ export default function reducer(
         case ActionTypes.BRING_PRODUCTS:
             return {
                 ...state,
-                productList: action.payload
+                productList: action.payload,
+                filterProducts: action.payload
+            }
+
+        case ActionTypes.GET_CATEGORIES:
+            return {
+                ...state,
+                filter: action.filter
             }
         case ActionTypes.SEARCH_PRODUCT:
             return {
                 ...state,
                 products: action.products
+            }
+
+        case ActionTypes.ORDER_BY_CATEGORY:
+            return {
+                ...state,
+                filterProducts: state.productList.filter(c => c.category === action.order)
             }
         case ActionTypes.GET_DETAILS:
             return {

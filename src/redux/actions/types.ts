@@ -6,5 +6,7 @@ export enum ActionTypes {
     ACTION_N,
     BRING_PRODUCTS,
     SEARCH_PRODUCT,
+    ORDER_BY_CATEGORY,
+    GET_CATEGORIES,
     GET_DETAILS
 }
