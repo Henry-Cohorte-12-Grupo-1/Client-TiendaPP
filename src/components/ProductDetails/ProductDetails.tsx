@@ -52,8 +52,8 @@ function ProductDetails(props: Props) {
                                 <img
                                     key={i}
                                     className="carrousel-img"
-                                    src={img.url}
-                                    alt="First slide"
+                                    src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${img.imageId}`}
+                                    alt="Slides"
                                 />
                             </Carousel.Item>
                         )
