@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
+
 function ProductForm() {
 
     const [image, setImage] = useState<File>()
@@ -192,19 +193,21 @@ function ProductForm() {
                             {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
                         </div>
                        <Container>
-                        {imagesName.length > 0 && carousel ?
-                            // <Carousel>
-                                imagesName.map((name, i) => (
-                                    // <Carousel.Item key={i}>
-                                    <div>
-                                    {/* <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button> */}
-                                    <input className='imageInput' type="image" src={`http://res.cloudinary.com/tiendapp/image/upload/w_200,h_150,c_scale/${name}` } onClick={() => handleDelete(i)}/>
-                                        </div>
-                                    // </Carousel.Item>
+                       {imagesName.length > 0 ?
+                            <Carousel>
+                                {imagesName.map((name, i) => (
+                                    <Carousel.Item key={i}>
+                                        <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
+                                        <img
+                                            key={i}
+                                            className="carrousel-img"
+                                            src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
+                                            alt="First slide"
+                                        />
+                                    </Carousel.Item>
                                 )
-                                )
-                            // </Carousel> 
-                            :
+                                )}
+                            </Carousel> :
                             null}
                         </Container>    
                     </Col>
