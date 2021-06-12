@@ -34,7 +34,7 @@ function Login() {
                     ...errors,
                     [tName]: false,
                 })
-                if(tName==='user'){
+                if (tName === 'user') {
                     setUser(tValue)
                 }
             } else {
@@ -47,49 +47,57 @@ function Login() {
         }
     }
 
+    console.log(user)
+
+    // user-(id) 
+    // 
+
+
     const handleSubmit = () => {
         console.log(user)
         if (user === 'admin') {
             setRedirect('/admin')
             console.log(redirect)
         }
-        if (user === 'user') {
-            setRedirect('/user')
-            console.log(redirect)
+        if (user) {
+            setRedirect(`/user?username=${user}`)
+            console.log('entró')
         }
     }
 
+    console.log(redirect)
+
     if (redirect) {
-        if(user==='admin'){
+        if (user === 'admin') {
             return <Redirect to="/admin" />
         }
-        if(user==='user'){
-            return <Redirect to="/user" />
+        if (user) {
+            return <Redirect to={redirect} />
         }
 
     }
     return (
-            <Container style={{ width: '50%' }}>
-                <br></br>
-                <h2>Sign in</h2>
-                <Form className='bg-warning p-5 rounded'>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label className='text-secondary'>User</Form.Label>
-                        <Form.Control type="text" placeholder="Enter email" name='user' onChange={handleChange} />
-                    </Form.Group>
+        <Container style={{ width: '50%' }}>
+            <br></br>
+            <h2>Sign in</h2>
+            <Form className='bg-warning p-5 rounded'>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label className='text-secondary'>User</Form.Label>
+                    <Form.Control type="text" placeholder="Enter User ID" name='user' onChange={handleChange} />
+                </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label className='text-secondary'>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange} />
-                    </Form.Group>
-                    {(errors?.user === true || errors?.pass === true) ?
-                        <Button className="m-5 w-25" variant="secondary" disabled>Sign in</Button>:
-                        <Button className="m-5 w-25" variant="secondary" onClick={handleSubmit}>Sign in</Button>
-                    }
-                </Form>
-            </Container>
-        )
-    }
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label className='text-secondary'>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange} />
+                </Form.Group>
+                {(errors?.user === true || errors?.pass === true) ?
+                    <Button className="m-5 w-25" variant="secondary" disabled>Sign in</Button> :
+                    <Button className="m-5 w-25" variant="secondary" onClick={handleSubmit}>Sign in</Button>
+                }
+            </Form>
+        </Container>
+    )
+}
 
 
 export default Login
