@@ -4,9 +4,10 @@ import './Nav.css';
 
 function Nav() {
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
       <Link to='/home'><button className='btn'  id='colorButton'>Home</button></Link>
+      <Link to='/login'><button className='btn'  id='colorButton2'>Login</button></Link>
       <SearchBar />
       </div>
     </nav>
