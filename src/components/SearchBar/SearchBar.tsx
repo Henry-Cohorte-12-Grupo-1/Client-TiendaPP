@@ -110,32 +110,33 @@ export default function SearchBar() {
   // Funcion onKeyDown
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-    const { activeSuggestion, filteredSuggestions } = state;    
+    console.log('ENTRO AL ONKEYDOWN');
+    const { activeSuggestion } = state;
 
-    if (e.key === "13") {        // <-- Si apreto enter, le clavo en el input el elemento del array con el indice indicado por el activeSuggestion
-    setState({
-         ...state,
-        activeSuggestion: 0,
-        showSuggestions: false,
-        product: filteredSuggestions[activeSuggestion]
-    });
-    } else if (e.key === "38") {   // <-- Si apreto flechita para arriba, bajo el indice del array porque voy para atras hacia arriba en el desplegable
-    if (activeSuggestion === 0) {
-        return;
-    }
-    setState({ 
-      ...state,
-      activeSuggestion: activeSuggestion - 1 });
-    }
-
-    else if (e.key === "40") {     // <-- Si apreto flechita para abajo, subo el indice del array porque avanzo hacia abajo en el desplegable
-    if (activeSuggestion - 1 === filteredSuggestions.length) {
-        return;
-    }
-    setState({ 
-      ...state,
-      activeSuggestion: activeSuggestion + 1 });
-    }
+    if (e.code === "Enter") {        // <-- Si apreto enter, le clavo en el input el elemento del array con el indice indicado por el activeSuggestion
+        setState({
+            ...state,
+            activeSuggestion: 0,
+            showSuggestions: false,
+           product: productsState.products[activeSuggestion].name
+           });
+    } else if (e.code === "ArrowUp") {   // <-- Si apreto flechita para arriba, bajo el indice del array porque voy para atras hacia arriba en el desplegable
+             if (activeSuggestion === 0) {
+             return;
+             } else
+               setState({ 
+                ...state,
+                activeSuggestion: activeSuggestion - 1 
+              });
+            
+    } else if (e.code === "ArrowDown") {     // <-- Si apreto flechita para abajo, subo el indice del array porque avanzo hacia abajo en el desplegable
+            if (activeSuggestion - 1 === productsState.products.length) {
+            return;
+          }
+            setState({ 
+            ...state,
+            activeSuggestion: activeSuggestion + 1 });
+          }
 };
 
 // Funcion onClick
