@@ -23,12 +23,22 @@ function Admin() {
         event.preventDefault()
         let sendCategories:string[] = []
         categories.map(category => initialCategories.includes(category)?null:sendCategories.push(category))
-        console.log(sendCategories.join(' - '))
-        console.log(deleteCategories.join(' - '))
+        // console.log(sendCategories.join(' - '))
+        // console.log(deleteCategories.join(' - '))
 
-        // const response = await axios.put('http://localhost:3001/categories', categories)
-        //     .catch(() => alert('No se creo el producto'))
-        // console.log(response)
+        let newCategories = sendCategories.join(' - ')
+        let oldCategories = deleteCategories.join(' - ')
+
+        let sendObject = {
+            newCategories:newCategories,
+            oldCategories:oldCategories
+        }
+
+        console.log(sendObject)
+
+        const response = await axios.put('http://localhost:3001/updateCategories', sendObject)
+            .catch(() => alert('No se creo el producto'))
+        console.log(response)
     }
 
     const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
