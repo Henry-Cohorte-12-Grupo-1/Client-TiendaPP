@@ -7,9 +7,9 @@ import axios from 'axios'
 import './styles.scss'
 import { Button, Col, Container, Form, Jumbotron, Row, Image, Carousel, Alert, Badge } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { stringify } from 'querystring'
 
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
+
 
 function ProductForm() {
 
@@ -17,6 +17,7 @@ function ProductForm() {
     const [imagesName, setImagesName] = useState<string[]>([])
     const [imagesUrl, setImagesUrl] = useState<string[]>([])
     const [categories, setCategories] = useState<string[]>([])
+    const [carousel, setCarousel] = useState<boolean>(true)
     const [product, setProduct] = useState<IProduct>({
         name: '',
         description: '',
@@ -36,6 +37,7 @@ function ProductForm() {
     }
 
     const history = useHistory();
+
 
     useEffect(() => {
         (async () => {
@@ -123,6 +125,8 @@ function ProductForm() {
 
     function handleDelete(i: number) {
         setImagesName(imagesName.filter(image => (image !== imagesName[i])))
+        // setCarousel(false)
+        // setCarousel(true)
     }
 
     return (
@@ -188,7 +192,8 @@ function ProductForm() {
                                 onChange={imageChangeHandler} />
                             {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
                         </div>
-                        {imagesName.length > 0 ?
+                       <Container>
+                       {imagesName.length > 0 ?
                             <Carousel>
                                 {imagesName.map((name, i) => (
                                     <Carousel.Item key={i}>
@@ -204,6 +209,7 @@ function ProductForm() {
                                 )}
                             </Carousel> :
                             null}
+                        </Container>    
                     </Col>
                 </Row>
                 <Row>
