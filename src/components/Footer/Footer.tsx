@@ -9,7 +9,7 @@ function Footer() {
                     <div className='footer-col'>
                         <h4>About us</h4>
                         <ul>
-                            <li><a href='#'>Know more about the team</a></li>
+                            <li><a href='/about'>Know more about the team</a></li>
                         </ul>
                     </div>
                     <div className='footer-col'>
