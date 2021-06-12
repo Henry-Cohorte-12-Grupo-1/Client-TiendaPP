@@ -1,5 +1,6 @@
 export interface SqlImg {
-    url: string
+    url: string;
+    imageId: string;
 }
 
 export interface ReviewObj {
