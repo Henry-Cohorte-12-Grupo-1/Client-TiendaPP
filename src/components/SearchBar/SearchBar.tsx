@@ -51,7 +51,7 @@ function validate(state: localState) {
 
 export default function SearchBar() {
 
-  const dispatch = useDispatch();  // hook de dispatch
+  const dispatch = useDispatch();  
   const history = useHistory();
   const productsState = useSelector<StoreType, ProductsType>((state) => state.products);
   const acListState = useSelector<StoreType, ProductsType>((state) => state.acList);
@@ -61,8 +61,6 @@ export default function SearchBar() {
   // Creo 2 Estados locales. El primero, en product va a guardar el string ingresado en la SearchBar por el user
   // para luego despachar una action, y pegarle a la API
   // EL segundo Estado local, es para hacer que el formulario se controlado
-
-  // HASTA ACA
 
   const [state, setState] = useState({
     activeSuggestion: 0,
@@ -93,7 +91,6 @@ export default function SearchBar() {
       showSuggestions: true,
       product: e.target.value,
       acList: e.target.value
-      //[e.target.name]: e.target.value
     }
     )
     dispatch(searchProductAC(e.target.value))
@@ -122,7 +119,6 @@ export default function SearchBar() {
   // Funcion onKeyDown
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-    console.log('ENTRO AL ONKEYDOWN');
     const { activeSuggestion } = state;
 
     if (e.code === "Enter") {        // <-- Si apreto enter, le clavo en el input el elemento del array con el indice indicado por el activeSuggestion
@@ -166,24 +162,15 @@ export default function SearchBar() {
     });
   };
 
-  const CloseAC = (e: React.FocusEventHandler<HTMLUListElement>): void => {
-    console.log('Entro al BLUR')
-    setState({
-      ...state,
-      showSuggestions: false
-    })
-  }
 
   // Logica del desplegable
 
-  var suggestionsListComponent;
-
-  //var className: any;                 
+  var suggestionsListComponent;                 
 
   if (state.showSuggestions && state.acList) {                  // Si el boolean en el estado para mostrar el desplegable y si el user esta escribiendo en el input son true...
-    if (acListState.products.length) {                // Y si lo que me trae el selector tiene algo
-      suggestionsListComponent = (                   // me guardo en la suggestionsListComponent una lista desordenada cuyos items provengan de un map que le hago a lo que me trajo el selector
-        <ul className="suggestions" onBlur={(e: any) => CloseAC(e)}>
+    if (acListState.products.length) {                         // Y si lo que me trae el selector tiene algo
+      suggestionsListComponent = (                            // me guardo en la suggestionsListComponent una lista desordenada cuyos items provengan de un map que le hago a lo que me trajo el selector
+        <ul className="suggestions">
           {acListState.products.map((suggestion, index) => {
             let className: string = '';
             if (index === state.activeSuggestion) {
@@ -200,7 +187,7 @@ export default function SearchBar() {
     } else {                                      // si el boolean en el estado para mostrar el desplegable esta en true y el user esta escribiendo algo
       suggestionsListComponent = (                // PERO el selector no me trajao nada, muestro que no hay sugerencias
         <div className="no-suggestions">
-          <em>No suggestions available.</em>
+          <em>Product not found.</em>
         </div>
       );
     }
@@ -213,7 +200,7 @@ export default function SearchBar() {
   return (
     <form className="d-flex">
       <input className="form-control me-2" type="search" aria-label="Search"
-        placeholder="Search product here!"
+        placeholder="Search your product here"
         name="product" value={state.product} onChange={handleInputChange}
         onKeyDown={onKeyDown}
       />

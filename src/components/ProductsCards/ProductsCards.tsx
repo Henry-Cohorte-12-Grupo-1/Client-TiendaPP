@@ -3,7 +3,7 @@ import './Products.css';
 interface imgs {
     imageId: string
 }
-function ProductsCards(props: { name: string; price: number; image: string, productId?: string, images?: imgs[] }) {
+function ProductsCards(props: { name: string; price: number; image: string, productId?: string, images?: imgs[], editId?: string }) {
 
     return (
         <div className="card" id='firstDiv'>
@@ -13,6 +13,7 @@ function ProductsCards(props: { name: string; price: number; image: string, prod
             <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
                 <p className="card-text">${props.price}</p>
+                {props.editId && <div><a href={props.editId} className="btn btn-primary" id='colorB'>Edit</a></div>}
                 <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>Details</a>
             </div>
         </div>

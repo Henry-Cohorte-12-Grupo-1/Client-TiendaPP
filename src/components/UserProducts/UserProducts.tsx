@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '../../redux/reducers/index';
 import ProductsCards from '../ProductsCards/ProductsCards';
 import IUserProduct from '../../interfaces/userProducts';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+
 import './styles.scss'
 
 
@@ -31,15 +34,16 @@ function User() {
 
   if (typeof userProducts === 'string') {
     return (
-      <h1>NOTHING HERE</h1>
+      <h1>User Does Not Exist</h1>
     )
   }
 
   console.log(userProducts)
-
+  // var url = '/edit' + userName + "/" + p.productId
   return (
     <div id="user-products-container" >
       <Container >
+        <Link to='/user/create'><Button className="m-5 w-10" variant="primary">Create New Product</Button></Link>
         {userProducts &&
           // <div className="row row-cols-1 row-cols-md-2">
           <div className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
@@ -51,7 +55,9 @@ function User() {
                   price={p.price}
                   images={p.Images}
                   image=""
-                />
+                  productId={p.productId}
+                  editId={'edit/' + userName + "/" + p.productId} />
+                //url = { p }
               )
             })}
           </div>
