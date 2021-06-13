@@ -51,7 +51,7 @@ function validate(state: localState) {
 
 export default function SearchBar() {
 
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
   const history = useHistory();
   const productsState = useSelector<StoreType, ProductsType>((state) => state.products);
   const acListState = useSelector<StoreType, ProductsType>((state) => state.acList);
@@ -165,7 +165,7 @@ export default function SearchBar() {
 
   // Logica del desplegable
 
-  var suggestionsListComponent;                 
+  var suggestionsListComponent;
 
   if (state.showSuggestions && state.acList) {                  // Si el boolean en el estado para mostrar el desplegable y si el user esta escribiendo en el input son true...
     if (acListState.products.length) {                         // Y si lo que me trae el selector tiene algo
@@ -198,7 +198,7 @@ export default function SearchBar() {
   // Form con el input y el botón de submit
 
   return (
-    <form className="d-flex">
+    <form className="d-flex" id="searchBarForm" >
       <input className="form-control me-2" type="search" aria-label="Search"
         placeholder="Search your product here"
         name="product" value={state.product} onChange={handleInputChange}
