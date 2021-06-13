@@ -1,7 +1,7 @@
 #buttonSearch {
     color: #2c666e;
     border: 1px solid #2c666e;
-    border-radius: 0;
+    border-radius: 5px;
     height: 38px;
     width: 160px;
 }

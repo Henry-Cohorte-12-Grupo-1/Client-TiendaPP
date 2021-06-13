@@ -200,7 +200,7 @@ export default function SearchBar() {
   return (
     <form className="d-flex">
       <input className="form-control me-2" type="search" aria-label="Search"
-        placeholder="Search product here!"
+        placeholder="Search your product here"
         name="product" value={state.product} onChange={handleInputChange}
         onKeyDown={onKeyDown}
       />
