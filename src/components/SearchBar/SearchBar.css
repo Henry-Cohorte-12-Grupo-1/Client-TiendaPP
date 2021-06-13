@@ -12,7 +12,7 @@
     border: 1px solid #fff;
 }
 
-.d-flex{
+#searchBarForm{
     margin-right: 2rem;
     position: absolute;
     z-index: 1;
@@ -53,4 +53,15 @@
     z-index: 2;
     top: 48px;
     background-color: rgb(252, 252, 252, 0.6);
+    border-radius: 5px;
+  }
+
+  .SBerror {
+    color: rgb(8, 7, 7);
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 2;
+    top: 94px;
+    background-color: rgba(253, 52, 52, 0.6);
+    border-radius: 5px;
   }
