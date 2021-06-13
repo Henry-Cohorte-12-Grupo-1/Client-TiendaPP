@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '../../redux/reducers/index';
 import ProductsCards from '../ProductsCards/ProductsCards';
 import IUserProduct from '../../interfaces/userProducts';
+import { Container } from 'react-bootstrap';
+import './styles.scss'
 
 
 function User() {
@@ -24,11 +26,8 @@ function User() {
 
 
   useEffect(() => {
-
     dispatch(bringUserProducts(userName))
-
-
-  }, [])
+  }, [])// eslint-disable-line 
 
   if (typeof userProducts === 'string') {
     return (
@@ -39,22 +38,25 @@ function User() {
   console.log(userProducts)
 
   return (
-    <div>
-      {userProducts &&
-        <div className="row row-cols-1 row-cols-md-2">
+    <div id="user-products-container" >
+      <Container >
+        {userProducts &&
+          // <div className="row row-cols-1 row-cols-md-2">
+          <div className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
 
-          {userProducts.map(p => {
-            return (
-              <ProductsCards
-                name={p.name}
-                price={p.price}
-                image=""
-              />
-            )
-          })}
-        </div>
-      }
-
+            {userProducts.map(p => {
+              return (
+                <ProductsCards
+                  name={p.name}
+                  price={p.price}
+                  images={p.Images}
+                  image=""
+                />
+              )
+            })}
+          </div>
+        }
+      </Container>
     </div>
   );
 };
