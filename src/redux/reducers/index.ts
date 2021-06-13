@@ -1,6 +1,7 @@
 import { ActionTypes } from "../actions/types";
 import obj, { category } from '../../interfaces/products';
 import detailedProduct from '../../interfaces/detailedProduct'
+import IUserProduct from "../../interfaces/userProducts";
 
 
 interface propsObj {
@@ -12,8 +13,8 @@ interface propsObj {
 }
 
 interface ProductsType {
-  products: propsObj[],
-  pages: string,
+    products: propsObj[],
+    pages: string,
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
@@ -25,6 +26,7 @@ export interface StoreType {
     products: ProductsType;
     acList: ProductsType;
     productDetails: detailedProduct
+    userProducts: IUserProduct[]
 }
 
 //State iniciales del store
@@ -51,7 +53,8 @@ const initialState: StoreType = {
         price: "",
         productId: "",
         userId: ""
-    }
+    },
+    userProducts: []
 };
 
 interface actionI {
@@ -60,6 +63,7 @@ interface actionI {
     filter: category[];
     order: string;
     products: {};
+    acList: {};
     productDetails: obj;
 }
 
@@ -87,7 +91,11 @@ export default function reducer(
             return {
                 ...state,
                 products: action.products,
-                acList: action.products,
+            }
+        case ActionTypes.SEARCH_PRODUCT_AC:
+            return {
+                ...state,
+                acList: action.acList,
             }
 
         case ActionTypes.ORDER_BY_CATEGORY:
@@ -99,6 +107,11 @@ export default function reducer(
             return {
                 ...state,
                 productDetails: action.productDetails
+            }
+        case ActionTypes.GET_USER_PRODUCTS:
+            return {
+                ...state,
+                userProducts: action.payload
             }
         default:
             return state;

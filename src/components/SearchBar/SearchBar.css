@@ -36,8 +36,3 @@
     cursor: pointer;
     font-weight: 700;
   }
-
-  .no-suggestions {
-    color: #999;
-    padding: 0.5rem;
-  }

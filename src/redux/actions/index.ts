@@ -2,7 +2,7 @@ import { ActionTypes } from "./types";
 import obj from '../../interfaces/products';
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import {url} from "../../api";
+import { url } from "../../api";
 
 export const masUno = () => {
     return {
@@ -15,6 +15,13 @@ export interface AxiosProducts {
     type: ActionTypes.BRING_PRODUCTS;
     payload: obj[];
 }
+
+export interface BringUserProducts {
+    type: ActionTypes.GET_USER_PRODUCTS;
+    payload: obj[];
+}
+
+
 
 export interface ProductInfo {
     type: ActionTypes.GET_DETAILS;
@@ -36,35 +43,46 @@ export const productInfo = (id: string) => {
 
 export const bringProducts = () => {
     return async (dispatch: Dispatch) => {
-        const productos = await axios.get<obj[]>(`${url}/product/getallproducts`)                                                 
-            dispatch<AxiosProducts>({
-                type: ActionTypes.BRING_PRODUCTS,
-                payload: productos.data
-            })
+        const productos = await axios.get<obj[]>(`${url}/product/getallproducts`)
+        dispatch<AxiosProducts>({
+            type: ActionTypes.BRING_PRODUCTS,
+            payload: productos.data
+        })
     }
 }
 
+export const bringUserProducts = (userName: string | null) => {
+    return async (dispatch: Dispatch) => {
+        const userProducts = await axios.get(`${url}/username/${userName}`)
+        dispatch<BringUserProducts>({
+            type: ActionTypes.GET_USER_PRODUCTS,
+            payload: userProducts.data
+        })
+    }
+}
+
+
 export const getCategories = () => {
-   const URL: string = `${url}/categories`;
-   try{
-       return async function (dispatch:any) {
-           const productCategory = await axios.get(URL);
-           dispatch({
-               type:ActionTypes.GET_CATEGORIES,
-               filter: productCategory.data
-           })
-       }
-   }
-   catch (error) {
-       return console.log('No se encontraron categorias')
-   }
+    const URL: string = `${url}/categories`;
+    return async function (dispatch: any) {
+        try {
+            const productCategory = await axios.get(URL);
+            dispatch({
+                type: ActionTypes.GET_CATEGORIES,
+                filter: productCategory.data
+            })
+        }
+        catch (error) {
+            return console.log('No se encontraron categorias')
+        }
+    }
 }
 
 export const orderByCategories = (payload: string) => {
-   return {
-       type: ActionTypes.ORDER_BY_CATEGORY,
-       order: payload
-   }
+    return {
+        type: ActionTypes.ORDER_BY_CATEGORY,
+        order: payload
+    }
 }
 
 
@@ -73,16 +91,35 @@ export const searchProduct = (name: string) => {
     const params = {
         name
     }
-    try {
-        return async function (dispatch: any) {
+    return async function (dispatch: any) {
+        try {
             const productData = await axios.get(URL, { params });
             dispatch({
                 type: ActionTypes.SEARCH_PRODUCT,
                 products: productData.data,
             })
         }
+        catch (error) {
+            return console.log("No se pudo realizar la busqueda");
+        }
     }
-    catch (error) {
-        return console.log("No se pudo realizar la busqueda");
+}
+
+export const searchProductAC = (name: string) => {
+    const URL: string = `${url}/search`;
+    const params = {
+        name
+    }
+    return async function (dispatch: any) {
+        try {
+            const productData = await axios.get(URL, { params });
+            dispatch({
+                type: ActionTypes.SEARCH_PRODUCT_AC,
+                acList: productData.data,
+            })
+        }
+        catch (error) {
+            return console.log("No se pudo realizar la busqueda");
+        }
     }
 }
