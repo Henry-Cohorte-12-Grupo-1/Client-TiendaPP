@@ -15,6 +15,13 @@ export interface AxiosProducts {
     payload: obj[];
 }
 
+export interface BringUserProducts {
+    type: ActionTypes.GET_USER_PRODUCTS;
+    payload: obj[];
+}
+
+
+
 export interface ProductInfo {
     type: ActionTypes.GET_DETAILS;
     payload: obj
@@ -42,6 +49,17 @@ export const bringProducts = () => {
             })
     }
 }
+
+export const bringUserProducts = (userName: string | null) => {
+    return async(dispatch: Dispatch) => {
+         const userProducts = await axios.get(`http://localhost:3001/username/${userName}`)
+            dispatch<BringUserProducts>({
+                type: ActionTypes.GET_USER_PRODUCTS,
+                payload: userProducts.data
+            })
+    }
+}
+
 
 export const getCategories = () => {
    const URL: string = 'http://localhost:3001/categories';
