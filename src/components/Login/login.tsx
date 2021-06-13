@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
-import { Redirect, useHistory } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 
 function Login() {
-    const history = useHistory();
 
     let [user, setUser] = useState<string>()
     let [redirect, setRedirect] = useState<string>()
@@ -18,13 +17,6 @@ function Login() {
         pass?: boolean
     }
 
-    const users = [{
-        user: 'admin',
-        pass: 'admin'
-    }, {
-        user: 'user',
-        pass: 'user'
-    }]
 
     const handleChange = (event: React.FormEvent<any>) => {
         if (event.target) {
@@ -49,9 +41,6 @@ function Login() {
     }
 
     console.log(user)
-
-    // user-(id) 
-    // 
 
 
     const handleSubmit = () => {

@@ -31,7 +31,7 @@ function User() {
 
   if (typeof userProducts === 'string') {
     return (
-      <h1>NO HAY NADA REY</h1>
+      <h1>NOTHING HERE</h1>
     )
   }
 

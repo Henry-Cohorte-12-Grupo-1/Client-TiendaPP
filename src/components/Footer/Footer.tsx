@@ -1,10 +1,9 @@
 import './Footer.css'
-import {Link} from 'react-router-dom'
 
 function Footer() {
-   return(
-       <footer className='footer'>
-           <div className='containerF'>
+    return (
+        <footer className='footer'>
+            <div className='containerF'>
                 <div className='row'>
                     <div className='footer-col'>
                         <h4>About us</h4>
@@ -22,13 +21,13 @@ function Footer() {
                     <div className='footer-col'>
                         <h4>Help</h4>
                         <ul>
-                            <li><a href='#'>Learn how to sell and buy what you want</a></li>
+                            <li><a href='#'>Learn how to sell and buy what you want</a></li> {/* eslint-disable-line */}
                         </ul>
                     </div>
                 </div>
-           </div>
-       </footer>
-   ) 
+            </div>
+        </footer>
+    )
 }
 
 export default Footer;

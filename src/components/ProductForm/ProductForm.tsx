@@ -1,13 +1,13 @@
-import React, { useState, SyntheticEvent, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import IProduct from '../../interfaces/product'
 // import { Cloudinary, CloudinaryImage } from '@cloudinary/base'
 import { useHistory } from 'react-router-dom'
 // import { fill } from '@cloudinary/base/actions/resize'
 import axios from 'axios'
 import './styles.scss'
-import { Button, Col, Container, Form, Jumbotron, Row, Image, Carousel, Alert, Badge } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {url} from "../../api";
+import { url } from "../../api";
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
 
@@ -15,14 +15,14 @@ function ProductForm() {
 
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
-    const [imagesUrl, setImagesUrl] = useState<string[]>([])
+    //const [imagesUrl, setImagesUrl] = useState<string[]>([])
     const [categories, setCategories] = useState<string[]>([])
-    const [carousel, setCarousel] = useState<boolean>(true)
+    //const [carousel, setCarousel] = useState<boolean>(true)
     const [product, setProduct] = useState<IProduct>({
         name: '',
         description: '',
         price: 0,
-        quantity:1
+        quantity: 1
     })
     const [errors, setErrors] = useState<IError>({
         name: true,
@@ -55,7 +55,7 @@ function ProductForm() {
                 formData.append('upload_preset', 'tiendapp')
                 let resp = await axios.post('https://api.cloudinary.com/v1_1/tiendapp/image/upload', formData)
                 setImagesName(imagesName => [...imagesName, resp.data.public_id])
-                setImagesUrl(imagesUrl => [...imagesUrl, resp.data.url])
+                //setImagesUrl(imagesUrl => [...imagesUrl, resp.data.url])
             }
         })()
     }, [image])
@@ -99,9 +99,9 @@ function ProductForm() {
                 name: product.name,
                 description: product.description,
                 price: product.price,
-                category: product.category,
+                category: product.category ? product.category : 0,
                 images: imagesName,
-                quantity:product.quantity,
+                quantity: product.quantity,
 
             }
             console.log(newProduct)
@@ -119,7 +119,7 @@ function ProductForm() {
 
         setProduct({
             ...product,
-            category: (categories.findIndex(category => category === event.target.value)+1)
+            category: (categories.findIndex(category => category === event.target.value) + 1)
         })
     }
 
@@ -158,12 +158,12 @@ function ProductForm() {
 
                         <Row>
                             <Col>
-                            <Form.Label className='text-secondary'>Precio</Form.Label>
+                                <Form.Label className='text-secondary'>Precio</Form.Label>
                                 <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} />
                             </Col>
                             <Col>
-                            <Form.Label className='text-secondary'>Cantidad</Form.Label>
-                            <input name='quantity' onBlur={handleChange} className="form-control" type='number' min="1" max="1000" defaultValue='1'></input>
+                                <Form.Label className='text-secondary'>Cantidad</Form.Label>
+                                <input name='quantity' onBlur={handleChange} className="form-control" type='number' min="1" max="1000" defaultValue='1'></input>
                             </Col>
                         </Row>
 
@@ -192,24 +192,24 @@ function ProductForm() {
                                 onChange={imageChangeHandler} />
                             {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
                         </div>
-                       <Container>
-                       {imagesName.length > 0 ?
-                            <Carousel>
-                                {imagesName.map((name, i) => (
-                                    <Carousel.Item key={i}>
-                                        <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
-                                        <img
-                                            key={i}
-                                            className="carrousel-img"
-                                            src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
-                                            alt="First slide"
-                                        />
-                                    </Carousel.Item>
-                                )
-                                )}
-                            </Carousel> :
-                            null}
-                        </Container>    
+                        <Container>
+                            {imagesName.length > 0 ?
+                                <Carousel>
+                                    {imagesName.map((name, i) => (
+                                        <Carousel.Item key={i}>
+                                            <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
+                                            <img
+                                                key={i}
+                                                className="carrousel-img"
+                                                src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
+                                                alt="First slide"
+                                            />
+                                        </Carousel.Item>
+                                    )
+                                    )}
+                                </Carousel> :
+                                null}
+                        </Container>
                     </Col>
                 </Row>
                 <Row>
