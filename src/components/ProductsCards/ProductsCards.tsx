@@ -1,6 +1,6 @@
 import './Products.css';
 
-function ProductsCards(props: {name: string; price: number; image: string, id?:number}){
+function ProductsCards(props: {name: string; price: number; image?: string, productId?: string}){
 
     return(
         <div className="card" id='firstDiv'>
@@ -10,7 +10,7 @@ function ProductsCards(props: {name: string; price: number; image: string, id?:n
             <div className="card-body">
                 <h5 className="card-title">{props.name}</h5>
                 <p className="card-text">${props.price}</p>
-                <a href={`/product/${props?.id}`} className="btn btn-primary" id='colorB'>See details</a>
+                <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>See details</a>
             </div>
         </div>
     )

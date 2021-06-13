@@ -36,7 +36,7 @@ export const productInfo = (id: string) => {
 
 export const bringProducts = () => {
     return async (dispatch: Dispatch) => {
-        const productos = await axios.get<obj[]>(`${url}/products`)                                                 
+        const productos = await axios.get<obj[]>(`${url}/product/getallproducts`)                                                 
             dispatch<AxiosProducts>({
                 type: ActionTypes.BRING_PRODUCTS,
                 payload: productos.data
