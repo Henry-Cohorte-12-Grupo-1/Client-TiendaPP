@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, MouseEvent } from "react";
 import { searchProduct, searchProductAC } from "../../redux/actions/index";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { StoreType } from '../../redux/reducers/index'
 import './SearchBar.css'
 
@@ -52,6 +52,7 @@ function validate(state: localState) {
 export default function SearchBar() {
 
     const dispatch = useDispatch();  // hook de dispatch
+    const history = useHistory();
     const productsState = useSelector<StoreType, ProductsType>((state) => state.products);
     const acListState = useSelector<StoreType, ProductsType>((state) => state.acList);
 
@@ -112,6 +113,7 @@ export default function SearchBar() {
       ...state,
       product:''
     })
+    
   }
 
   
@@ -123,12 +125,14 @@ export default function SearchBar() {
     const { activeSuggestion } = state;
 
     if (e.code === "Enter") {        // <-- Si apreto enter, le clavo en el input el elemento del array con el indice indicado por el activeSuggestion
-        setState({
+        console.log('Entro al Enter')
+      setState({
             ...state,
             activeSuggestion: 0,
             showSuggestions: false,
-           product: productsState.products[activeSuggestion].name
+            product: acListState.products[activeSuggestion].name
            });
+           history.push('/ProductsSearched');
     } else if (e.code === "ArrowUp") {   // <-- Si apreto flechita para arriba, bajo el indice del array porque voy para atras hacia arriba en el desplegable
              if (activeSuggestion === 0) {
              return;
@@ -139,7 +143,7 @@ export default function SearchBar() {
               });
             
     } else if (e.code === "ArrowDown") {     // <-- Si apreto flechita para abajo, subo el indice del array porque avanzo hacia abajo en el desplegable
-            if (activeSuggestion - 1 === productsState.products.length) {
+            if (activeSuggestion - 1 === acListState.products.length) {
             return;
           }
             setState({ 
@@ -164,14 +168,14 @@ const onClick = (e: MouseEvent<HTMLLIElement, MouseEvent>): void => {
 
 var suggestionsListComponent;
 
-var className: any;                 
+//var className: any;                 
 
 if (state.showSuggestions && state.acList) {                  // Si el boolean en el estado para mostrar el desplegable y si el user esta escribiendo en el input son true...
   if (acListState.products.length) {                // Y si lo que me trae el selector tiene algo
     suggestionsListComponent = (                   // me guardo en la suggestionsListComponent una lista desordenada cuyos items provengan de un map que le hago a lo que me trajo el selector
       <ul className="suggestions">
         {acListState.products.map((suggestion, index) => {
-          //let className;
+          let className: string = '';
           if (index === state.activeSuggestion) {
             className = "suggestion-active";
           }
@@ -205,7 +209,7 @@ if (state.showSuggestions && state.acList) {                  // Si el boolean e
         />
         {suggestionsListComponent}
           {errors.product && <p>{errors.product}</p>}
-          <button id='buttonSearch' className="btn" type="submit"  value="Search" onClick={(e: any) => handleSubmit(e)}><Link to="/ProductsSearched"> Search </Link></button>
+          <button id='buttonSearch' className="btn" type="submit"  value="Search" onClick={(e: any) => handleSubmit(e)}> Search </button>
     </form>
   );
 }
