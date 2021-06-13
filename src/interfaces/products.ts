@@ -1,10 +1,10 @@
 export default interface obj {
-    id: number;
+    productId: string;
     name: string;
-    image: string;
+    image?: string;
     description: string;
     price: number;
-    category: string;
+    Category: category;
 }
 
 export interface category {

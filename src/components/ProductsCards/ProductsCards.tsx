@@ -1,6 +1,6 @@
 import './Products.css';
 
-function ProductsCards(props: {name: string; price: number; image: string, id?:number}){
+function ProductsCards(props: {name: string; price: number; image?: string, id:string}){
 
     return(
         <div className="card" id='firstDiv'>
