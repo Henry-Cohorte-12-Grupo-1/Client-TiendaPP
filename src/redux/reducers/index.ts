@@ -60,6 +60,7 @@ interface actionI {
     filter: category[];
     order: string;
     products: {};
+    acList: {};
     productDetails: obj;
 }
 
@@ -87,7 +88,11 @@ export default function reducer(
             return {
                 ...state,
                 products: action.products,
-                acList: action.products,
+            }
+        case ActionTypes.SEARCH_PRODUCT_AC:
+            return {
+                ...state,
+                acList: action.acList,
             }
 
         case ActionTypes.ORDER_BY_CATEGORY:

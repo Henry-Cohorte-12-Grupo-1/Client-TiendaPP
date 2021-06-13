@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, MouseEvent } from "react";
-import { searchProduct } from "../../redux/actions/index";
+import { searchProduct, searchProductAC } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 import { StoreType } from '../../redux/reducers/index'
 import './SearchBar.css'
@@ -55,7 +55,8 @@ export default function SearchBar() {
     const productsState = useSelector<StoreType, ProductsType>((state) => state.products);
     const acListState = useSelector<StoreType, ProductsType>((state) => state.acList);
 
-
+    console.log('products', productsState);
+    console.log('ACLIST', acListState)
   // Creo 2 Estados locales. El primero, en product va a guardar el string ingresado en la SearchBar por el user
   // para luego despachar una action, y pegarle a la API
   // EL segundo Estado local, es para hacer que el formulario se controlado
@@ -94,7 +95,7 @@ export default function SearchBar() {
       //[e.target.name]: e.target.value
       }
     )
-     dispatch(searchProduct(e.target.value))
+     dispatch(searchProductAC(e.target.value))
   }
 
   
@@ -105,6 +106,7 @@ export default function SearchBar() {
 
   const handleSubmit =  (e: React.FormEvent<HTMLFormElement>): void => {         
     e.preventDefault();
+    console.log(state.product)
     dispatch(searchProduct(state.product));
     setState({
       ...state,

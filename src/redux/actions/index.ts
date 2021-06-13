@@ -86,3 +86,22 @@ export const searchProduct = (name: string) => {
         return console.log("No se pudo realizar la busqueda");
     }
 }
+
+export const searchProductAC = (name: string) => {
+    const URL: string = `${url}/search`;
+    const params = {
+        name
+    }
+    try {
+        return async function (dispatch: any) {
+            const productData = await axios.get(URL, { params });
+            dispatch({
+                type: ActionTypes.SEARCH_PRODUCT_AC,
+                acList: productData.data,
+            })
+        }
+    }
+    catch (error) {
+        return console.log("No se pudo realizar la busqueda");
+    }
+}
