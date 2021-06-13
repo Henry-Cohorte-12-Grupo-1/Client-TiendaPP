@@ -1,48 +1,23 @@
 import { useLocation } from "react-router-dom";
-import React, { useState, SyntheticEvent, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import IProduct from '../../interfaces/product'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './styles.scss'
-import { Button, Col, Container, Form, Jumbotron, Row, Image, Carousel, Alert, Badge } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
 function ProductEdit() {
-    let location = useLocation()
-    let id = new URLSearchParams(location.search).get('id')
-    console.log(id)
-    useEffect(() => {
-        (async() => {
-           let resp = await axios.get(`http://localhost:3001/product/?product=${id}`)
-           console.log(resp.data)
-           setProduct({
-            ...product,
-            name: resp.data.name,
-            description: resp.data.description,
-            price:resp.data.price,
-            quantity:resp.data.quantity
-        })
-        })()
-    }, [])
-
-
-
-
-
-
-
-
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
     const [imagesUrl, setImagesUrl] = useState<string[]>([])
-    const [categories, setCategories] = useState<string[]>([])
+    const [categories, setCategories] = useState<ICategories[]>([])
     const [product, setProduct] = useState<IProduct>({
         name: '',
         description: '',
         price: 0,
-        quantity:1
+        quantity: 1,
     })
     const [errors, setErrors] = useState<IError>({
         name: true,
@@ -56,14 +31,45 @@ function ProductEdit() {
         price?: boolean,
     }
 
+    interface ICategories {
+        name: string,
+        id: number,
+    }
+
     const history = useHistory();
+
+    let location = useLocation()
+    let id = new URLSearchParams(location.search).get('id')
+
+
 
 
     useEffect(() => {
         (async () => {
+            let resp = await axios.get(`http://localhost:3001/product/?product=${id}`)
+            setProduct({
+                ...product,
+                name: resp.data.name,
+                description: resp.data.description,
+                price: resp.data.price,
+                quantity: resp.data.quantity,
+                categoryId: resp.data.categoryId,
+                images: resp.data.Images
+            })
+            setImagesName([...imagesName,...resp.data.Images])
+            setErrors({
+                name: false,
+                description: false,
+                price: false,
+            })
+        })()
+    }, [])
+
+    useEffect(() => {
+        (async () => {
             let resp = await axios.get('http://localhost:3001/categories')
-            let categoriesArray: string[] = resp.data.map((category: any) => category.name)
-            setCategories(categoriesArray)
+            let categoriesArray: ICategories[] = resp.data.map((category: any) => ({ name: category.name, id: category.categoryId }))
+            setCategories([...categories, ...categoriesArray])
         })()
     }, [])
 
@@ -75,7 +81,7 @@ function ProductEdit() {
                 formData.append('upload_preset', 'tiendapp')
                 let resp = await axios.post('https://api.cloudinary.com/v1_1/tiendapp/image/upload', formData)
                 setImagesName(imagesName => [...imagesName, resp.data.public_id])
-                setImagesUrl(imagesUrl => [...imagesUrl, resp.data.url])
+                // setImagesUrl(imagesUrl => [...imagesUrl, resp.data.url])
             }
         })()
     }, [image])
@@ -119,15 +125,13 @@ function ProductEdit() {
                 name: product.name,
                 description: product.description,
                 price: product.price,
-                category: product.category,
+                categoryId: product.categoryId,
                 images: imagesName,
-                quantity:product.quantity,
+                quantity: product.quantity,
 
             }
-            console.log(newProduct)
             const response = await axios.post('http://localhost:3001/product', newProduct)
                 .catch(() => alert('No se creo el producto'))
-            console.log(response)
             if (response) {
                 alert(response.data);
                 history.push('/client');
@@ -139,14 +143,12 @@ function ProductEdit() {
 
         setProduct({
             ...product,
-            category: (categories.findIndex(category => category === event.target.value)+1)
+            categoryId: (categories.findIndex(category => category.name === event.target.value) + 1)
         })
     }
 
     function handleDelete(i: number) {
         setImagesName(imagesName.filter(image => (image !== imagesName[i])))
-        // setCarousel(false)
-        // setCarousel(true)
     }
 
     return (
@@ -160,7 +162,7 @@ function ProductEdit() {
                     <Col md>
                         <Form.Group controlId="name">
                             <Form.Label className='text-secondary'>Nombre del producto</Form.Label>
-                            <Form.Control className='label-success' type='input' placeholder="Name" name='name' value={product.name} onBlur={handleChange}/>
+                            <Form.Control className='label-success' type='input' placeholder="Name" name='name' defaultValue={product.name} onBlur={handleChange} />
                             {errors?.name ? <Form.Text className="text-muted">
                                 Nombre no puede estar vacio
                             </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
@@ -168,7 +170,7 @@ function ProductEdit() {
 
                         <Form.Group controlId="description">
                             <Form.Label className='text-secondary'>Descripción</Form.Label>
-                            <Form.Control as="textarea" rows={3} name='description' placeholder="Description" value={product.description} onBlur={handleChange} />
+                            <Form.Control as="textarea" rows={3} name='description' placeholder="Description" defaultValue={product.description} onBlur={handleChange} />
                             {errors?.description ? <Form.Text className="text-muted">
                                 La descripcion no puede estar vacia
                             </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
@@ -178,12 +180,12 @@ function ProductEdit() {
 
                         <Row>
                             <Col>
-                            <Form.Label className='text-secondary'>Precio</Form.Label>
-                                <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} value={product.price}  />
+                                <Form.Label className='text-secondary'>Precio</Form.Label>
+                                <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} defaultValue={product.price} />
                             </Col>
                             <Col>
-                            <Form.Label className='text-secondary'>Cantidad</Form.Label>
-                            <input value={product.quantity}  name='quantity' onBlur={handleChange} className="form-control" type='number' min="1" max="1000" defaultValue='1'></input>
+                                <Form.Label className='text-secondary'>Cantidad</Form.Label>
+                                <input defaultValue={product.quantity} name='quantity' onBlur={handleChange} className="form-control" type='number' min="0" max="1000" ></input>
                             </Col>
                         </Row>
 
@@ -194,10 +196,10 @@ function ProductEdit() {
 
 
                         <br></br>
-                        <Form.Control as="select" onChange={handleCategoryChange}>
+                        <Form.Control value={categories[0] ? (categories[categories.findIndex(category => category.id === product.categoryId)].name) : undefined} as="select" onChange={handleCategoryChange}>
                             <option value="" selected disabled hidden>Choose here</option>
                             {categories.map((category, i) => (
-                                <option value={categories[i]}>{category}</option>
+                                <option value={categories[i].name}>{category.name}</option>
                             ))}
                         </Form.Control>
 
@@ -212,29 +214,30 @@ function ProductEdit() {
                                 onChange={imageChangeHandler} />
                             {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
                         </div>
-                       <Container>
-                       {imagesName.length > 0 ?
-                            <Carousel>
-                                {imagesName.map((name, i) => (
-                                    <Carousel.Item key={i}>
-                                        <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
-                                        <img
-                                            key={i}
-                                            className="carrousel-img"
-                                            src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
-                                            alt="First slide"
-                                        />
-                                    </Carousel.Item>
-                                )
-                                )}
-                            </Carousel> :
-                            null}
-                        </Container>    
+                        <Container>
+                            {imagesName.length > 0 ?
+                                <Carousel>
+                                    {imagesName.map((name, i) => (
+                                        <Carousel.Item key={i}>
+                                            <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
+                                            <img
+                                                key={i}
+                                                className="carrousel-img"
+                                                src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
+                                                alt="First slide"
+                                            />
+                                        </Carousel.Item>
+                                    )
+                                    )}
+                                </Carousel> :
+                                null}
+                        </Container>
                     </Col>
                 </Row>
                 <Row>
                     <Col className="text-center" md>
-                        {(errors?.name === true || errors?.description === true || errors?.price === true || product.category === undefined) ?
+                        {console.log(errors,product)}
+                        {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
                             <Button className="m-5 w-25" variant="secondary" type="submit" disabled>Enviar</Button> :
                             <Button className="m-5 w-25" variant="secondary" type="submit" onClick={handleSubmit}>Enviar</Button>
                         }

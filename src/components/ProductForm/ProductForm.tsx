@@ -1,5 +1,5 @@
 import React, { useState, SyntheticEvent, useEffect } from 'react'
-import IProduct from '../../interfaces/product'
+import {IProduct} from '../../interfaces/product'
 // import { Cloudinary, CloudinaryImage } from '@cloudinary/base'
 import { useHistory } from 'react-router-dom'
 // import { fill } from '@cloudinary/base/actions/resize'
@@ -119,7 +119,7 @@ function ProductForm() {
 
         setProduct({
             ...product,
-            category: (categories.findIndex(category => category === event.target.value)+1)
+            categoryId: (categories.findIndex(category => category === event.target.value)+1)
         })
     }
 

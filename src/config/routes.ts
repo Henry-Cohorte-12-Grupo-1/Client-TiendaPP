@@ -5,6 +5,7 @@ import ProductForm from '../components/ProductForm/ProductForm'
 import Home from '../components/Home/Home';
 import User from '../components/User/User'
 import ProductDetails from '../components/ProductDetails/ProductDetails';
+import ProductEdit from '../components/ProductEdit/ProductEdit';
 
 const routes: IRoute[] = [
     {
@@ -32,11 +33,18 @@ const routes: IRoute[] = [
         exact: true
     },
     {
+        path: '/product/edit',
+        name: 'ProductEdit',
+        component: ProductEdit,
+        exact: true
+    },
+    {
         path: '/Product/:id',
         name: 'Details',
         component: ProductDetails,
         exact: true
     },
+
     {
         path: '/admin',
         name: 'Admin',
