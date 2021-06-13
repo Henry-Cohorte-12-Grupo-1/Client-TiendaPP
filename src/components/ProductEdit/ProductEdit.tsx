@@ -1,12 +1,11 @@
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react'
-import {IProduct, ICategories, IError } from '../../interfaces/product'
+import { IProduct, ICategories, IError } from '../../interfaces/product'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './styles.scss'
 import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 function ProductEdit() {
     const [image, setImage] = useState<File>()
@@ -23,8 +22,6 @@ function ProductEdit() {
         description: true,
         price: true,
     })
-
- 
 
     const history = useHistory();
 
@@ -44,7 +41,7 @@ function ProductEdit() {
                 categoryId: resp.data.categoryId,
                 images: resp.data.Images
             })
-            setImagesName([...imagesName,...resp.data.Images])
+            setImagesName([...imagesName, ...resp.data.Images])
             setErrors({
                 name: false,
                 description: false,
@@ -140,15 +137,14 @@ function ProductEdit() {
 
     return (
         <Container>
-            <h1 className='text-secondary'>
+            <h1 className="mt-4">
                 Crear producto
             </h1>
-
-            <Form className='bg-warning p-5 rounded'>
+            <Form className='border shadow p-5'>
                 <Row>
                     <Col md>
                         <Form.Group controlId="name">
-                            <Form.Label className='text-secondary'>Nombre del producto</Form.Label>
+                            <Form.Label>Nombre del producto</Form.Label>
                             <Form.Control className='label-success' type='input' placeholder="Name" name='name' defaultValue={product.name} onBlur={handleChange} />
                             {errors?.name ? <Form.Text className="text-muted">
                                 Nombre no puede estar vacio
@@ -156,33 +152,30 @@ function ProductEdit() {
                         </Form.Group>
 
                         <Form.Group controlId="description">
-                            <Form.Label className='text-secondary'>Descripción</Form.Label>
+                            <Form.Label>Descripción</Form.Label>
                             <Form.Control as="textarea" rows={3} name='description' placeholder="Description" defaultValue={product.description} onBlur={handleChange} />
                             {errors?.description ? <Form.Text className="text-muted">
                                 La descripcion no puede estar vacia
                             </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
                         </Form.Group>
 
-
-
                         <Row>
                             <Col>
-                                <Form.Label className='text-secondary'>Precio</Form.Label>
+                                <Form.Label>Precio</Form.Label>
                                 <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} defaultValue={product.price} />
                             </Col>
                             <Col>
-                                <Form.Label className='text-secondary'>Cantidad</Form.Label>
+                                <Form.Label>Cantidad</Form.Label>
                                 <input defaultValue={product.quantity} name='quantity' onBlur={handleChange} className="form-control" type='number' min="0" max="1000" ></input>
                             </Col>
                         </Row>
 
                         {errors?.price ? <Form.Text className='text-muted'>
                             Debe indicar un precio
-                        </Form.Text> : <Form.Text className='text-secondary'>&#160;</Form.Text>}
-
-
+                        </Form.Text> : <Form.Text>&#160;</Form.Text>}
 
                         <br></br>
+                        <Form.Label>Categoría</Form.Label>
                         <Form.Control value={categories[0] ? (categories[categories.findIndex(category => category.id === product.categoryId)].name) : undefined} as="select" onChange={handleCategoryChange}>
                             <option value="" selected disabled hidden>Choose here</option>
                             {categories.map((category, i) => (
@@ -192,10 +185,11 @@ function ProductEdit() {
 
                     </Col>
                     <Col md>
-                        <div className="custom-file mt-3">
+                        <div className="custom-file mt-2">
+                            <label>Agregar Imagen</label>
                             <input
                                 type="file"
-                                className="h6 bg-secondary flat w-100"
+                                className="h6 flat w-100"
                                 id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01"
                                 onChange={imageChangeHandler} />
@@ -223,10 +217,10 @@ function ProductEdit() {
                 </Row>
                 <Row>
                     <Col className="text-center" md>
-                        {console.log(errors,product)}
+                        {console.log(errors, product)}
                         {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
-                            <Button className="m-5 w-25" variant="secondary" type="submit" disabled>Enviar</Button> :
-                            <Button className="m-5 w-25" variant="secondary" type="submit" onClick={handleSubmit}>Enviar</Button>
+                            <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Enviar</Button> :
+                            <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Enviar</Button>
                         }
                     </Col>
                 </Row>

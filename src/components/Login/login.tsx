@@ -70,22 +70,22 @@ function Login() {
 
     }
     return (
-            <Container style={{ width: '50%' }}>
+            <Container className="p-5" >
                 <br></br>
-                <h2>Sign in</h2>
-                <Form className='bg-warning p-5 rounded'>
+                <h2>Ingresar</h2>
+                <Form className='bg-light border shadow p-5 rounded'>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label className='text-secondary'>User</Form.Label>
+                        <Form.Label>Usuario</Form.Label>
                         <Form.Control type="text" placeholder="Enter email" name='user' onChange={handleChange} />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label className='text-secondary'>Password</Form.Label>
+                        <Form.Label >Contraseña</Form.Label>
                         <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange} />
                     </Form.Group>
                     {(errors?.user === true || errors?.pass === true) ?
-                        <Button className="m-5 w-25" variant="secondary" disabled>Sign in</Button>:
-                        <Button className="m-5 w-25" variant="secondary" onClick={handleSubmit}>Sign in</Button>
+                        <Button className="mt-5" variant="primary" disabled>Ingresar</Button>:
+                        <Button className="mt-5" variant="primary" onClick={handleSubmit}>Ingresar</Button>
                     }
                 </Form>
             </Container>
