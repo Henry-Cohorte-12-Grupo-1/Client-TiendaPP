@@ -7,7 +7,7 @@ import axios from 'axios'
 import './styles.scss'
 import { Button, Col, Container, Form, Jumbotron, Row, Image, Carousel, Alert, Badge } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {url} from "../../api";
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
 
@@ -41,7 +41,7 @@ function ProductForm() {
 
     useEffect(() => {
         (async () => {
-            let resp = await axios.get('http://localhost:3001/categories')
+            let resp = await axios.get(`${url}/categories`)
             let categoriesArray: string[] = resp.data.map((category: any) => category.name)
             setCategories(categoriesArray)
         })()
@@ -105,7 +105,7 @@ function ProductForm() {
 
             }
             console.log(newProduct)
-            const response = await axios.post('http://localhost:3001/product', newProduct)
+            const response = await axios.post(`${url}/product`, newProduct)
                 .catch(() => alert('No se creo el producto'))
             console.log(response)
             if (response) {
