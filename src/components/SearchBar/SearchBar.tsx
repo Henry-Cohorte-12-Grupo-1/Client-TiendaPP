@@ -111,6 +111,7 @@ export default function SearchBar() {
     dispatch(searchProduct(state.product));
     setState({
       ...state,
+      showSuggestions: false,
       product:''
     })
     history.push('/ProductsSearched');
@@ -164,6 +165,14 @@ const onClick = (e: MouseEvent<HTMLLIElement, MouseEvent>): void => {
       });
 };
 
+const CloseAC = (e: React.FocusEventHandler<HTMLUListElement>): void => {
+  console.log('Entro al BLUR')
+  setState({
+    ...state,
+    showSuggestions: false
+  })
+}
+
 // Logica del desplegable
 
 var suggestionsListComponent;
@@ -173,7 +182,7 @@ var suggestionsListComponent;
 if (state.showSuggestions && state.acList) {                  // Si el boolean en el estado para mostrar el desplegable y si el user esta escribiendo en el input son true...
   if (acListState.products.length) {                // Y si lo que me trae el selector tiene algo
     suggestionsListComponent = (                   // me guardo en la suggestionsListComponent una lista desordenada cuyos items provengan de un map que le hago a lo que me trajo el selector
-      <ul className="suggestions">
+      <ul className="suggestions" onBlur={ (e:any) => CloseAC(e)}>
         {acListState.products.map((suggestion, index) => {
           let className: string = '';
           if (index === state.activeSuggestion) {
