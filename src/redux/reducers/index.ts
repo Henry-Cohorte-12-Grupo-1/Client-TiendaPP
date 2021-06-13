@@ -23,6 +23,7 @@ export interface StoreType {
     filter: category[];
     filterProducts: obj[];
     products: ProductsType;
+    acList: ProductsType;
     productDetails: detailedProduct
 }
 
@@ -30,6 +31,10 @@ export interface StoreType {
 const initialState: StoreType = {
     counter: 0,
     products: {
+        products: [],
+        pages: '0',
+    },
+    acList: {
         products: [],
         pages: '0',
     },
@@ -81,7 +86,8 @@ export default function reducer(
         case ActionTypes.SEARCH_PRODUCT:
             return {
                 ...state,
-                products: action.products
+                products: action.products,
+                acList: action.products,
             }
 
         case ActionTypes.ORDER_BY_CATEGORY:

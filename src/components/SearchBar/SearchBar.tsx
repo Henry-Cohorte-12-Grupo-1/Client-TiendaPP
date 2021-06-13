@@ -53,17 +53,21 @@ export default function SearchBar() {
 
     const dispatch = useDispatch();  // hook de dispatch
     const productsState = useSelector<StoreType, ProductsType>((state) => state.products);
+    const acListState = useSelector<StoreType, ProductsType>((state) => state.acList);
 
 
   // Creo 2 Estados locales. El primero, en product va a guardar el string ingresado en la SearchBar por el user
   // para luego despachar una action, y pegarle a la API
   // EL segundo Estado local, es para hacer que el formulario se controlado
 
+  // HASTA ACA
+
   const [state, setState] = useState({
     activeSuggestion: 0,                  
     filteredSuggestions: [],              
     showSuggestions: false,
-    product:''
+    product:'',
+    acList:''
   });
   const [errors, setErrors] = useState({
     product:''
@@ -85,7 +89,9 @@ export default function SearchBar() {
       ...state,
       activeSuggestion: 0,
       showSuggestions: true,
-      [e.target.name]: e.target.value
+      product: e.target.value,
+      acList: e.target.value
+      //[e.target.name]: e.target.value
       }
     )
      dispatch(searchProduct(e.target.value))
@@ -147,7 +153,8 @@ const onClick = (e: MouseEvent<HTMLLIElement, MouseEvent>): void => {
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
-      product: e.currentTarget.innerText        // reseteo todo y le clavo el valor del item del desplegable en la propiedad del estado local en el que va el input
+      product: e.currentTarget.innerText,
+      acList: e.currentTarget.innerText,        // reseteo todo y le clavo el valor del item del desplegable en la propiedad del estado local en el que va el input
       });
 };
 
@@ -155,15 +162,19 @@ const onClick = (e: MouseEvent<HTMLLIElement, MouseEvent>): void => {
 
 var suggestionsListComponent;
 
-if (state.showSuggestions && state.product) {                  // Si el boolean en el estado para mostrar el desplegable y si el user esta escribiendo en el input son true...
-  if (productsState.products.length) {                // Y si lo que me trae el selector tiene algo
+var className: any;                 
+
+if (state.showSuggestions && state.acList) {                  // Si el boolean en el estado para mostrar el desplegable y si el user esta escribiendo en el input son true...
+  if (acListState.products.length) {                // Y si lo que me trae el selector tiene algo
     suggestionsListComponent = (                   // me guardo en la suggestionsListComponent una lista desordenada cuyos items provengan de un map que le hago a lo que me trajo el selector
-      <ul>
-        {productsState.products.map((suggestion, index) => {
+      <ul className="suggestions">
+        {acListState.products.map((suggestion, index) => {
+          //let className;
           if (index === state.activeSuggestion) {
+            className = "suggestion-active";
           }
           return (
-            <li key={index} onClick={ (e:any) => onClick(e)}>
+            <li className={className} key={index} onClick={ (e:any) => onClick(e)}>
               {suggestion.name}
             </li>
           );
@@ -172,7 +183,7 @@ if (state.showSuggestions && state.product) {                  // Si el boolean 
     );
   } else {                                      // si el boolean en el estado para mostrar el desplegable esta en true y el user esta escribiendo algo
     suggestionsListComponent = (                // PERO el selector no me trajao nada, muestro que no hay sugerencias
-      <div>
+      <div className="no-suggestions">
         <em>No suggestions available.</em>
       </div>
     );
@@ -192,7 +203,7 @@ if (state.showSuggestions && state.product) {                  // Si el boolean 
         />
         {suggestionsListComponent}
           {errors.product && <p>{errors.product}</p>}
-          <button id='buttonSearch' className="btn" type="submit"  value="Search" onClick={(e: any) => handleSubmit(e)}> Search </button>
+          <button id='buttonSearch' className="btn" type="submit"  value="Search" onClick={(e: any) => handleSubmit(e)}><Link to="/ProductsSearched"> Search </Link></button>
     </form>
   );
 }
