@@ -1,7 +1,6 @@
 import { ActionTypes } from "../actions/types";
 import obj, { category } from '../../interfaces/products';
 import detailedProduct from '../../interfaces/detailedProduct'
-import { Action } from "@cloudinary/base/internal/Action";
 import IUserProduct from "../../interfaces/userProducts";
 
 
@@ -14,8 +13,8 @@ interface propsObj {
 }
 
 interface ProductsType {
-  products: propsObj[],
-  pages: string,
+    products: propsObj[],
+    pages: string,
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)

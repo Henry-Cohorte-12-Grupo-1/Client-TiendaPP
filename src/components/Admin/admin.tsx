@@ -1,8 +1,7 @@
 import axios from "axios";
-import { send } from "process";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import {url} from "../../api";
+import { url } from "../../api";
 
 function Admin() {
     const [category, setCategory] = useState<string>()
@@ -22,8 +21,8 @@ function Admin() {
 
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault()
-        let sendCategories:string[] = []
-        categories.map(category => initialCategories.includes(category)?null:sendCategories.push(category))
+        let sendCategories: string[] = []
+        categories.map(category => initialCategories.includes(category) ? null : sendCategories.push(category))
         // console.log(sendCategories.join(' - '))
         // console.log(deleteCategories.join(' - '))
 
@@ -31,8 +30,8 @@ function Admin() {
         let oldCategories = deleteCategories.join(' - ')
 
         let sendObject = {
-            newCategories:newCategories,
-            oldCategories:oldCategories
+            newCategories: newCategories,
+            oldCategories: oldCategories
         }
 
         console.log(sendObject)
@@ -48,7 +47,7 @@ function Admin() {
 
     const addCategory = (event: any) => {
         event.preventDefault()
-        if (category && !categories.includes(category)){
+        if (category && !categories.includes(category)) {
             setCategories([...categories, category])
         }
     }
@@ -60,7 +59,7 @@ function Admin() {
             setDeleteCategories([...deleteCategories, event.target.value])
         }
     }
-    
+
     return (
         <Container>
             <Form className='bg-warning p-5 rounded'>

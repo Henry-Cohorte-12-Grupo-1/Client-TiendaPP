@@ -1,5 +1,4 @@
 import './Products.css';
-import { Container, Carousel } from 'react-bootstrap'
 
 interface imgs {
     imageId: string

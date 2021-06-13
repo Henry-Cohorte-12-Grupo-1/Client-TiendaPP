@@ -64,17 +64,17 @@ export const bringUserProducts = (userName: string | null) => {
 
 export const getCategories = () => {
     const URL: string = `${url}/categories`;
-    try {
-        return async function (dispatch: any) {
+    return async function (dispatch: any) {
+        try {
             const productCategory = await axios.get(URL);
             dispatch({
                 type: ActionTypes.GET_CATEGORIES,
                 filter: productCategory.data
             })
         }
-    }
-    catch (error) {
-        return console.log('No se encontraron categorias')
+        catch (error) {
+            return console.log('No se encontraron categorias')
+        }
     }
 }
 
@@ -91,17 +91,17 @@ export const searchProduct = (name: string) => {
     const params = {
         name
     }
-    try {
-        return async function (dispatch: any) {
+    return async function (dispatch: any) {
+        try {
             const productData = await axios.get(URL, { params });
             dispatch({
                 type: ActionTypes.SEARCH_PRODUCT,
                 products: productData.data,
             })
         }
-    }
-    catch (error) {
-        return console.log("No se pudo realizar la busqueda");
+        catch (error) {
+            return console.log("No se pudo realizar la busqueda");
+        }
     }
 }
 
@@ -110,16 +110,16 @@ export const searchProductAC = (name: string) => {
     const params = {
         name
     }
-    try {
-        return async function (dispatch: any) {
+    return async function (dispatch: any) {
+        try {
             const productData = await axios.get(URL, { params });
             dispatch({
                 type: ActionTypes.SEARCH_PRODUCT_AC,
                 acList: productData.data,
             })
         }
-    }
-    catch (error) {
-        return console.log("No se pudo realizar la busqueda");
+        catch (error) {
+            return console.log("No se pudo realizar la busqueda");
+        }
     }
 }
