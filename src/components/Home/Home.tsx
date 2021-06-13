@@ -40,7 +40,7 @@ function Home() {
             </div>
             <div id='separation'>
                 <h2 className='recomendados'>Recomendados</h2>
-                <Container className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
+                <Container id="homeContainer" className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
                     {producto &&
                         // <div className="row row-cols-1 row-cols-md-2">
                         producto.map(p => {
