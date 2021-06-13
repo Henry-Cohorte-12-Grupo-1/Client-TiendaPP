@@ -1,11 +1,11 @@
-import React, { useState, SyntheticEvent, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {IProduct} from '../../interfaces/product'
 // import { Cloudinary, CloudinaryImage } from '@cloudinary/base'
 import { useHistory } from 'react-router-dom'
 // import { fill } from '@cloudinary/base/actions/resize'
 import axios from 'axios'
 import './styles.scss'
-import { Button, Col, Container, Form, Jumbotron, Row, Image, Carousel, Alert, Badge } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row, Carousel} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
@@ -15,9 +15,9 @@ function ProductForm() {
 
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
-    const [imagesUrl, setImagesUrl] = useState<string[]>([])
+    // const [imagesUrl, setImagesUrl] = useState<string[]>([])
     const [categories, setCategories] = useState<string[]>([])
-    const [carousel, setCarousel] = useState<boolean>(true)
+    // const [carousel, setCarousel] = useState<boolean>(true)
     const [product, setProduct] = useState<IProduct>({
         name: '',
         description: '',
@@ -55,7 +55,7 @@ function ProductForm() {
                 formData.append('upload_preset', 'tiendapp')
                 let resp = await axios.post('https://api.cloudinary.com/v1_1/tiendapp/image/upload', formData)
                 setImagesName(imagesName => [...imagesName, resp.data.public_id])
-                setImagesUrl(imagesUrl => [...imagesUrl, resp.data.url])
+                // setImagesUrl(imagesUrl => [...imagesUrl, resp.data.url])
             }
         })()
     }, [image])
@@ -99,7 +99,7 @@ function ProductForm() {
                 name: product.name,
                 description: product.description,
                 price: product.price,
-                category: product.category,
+                categoryId: product.categoryId,
                 images: imagesName,
                 quantity:product.quantity,
 
@@ -110,7 +110,7 @@ function ProductForm() {
             console.log(response)
             if (response) {
                 alert(response.data);
-                history.push('/client');
+                // history.push('/client');
             }
         }
     }
@@ -119,7 +119,9 @@ function ProductForm() {
 
         setProduct({
             ...product,
-            categoryId: (categories.findIndex(category => category === event.target.value)+1)
+            categoryId: (categories.findIndex(category => category === event.target.value)+1),
+            category: event.target.value
+
         })
     }
 
@@ -214,7 +216,7 @@ function ProductForm() {
                 </Row>
                 <Row>
                     <Col className="text-center" md>
-                        {(errors?.name === true || errors?.description === true || errors?.price === true || product.category === undefined) ?
+                        {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
                             <Button className="m-5 w-25" variant="secondary" type="submit" disabled>Enviar</Button> :
                             <Button className="m-5 w-25" variant="secondary" type="submit" onClick={handleSubmit}>Enviar</Button>
                         }
