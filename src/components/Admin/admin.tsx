@@ -2,6 +2,7 @@ import axios from "axios";
 import { send } from "process";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import {url} from "../../api";
 
 function Admin() {
     const [category, setCategory] = useState<string>()
@@ -11,7 +12,7 @@ function Admin() {
 
     useEffect(() => {
         (async () => {
-            var resp = await axios.get('http://localhost:3001/categories')
+            var resp = await axios.get(`${url}/categories`)
             var categoriesArray: string[] = resp.data.map((category: any) => category.name)
             setCategories(categoriesArray)
             setInitial(categoriesArray)
@@ -36,7 +37,7 @@ function Admin() {
 
         console.log(sendObject)
 
-        const response = await axios.put('http://localhost:3001/updateCategories', sendObject)
+        const response = await axios.put(`${url}/updateCategories`, sendObject)
             .catch(() => alert('No se creo el producto'))
         console.log(response)
     }
