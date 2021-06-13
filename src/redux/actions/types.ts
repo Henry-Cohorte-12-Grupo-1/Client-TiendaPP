@@ -9,5 +9,6 @@ export enum ActionTypes {
     ORDER_BY_CATEGORY,
     GET_CATEGORIES,
     GET_DETAILS,
+    GET_USER_PRODUCTS,
     SEARCH_PRODUCT_AC
 }

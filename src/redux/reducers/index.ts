@@ -1,6 +1,8 @@
 import { ActionTypes } from "../actions/types";
 import obj, { category } from '../../interfaces/products';
 import detailedProduct from '../../interfaces/detailedProduct'
+import { Action } from "@cloudinary/base/internal/Action";
+import IUserProduct from "../../interfaces/userProducts";
 
 
 interface propsObj {
@@ -25,6 +27,7 @@ export interface StoreType {
     products: ProductsType;
     acList: ProductsType;
     productDetails: detailedProduct
+    userProducts: IUserProduct[]
 }
 
 //State iniciales del store
@@ -51,7 +54,8 @@ const initialState: StoreType = {
         price: "",
         productId: "",
         userId: ""
-    }
+    },
+    userProducts: []
 };
 
 interface actionI {
@@ -104,6 +108,11 @@ export default function reducer(
             return {
                 ...state,
                 productDetails: action.productDetails
+            }
+        case ActionTypes.GET_USER_PRODUCTS:
+            return {
+                ...state,
+                userProducts: action.payload
             }
         default:
             return state;
