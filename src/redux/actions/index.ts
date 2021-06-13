@@ -68,17 +68,17 @@ export const orderByCategories = (payload: string) => {
 }
 
 
-export const searchProduct = (product: string) => {
+export const searchProduct = (name: string) => {
     const URL: string = `${url}/search`;
     const params = {
-        product
+        name
     }
     try {
         return async function (dispatch: any) {
             const productData = await axios.get(URL, { params });
             dispatch({
                 type: ActionTypes.SEARCH_PRODUCT,
-                products: productData,
+                products: productData.data,
             })
         }
     }
