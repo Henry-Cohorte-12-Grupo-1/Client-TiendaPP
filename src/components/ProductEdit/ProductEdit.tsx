@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react'
-import IProduct from '../../interfaces/product'
+import {IProduct, ICategories, IError } from '../../interfaces/product'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './styles.scss'
@@ -11,7 +11,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function ProductEdit() {
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
-    const [imagesUrl, setImagesUrl] = useState<string[]>([])
     const [categories, setCategories] = useState<ICategories[]>([])
     const [product, setProduct] = useState<IProduct>({
         name: '',
@@ -25,23 +24,12 @@ function ProductEdit() {
         price: true,
     })
 
-    interface IError {
-        name?: boolean,
-        description?: boolean,
-        price?: boolean,
-    }
-
-    interface ICategories {
-        name: string,
-        id: number,
-    }
+ 
 
     const history = useHistory();
 
     let location = useLocation()
     let id = new URLSearchParams(location.search).get('id')
-
-
 
 
     useEffect(() => {
@@ -81,7 +69,6 @@ function ProductEdit() {
                 formData.append('upload_preset', 'tiendapp')
                 let resp = await axios.post('https://api.cloudinary.com/v1_1/tiendapp/image/upload', formData)
                 setImagesName(imagesName => [...imagesName, resp.data.public_id])
-                // setImagesUrl(imagesUrl => [...imagesUrl, resp.data.url])
             }
         })()
     }, [image])
