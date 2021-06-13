@@ -93,7 +93,7 @@ export default function reducer(
         case ActionTypes.ORDER_BY_CATEGORY:
             return {
                 ...state,
-                filterProducts: state.productList.filter(c => c.category === action.order)
+                filterProducts: state.productList.filter(c => c.Category.name === action.order)
             }
         case ActionTypes.GET_DETAILS:
             return {

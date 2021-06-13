@@ -48,8 +48,9 @@ function Home (){
                         <ProductsCards 
                         name = {p.name}
                         price = {p.price}
-                        image = {p.image}
-                        id = {p.id} />
+                        productId = {p.productId}
+                        //image = {p.image}
+                         />
                     )
                 })
             }
