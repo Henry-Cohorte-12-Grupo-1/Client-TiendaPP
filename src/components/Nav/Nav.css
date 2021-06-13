@@ -1,12 +1,22 @@
 #colorButton {
     color: #2c666e;
-    margin-left: 90rem;
-    border-bottom: 1px solid #2c666e !important;
-    border-radius: 0;
+  
+    border:none;
 }
 
 #colorButton:hover{
-    background-color: #2c666e;
-    color: #fff;
-    border-bottom: 1px solid #fff;
+    color: #2c666e;
+    border-bottom: 1px solid #2c666e;
+    border-radius: 0;
 }
+
+#colorButton2{
+    color: #2c666e;
+    border:none;
+}
+
+#colorButton2:hover{
+    color: #2c666e;
+    border-bottom: 1px solid #2c666e;
+    border-radius: 0;
+} 

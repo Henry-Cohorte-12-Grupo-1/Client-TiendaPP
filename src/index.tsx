@@ -4,15 +4,15 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store/index.js";
 import App from "./components/App/App"; // Importante no poner la extensión .tsx sino arrojara un error
-import {BrowserRouter} from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
-        <App />
-    </Provider>
-    </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>,
     document.querySelector("#root")
 );
 

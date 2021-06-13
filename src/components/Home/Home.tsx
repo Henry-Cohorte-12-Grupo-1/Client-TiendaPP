@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import obj, { category } from '../../interfaces/products';
 import ProductsCards from '../ProductsCards/ProductsCards';
 import Footer from '../Footer/Footer' 
-import './Home.css'
+import './Home.scss'
+import {Container} from 'react-bootstrap';
 
 function Home (){ 
     const producto = useSelector<StoreType, obj[]>((state) => state.filterProducts)
@@ -22,7 +23,7 @@ function Home (){
     }
 
     return (
-        <div>
+        <div id='home-container'>
             <div>
                 <h3 className='recomendados'>Categorias</h3>
                 <div className='bStyle'>
@@ -30,30 +31,30 @@ function Home (){
                     <div className='button'>
                     {categorias.map(c => {
                         return(
-                            <button type="button" className="btn btn-outline-secondary btn-space" onClick={() => handleClick(c.name)}>{c.name}</button>
+                            <button type="button" className="btn btn-outline-primary btn-space" onClick={() => handleClick(c.name)}>{c.name}</button>
                         )
                     })}
-                    <button className="btn btn-outline-secondary btn-space" onClick={() => dispatch(bringProducts())}>Go back</button>
+                    <button className="btn btn-outline-primary btn-space" onClick={() => dispatch(bringProducts())}>Go back</button>
                     </div>}
                 </div>
             </div>
-            <div>
+            <div id='separation'>
             <h2 className='recomendados'>Recomendados</h2>
-            <div>
+            <Container className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
             {producto &&
-                <div className="row row-cols-1 row-cols-md-2">
-                {producto.map( p => {
+                // <div className="row row-cols-1 row-cols-md-2">
+                producto.map( p => {
                     return (
-                        <ProductsCards
+                        <ProductsCards 
                         name = {p.name}
                         price = {p.price}
-                        image = {p.image}
-                        id = {p.id} />
+                        productId = {p.productId}
+                        //image = {p.image}
+                         />
                     )
-                })}
-                </div>
+                })
             }
-            </div>
+            </Container>
         </div>
         <div>
             <Footer />

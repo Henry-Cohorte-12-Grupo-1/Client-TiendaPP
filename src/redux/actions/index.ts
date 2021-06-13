@@ -2,6 +2,7 @@ import { ActionTypes } from "./types";
 import obj from '../../interfaces/products';
 import axios from 'axios';
 import { Dispatch } from 'redux';
+import {url} from "../../api";
 
 export const masUno = () => {
     return {
@@ -30,7 +31,7 @@ export interface ProductInfo {
 //Busca los detalles de un producto, por ahora hardcodeado del back
 export const productInfo = (id: string) => {
     return async (dispatch: Dispatch) => {
-        const productDetails = await axios.get<object>('http://localhost:3001/productDetails/' + id)
+        const productDetails = await axios.get<object>(`${url}/productDetails/${id}`)
         dispatch(
             {
                 type: ActionTypes.GET_DETAILS,
@@ -42,7 +43,7 @@ export const productInfo = (id: string) => {
 
 export const bringProducts = () => {
     return async (dispatch: Dispatch) => {
-        const productos = await axios.get<obj[]>('http://localhost:3001/products')                                                 
+        const productos = await axios.get<obj[]>(`${url}/product/getallproducts`)                                                 
             dispatch<AxiosProducts>({
                 type: ActionTypes.BRING_PRODUCTS,
                 payload: productos.data
@@ -62,7 +63,7 @@ export const bringUserProducts = (userName: string | null) => {
 
 
 export const getCategories = () => {
-   const URL: string = 'http://localhost:3001/categories';
+   const URL: string = `${url}/categories`;
    try{
        return async function (dispatch:any) {
            const productCategory = await axios.get(URL);
@@ -85,17 +86,36 @@ export const orderByCategories = (payload: string) => {
 }
 
 
-export const searchProduct = (product: string) => {
-    const URL: string = 'http://localhost:3001/search';
+export const searchProduct = (name: string) => {
+    const URL: string = `${url}/search`;
     const params = {
-        product
+        name
     }
     try {
         return async function (dispatch: any) {
             const productData = await axios.get(URL, { params });
             dispatch({
                 type: ActionTypes.SEARCH_PRODUCT,
-                products: productData,
+                products: productData.data,
+            })
+        }
+    }
+    catch (error) {
+        return console.log("No se pudo realizar la busqueda");
+    }
+}
+
+export const searchProductAC = (name: string) => {
+    const URL: string = `${url}/search`;
+    const params = {
+        name
+    }
+    try {
+        return async function (dispatch: any) {
+            const productData = await axios.get(URL, { params });
+            dispatch({
+                type: ActionTypes.SEARCH_PRODUCT_AC,
+                acList: productData.data,
             })
         }
     }
