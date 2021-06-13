@@ -113,7 +113,7 @@ export default function SearchBar() {
       ...state,
       product:''
     })
-    
+    history.push('/ProductsSearched');
   }
 
   
