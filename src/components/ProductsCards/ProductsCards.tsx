@@ -1,4 +1,3 @@
-//mport CSS from 'csstype'; 
 import './Products.css';
 
 function ProductsCards(props: {name: string; price: number; image: string, id?:number}){

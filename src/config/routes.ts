@@ -6,8 +6,22 @@ import Home from '../components/Home/Home';
 import User from '../components/User/User'
 import ProductDetails from '../components/ProductDetails/ProductDetails';
 import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
+import Landing from '../components/Landing/Landing';
+import AboutUs from '../components/AboutUs/AboutUs'
 
 const routes: IRoute[] = [
+    {
+        path:'/',
+        name:'Landing',
+        component:Landing,
+        exact:true
+    },
+    {
+        path:'/about',
+        name:'AboutUs',
+        component:AboutUs,
+        exact:true
+    },
     {
         path: '/login',
         name: 'Login',

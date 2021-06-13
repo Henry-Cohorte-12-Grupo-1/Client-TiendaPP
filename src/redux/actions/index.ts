@@ -2,6 +2,7 @@ import { ActionTypes } from "./types";
 import obj from '../../interfaces/products';
 import axios from 'axios';
 import { Dispatch } from 'redux';
+import {url} from "../../api";
 
 export const masUno = () => {
     return {
@@ -23,7 +24,7 @@ export interface ProductInfo {
 //Busca los detalles de un producto, por ahora hardcodeado del back
 export const productInfo = (id: string) => {
     return async (dispatch: Dispatch) => {
-        const productDetails = await axios.get<object>('http://localhost:3001/productDetails/' + id)
+        const productDetails = await axios.get<object>(`${url}/productDetails/${id}`)
         dispatch(
             {
                 type: ActionTypes.GET_DETAILS,
@@ -35,7 +36,7 @@ export const productInfo = (id: string) => {
 
 export const bringProducts = () => {
     return async (dispatch: Dispatch) => {
-        const productos = await axios.get<obj[]>('http://localhost:3001/products')                                                 
+        const productos = await axios.get<obj[]>(`${url}/products`)                                                 
             dispatch<AxiosProducts>({
                 type: ActionTypes.BRING_PRODUCTS,
                 payload: productos.data
@@ -44,7 +45,7 @@ export const bringProducts = () => {
 }
 
 export const getCategories = () => {
-   const URL: string = 'http://localhost:3001/categories';
+   const URL: string = `${url}/categories`;
    try{
        return async function (dispatch:any) {
            const productCategory = await axios.get(URL);
@@ -68,7 +69,7 @@ export const orderByCategories = (payload: string) => {
 
 
 export const searchProduct = (name: string) => {
-    const URL: string = 'http://localhost:3001/search';
+    const URL: string = `${url}/search`;
     const params = {
         name
     }
