@@ -28,7 +28,7 @@ function User() {
     dispatch(bringUserProducts(userName))
 
 
-  })
+  }, [])
 
   if (typeof userProducts === 'string') {
     return (
