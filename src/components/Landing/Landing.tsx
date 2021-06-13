@@ -9,9 +9,9 @@ function Landing() {
             <header className='hero'>
                 <div className='textos-hero'>
                     <h1>Welcome to TiendApp</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                    <p>Come in and find what you are looking for</p>
                     <Link to='/home'>
-                        <Button variant="outline-secondary">Lets go</Button>
+                        <Button variant="outline-secondary">Let's go</Button>
                     </Link>
                 </div>
                 <div className="svg-hero" style={{ height: "150px", overflow: "hidden" }}>
