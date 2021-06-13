@@ -2,6 +2,7 @@ import { ActionTypes } from "../actions/types";
 import obj, { category } from '../../interfaces/products';
 import detailedProduct from '../../interfaces/detailedProduct'
 import { Action } from "@cloudinary/base/internal/Action";
+import IUserProduct from "../../interfaces/userProducts";
 
 
 interface propsObj {
@@ -20,7 +21,7 @@ export interface StoreType {
     filterProducts: obj[];
     products: [];
     productDetails: detailedProduct
-    userProducts: obj[]
+    userProducts: IUserProduct[]
 }
 
 //State iniciales del store
@@ -41,7 +42,7 @@ const initialState: StoreType = {
         productId: "",
         userId: ""
     },
-    userProducts:[]
+    userProducts: []
 };
 
 interface actionI {
