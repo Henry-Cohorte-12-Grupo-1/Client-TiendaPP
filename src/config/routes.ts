@@ -3,7 +3,7 @@ import Login from '../components/Login/login'
 import Admin from '../components/Admin/admin'
 import ProductForm from '../components/ProductForm/ProductForm'
 import Home from '../components/Home/Home';
-import User from '../components/User/User'
+import UserProducts from '../components/UserProducts/UserProducts'
 import ProductDetails from '../components/ProductDetails/ProductDetails';
 import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
 import Landing from '../components/Landing/Landing';
@@ -11,16 +11,16 @@ import AboutUs from '../components/AboutUs/AboutUs'
 
 const routes: IRoute[] = [
     {
-        path:'/',
-        name:'Landing',
-        component:Landing,
-        exact:true
+        path: '/',
+        name: 'Landing',
+        component: Landing,
+        exact: true
     },
     {
-        path:'/about',
-        name:'AboutUs',
-        component:AboutUs,
-        exact:true
+        path: '/about',
+        name: 'AboutUs',
+        component: AboutUs,
+        exact: true
     },
     {
         path: '/login',
@@ -31,7 +31,7 @@ const routes: IRoute[] = [
     {
         path: '/user/',
         name: 'User',
-        component: User,
+        component: UserProducts,
         exact: true
     },
     {
@@ -56,7 +56,7 @@ const routes: IRoute[] = [
         path: '/ProductsSearched',
         name: 'ProductsSearched',
         component: ProductsSearched,
-        exact:true
+        exact: true
     },
     {
         path: '/admin',
