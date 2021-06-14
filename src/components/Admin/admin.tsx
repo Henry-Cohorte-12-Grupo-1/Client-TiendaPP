@@ -1,7 +1,7 @@
 import axios from "axios";
-import { send } from "process";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { url } from "../../api";
 
 function Admin() {
     const [category, setCategory] = useState<string>()
@@ -11,7 +11,7 @@ function Admin() {
 
     useEffect(() => {
         (async () => {
-            var resp = await axios.get('http://localhost:3001/categories')
+            var resp = await axios.get(`${url}/categories`)
             var categoriesArray: string[] = resp.data.map((category: any) => category.name)
             setCategories(categoriesArray)
             setInitial(categoriesArray)
@@ -21,8 +21,8 @@ function Admin() {
 
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault()
-        let sendCategories:string[] = []
-        categories.map(category => initialCategories.includes(category)?null:sendCategories.push(category))
+        let sendCategories: string[] = []
+        categories.map(category => initialCategories.includes(category) ? null : sendCategories.push(category))
         // console.log(sendCategories.join(' - '))
         // console.log(deleteCategories.join(' - '))
 
@@ -30,13 +30,13 @@ function Admin() {
         let oldCategories = deleteCategories.join(' - ')
 
         let sendObject = {
-            newCategories:newCategories,
-            oldCategories:oldCategories
+            newCategories: newCategories,
+            oldCategories: oldCategories
         }
 
         console.log(sendObject)
 
-        const response = await axios.put('http://localhost:3001/updateCategories', sendObject)
+        const response = await axios.put(`${url}/updateCategories`, sendObject)
             .catch(() => alert('No se creo el producto'))
         console.log(response)
     }
@@ -47,7 +47,7 @@ function Admin() {
 
     const addCategory = (event: any) => {
         event.preventDefault()
-        if (category && !categories.includes(category)){
+        if (category && !categories.includes(category)) {
             setCategories([...categories, category])
         }
     }
@@ -59,7 +59,7 @@ function Admin() {
             setDeleteCategories([...deleteCategories, event.target.value])
         }
     }
-    
+
     return (
         <Container>
             <Form className='bg-warning p-5 rounded'>

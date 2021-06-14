@@ -5,7 +5,7 @@ import axios from 'axios'
 import './styles.scss'
 import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { url } from "../../api";
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
 function ProductForm() {
@@ -29,7 +29,7 @@ function ProductForm() {
 
     useEffect(() => {
         (async () => {
-            let resp = await axios.get('http://localhost:3001/categories')
+            let resp = await axios.get(`${url}/categories`)
             let categoriesArray: string[] = resp.data.map((category: any) => category.name)
             setCategories(categoriesArray)
         })()
@@ -91,7 +91,7 @@ function ProductForm() {
 
             }
             console.log(newProduct)
-            const response = await axios.post('http://localhost:3001/product', newProduct)
+            const response = await axios.post(`${url}/product`, newProduct)
                 .catch(() => alert('No se creo el producto'))
             console.log(response)
             if (response) {
@@ -107,7 +107,6 @@ function ProductForm() {
             ...product,
             categoryId: (categories.findIndex(category => category === event.target.value) + 1),
             category: event.target.value
-
         })
     }
 
@@ -176,7 +175,6 @@ function ProductForm() {
                                     id="inputGroupFile01"
                                     aria-describedby="inputGroupFileAddon01"
                                     onChange={imageChangeHandler} />
-                                {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
                             </div>
                             <Container>
                                 {imagesName.length > 0 ?

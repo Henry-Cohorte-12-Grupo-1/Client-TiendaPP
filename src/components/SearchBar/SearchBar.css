@@ -1,15 +1,67 @@
 #buttonSearch {
     color: #2c666e;
-    border-bottom: 1px solid #2c666e;
-    border-radius: 0;
+    border: 1px solid #2c666e;
+    border-radius: 5px;
+    height: 38px;
+    width: 160px;
 }
 
 #buttonSearch:hover{
     background-color: #2c666e;
     color: #fff;
-    border-bottom: 1px solid #fff;
+    border: 1px solid #fff;
 }
 
-.d-flex{
+#searchBarForm{
     margin-right: 2rem;
+    position: absolute;
+    z-index: 1;
+    right: 0px;
 }
+
+.suggestions {
+    border: 1px solid #999;
+    border-top-width: 0;
+    list-style: none;
+    margin-top: 0;
+    max-height: 143px;
+    overflow-y: auto;
+    padding-left: 0;
+    width: calc(300px + 1rem);
+    position: absolute;
+    z-index: 2;
+    top: 48px;
+    background-color: rgb(252, 252, 252, 0.6);
+  }
+  
+  .suggestions li {
+    padding: 0.5rem;
+  }
+  
+  .suggestion-active,
+  .suggestions li:hover {
+    background-color: rgb(0, 22, 122, 0.5);
+    color: #fcfcfc;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .no-suggestions {
+    color: rgb(8, 7, 7);
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 2;
+    top: 48px;
+    background-color: rgb(252, 252, 252, 0.6);
+    border-radius: 5px;
+  }
+
+  .SBerror {
+    color: rgb(8, 7, 7);
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 2;
+    top: 94px;
+    background-color: rgba(253, 52, 52, 0.6);
+    border-radius: 5px;
+  }
