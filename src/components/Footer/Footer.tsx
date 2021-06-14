@@ -21,7 +21,7 @@ function Footer() {
                     <div className='footer-col'>
                         <h4>Help</h4>
                         <ul>
-                            <li><a href='#'>Learn how to sell and buy what you want</a></li> {/* eslint-disable-line */}
+                            <li><a className='noFunctional'>Learn how to sell and buy what you want</a></li> {/* eslint-disable-line */}
                         </ul>
                     </div>
                 </div>
