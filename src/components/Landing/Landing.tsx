@@ -1,6 +1,5 @@
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Footer from '../Footer/Footer';
 import './Landing.scss'
 
 function Landing() {
@@ -22,7 +21,7 @@ function Landing() {
             </header>
 
             <section className="cardsL contenedor">
-                <div className="content-cardsL">
+                {/* <div className="content-cardsL">
                     <article className="cardL">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
@@ -47,13 +46,11 @@ function Landing() {
                         <h3>Enjoy</h3>
                         <p>Enjoy your product in the comfort of your home.</p>
                     </article>
-                </div>
+                </div> */}
             </section>
 
 
-            <div style={{ maxWidth: '100vw' }}>
-                <Footer />
-            </div>
+
         </div>
     )
 }

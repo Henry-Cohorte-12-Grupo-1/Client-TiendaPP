@@ -5,6 +5,7 @@ import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import routes from '../../config/routes'
 import Nav from '../Nav/Nav';
+import Footer from '../Footer/Footer'
 
 //redux stuff
 import { StoreType } from "../../redux/reducers/index";
@@ -25,24 +26,27 @@ function App() {
         <div className="App">
             <button onClick={onButtonClick}>{counter}</button>
             <Nav />
-            <Switch>
-                {routes.map((route, index) => {
-                    return (
-                        <Route
-                            key={index}
-                            path={route.path}
-                            exact={route.exact}
-                            render={(props: RouteComponentProps<any>) => (
-                                <route.component
-                                    name={route.name}
-                                    {...props}
-                                    {...route.props}
-                                />
-                            )}
-                        />
-                    )
-                })}
-            </Switch>
+            <div style={{ minHeight: "80vh" }}>
+                <Switch>
+                    {routes.map((route, index) => {
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                exact={route.exact}
+                                render={(props: RouteComponentProps<any>) => (
+                                    <route.component
+                                        name={route.name}
+                                        {...props}
+                                        {...route.props}
+                                    />
+                                )}
+                            />
+                        )
+                    })}
+                </Switch>
+            </div>
+            <Footer />
 
         </div>
     );

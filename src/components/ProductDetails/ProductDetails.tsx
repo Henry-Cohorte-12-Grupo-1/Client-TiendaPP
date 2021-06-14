@@ -42,7 +42,7 @@ function ProductDetails(props: Props) {
     )
   }
   return (
-    <Container>
+    <Container className="mb-5">
       <div>
         <h2 className="text-center mt-5 mb-5">
           {details.name}
