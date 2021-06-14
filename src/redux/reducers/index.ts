@@ -3,31 +3,33 @@ import obj, { category } from '../../interfaces/products';
 import detailedProduct from '../../interfaces/detailedProduct'
 import IUserProduct from "../../interfaces/userProducts";
 
-
-interface propsObj {
-    id: number,
-    Images: [],
-    name: string,
-    description: string,
-    price: number,
-}
-
-interface ProductsType {
-    products: propsObj[],
-    pages: string,
-}
-
-//Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
+// Interface de Store NO CAMBIAR DE LUGAR
 export interface StoreType {
     counter: number;
     productList: obj[];
     filter: category[];
     filterProducts: obj[];
-    products: ProductsType;
-    acList: ProductsType;
+    products: IProductsType;
+    acList: IProductsType;
     productDetails: detailedProduct
     userProducts: IUserProduct[]
 }
+
+export interface IPropsObj {
+    id: number,
+    Images: [],
+    name: string,
+    description: string,
+    price: number,
+    productId: string
+}
+
+export interface IProductsType {
+    products: IPropsObj[],
+    pages: string,
+}
+
+//Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
 
 //State iniciales del store
 const initialState: StoreType = {
@@ -57,7 +59,7 @@ const initialState: StoreType = {
     userProducts: []
 };
 
-interface actionI {
+interface IAction {
     type: number;
     payload: obj[];
     filter: category[];
@@ -69,7 +71,7 @@ interface actionI {
 
 export default function reducer(
     state: StoreType = initialState,
-    action: actionI
+    action: IAction
 ) {
     switch (action.type) {
         case ActionTypes.ADD_ONE:

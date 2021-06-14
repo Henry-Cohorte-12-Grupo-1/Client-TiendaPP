@@ -86,17 +86,16 @@ function ProductForm() {
                 description: product.description,
                 price: product.price,
                 categoryId: product.categoryId,
-                images: imagesName,
+                images: imagesName.join(' - '),
                 quantity: product.quantity,
 
             }
             console.log(newProduct)
             const response = await axios.post(`${url}/product`, newProduct)
                 .catch(() => alert('No se creo el producto'))
-            console.log(response)
             if (response) {
-                alert(response.data);
-                history.push('/client');
+                alert('Producto creado');
+                history.push(`/product/${response.data}`);
             }
         }
     }
@@ -166,44 +165,44 @@ function ProductForm() {
 
 
                     </Col>
-                        <Col md>
-                            <div className="custom-file mt-2">
-                                <label>Agregar Imagen</label>
-                                <input
-                                    type="file"
-                                    className="h6 flat w-100"
-                                    id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01"
-                                    onChange={imageChangeHandler} />
-                            </div>
-                            <Container>
-                                {imagesName.length > 0 ?
-                                    <Carousel>
-                                        {imagesName.map((name, i) => (
-                                            <Carousel.Item key={i}>
-                                                <Button className="carrousel-btn btn-primary" onClick={() => handleDelete(i)}>X</Button>
-                                                <img
-                                                    key={i}
-                                                    className="carrousel-img"
-                                                    src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
-                                                    alt="First slide"
-                                                />
-                                            </Carousel.Item>
-                                        )
-                                        )}
-                                    </Carousel> :
-                                    null}
-                            </Container>
-                        </Col>
+                    <Col md>
+                        <div className="custom-file mt-2">
+                            <label>Agregar Imagen</label>
+                            <input
+                                type="file"
+                                className="h6 flat w-100"
+                                id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01"
+                                onChange={imageChangeHandler} />
+                        </div>
+                        <Container>
+                            {imagesName.length > 0 ?
+                                <Carousel>
+                                    {imagesName.map((name, i) => (
+                                        <Carousel.Item key={i}>
+                                            <Button className="carrousel-btn btn-primary" onClick={() => handleDelete(i)}>X</Button>
+                                            <img
+                                                key={i}
+                                                className="carrousel-img"
+                                                src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
+                                                alt="First slide"
+                                            />
+                                        </Carousel.Item>
+                                    )
+                                    )}
+                                </Carousel> :
+                                null}
+                        </Container>
+                    </Col>
                 </Row>
-                    <Row>
-                        <Col className="text-center" md>
-                            {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
-                                <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Enviar</Button> :
-                                <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Enviar</Button>
-                            }
-                        </Col>
-                    </Row>
+                <Row>
+                    <Col className="text-center" md>
+                        {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
+                            <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Enviar</Button> :
+                            <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Enviar</Button>
+                        }
+                    </Col>
+                </Row>
             </Form>
         </Container>
     )

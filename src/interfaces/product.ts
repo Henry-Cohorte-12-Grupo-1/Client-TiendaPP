@@ -2,13 +2,11 @@ export interface IProduct {
     name: string,
     description: string,
     price: number,
-    images?: Array<string>
+    images?: string
     categoryId?: number | undefined
     quantity: number,
     category?: string
 }
-
-
 export interface IError {
     name?: boolean,
     description?: boolean,

@@ -111,7 +111,7 @@ function ProductEdit() {
                 description: product.description,
                 price: product.price,
                 categoryId: product.categoryId,
-                images: imagesName,
+                images: imagesName.join(' - '),
                 quantity: product.quantity,
 
             }
