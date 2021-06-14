@@ -15,7 +15,7 @@ function AboutUs() {
         <div className='team-section'>
             <div className='marginAbout'>
                 <h1>Our Team</h1>
-                <span className='border'></span>
+                <span className='aboutUsBorder'></span>
                 <div className='ps'>
                     <a href='https://www.linkedin.com/in/santillandario/'><img src={logo1} alt='not found'></img></a>
                     <a href='https://www.linkedin.com/in/pedro-maresc/'><img src={logo6} alt='not found'></img></a>
@@ -29,7 +29,7 @@ function AboutUs() {
                 </div>
                 <div className='sectionAbout'>
                     <span className='nameA'>About the project</span>
-                    <span className='border'></span>
+                    <span className='aboutUsBorder'></span>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
                 <Footer />

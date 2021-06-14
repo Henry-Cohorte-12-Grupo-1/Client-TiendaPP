@@ -3,7 +3,7 @@ export interface IProduct {
     description: string,
     price: number,
     images?: Array<string>
-    categoryId?: number
+    categoryId?: number | undefined
     quantity: number,
     category?: string
 }
