@@ -61,28 +61,30 @@ function Admin() {
     }
 
     return (
-        <Container>
-            <Form className='bg-warning p-5 rounded'>
-                <Form.Label className='text-secondary'>Admin Dashboard</Form.Label>
+
+        <Container className="border shadow mt-4">
+            <h1 className="mt-4">Admin Dashboard</h1>
+            <Form className="p-5">
                 <Row>
                     <Col>
                         <br></br>
-                        <Form.Label className='text-secondary'>Add Category</Form.Label>
+                        <Form.Label >Add Category</Form.Label>
                         <Form.Control type='input' placeholder="New..." name='category' onChange={handleCategoryChange} />
                     </Col>
                     <Col>
-                        <Button className="m-5 w-25" variant="secondary" type="submit" onClick={addCategory} >Add</Button>
+                        <Button className="m-5 w-25" variant="primary" type="submit" onClick={addCategory} >Add</Button>
                     </Col>
                 </Row>
-                <Form.Label className='text-secondary'>Categories</Form.Label>
+                <Form.Label>Categories</Form.Label>
                 <Form.Control as="select" multiple >
-                    {categories.map((category, i) => (
+                    {categories.map((category) => (
                         <option value={category} onDoubleClick={handleDelete}>{category}</option>
                     ))}
                 </Form.Control>
-                <Button className="m-5 w-25" variant="secondary" type="submit" onClick={handleSubmit} >Save</Button>
+                <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>
             </Form>
         </Container>
+
     );
 };
 

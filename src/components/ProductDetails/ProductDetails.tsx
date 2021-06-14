@@ -70,7 +70,7 @@ function ProductDetails(props: Props) {
           </Container>
         </Container>
         <h2 className="text-center mt-4">Reviews</h2>
-        {details.Reviews.length && details.Reviews
+        {details.Reviews.length ? (details.Reviews
           .map(rev => {
             return (
               <div className="card center">
@@ -98,7 +98,8 @@ function ProductDetails(props: Props) {
                 </div>
               </div>
             )
-          })}
+          })) : (<label>No reviews yet :'( </label>)
+        }
       </div>
     </Container>
   )
