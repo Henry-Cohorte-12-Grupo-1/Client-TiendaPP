@@ -24,7 +24,7 @@ function App() {
 
     return (
         <div className="App">
-            <button onClick={onButtonClick}>{counter}</button>
+            <button style={{ display: 'none' }} onClick={onButtonClick}>{counter}</button>
             <Nav />
             <div style={{ minHeight: "80vh" }}>
                 <Switch>

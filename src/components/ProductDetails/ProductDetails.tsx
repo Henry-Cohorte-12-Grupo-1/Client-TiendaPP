@@ -14,7 +14,6 @@ interface MatchParams {
 }
 interface Props extends RouteComponentProps<MatchParams> {
 }
-
 function ProductDetails(props: Props) {
 
   const id = props.match.params.id

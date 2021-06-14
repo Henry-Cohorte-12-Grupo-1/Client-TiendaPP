@@ -24,6 +24,7 @@ interface propsObj {
     name: string;
     description: string;
     price: number;
+    productId: string
 }
 
 interface ProductsType {

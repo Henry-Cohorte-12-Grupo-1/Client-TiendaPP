@@ -1,28 +1,18 @@
 import { useSelector } from "react-redux";
-import { StoreType } from '../../redux/reducers/index'
+import { StoreType, IProductsType } from '../../redux/reducers/index'
 import ProductsCards from '../ProductsCards/ProductsCards';
+import { Container } from 'react-bootstrap'
 
 
 export default function ProductsSearched() {
 
-  interface propsObj {
-    Images: [],
-    name: string,
-    description: string,
-    price: number,
-  }
 
-  interface ProductsType {
-    products: propsObj[],
-    pages: string,
-  }
-
-  const products = useSelector<StoreType, ProductsType>((state) => state.products);
+  const products = useSelector<StoreType, IProductsType>((state) => state.products);
   console.log("productssss: ", products.products[0])
 
 
   return (
-    <div>
+    <Container>
       {products.products && products.products.length === 0 ? (
         <h1>No Products to show</h1>
       ) : (
@@ -32,9 +22,10 @@ export default function ProductsSearched() {
             images={el.Images}
             name={el.name}
             price={el.price}
+            productId={el.productId}
           />)}
         </div>
       )}
-    </div>
+    </Container>
   );
 }
