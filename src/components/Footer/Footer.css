@@ -77,6 +77,10 @@ ul{
     padding-left: 10px;
 }
 
+.noFunctional {
+    cursor: default;
+}
+
 @media(max-widht: 767px){
     .footer-col{
         width: 50%;
