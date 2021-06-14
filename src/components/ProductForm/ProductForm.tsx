@@ -86,7 +86,7 @@ function ProductForm() {
                 description: product.description,
                 price: product.price,
                 categoryId: product.categoryId,
-                images: imagesName.join(' - '),
+                joinedImage: imagesName.join(' - '),
                 quantity: product.quantity,
 
             }

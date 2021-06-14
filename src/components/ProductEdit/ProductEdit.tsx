@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
 
 function ProductEdit() {
+    const [initialImages, setInitialImages] = useState<string>("")
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
     const [categories, setCategories] = useState<ICategories[]>([])
@@ -27,7 +28,9 @@ function ProductEdit() {
     const history = useHistory();
 
     let location = useLocation()
+
     let id = new URLSearchParams(location.search).get('id')
+
 
     useEffect(() => {
         (async () => {
@@ -39,9 +42,16 @@ function ProductEdit() {
                 price: resp.data.price,
                 quantity: resp.data.quantity,
                 categoryId: resp.data.categoryId,
-                images: resp.data.Images
+                images: resp.data.Images,
+                productId: id
             })
-            setImagesName([...imagesName, ...resp.data.Images])
+            let imgArr: string[] = []
+            resp.data.Images?.forEach((i: any) => {
+                imgArr.push(i.imageId)
+            })
+
+            setInitialImages(imgArr.join(' - '))
+
             setErrors({
                 name: false,
                 description: false,
@@ -49,6 +59,18 @@ function ProductEdit() {
             })
         })()
     }, [])//eslint-disable-line
+
+
+    useEffect(() => {
+        console.log('Product images', product.images)
+        console.log('Images name', imagesName)
+        let imgArr: string[] = []
+        product.images?.forEach((i: any) => {
+            imgArr.push(i.imageId)
+        })
+        setImagesName(imgArr)
+
+    }, [product.images])//eslint-disable-line
 
 
     useEffect(() => {
@@ -103,7 +125,7 @@ function ProductEdit() {
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
         if (errors?.name === true || errors?.description === true || errors?.price === true) {
-            alert('No se creo el producto')
+            alert('error')
         } else {
 
             const newProduct: IProduct = {
@@ -111,15 +133,17 @@ function ProductEdit() {
                 description: product.description,
                 price: product.price,
                 categoryId: product.categoryId,
-                images: imagesName.join(' - '),
+                joinedImage: imagesName.join(' - '),
                 quantity: product.quantity,
-
+                initialImages: initialImages,
+                productId: product.productId
             }
-            const response = await axios.post(`${url}/product`, newProduct)
-                .catch(() => alert('No se creo el producto'))
+            console.log(newProduct)
+            const response = await axios.put(`${url}/product`, newProduct)
+                .catch(() => alert('error'))
             if (response) {
-                alert(response.data);
-                history.push('/client');
+                alert('Updated Product');
+                history.push(`/product/${response.data}`);
             }
         }
     }
@@ -222,7 +246,6 @@ function ProductEdit() {
                     </Row>
                     <Row>
                         <Col className="text-center" md>
-                            {console.log(errors, product)}
                             {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
                                 <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Enviar</Button> :
                                 <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Enviar</Button>
