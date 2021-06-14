@@ -1,8 +1,21 @@
-export default interface IProduct {
+export interface IProduct {
     name: string,
     description: string,
     price: number,
     images?: Array<string>
-    category?: number
-    quantity: number
+    categoryId?: number
+    quantity: number,
+    category?: string
+}
+
+
+export interface IError {
+    name?: boolean,
+    description?: boolean,
+    price?: boolean,
+}
+
+export interface ICategories {
+    name: string,
+    id: number,
 }
