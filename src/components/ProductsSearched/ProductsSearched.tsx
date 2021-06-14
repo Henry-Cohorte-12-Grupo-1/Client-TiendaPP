@@ -16,7 +16,7 @@ export default function ProductsSearched() {
       {products.products && products.products.length === 0 ? (
         <h1>No Products to show</h1>
       ) : (
-        <div>
+        <div id="homeContainer" className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
           {products.products.map((el): any => <ProductsCards
             image=""
             images={el.Images}
