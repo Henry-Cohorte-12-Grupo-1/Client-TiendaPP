@@ -126,46 +126,46 @@ function ProductForm() {
     return (
         <Container>
             <h1 className="mt-4">
-                Crear producto
+                Create Product
             </h1>
             <Form className='p-5 border shadow'>
                 <Row>
                     <Col md>
                         <Form.Group controlId="name">
-                            <Form.Label>Nombre del producto</Form.Label>
+                            <Form.Label>Product Name</Form.Label>
                             <Form.Control className='label-success' type='input' placeholder="Name" name='name' onBlur={handleChange} />
                             {errors?.name ? <Form.Text className="text-muted">
-                                Nombre no puede estar vacio
+                                Name can not be empty
                             </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
                         </Form.Group>
 
                         <Form.Group controlId="description">
-                            <Form.Label>Descripción</Form.Label>
+                            <Form.Label>Description</Form.Label>
                             <Form.Control as="textarea" rows={3} name='description' placeholder="Description" onBlur={handleChange} />
                             {errors?.description ? <Form.Text className="text-muted">
-                                La descripcion no puede estar vacia
+                                Description can not be empty
                             </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
                         </Form.Group>
 
                         <Row>
                             <Col>
-                                <Form.Label>Precio</Form.Label>
+                                <Form.Label>Price</Form.Label>
                                 <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} />
                             </Col>
                             <Col>
-                                <Form.Label>Cantidad</Form.Label>
+                                <Form.Label>Quantity</Form.Label>
                                 <input name='quantity' onBlur={handleChange} className="form-control" type='number' min="1" max="1000" defaultValue='1'></input>
                             </Col>
                         </Row>
 
                         {errors?.price ? <Form.Text className='text-muted'>
-                            Debe indicar un precio
+                            Price can not be empty
                         </Form.Text> : <Form.Text className='text-secondary'>&#160;</Form.Text>}
 
 
 
                         <br></br>
-                        <Form.Label>Categoría</Form.Label>
+                        <Form.Label>Category</Form.Label>
                         <Form.Control as="select" onChange={handleCategoryChange}>
                             <option value="" selected disabled hidden>Choose here</option>
                             {categories.map((category, i) => (
@@ -177,7 +177,7 @@ function ProductForm() {
                     </Col>
                     <Col md>
                         <div className="custom-file mt-2">
-                            <label>Agregar Imagen</label>
+                            <label>Add image</label>
                             <input
                                 type="file"
                                 className="h6 flat w-100"
@@ -208,8 +208,8 @@ function ProductForm() {
                 <Row>
                     <Col className="text-center" md>
                         {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
-                            <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Enviar</Button> :
-                            <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Enviar</Button>
+                            <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Send</Button> :
+                            <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Send</Button>
                         }
                     </Col>
                 </Row>

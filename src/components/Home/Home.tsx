@@ -24,7 +24,7 @@ function Home() {
     return (
         <div id='home-container'>
             <div>
-                <h3 className='recomendados'>Categorias</h3>
+                <h3 className='recomendados'>Categories</h3>
                 <div className='bStyle'>
                     {categorias &&
                         <div className='button'>
