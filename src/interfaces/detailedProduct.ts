@@ -14,7 +14,7 @@ export default interface detailedProduct {
     categoryId: number;
     description: string;
     name: string;
-    price: string;
+    price: number;
     productId: string;
     userId: string;
     quantity: number

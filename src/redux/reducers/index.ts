@@ -50,7 +50,7 @@ const initialState: StoreType = {
         categoryId: 0,
         description: "",
         name: "",
-        price: "",
+        price: 0,
         productId: "",
         userId: ""
     },
