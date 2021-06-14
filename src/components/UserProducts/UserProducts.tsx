@@ -56,7 +56,7 @@ function User() {
                   images={p.Images}
                   image=""
                   productId={p.productId}
-                  editId={'edit/' + userName + "/" + p.productId} />
+                  editId={'product/edit?id=' + p.productId} />
                 //url = { p }
               )
             })}

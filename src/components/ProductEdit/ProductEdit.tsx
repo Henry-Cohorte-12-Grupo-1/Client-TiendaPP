@@ -6,6 +6,7 @@ import axios from 'axios'
 import './styles.scss'
 import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { url } from "../../api";
 
 function ProductEdit() {
     const [image, setImage] = useState<File>()
@@ -28,10 +29,9 @@ function ProductEdit() {
     let location = useLocation()
     let id = new URLSearchParams(location.search).get('id')
 
-
     useEffect(() => {
         (async () => {
-            let resp = await axios.get(`http://localhost:3001/product/?product=${id}`)
+            let resp = await axios.get(`${url}/product/?product=${id}`)
             setProduct({
                 ...product,
                 name: resp.data.name,
@@ -48,15 +48,16 @@ function ProductEdit() {
                 price: false,
             })
         })()
-    }, [])
+    }, [])//eslint-disable-line
+
 
     useEffect(() => {
         (async () => {
-            let resp = await axios.get('http://localhost:3001/categories')
+            let resp = await axios.get(`${url}/categories`)
             let categoriesArray: ICategories[] = resp.data.map((category: any) => ({ name: category.name, id: category.categoryId }))
             setCategories([...categories, ...categoriesArray])
         })()
-    }, [])
+    }, [])//eslint-disable-line
 
     useEffect(() => {
         (async () => {
@@ -114,7 +115,7 @@ function ProductEdit() {
                 quantity: product.quantity,
 
             }
-            const response = await axios.post('http://localhost:3001/product', newProduct)
+            const response = await axios.post(`${url}/product`, newProduct)
                 .catch(() => alert('No se creo el producto'))
             if (response) {
                 alert(response.data);
@@ -134,99 +135,103 @@ function ProductEdit() {
     function handleDelete(i: number) {
         setImagesName(imagesName.filter(image => (image !== imagesName[i])))
     }
+    if (!product.name) {
+        return (
+            <div></div>
+        )
+    } else
+        return (
+            <Container>
+                <h1 className="mt-4">
+                    Crear producto
+                </h1>
+                <Form className='border shadow p-5'>
+                    <Row>
+                        <Col md>
+                            <Form.Group controlId="name">
+                                <Form.Label>Nombre del producto</Form.Label>
+                                <Form.Control className='label-success' type='input' placeholder="Name" name='name' defaultValue={product.name} onBlur={handleChange} />
+                                {errors?.name ? <Form.Text className="text-muted">
+                                    Nombre no puede estar vacio
+                                </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
+                            </Form.Group>
 
-    return (
-        <Container>
-            <h1 className="mt-4">
-                Crear producto
-            </h1>
-            <Form className='border shadow p-5'>
-                <Row>
-                    <Col md>
-                        <Form.Group controlId="name">
-                            <Form.Label>Nombre del producto</Form.Label>
-                            <Form.Control className='label-success' type='input' placeholder="Name" name='name' defaultValue={product.name} onBlur={handleChange} />
-                            {errors?.name ? <Form.Text className="text-muted">
-                                Nombre no puede estar vacio
-                            </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
-                        </Form.Group>
+                            <Form.Group controlId="description">
+                                <Form.Label>Descripción</Form.Label>
+                                <Form.Control as="textarea" rows={3} name='description' placeholder="Description" defaultValue={product.description} onBlur={handleChange} />
+                                {errors?.description ? <Form.Text className="text-muted">
+                                    La descripcion no puede estar vacia
+                                </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
+                            </Form.Group>
 
-                        <Form.Group controlId="description">
-                            <Form.Label>Descripción</Form.Label>
-                            <Form.Control as="textarea" rows={3} name='description' placeholder="Description" defaultValue={product.description} onBlur={handleChange} />
-                            {errors?.description ? <Form.Text className="text-muted">
-                                La descripcion no puede estar vacia
-                            </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
-                        </Form.Group>
+                            <Row>
+                                <Col>
+                                    <Form.Label>Precio</Form.Label>
+                                    <Form.Control value={product.price} name='price' onChange={handleChange} />
+                                </Col>
+                                <Col>
+                                    <Form.Label>Cantidad</Form.Label>
+                                    <input value={product.quantity} name='quantity' onChange={handleChange} className="form-control" type='number' min="0" max="1000" ></input>
+                                </Col>
+                            </Row>
 
-                        <Row>
-                            <Col>
-                                <Form.Label>Precio</Form.Label>
-                                <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} defaultValue={product.price} />
-                            </Col>
-                            <Col>
-                                <Form.Label>Cantidad</Form.Label>
-                                <input defaultValue={product.quantity} name='quantity' onBlur={handleChange} className="form-control" type='number' min="0" max="1000" ></input>
-                            </Col>
-                        </Row>
+                            {errors?.price ? <Form.Text className='text-muted'>
+                                Debe indicar un precio
+                            </Form.Text> : <Form.Text>&#160;</Form.Text>}
 
-                        {errors?.price ? <Form.Text className='text-muted'>
-                            Debe indicar un precio
-                        </Form.Text> : <Form.Text>&#160;</Form.Text>}
+                            <br></br>
+                            <Form.Label>Categoría</Form.Label>
+                            <Form.Control value={categories && categories[0] ? (categories[categories.findIndex(category => category.id === product.categoryId)].name) : undefined} as="select" onChange={handleCategoryChange}>
+                                <option value="" selected disabled hidden>Choose here</option>
+                                {categories.map((category, i) => (
+                                    <option value={categories[i].name}>{category.name}</option>
+                                ))}
+                            </Form.Control>
 
-                        <br></br>
-                        <Form.Label>Categoría</Form.Label>
-                        <Form.Control value={categories[0] ? (categories[categories.findIndex(category => category.id === product.categoryId)].name) : undefined} as="select" onChange={handleCategoryChange}>
-                            <option value="" selected disabled hidden>Choose here</option>
-                            {categories.map((category, i) => (
-                                <option value={categories[i].name}>{category.name}</option>
-                            ))}
-                        </Form.Control>
-
-                    </Col>
-                    <Col md>
-                        <div className="custom-file mt-2">
-                            <label>Agregar Imagen</label>
-                            <input
-                                type="file"
-                                className="h6 flat w-100"
-                                id="inputGroupFile01"
-                                aria-describedby="inputGroupFileAddon01"
-                                onChange={imageChangeHandler} />
-                            {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
-                        </div>
-                        <Container>
-                            {imagesName.length > 0 ?
-                                <Carousel>
-                                    {imagesName.map((name, i) => (
-                                        <Carousel.Item key={i}>
-                                            <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
-                                            <img
-                                                key={i}
-                                                className="carrousel-img"
-                                                src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
-                                                alt="First slide"
-                                            />
-                                        </Carousel.Item>
-                                    )
-                                    )}
-                                </Carousel> :
-                                null}
-                        </Container>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="text-center" md>
-                        {console.log(errors, product)}
-                        {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
-                            <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Enviar</Button> :
-                            <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Enviar</Button>
-                        }
-                    </Col>
-                </Row>
-            </Form>
-        </Container>
-    )
+                        </Col>
+                        <Col md>
+                            <div className="custom-file mt-2">
+                                <label>Agregar Imagen</label>
+                                <input
+                                    type="file"
+                                    className="h6 flat w-100"
+                                    id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01"
+                                    onChange={imageChangeHandler} />
+                                {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
+                            </div>
+                            <Container>
+                                {imagesName.length > 0 ?
+                                    <Carousel>
+                                        {imagesName.map((name, i) => (
+                                            <Carousel.Item key={i}>
+                                                <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
+                                                <img
+                                                    key={i}
+                                                    className="carrousel-img"
+                                                    src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
+                                                    alt="First slide"
+                                                />
+                                            </Carousel.Item>
+                                        )
+                                        )}
+                                    </Carousel> :
+                                    null}
+                            </Container>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className="text-center" md>
+                            {console.log(errors, product)}
+                            {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
+                                <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Enviar</Button> :
+                                <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Enviar</Button>
+                            }
+                        </Col>
+                    </Row>
+                </Form>
+            </Container>
+        )
 }
 
 
