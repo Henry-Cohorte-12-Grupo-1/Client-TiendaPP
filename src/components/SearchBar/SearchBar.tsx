@@ -20,7 +20,7 @@ interface errorState {
 
 interface propsObj {
   id: number,
-  image: string,
+  Images: [],
   name: string,
   description: string,
   price: number,
@@ -31,20 +31,14 @@ interface ProductsType {
   pages: string,
 }
 
-
 // Función para validar el input del form controlado
-
-
 function validate(state: localState) {
-
   let errors: errorState = {
     product: ''
   };
-
   if (!/^[a-zA-Z0-9 ]*$/.test(state.product)) {
     errors.product = 'Use only alphanumeric characters';
   }
-
   return errors;
 };
 
@@ -58,11 +52,11 @@ export default function SearchBar() {
 
   console.log('products', productsState);
   console.log('ACLIST', acListState)
-  // Creo 2 Estados locales. El primero, en product va a guardar el string ingresado en la SearchBar por el user
+  // Creo 2 Estados locales. El primero, en product va a guardar el 
+  // string ingresado en la SearchBar por el user
   // para luego despachar una action, y pegarle a la API
   // EL segundo Estado local, es para hacer que el formulario se controlado
 
-  // HASTA ACA
 
   const [state, setState] = useState({
     activeSuggestion: 0,
@@ -76,9 +70,9 @@ export default function SearchBar() {
   });
 
 
-  //Funcion que maneja los Estados locales, en el 1er caso para el mensaje de error a través de la funcion Validate, 
+  //Función que maneja los Estados locales, en el 1er caso para el mensaje de error 
+  //a través de la función Validate, 
   // y en el segundo para guardar el valor de lo ingresado en el input por el usuario
-
   const handleInputChange = (e: any): void => {
 
     e.preventDefault();
@@ -100,11 +94,8 @@ export default function SearchBar() {
   }
 
 
-
-
-  // funcion que realiza el dispatch de la action con el valor del input almacenado en el estado local
-  // que luego reinicia el input como un campo vacio
-
+  // Función que realiza el dispatch de la action con el valor del input almacenado en el estado 
+  // local que luego reinicia el input como un campo vacío
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     console.log(state.product)
@@ -118,8 +109,7 @@ export default function SearchBar() {
   }
 
 
-
-  // Funcion onKeyDown
+  // Función onKeyDown
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
     console.log('ENTRO AL ONKEYDOWN');
@@ -134,7 +124,9 @@ export default function SearchBar() {
         product: acListState.products[activeSuggestion].name
       });
       history.push('/ProductsSearched');
-    } else if (e.code === "ArrowUp") {   // <-- Si apreto flechita para arriba, bajo el indice del array porque voy para atras hacia arriba en el desplegable
+    } else if (e.code === "ArrowUp") {
+      //Si aprieto la flecha para arriba, bajo el indice del array porque voy para atrás 
+      //hacia arriba en el desplegable
       if (activeSuggestion === 0) {
         return;
       } else
@@ -143,7 +135,9 @@ export default function SearchBar() {
           activeSuggestion: activeSuggestion - 1
         });
 
-    } else if (e.code === "ArrowDown") {     // <-- Si apreto flechita para abajo, subo el indice del array porque avanzo hacia abajo en el desplegable
+    } else if (e.code === "ArrowDown") {
+      //Si aprieto la flecha para abajo, subo el indice del array porque avanzo hacia abajo 
+      //en el desplegable
       if (activeSuggestion - 1 === acListState.products.length) {
         return;
       }
@@ -154,7 +148,7 @@ export default function SearchBar() {
     }
   };
 
-  // Funcion onClick
+  // Función onClick
 
   const onClick = (e: MouseEvent<HTMLLIElement, MouseEvent>): void => {
     setState({
@@ -162,7 +156,9 @@ export default function SearchBar() {
       filteredSuggestions: [],
       showSuggestions: false,
       product: e.currentTarget.innerText,
-      acList: e.currentTarget.innerText,        // reseteo todo y le clavo el valor del item del desplegable en la propiedad del estado local en el que va el input
+      acList: e.currentTarget.innerText,
+      // Reseteo todo y le clavo el valor del item del desplegable en la propiedad del estado local 
+      // en el que va el input
     });
   };
 
@@ -174,15 +170,24 @@ export default function SearchBar() {
     })
   }
 
-  // Logica del desplegable
+  // Lógica del desplegable
 
   var suggestionsListComponent;
 
   //var className: any;                 
 
-  if (state.showSuggestions && state.acList) {                  // Si el boolean en el estado para mostrar el desplegable y si el user esta escribiendo en el input son true...
-    if (acListState.products.length) {                // Y si lo que me trae el selector tiene algo
-      suggestionsListComponent = (                   // me guardo en la suggestionsListComponent una lista desordenada cuyos items provengan de un map que le hago a lo que me trajo el selector
+  if (state.showSuggestions && state.acList) {
+    // Si el boolean en el estado para mostrar el desplegable 
+    //y si el user esta escribiendo en el input son true...
+    if (acListState.products.length) {
+      // Y si lo que me trae el selector tiene algo
+
+      //Limito a 3 resultados en las recomendaciones.
+      acListState.products = acListState.products.slice(0, 3);
+      console.log("Array de reco", acListState.products);
+      suggestionsListComponent = (
+        // me guardo en la suggestionsListComponent una lista desordenada cuyos items 
+        //provengan de un map que le hago a lo que me trajo el selector
         <ul className="suggestions" onBlur={(e: any) => CloseAC(e)}>
           {acListState.products.map((suggestion, index) => {
             let className: string = '';
@@ -197,8 +202,11 @@ export default function SearchBar() {
           })}
         </ul>
       );
-    } else {                                      // si el boolean en el estado para mostrar el desplegable esta en true y el user esta escribiendo algo
-      suggestionsListComponent = (                // PERO el selector no me trajao nada, muestro que no hay sugerencias
+    } else {
+      // si el boolean en el estado para mostrar el desplegable esta en true 
+      //y el user esta escribiendo algo
+      suggestionsListComponent = (
+        // PERO el selector no me trajo nada, muestro que no hay sugerencias
         <div className="no-suggestions">
           <em>No suggestions available.</em>
         </div>
@@ -207,9 +215,7 @@ export default function SearchBar() {
   }
 
 
-
   // Form con el input y el botón de submit
-
   return (
     <form className="d-flex">
       <input className="form-control me-2" type="search" aria-label="Search"

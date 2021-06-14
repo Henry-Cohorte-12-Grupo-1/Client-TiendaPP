@@ -6,7 +6,7 @@ import IUserProduct from "../../interfaces/userProducts";
 
 interface propsObj {
     id: number,
-    image: string,
+    Images: [],
     name: string,
     description: string,
     price: number,

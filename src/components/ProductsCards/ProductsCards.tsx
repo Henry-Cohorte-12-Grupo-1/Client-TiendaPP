@@ -4,6 +4,7 @@ interface imgs {
     imageId: string
 }
 function ProductsCards(props: { name: string; price: number; image: string, productId?: string, images?: imgs[], editId?: string }) {
+    console.log("image ID: ", props.images)
 
     return (
         <div className="card" id='firstDiv'>
