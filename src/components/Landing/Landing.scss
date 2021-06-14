@@ -92,12 +92,15 @@ body{
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
     transform: scale(1);
     transition: transform 0.6s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .cardL:hover{
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, .5);
     transform: scale(1.03);
-    cursor: pointer;
 }
 
 .cardL i{
@@ -117,7 +120,7 @@ body{
         text-align: center;
         font-size: 50px;
     }
-    .card{
+    .cardL{
         width: 90%;
         margin-bottom: 20px;
     }
@@ -134,7 +137,7 @@ body{
         text-align: center;
     }
 
-    .card{
+    .cardL{
         height: 380px;
     }
 }

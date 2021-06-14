@@ -5,6 +5,7 @@ import ProductForm from '../components/ProductForm/ProductForm'
 import Home from '../components/Home/Home';
 import UserProducts from '../components/UserProducts/UserProducts'
 import ProductDetails from '../components/ProductDetails/ProductDetails';
+import ProductEdit from '../components/ProductEdit/ProductEdit';
 import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
 import Landing from '../components/Landing/Landing';
 import AboutUs from '../components/AboutUs/AboutUs'
@@ -44,6 +45,12 @@ const routes: IRoute[] = [
         path: '/home',
         name: 'Home',
         component: Home,
+        exact: true
+    },
+    {
+        path: '/product/edit',
+        name: 'ProductEdit',
+        component: ProductEdit,
         exact: true
     },
     {
