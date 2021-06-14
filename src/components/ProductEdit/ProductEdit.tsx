@@ -137,7 +137,7 @@ function ProductEdit() {
     }
     if (!product.name) {
         return (
-            <h1>LOADING</h1>
+            <div></div>
         )
     } else
         return (
