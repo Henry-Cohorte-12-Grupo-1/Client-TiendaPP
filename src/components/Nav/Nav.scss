@@ -1,0 +1,25 @@
+@import "../App/style.scss";
+
+#colorButton {
+    color: $danger;
+    border: none;
+    padding-bottom: 1px;
+    &:hover {
+        color: $light;
+        border-bottom: 1px solid $light;
+        border-radius: 0;
+        padding-bottom: 0px;
+    }
+}
+
+#colorButton2 {
+    color: $danger;
+    border: none;
+    padding-bottom: 1px;
+    &:hover {
+        color: $light;
+        border-bottom: 1px solid $light;
+        border-radius: 0;
+        padding-bottom: 0px;
+    }
+}
