@@ -13,6 +13,7 @@ function ProductEdit() {
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
     const [categories, setCategories] = useState<ICategories[]>([])
+    const [obj, setObj] = useState<any>()
     const [product, setProduct] = useState<IProduct>({
         name: '',
         description: '',
@@ -35,6 +36,7 @@ function ProductEdit() {
     useEffect(() => {
         (async () => {
             let resp = await axios.get(`${url}/product/?product=${id}`)
+            console.log(resp)
             setProduct({
                 ...product,
                 name: resp.data.name,
@@ -78,8 +80,16 @@ function ProductEdit() {
             let resp = await axios.get(`${url}/categories`)
             let categoriesArray: ICategories[] = resp.data.map((category: any) => ({ name: category.name, id: category.categoryId }))
             setCategories([...categories, ...categoriesArray])
+
+
         })()
     }, [])//eslint-disable-line
+
+
+    useEffect(() => {
+        // console.log(categories.find(category => category.id === product.categoryId).name)
+        setObj(categories.find(category => category.id === product.categoryId)?.name)
+    }, [categories])
 
     useEffect(() => {
         (async () => {
@@ -152,7 +162,7 @@ function ProductEdit() {
 
         setProduct({
             ...product,
-            categoryId: (categories.findIndex(category => category.name === event.target.value) + 1)
+            categoryId: (categories.find(category => category.name === event.target.value)?.id)
         })
     }
 
@@ -167,7 +177,7 @@ function ProductEdit() {
         return (
             <Container>
                 <h1 className="mt-4">
-                    Crear producto
+                    Edit Product
                 </h1>
                 <Form className='border shadow p-5'>
                     <Row>
@@ -205,7 +215,8 @@ function ProductEdit() {
 
                             <br></br>
                             <Form.Label>Categoría</Form.Label>
-                            <Form.Control value={categories && categories[0] ? (categories[categories.findIndex(category => category.id === product.categoryId)].name) : undefined} as="select" onChange={handleCategoryChange}>
+
+                            <Form.Control as="select" onChange={handleCategoryChange}>
                                 <option value="" selected disabled hidden>Choose here</option>
                                 {categories.map((category, i) => (
                                     <option value={categories[i].name}>{category.name}</option>
