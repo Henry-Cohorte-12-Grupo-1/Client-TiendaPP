@@ -69,8 +69,9 @@ function ProductDetails(props: Props) {
             {/* <p>fdsafdsaf kjasdf hkadjsl hdjskafh asdjkfhpsadfpeiwogf spaf dsahjfdajidfqpoi fdasjkf sadffdska fhsadfh sadfd sañjklfh apsofajsp`df asdiufhy aspdfiasfdlkñsa fdsajkf sadkfh sadfhasdipfhsadlfñsh dajkflsd fkusadh flsañdjfhsaidoufhsdaughfjklñ hauif sahfisadhgkjlgh ajdfhsa afksdlh fsadjlñf hdsaifghadsg asdjlf dsahifdsahigsad jkl</p> */}
           </Container>
         </Container>
+        <hr></hr>
         <h2 className="text-center mt-4">Reviews</h2>
-        {details.Reviews.length && details.Reviews
+        {details.Reviews.length ? (details.Reviews
           .map(rev => {
             return (
               <div className="card center">
@@ -98,7 +99,8 @@ function ProductDetails(props: Props) {
                 </div>
               </div>
             )
-          })}
+          })) : (<label>No reviews yet :'( </label>)
+        }
       </div>
     </Container>
   )
