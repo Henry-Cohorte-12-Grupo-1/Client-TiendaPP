@@ -12,7 +12,7 @@ function ProductForm() {
 
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
-    const [categories, setCategories] = useState<string[]>([])
+    const [categories, setCategories] = useState<any[]>([])
     const [product, setProduct] = useState<IProduct>({
         name: '',
         description: '',
@@ -27,13 +27,23 @@ function ProductForm() {
 
     const history = useHistory();
 
+    // useEffect(() => {
+    //     (async () => {
+    //         let resp = await axios.get(`${url}/categories`)
+    //         let categoriesArray: string[] = resp.data.map((category: any) => category.name)
+    //         setCategories(categoriesArray)
+    //     })()
+    // }, [])
     useEffect(() => {
         (async () => {
             let resp = await axios.get(`${url}/categories`)
-            let categoriesArray: string[] = resp.data.map((category: any) => category.name)
+            let categoriesArray: any[] = resp.data.map((category: any) => ({ name: category.name, categoryId: category.categoryId }))
             setCategories(categoriesArray)
+            console.log(categoriesArray)
         })()
     }, [])
+
+
 
     useEffect(() => {
         (async () => {
@@ -104,8 +114,8 @@ function ProductForm() {
 
         setProduct({
             ...product,
-            categoryId: (categories.findIndex(category => category === event.target.value) + 1),
-            category: event.target.value
+            //categoryId: (categories.findIndex(category => category === event.target.value) + 1),
+            categoryId: parseInt(event.target.value)
         })
     }
 
@@ -159,7 +169,7 @@ function ProductForm() {
                         <Form.Control as="select" onChange={handleCategoryChange}>
                             <option value="" selected disabled hidden>Choose here</option>
                             {categories.map((category, i) => (
-                                <option value={categories[i]}>{category}</option>
+                                <option value={category.categoryId}>{category.name}</option>
                             ))}
                         </Form.Control>
 
