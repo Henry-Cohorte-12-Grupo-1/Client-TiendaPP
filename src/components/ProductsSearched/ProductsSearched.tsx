@@ -5,14 +5,13 @@ import { Container } from 'react-bootstrap'
 
 
 export default function ProductsSearched() {
-
-
   const products = useSelector<StoreType, IProductsType>((state) => state.products);
   console.log("productssss: ", products.products[0])
 
 
   return (
-    <Container>
+    <div id='home-container'> 
+    <Container id="homeContainer" className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
       {products.products && products.products.length === 0 ? (
         <h1>No Products to show</h1>
       ) : (
@@ -27,5 +26,6 @@ export default function ProductsSearched() {
         </div>
       )}
     </Container>
+    </div>
   );
 }
