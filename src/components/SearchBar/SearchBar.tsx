@@ -219,9 +219,10 @@ export default function SearchBar() {
 
     // Form con el input y el botón de submit
     return (
-        <form className="d-flex">
+        <form className="d-flex" id="wForm">
             <input
-                className="form-control me-2"
+                className="form-control me-3"
+                id="inputW"
                 type="search"
                 aria-label="Search"
                 placeholder="Search product here!"

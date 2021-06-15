@@ -27,7 +27,7 @@ function NavComponent() {
                     </Link>
                 </Nav>
             </Navbar.Collapse>
-            <Form inline>
+            <Form id='wFormNav'>
                 <SearchBar />
             </Form>
         </Navbar>
