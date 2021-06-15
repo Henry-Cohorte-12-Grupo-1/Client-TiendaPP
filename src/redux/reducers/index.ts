@@ -11,8 +11,8 @@ export interface StoreType {
     filterProducts: obj[];
     products: IProductsType;
     acList: IProductsType;
-    productDetails: detailedProduct
-    userProducts: IUserProduct[]
+    productDetails: detailedProduct;
+    userProducts: IUserProduct[];
 }
 
 export interface IPropsObj {
@@ -27,6 +27,8 @@ export interface IPropsObj {
 export interface IProductsType {
     products: IPropsObj[],
     pages: string,
+    pag:number,
+    order:string
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
@@ -37,10 +39,14 @@ const initialState: StoreType = {
     products: {
         products: [],
         pages: '0',
+        pag: 0,
+        order:''
     },
     acList: {
         products: [],
         pages: '0',
+        pag: 0,
+        order: ''
     },
     filter: [],
     filterProducts: [],
@@ -117,5 +123,5 @@ export default function reducer(
             }
         default:
             return state;
-    }
+    } 
 }

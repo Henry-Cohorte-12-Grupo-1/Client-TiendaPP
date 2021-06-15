@@ -86,10 +86,16 @@ export const orderByCategories = (payload: string) => {
 }
 
 
-export const searchProduct = (name: string) => {
+export const searchProduct = (name: string, pag: number = 0, tag:string = 'createdAt', order:string = 'price') => {
+    const PAG = pag;
+    const TAG = tag;
+    const ORDER = order;
     const URL: string = `${url}/search`;
     const params = {
-        name
+        name,
+        PAG,
+        TAG,
+        ORDER
     }
     return async function (dispatch: any) {
         try {
