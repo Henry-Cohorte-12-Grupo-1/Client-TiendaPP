@@ -10,11 +10,7 @@ export interface IProduct {
     initialImages?: string
     productId?: string | null | undefined
 }
-export interface IError {
-    name?: boolean,
-    description?: boolean,
-    price?: boolean,
-}
+
 
 export interface ICategories {
     name: string,
