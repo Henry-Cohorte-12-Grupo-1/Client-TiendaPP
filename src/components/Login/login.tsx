@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
-import {IErrorUser} from '../../interfaces/forms'
+import { IErrorUser } from '../../interfaces/forms'
 
 function Login() {
 
@@ -21,7 +21,7 @@ function Login() {
                     ...errors,
                     [tName]: false,
                 })
-                if (tName === 'user') {
+                if (tName === 'email') {
                     setUser(tValue)
                 }
             } else {
@@ -55,27 +55,27 @@ function Login() {
             return <Redirect to={redirect} />
         }
     }
-  
-    return (
-          <Container className="p-5" >
-              <br></br>
-              <h2>Sign In</h2>
-              <Form className='bg-light border shadow p-5 rounded'>
-                  <Form.Group controlId="formBasicEmail">
-                      <Form.Label>Emaik</Form.Label>
-                      <Form.Control type="text" placeholder="Enter email" name='email'  onChange={handleChange} />
-                  </Form.Group>
 
-                  <Form.Group controlId="formBasicPassword">
-                      <Form.Label >Password</Form.Label>
-                      <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange} />
-                  </Form.Group>
-                  {(errors?.email === true || errors?.pass === true) ?
-                      <Button className="mt-5" variant="primary" disabled>Log In</Button>:
-                      <Button className="mt-5" variant="primary" onClick={handleSubmit}>Log In</Button>
-                  }
-              </Form>
-          </Container>
-      )
-  }
+    return (
+        <Container className="p-5" >
+            <br></br>
+            <h2>Sign In</h2>
+            <Form className='bg-light border shadow p-5 rounded'>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Emaik</Form.Label>
+                    <Form.Control type="text" placeholder="Enter email" name='email' onChange={handleChange} />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label >Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange} />
+                </Form.Group>
+                {(errors?.email === true || errors?.pass === true) ?
+                    <Button className="mt-5" variant="primary" disabled>Log In</Button> :
+                    <Button className="mt-5" variant="primary" onClick={handleSubmit}>Log In</Button>
+                }
+            </Form>
+        </Container>
+    )
+}
 export default Login
