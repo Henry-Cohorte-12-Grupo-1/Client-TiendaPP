@@ -13,9 +13,10 @@ function Validate() {
 
     useEffect(() => {
         (async () => {
-            console.log(id)
+
             let response = await axios.post(`${url}/validate?id=${id}`)
             setResp(response.data.r)
+            console.log(resp)
         })()
     }, [])
 
