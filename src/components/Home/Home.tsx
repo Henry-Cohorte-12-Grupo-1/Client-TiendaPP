@@ -1,7 +1,7 @@
 import { StoreType } from '../../redux/reducers/index';
 import { bringProducts, getCategories, orderByCategories } from '../../redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import obj, { category } from '../../interfaces/products';
 import ProductsCards from '../ProductsCards/ProductsCards';
 import './Home.scss'
@@ -10,12 +10,24 @@ import { Container } from 'react-bootstrap';
 function Home() {
     const producto = useSelector<StoreType, obj[]>((state) => state.filterProducts)
     const categorias = useSelector<StoreType, category[]>((s) => s.filter)
+    let [page, setPage] = useState(1)
     const dispatch = useDispatch()
+
+    const nextPage = () => {
+        setPage(page + 1)
+    }
+
+    const previousPage = () => {
+        if(page === 1){
+            return alert('You are in the first page')
+        }
+        setPage(page - 1)
+    }
 
     useEffect(() => {
         dispatch(bringProducts())
         dispatch(getCategories())
-    }, []) //eslint-disable-line
+    }, [page]) //eslint-disable-line
 
     const handleClick = (category: string) => {
         dispatch(orderByCategories(category))

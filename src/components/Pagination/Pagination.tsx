@@ -1,5 +1,6 @@
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux"
 import { searchProduct } from "../../redux/actions";
+import './Pagination.css'
 
 function Pagination(){
     const nameState = useSelector((store: RootStateOrAny) => store.name);
@@ -13,7 +14,7 @@ function Pagination(){
     const hasNextPage = pagState < pagesState - 1;
     return(
         <div>
-            <button
+            <button className="btn btn-primary" id='bPagination'
             disabled={!hasNextPage}
             onClick={() => {
                 dispatch(
