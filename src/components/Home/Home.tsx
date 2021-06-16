@@ -10,24 +10,12 @@ import { Container } from 'react-bootstrap';
 function Home() {
     const producto = useSelector<StoreType, obj[]>((state) => state.filterProducts)
     const categorias = useSelector<StoreType, category[]>((s) => s.filter)
-    let [page, setPage] = useState(1)
     const dispatch = useDispatch()
-
-    const nextPage = () => {
-        setPage(page + 1)
-    }
-
-    const previousPage = () => {
-        if(page === 1){
-            return alert('You are in the first page')
-        }
-        setPage(page - 1)
-    }
 
     useEffect(() => {
         dispatch(bringProducts())
         dispatch(getCategories())
-    }, [page]) //eslint-disable-line
+    }, []) //eslint-disable-line
 
     const handleClick = (category: string) => {
         dispatch(orderByCategories(category))
@@ -35,20 +23,20 @@ function Home() {
     console.log(producto, "producto")
     return (
         <div id='home-container'>
-            <div>
-                <h3 className='recomendados'>Categories</h3>
-                <div className='bStyle'>
+            <ul>
+                <li className='recomendados'>Categories</li>
+                <ul className='bStyle'>
                     {categorias &&
                         <div className='button'>
                             {categorias.map(c => {
                                 return (
-                                    <button type="button" className="btn btn-outline-primary btn-space" onClick={() => handleClick(c.name)}>{c.name}</button>
+                                    <li className="btn" onClick={() => handleClick(c.name)}>{c.name}</li>
                                 )
                             })}
-                            <button className="btn btn-outline-primary btn-space" onClick={() => dispatch(bringProducts())}>Go back</button>
+                            <li className="btn" onClick={() => dispatch(bringProducts())}>Go back</li>
                         </div>}
-                </div>
-            </div>
+                </ul>
+            </ul>
             <div id='separation'>
                 <Container id="homeContainer" className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
                     {producto &&
