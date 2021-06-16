@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { Button, Col, Container, Form } from "react-bootstrap"
-import { IColors, IErrorUser, IUser } from "../../interfaces/forms"
+import { Button, Col, Container, Form, OverlayTrigger, Popover } from "react-bootstrap"
+import { IColors, IErrorUser, IUser, IValidationError } from "../../interfaces/forms"
 import isEmail from 'validator/lib/isEmail'
 import isStrongPassword from 'validator/lib/isStrongPassword'
 import isAlpha from 'validator/lib/isAlpha'
@@ -14,6 +14,7 @@ function Signup() {
     const [user, setUser] = useState<IUser>()
     const [errors, setErrors] = useState<IErrorUser>({ captcha: true })
     const [colors, setColors] = useState<IColors>({})
+    const [validationError, setValidationError] = useState<IValidationError>()
 
     useEffect(() => {
 
@@ -71,6 +72,15 @@ function Signup() {
                 })
         }
 
+        if (name === 'username') {
+            console.log(value)
+            setErrors(
+                {
+                    ...errors,
+                    [name]: (value.length===0?true:false)
+                })
+        }
+
 
         if (name === 'pass') {
             setErrors(
@@ -101,7 +111,7 @@ function Signup() {
 
 
     const handleSubmit = async () => {
-
+        console.log(user)
         let resp = await axios.post(`${url}/usercreate`, user)
         console.log(resp)
         // console.log(user)
@@ -114,6 +124,15 @@ function Signup() {
         //     console.log('entró')
         // }
     }
+
+    const errorMsj = (
+        <Popover id="poover-basic">
+            <Popover.Title as="h3">Error</Popover.Title>
+            <Popover.Content>
+                Something goes wrong
+            </Popover.Content>
+        </Popover>
+    )
 
     return (
         <Container className="p-5" >
@@ -136,7 +155,7 @@ function Signup() {
 
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control className={`border-${colors.username} border-2`} type="email" placeholder="Enter email" name='username' onChange={userHandleChange} />
+                    <Form.Control className={`border-${colors.username} border-2`} type="email" placeholder="Enter email" name='username' onChange={handleChange} />
                 </Form.Group>
 
 
@@ -180,7 +199,10 @@ function Signup() {
                     user?.pass !== user?.repeatPass
                 ) ?
                     <Button className="mt-5" variant="info" disabled>Sign Up</Button> :
-                    <Button className="mt-5" variant="primary" onClick={handleSubmit}>Sign Up</Button>
+                    <>
+                        <Button className="mt-5" variant="primary" onClick={handleSubmit}>Sign Up</Button>
+                        <label>dsadsadsadas</label>
+                    </>
                 }
             </Form>
 

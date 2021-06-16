@@ -4,7 +4,8 @@ export interface IErrorUser {
     email?: boolean,
     pass?: boolean,
     repeatPass?: boolean,
-    captcha?: boolean
+    captcha?: boolean,
+    username?:boolean
 }
 
 export interface IErrorProduct {
@@ -18,7 +19,8 @@ export interface IUser {
     lastName?: string,
     email?: string,
     pass?: string
-    repeatPass?: string
+    repeatPass?: string,
+    username?:string
 }
 
 
@@ -29,4 +31,9 @@ export interface IColors {
     pass?: string,
     repeatPass?: string,
     username?:string
+}
+
+export interface IValidationError {
+    userName: string,
+    email: string
 }
