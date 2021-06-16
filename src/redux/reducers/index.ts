@@ -2,6 +2,7 @@ import { ActionTypes } from "../actions/types";
 import obj, { category } from '../../interfaces/products';
 import detailedProduct from '../../interfaces/detailedProduct'
 import IUserProduct from "../../interfaces/userProducts";
+import IUserOrders from '../../interfaces/userProducts'
 
 // Interface de Store NO CAMBIAR DE LUGAR
 export interface StoreType {
@@ -13,6 +14,7 @@ export interface StoreType {
     acList: IProductsType;
     productDetails: detailedProduct
     userProducts: IUserProduct[]
+    userOrders: IUserOrders[]
 }
 
 export interface IPropsObj {
@@ -56,7 +58,8 @@ const initialState: StoreType = {
         productId: "",
         userId: ""
     },
-    userProducts: []
+    userProducts: [],
+    userOrders: []
 };
 
 interface IAction {
@@ -114,6 +117,11 @@ export default function reducer(
             return {
                 ...state,
                 userProducts: action.payload
+            }
+        case ActionTypes.GET_USER_ORDERS:
+            return {
+                ...state,
+                userOrders: action.payload
             }
         default:
             return state;
