@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import { StoreType, IProductsType } from '../../redux/reducers/index'
 import ProductsCards from '../ProductsCards/ProductsCards';
 import { Container } from 'react-bootstrap'
+import Pagination from "../Pagination/Pagination";
 
 
 export default function ProductsSearched() {
   const products = useSelector<StoreType, IProductsType>((state) => state.products);
   console.log("productssss: ", products.products[0])
-
 
   return (
     <div id='home-container'> 
@@ -26,6 +26,7 @@ export default function ProductsSearched() {
         </div>
       )}
     </Container>
+    <Pagination />
     </div>
   );
 }
