@@ -86,7 +86,7 @@ export const orderByCategories = (payload: string) => {
 }
 
 
-export const searchProduct = (name: string, items:number =10, pag: number = 0, tag:string = 'createdAt', order:string = 'price') => {
+export const searchProduct = (name: string, items:number =10, pag: number = 0, tag:string = '', order:string = '') => {
     const PAG = pag;
     const TAG = tag;
     const ORDER = order;
