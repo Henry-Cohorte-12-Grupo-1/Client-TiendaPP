@@ -9,6 +9,7 @@ import ProductEdit from '../components/ProductEdit/ProductEdit';
 import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
 import Landing from '../components/Landing/Landing';
 import AboutUs from '../components/AboutUs/AboutUs'
+import Signup from '../components/SignUp/SignUp';
 
 const routes: IRoute[] = [
     {
@@ -70,7 +71,13 @@ const routes: IRoute[] = [
         name: 'Admin',
         component: Admin,
         exact: true
-    }
+    },
+    {
+        path: '/sign-up',
+        name: 'Sign Up',
+        component: Signup,
+        exact: true
+    },
 ]
 
 export default routes;

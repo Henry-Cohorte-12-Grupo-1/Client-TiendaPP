@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { IProduct, IError } from '../../interfaces/product'
+import { IProduct} from '../../interfaces/product'
+import {IErrorProduct as IError}  from '../../interfaces/forms'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './styles.scss'

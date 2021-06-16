@@ -22,7 +22,15 @@ function NavComponent() {
                             className="btn font-weight-bold"
                             id="colorButton2"
                         >
-                            Login
+                            Sign In
+                        </button>
+                    </Link>
+                    <Link to="/sign-up">
+                        <button
+                            className="btn font-weight-bold"
+                            id="colorButton2"
+                        >
+                            Sign Up
                         </button>
                     </Link>
                 </Nav>
