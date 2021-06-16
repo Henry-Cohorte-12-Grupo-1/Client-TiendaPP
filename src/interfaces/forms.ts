@@ -28,4 +28,5 @@ export interface IColors {
     email?: string,
     pass?: string,
     repeatPass?: string,
+    username?:string
 }

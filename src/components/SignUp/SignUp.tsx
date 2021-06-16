@@ -1,20 +1,18 @@
 import { useState } from "react"
 import { Button, Col, Container, Form } from "react-bootstrap"
 import { IColors, IErrorUser, IUser } from "../../interfaces/forms"
-// import validator from 'validator'
 import isEmail from 'validator/lib/isEmail'
 import isStrongPassword from 'validator/lib/isStrongPassword'
 import isAlpha from 'validator/lib/isAlpha'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useEffect } from "react"
-
-
-
+import axios from "axios"
+import { url } from "../../api";
 
 function Signup() {
 
     const [user, setUser] = useState<IUser>()
-    const [errors, setErrors] = useState<IErrorUser>({})
+    const [errors, setErrors] = useState<IErrorUser>({ captcha: true })
     const [colors, setColors] = useState<IColors>({})
 
     useEffect(() => {
@@ -27,22 +25,22 @@ function Signup() {
         })
     }, [errors]) // eslint-disable-line
 
-    useEffect(()=>{
-    if(user?.repeatPass){
-        if (user?.repeatPass === user?.pass) {
-            setColors({
-                ...colors,
-                repeatPass: 'primary',
-            })
-        } else {
-            setColors({
-                ...colors,
-                repeatPass: 'secondary',
-            })
+    useEffect(() => {
+        if (user?.repeatPass) {
+            if (user?.repeatPass === user?.pass) {
+                setColors({
+                    ...colors,
+                    repeatPass: 'primary',
+                })
+            } else {
+                setColors({
+                    ...colors,
+                    repeatPass: 'secondary',
+                })
+            }
         }
-    }
 
-    },[user?.repeatPass]) // eslint-disable-line
+    }, [user?.repeatPass]) // eslint-disable-line
 
     function onCaptchaChange(value: any) {
         setErrors({ ...errors, captcha: false })
@@ -96,7 +94,16 @@ function Signup() {
         }
     }
 
-    const handleSubmit = () => {
+
+    const userHandleChange = async () => {
+
+    }
+
+
+    const handleSubmit = async () => {
+
+        let resp = await axios.post(`${url}/usercreate`, user)
+        console.log(resp)
         // console.log(user)
         // if (user === 'admin') {
         //     // setRedirect('/admin')
@@ -126,10 +133,12 @@ function Signup() {
                     </Col>
                 </Form.Group>
 
+
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control className={`border-${colors.email} border-2`} type="email" placeholder="Enter email" name='email' onChange={handleChange} />
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control className={`border-${colors.username} border-2`} type="email" placeholder="Enter email" name='username' onChange={userHandleChange} />
                 </Form.Group>
+
 
                 <Form.Group className="row" controlId="formBasicPassword">
                     <Col>
@@ -141,9 +150,15 @@ function Signup() {
                         <Form.Control className={`border-${colors.repeatPass} border-2`} type="password" placeholder="Password" name='repeatPass' onChange={handleChange} />
                     </Col>
 
-
-
                 </Form.Group>
+
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control className={`border-${colors.email} border-2`} type="email" placeholder="Enter email" name='email' onChange={handleChange} />
+                </Form.Group>
+
+
+
                 <div className="text-center">
                     <ReCAPTCHA
                         sitekey='6LfoLjYbAAAAACmIqXq5XgsgJMLxiwGMcw1OMhMk'
@@ -151,7 +166,19 @@ function Signup() {
                     />
                 </div>
 
-                {(errors?.email === true || errors?.pass === true || errors?.captcha === true) ?
+                {(errors?.firstName === true ||
+                    errors?.lastName === true ||
+                    errors?.repeatPass === true ||
+                    errors?.email === true ||
+                    errors?.pass === true ||
+                    errors?.captcha === true ||
+                    !user?.firstName ||
+                    !user?.lastName ||
+                    !user?.email ||
+                    !user?.pass ||
+                    !user?.repeatPass ||
+                    user?.pass !== user?.repeatPass
+                ) ?
                     <Button className="mt-5" variant="info" disabled>Sign Up</Button> :
                     <Button className="mt-5" variant="primary" onClick={handleSubmit}>Sign Up</Button>
                 }
