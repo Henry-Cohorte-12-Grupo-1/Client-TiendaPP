@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Col, Container, Form, OverlayTrigger, Popover } from "react-bootstrap"
+import { Alert, Button, Col, Container, Form } from "react-bootstrap"
 import { IColors, IErrorUser, IUser, IValidationError } from "../../interfaces/forms"
 import isEmail from 'validator/lib/isEmail'
 import isStrongPassword from 'validator/lib/isStrongPassword'
@@ -8,8 +8,11 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { useEffect } from "react"
 import axios from "axios"
 import { url } from "../../api";
+import { useHistory } from 'react-router-dom'
+
 
 function Signup() {
+    const history = useHistory();
 
     const [user, setUser] = useState<IUser>()
     const [errors, setErrors] = useState<IErrorUser>({ captcha: true })
@@ -23,6 +26,7 @@ function Signup() {
             lastName: (errors.lastName ? 'secondary' : user?.lastName ? 'primary' : ''),
             email: (errors.email ? 'secondary' : user?.email ? 'primary' : ''),
             pass: (errors.pass ? 'secondary' : user?.pass ? 'primary' : ''),
+            username: (errors.username ? 'secondary' : user?.username ? 'primary' : ''),
         })
     }, [errors]) // eslint-disable-line
 
@@ -70,6 +74,7 @@ function Signup() {
                     ...errors,
                     [name]: !isEmail(value)
                 })
+            setValidationError({ ...validationError, email: undefined })
         }
 
         if (name === 'username') {
@@ -77,8 +82,9 @@ function Signup() {
             setErrors(
                 {
                     ...errors,
-                    [name]: (value.length===0?true:false)
+                    [name]: (value.length < 4 ? true : false)
                 })
+            setValidationError({ ...validationError, userName: undefined })
         }
 
 
@@ -105,34 +111,22 @@ function Signup() {
     }
 
 
-    const userHandleChange = async () => {
-
-    }
-
-
     const handleSubmit = async () => {
         console.log(user)
         let resp = await axios.post(`${url}/usercreate`, user)
-        console.log(resp)
-        // console.log(user)
-        // if (user === 'admin') {
-        //     // setRedirect('/admin')
-        //     // console.log(redirect)
-        // }
-        // if (user) {
-        //     // setRedirect(`/user?username=${user}`)
-        //     console.log('entró')
-        // }
+        console.log(resp.data)
+        if (resp.data === 'successfully created') {
+            history.push(`/login`);
+        }
+        if (resp.data === 'username must be unique') {
+            setErrors({ ...errors, username: true })
+            setValidationError({ ...validationError, userName: 'Username already in use' })
+        }
+        if (resp.data === 'email must be unique') {
+            setErrors({ ...errors, email: true })
+            setValidationError({ ...validationError, email: 'Email already in use' })
+        }
     }
-
-    const errorMsj = (
-        <Popover id="poover-basic">
-            <Popover.Title as="h3">Error</Popover.Title>
-            <Popover.Content>
-                Something goes wrong
-            </Popover.Content>
-        </Popover>
-    )
 
     return (
         <Container className="p-5" >
@@ -178,19 +172,21 @@ function Signup() {
 
 
 
-                <div className="text-center">
-                    <ReCAPTCHA
+                <div className="d-flex justify-content-center">
+                    <ReCAPTCHA 
                         sitekey='6LfoLjYbAAAAACmIqXq5XgsgJMLxiwGMcw1OMhMk'
                         onChange={onCaptchaChange}
                     />
                 </div>
 
+        <div className="d-flex justify-content-center">
                 {(errors?.firstName === true ||
                     errors?.lastName === true ||
                     errors?.repeatPass === true ||
                     errors?.email === true ||
                     errors?.pass === true ||
                     errors?.captcha === true ||
+                    errors?.username === true ||
                     !user?.firstName ||
                     !user?.lastName ||
                     !user?.email ||
@@ -198,12 +194,17 @@ function Signup() {
                     !user?.repeatPass ||
                     user?.pass !== user?.repeatPass
                 ) ?
-                    <Button className="mt-5" variant="info" disabled>Sign Up</Button> :
-                    <>
-                        <Button className="mt-5" variant="primary" onClick={handleSubmit}>Sign Up</Button>
-                        <label>dsadsadsadas</label>
-                    </>
+                    <div className="text-center">
+
+                            <Button className="mt-3 column" variant="info" disabled>Sign Up</Button>
+
+                            {validationError?.email ? <Alert variant="warning" className="p-2 m-3">{validationError.email}</Alert> : null}
+                            {validationError?.userName ? <Alert variant="warning" className="p-2 m-3">{validationError.userName}</Alert> : null}
+                    </div> :
+                    <Button className="mt-3" variant="primary" onClick={handleSubmit}>Sign Up</Button>
                 }
+                </div>
+
             </Form>
 
         </Container>

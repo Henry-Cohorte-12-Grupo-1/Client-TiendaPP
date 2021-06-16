@@ -34,6 +34,6 @@ export interface IColors {
 }
 
 export interface IValidationError {
-    userName: string,
-    email: string
+    userName?: string | undefined,
+    email?: string | undefined
 }
