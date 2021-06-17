@@ -1,9 +1,9 @@
 #firstDiv {
     width: 18rem;
     margin-right: 2rem; 
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     box-shadow: 0 2px rgba(0, 0, 0, 0.2);
-    margin-top: 1rem;
+    margin-top: 5rem;
 }
 
 #firstDiv:hover {

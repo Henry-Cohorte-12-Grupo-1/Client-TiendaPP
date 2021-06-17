@@ -17,6 +17,7 @@
     color: $light;
     border: none;
     padding-bottom: 1px;
+    margin-right: 2rem;
     &:hover {
         color: $light;
         border-bottom: 1px solid $light;
@@ -47,23 +48,11 @@
 }
 
 #wFormNav{
-    width: 24%;
-}
-
-nav ul {
-    float: left;
-    display: flex;
-}
-
-nav ul li{
-    float: left;
-    list-style: none;
-    position: relative;
+    width: 28.1rem;
 }
 
 nav ul li a{
     display: block;
-    padding: 0 2rem;
     color: #2c666e;
     text-decoration: none;
 }
@@ -85,7 +74,7 @@ nav ul li ul li{
 }
 
 nav ul li ul li a {
-    padding: 1rem 2rem;
+    padding: 1rem;
     line-height: unset;
     white-space: nowrap;
 }
