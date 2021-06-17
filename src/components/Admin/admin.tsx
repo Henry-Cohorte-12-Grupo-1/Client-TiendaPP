@@ -3,13 +3,21 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { url } from "../../api";
 import { IUsers } from '../../interfaces/users'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 function Admin() {
+    const [actualCategory, setActualCategory] = useState<string>('')
     const [category, setCategory] = useState<string>()
     const [categories, setCategories] = useState<string[]>([])
     const [initialCategories, setInitial] = useState<string[]>([])
     const [deleteCategories, setDeleteCategories] = useState<string[]>([])
     const [users, setUsers] = useState<IUsers[]>()
+
+    const [open, setOpen] = useState<boolean>(false)
 
     useEffect(() => {
         (async () => {
@@ -21,7 +29,7 @@ function Admin() {
 
             var rusers = await axios.get(`${url}/user/getallusers`)
             console.log(rusers)
-            let users = (rusers.data.map((user: any) => ({ username:user.username, userId: user.userId,  role:user.roleId})))
+            let users = (rusers.data.map((user: any) => ({ username: user.username, userId: user.userId, role: user.roleId })))
             // let usersName = (rusers.data.map((user: any) => user.username))
             // setUsers({
             //     ...users,
@@ -67,46 +75,83 @@ function Admin() {
     }
 
     const handleDelete = (event: any) => {
-        setCategories(categories.filter(category => (category !== event.target.value)))
-        // console.log(initialCategories)
-        if (!deleteCategories.includes(event.target.value) && initialCategories.includes(event.target.value)) {
-            setDeleteCategories([...deleteCategories, event.target.value])
-        }
+        setOpen(true)
+        setActualCategory(event.target.value)
+
     }
 
+
+    const handleClose = (event:any) => {
+        setOpen(false);
+        console.log(event.target.name)
+        if(event.target.name === 'agree'){
+            console.log('entro')
+            setCategories(categories.filter(category => (category !== actualCategory)))
+            // console.log(initialCategories)
+            if (!deleteCategories.includes(actualCategory) && initialCategories.includes(actualCategory)) {
+                setDeleteCategories([...deleteCategories, actualCategory])
+            }
+        }
+      };
+    
+
     return (
+        <>
+            <Container className="border shadow mt-4">
+                <h1 className="mt-4">Admin Dashboard</h1>
+                <Form className="p-5 mb-4">
+                    <Row>
+                        <Col>
+                            <br></br>
+                            <Form.Label >Add Category</Form.Label>
+                            <Form.Control type='input' placeholder="New..." name='category' onChange={handleCategoryChange} />
+                        </Col>
+                        <Col>
+                            <Button className="m-5 w-25" variant="primary" type="submit" onClick={addCategory} >Add</Button>
+                        </Col>
+                    </Row>
+                    <Form.Label>Categories (double click to delete)</Form.Label>
+                    <Form.Control as="select" multiple >
+                        {categories.map((category) => (
+                            <option value={category} onDoubleClick={handleDelete}>{category}</option>
+                        ))}
+                    </Form.Control>
 
-        <Container className="border shadow mt-4">
-            <h1 className="mt-4">Admin Dashboard</h1>
-            <Form className="p-5 mb-4">
-                <Row>
-                    <Col>
-                        <br></br>
-                        <Form.Label >Add Category</Form.Label>
-                        <Form.Control type='input' placeholder="New..." name='category' onChange={handleCategoryChange} />
-                    </Col>
-                    <Col>
-                        <Button className="m-5 w-25" variant="primary" type="submit" onClick={addCategory} >Add</Button>
-                    </Col>
-                </Row>
-                <Form.Label>Categories</Form.Label>
-                <Form.Control as="select" multiple >
-                    {categories.map((category) => (
-                        <option value={category} onDoubleClick={handleDelete}>{category}</option>
-                    ))}
-                </Form.Control>
+                    <Form.Label className='mt-3'>Users</Form.Label>
+                    <Form.Control as="select" multiple >
+                        {users?.map((user) => (
+                            <option value={user.username} onDoubleClick={handleDelete}>{user.username}</option>
+                        ))}
+                    </Form.Control>
 
-                <Form.Label className='mt-3'>Users</Form.Label>
-                <Form.Control as="select" multiple >
-                    {users?.map((user) => (
-                        <option value={user.username} onDoubleClick={handleDelete}>{user.username}</option>
-                    ))}
-                </Form.Control>
+                    <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>
+                </Form>
+            </Container>
 
-                <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>
-            </Form>
-        </Container>
 
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this category"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    The products with this category will be left without category
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button name='disagree' onClick={handleClose} color="primary">
+                        Disagree
+                    </Button>
+                    <Button name='agree' onClick={handleClose} color="primary" autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </>
     );
 };
 
