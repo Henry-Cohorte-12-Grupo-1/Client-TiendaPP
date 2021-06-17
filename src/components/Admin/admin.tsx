@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { url } from "../../api";
+import { IUsers } from '../../interfaces/users'
 
 function Admin() {
     const [category, setCategory] = useState<string>()
     const [categories, setCategories] = useState<string[]>([])
     const [initialCategories, setInitial] = useState<string[]>([])
     const [deleteCategories, setDeleteCategories] = useState<string[]>([])
+    const [users, setUsers] = useState<IUsers[]>()
 
     useEffect(() => {
         (async () => {
@@ -16,6 +18,18 @@ function Admin() {
             setCategories(categoriesArray)
             setInitial(categoriesArray)
             console.log(categoriesArray)
+
+            var rusers = await axios.get(`${url}/user/getallusers`)
+            console.log(rusers)
+            let users = (rusers.data.map((user: any) => ({ username:user.username, userId: user.userId,  role:user.roleId})))
+            // let usersName = (rusers.data.map((user: any) => user.username))
+            // setUsers({
+            //     ...users,
+            //     userId: usersId
+            // })
+            setUsers(users)
+
+            console.log(users)
         })()
     }, [])
 
@@ -64,7 +78,7 @@ function Admin() {
 
         <Container className="border shadow mt-4">
             <h1 className="mt-4">Admin Dashboard</h1>
-            <Form className="p-5">
+            <Form className="p-5 mb-4">
                 <Row>
                     <Col>
                         <br></br>
@@ -81,6 +95,14 @@ function Admin() {
                         <option value={category} onDoubleClick={handleDelete}>{category}</option>
                     ))}
                 </Form.Control>
+
+                <Form.Label className='mt-3'>Users</Form.Label>
+                <Form.Control as="select" multiple >
+                    {users?.map((user) => (
+                        <option value={user.username} onDoubleClick={handleDelete}>{user.username}</option>
+                    ))}
+                </Form.Control>
+
                 <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>
             </Form>
         </Container>
