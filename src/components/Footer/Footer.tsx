@@ -2,9 +2,9 @@ import './Footer.css'
 
 function Footer() {
     return (
-        <footer className='footer page-footer'>
+        <footer className='footer'>
             <div className='containerF'>
-                <div className='row'>
+                <div className='rowF'>
                     <div className='footer-col'>
                         <h4>About us</h4>
                         <ul>
