@@ -1,9 +1,10 @@
 @import "../App/style.scss";
 
 #colorButton {
-    color: $danger;
+    color: $light;
     border: none;
     padding-bottom: 1px;
+    margin-right: 2rem;
     &:hover {
         color: $light;
         border-bottom: 1px solid $light;
@@ -13,7 +14,29 @@
 }
 
 #colorButton2 {
-    color: $danger;
+    color: $light;
+    border: none;
+    padding-bottom: 1px;
+    margin-right: 2rem;
+    &:hover {
+        color: $light;
+        border-bottom: 1px solid $light;
+        border-radius: 0;
+        padding-bottom: 0px;
+    }
+}
+
+#colorButton3 {
+    color: #2c666e;
+    border: none;
+    padding-bottom: 3px;
+    &:hover {
+        border-radius: 0;
+    }
+}
+
+#colorButton4 {
+    color: $light;
     border: none;
     padding-bottom: 1px;
     &:hover {
@@ -25,5 +48,37 @@
 }
 
 #wFormNav{
-    width: 24%;
+    width: 28.1rem;
+}
+
+nav ul li a{
+    display: block;
+    color: #2c666e;
+    text-decoration: none;
+}
+
+nav ul li ul{
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #cccccc;
+    z-index: 1;
+}
+
+nav ul li:hover ul{
+    display: block;
+}
+
+nav ul li ul li{
+    width: 100%;
+}
+
+nav ul li ul li a {
+    padding: 1rem;
+    line-height: unset;
+    white-space: nowrap;
+}
+
+nav ul li ul li a:hover{
+    background-color: #efefef;
 }

@@ -12,6 +12,8 @@ import AboutUs from '../components/AboutUs/AboutUs'
 import Signup from '../components/SignUp/SignUp';
 import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
+import Validate from '../components/Validate/Validate';
+
 
 const routes: IRoute[] = [
     {
@@ -90,6 +92,12 @@ const routes: IRoute[] = [
         path: '/sign-up',
         name: 'Sign Up',
         component: Signup,
+        exact: true
+    },
+    {
+        path: '/validate',
+        name: 'Validate',
+        component: Validate,
         exact: true
     },
 ]

@@ -57,25 +57,27 @@ function Login() {
     }
 
     return (
-        <Container className="p-5" >
-            <br></br>
-            <h2>Sign In</h2>
-            <Form className='bg-light border shadow p-5 rounded'>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Emaik</Form.Label>
-                    <Form.Control type="text" placeholder="Enter email" name='email' onChange={handleChange} />
-                </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label >Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" name='pass' onChange={handleChange} />
-                </Form.Group>
-                {(errors?.email === true || errors?.pass === true) ?
-                    <Button className="mt-5" variant="primary" disabled>Log In</Button> :
-                    <Button className="mt-5" variant="primary" onClick={handleSubmit}>Log In</Button>
-                }
-            </Form>
-        </Container>
-    )
-}
+          <Container className="p-5" >
+              <br></br>
+              <h2>Sign In</h2>
+              <Form className='bg-light border shadow p-5 rounded'>
+                  <Form.Group controlId="formBasicEmail">
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control type="text" placeholder="Enter email" name='email'  onChange={handleChange} />
+                  </Form.Group>
+
+                  <Form.Group controlId="formBasicPassword">
+                      <Form.Label >Password</Form.Label>
+                      <Form.Control type="password" placeholder="Enter Password" name='pass' onChange={handleChange} />
+                  </Form.Group>
+                  {(errors?.email === true || errors?.pass === true) ?
+                      <Button className="mt-5" variant="info" disabled>Log In</Button>:
+                      <Button className="mt-5" variant="primary" onClick={handleSubmit}>Log In</Button>
+                  }
+              </Form>
+          </Container>
+      )
+  }
+
 export default Login
