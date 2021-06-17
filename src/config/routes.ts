@@ -10,7 +10,10 @@ import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
 import Landing from '../components/Landing/Landing';
 import AboutUs from '../components/AboutUs/AboutUs'
 import Signup from '../components/SignUp/SignUp';
+import UserDashboard from '../components/UserDashboard/UserDashboard';
+import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
+
 
 const routes: IRoute[] = [
     {
@@ -33,6 +36,18 @@ const routes: IRoute[] = [
     },
     {
         path: '/user/',
+        name: 'User',
+        component: UserDashboard,
+        exact: true
+    },
+    {
+        path: '/user/orders',
+        name: 'UserOrders',
+        component: UserOrders,
+        exact: true
+    },
+    {
+        path: '/user/activeProducts',
         name: 'User',
         component: UserProducts,
         exact: true

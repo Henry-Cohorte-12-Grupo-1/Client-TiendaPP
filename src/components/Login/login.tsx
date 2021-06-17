@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
-import {IErrorUser} from '../../interfaces/forms'
+import { IErrorUser } from '../../interfaces/forms'
 
 function Login() {
 
@@ -21,7 +21,7 @@ function Login() {
                     ...errors,
                     [tName]: false,
                 })
-                if (tName === 'user') {
+                if (tName === 'email') {
                     setUser(tValue)
                 }
             } else {
@@ -55,8 +55,9 @@ function Login() {
             return <Redirect to={redirect} />
         }
     }
-  
+
     return (
+
           <Container className="p-5" >
               <br></br>
               <h2>Sign In</h2>
@@ -78,4 +79,5 @@ function Login() {
           </Container>
       )
   }
+
 export default Login

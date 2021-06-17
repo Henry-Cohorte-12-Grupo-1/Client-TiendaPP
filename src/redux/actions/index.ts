@@ -20,6 +20,10 @@ export interface BringUserProducts {
     type: ActionTypes.GET_USER_PRODUCTS;
     payload: obj[];
 }
+export interface BringUserOrders {
+    type: ActionTypes.GET_USER_ORDERS;
+    payload: obj[];
+}
 
 
 
@@ -56,6 +60,15 @@ export const bringUserProducts = (userName: string | null) => {
         const userProducts = await axios.get(`${url}/username/${userName}`)
         dispatch<BringUserProducts>({
             type: ActionTypes.GET_USER_PRODUCTS,
+            payload: userProducts.data
+        })
+    }
+}
+export const bringUserOrders = (userName: string | null) => {
+    return async (dispatch: Dispatch) => {
+        const userProducts = await axios.get(`${url}/orders/${userName}`)
+        dispatch<BringUserOrders>({
+            type: ActionTypes.GET_USER_ORDERS,
             payload: userProducts.data
         })
     }

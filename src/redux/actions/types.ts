@@ -10,5 +10,6 @@ export enum ActionTypes {
     GET_CATEGORIES,
     GET_DETAILS,
     GET_USER_PRODUCTS,
-    SEARCH_PRODUCT_AC
+    SEARCH_PRODUCT_AC,
+    GET_USER_ORDERS
 }

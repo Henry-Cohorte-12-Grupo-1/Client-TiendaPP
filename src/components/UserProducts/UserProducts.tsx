@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import './styles.scss'
 
 
-function User() {
+function UserProducts() {
 
 
   const userProducts = useSelector<StoreType, IUserProduct[]>((state) => state.userProducts)
@@ -67,4 +67,4 @@ function User() {
   );
 };
 
-export default User;
+export default UserProducts;
