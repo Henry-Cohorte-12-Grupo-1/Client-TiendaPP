@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router"
+import { useHistory, useLocation } from "react-router"
 import { url } from "../../api";
 
 function Validate() {
@@ -9,25 +9,29 @@ function Validate() {
 
     let location = useLocation()
     let id = new URLSearchParams(location.search).get('id')
-
+    const history = useHistory();
 
     useEffect(() => {
         (async () => {
 
             let response = await axios.post(`${url}/validate?id=${id}`)
-            setResp(response.data.r)
-            console.log(resp)
+            setResp(response.data)
+            console.log(response.data)
+            if (response.data === 'verificado'){
+                alert('Verified Account');
+                history.push(`/login/`);
+            }
         })()
     }, [])
 
 
-    if (resp) {
+    if (resp==='verificado') {
         return (
             <div>OK</div>
         )
     } else {
         return (
-            <div>Loading</div>
+            <div></div>
         )
     }
 }
