@@ -7,8 +7,17 @@
     "extends": [
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "prettier/@typescript-eslint",
+        "prettier",
         "plugin:prettier/recommended"
     ],
-    "rules": {}
+    "rules": {
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ]
+    }
 }
