@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
@@ -6,6 +7,7 @@ import {IErrorUser} from '../../interfaces/forms'
 function Login() {
 
     let [user, setUser] = useState<string>()
+    let [pass, setPass] = useState<string>()
     let [redirect, setRedirect] = useState<string>()
     const [errors, setErrors] = useState<IErrorUser>({
         email: true,
@@ -16,13 +18,17 @@ function Login() {
         if (event.target) {
             let tName = (event.target as HTMLButtonElement).name
             let tValue = (event.target as HTMLButtonElement).value
+
+            console.log(tName, tValue);
             if (tValue) {
                 setErrors({
                     ...errors,
                     [tName]: false,
                 })
-                if (tName === 'user') {
+                if (tName === 'email') {
                     setUser(tValue)
+                } else if (tName === 'pass'){
+                    setPass(tValue)
                 }
             } else {
                 setErrors({
@@ -55,6 +61,16 @@ function Login() {
             return <Redirect to={redirect} />
         }
     }
+
+    const handleSubmitTest = async () => {
+        console.log(user, pass);
+        const returnToken = await axios.post('http://localhost:3001/api/passportRegister/login', {
+            email: user,
+            password: pass,
+        })
+        console.log(returnToken.data)
+        localStorage.setItem('token', returnToken.data.accessToken);
+    }
   
     return (
           <Container className="p-5" >
@@ -72,7 +88,7 @@ function Login() {
                   </Form.Group>
                   {(errors?.email === true || errors?.pass === true) ?
                       <Button className="mt-5" variant="primary" disabled>Log In</Button>:
-                      <Button className="mt-5" variant="primary" onClick={handleSubmit}>Log In</Button>
+                      <Button className="mt-5" variant="primary" onClick={handleSubmitTest}>Log In</Button>
                   }
               </Form>
           </Container>
