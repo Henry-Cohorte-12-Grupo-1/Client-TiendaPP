@@ -1,7 +1,7 @@
 // import { Container, Form, Row, Col } from "react-bootstrap"
 
-function FormProduct (){
-    return 
+function FormProduct() {
+    return;
     // (
     //     <Container>
     //     <h1 className='text-secondary'>
@@ -27,8 +27,6 @@ function FormProduct (){
     //                     </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
     //                 </Form.Group>
 
-
-
     //                 <Row>
     //                     <Col>
     //                     <Form.Label className='text-secondary'>Precio</Form.Label>
@@ -43,8 +41,6 @@ function FormProduct (){
     //                 {errors?.price ? <Form.Text className='text-muted'>
     //                     Debe indicar un precio
     //                 </Form.Text> : <Form.Text className='text-secondary'>&#160;</Form.Text>}
-
-
 
     //                 <br></br>
     //                 <Form.Control as="select" onChange={handleCategoryChange}>
@@ -82,7 +78,7 @@ function FormProduct (){
     //                         )}
     //                     </Carousel> :
     //                     null}
-    //                 </Container>    
+    //                 </Container>
     //             </Col>
     //         </Row>
     //         <Row>
@@ -98,5 +94,4 @@ function FormProduct (){
     // )
 }
 
-
-export default FormProduct
+export default FormProduct;
