@@ -3,11 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { url } from "../../api";
 import { IUsers } from '../../interfaces/users'
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {DialogAlert} from '../Dialog/DialogAlert'
 
 function Admin() {
     const [actualCategory, setActualCategory] = useState<string>('')
@@ -81,10 +77,10 @@ function Admin() {
     }
 
 
-    const handleClose = (event:any) => {
+    const handleClose = (actualCategory:string,CloseEvent:string) => {
         setOpen(false);
-        console.log(event.target.name)
-        if(event.target.name === 'agree'){
+
+        if(CloseEvent === 'agree'){
             console.log('entro')
             setCategories(categories.filter(category => (category !== actualCategory)))
             // console.log(initialCategories)
@@ -128,29 +124,8 @@ function Admin() {
                 </Form>
             </Container>
 
+            {DialogAlert(open,handleClose,actualCategory)}
 
-
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this category"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                    The products with this category will be left without category
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button name='disagree' onClick={handleClose} color="primary">
-                        Disagree
-                    </Button>
-                    <Button name='agree' onClick={handleClose} color="primary" autoFocus>
-                        Agree
-                    </Button>
-                </DialogActions>
-            </Dialog>
         </>
     );
 };
