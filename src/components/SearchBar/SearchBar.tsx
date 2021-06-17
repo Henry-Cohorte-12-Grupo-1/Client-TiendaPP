@@ -221,7 +221,7 @@ export default function SearchBar() {
     return (
         <form className="d-flex">
             <input
-                className="form-control me-3"
+                className="form-control me-3" id="inputS"
                 type="search"
                 aria-label="Search"
                 placeholder="Search product here!"
