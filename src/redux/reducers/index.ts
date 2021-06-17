@@ -2,7 +2,7 @@ import { ActionTypes } from "../actions/types";
 import obj, { category } from '../../interfaces/products';
 import detailedProduct from '../../interfaces/detailedProduct'
 import IUserProduct from "../../interfaces/userProducts";
-import IUserOrders from '../../interfaces/userProducts'
+import IUserOrders from '../../interfaces/userOrders'
 
 // Interface de Store NO CAMBIAR DE LUGAR
 export interface StoreType {
