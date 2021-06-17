@@ -3,10 +3,10 @@ import { StoreType } from "../../redux/reducers"
 import { useEffect, useState } from "react"
 import { bringUserOrders } from "../../redux/actions"
 import IUserOrders from "../../interfaces/userOrders";
-import ProductsCards from '../ProductsCards/ProductsCards'
 import { Container } from 'react-bootstrap';
 import OrderItem from './OrderListItem'
 
+let currentOrders: IUserOrders[] = [];
 
 export default function UserOrders() {
 
@@ -15,21 +15,31 @@ export default function UserOrders() {
     let userName: string | null = params.get('user');
 
     const [loading, setLoading] = useState<Boolean>(true)
+    const [currentPage, setCurrentPage] = useState<number>(1)
 
-    console.log(userName)
+
     const dispatch = useDispatch()
     const orders = useSelector<StoreType, IUserOrders[]>((state) => state.userOrders)
-    //const completed = orders.length && orders.map(order => (order.status === "completed") ? order.Product : null)
-    //const inProcess = orders.length && orders.map(order => (order.status === "processing") ? order.Product : null)
-    //const shipping = orders.length && orders.map(order => (order.status === "dispatched") ? order.Product : null)
 
+
+    let lastIndex: number = currentPage * 4;
+    let firstIndex: number = lastIndex - 4;
+    let lastPage: number = Math.ceil(orders.length / 4);
+
+    (!orders.length) ? currentOrders = [] : (currentOrders = [...currentOrders, ...orders.slice(firstIndex, lastIndex)])
+    console.log("currentOrders --> ", currentOrders)
     useEffect(() => {
         (async () => {
-            await dispatch(bringUserOrders(userName));
+            dispatch(bringUserOrders(userName));
             setLoading(false)
         })()
     }, [])//eslint-disable-line
+
     console.log("orders -->", orders)
+    const handlePagination = () => {
+        setCurrentPage(currentPage + 1)
+    }
+
     if (loading) {
         return (
             <h1>Loading...</h1>
@@ -37,8 +47,9 @@ export default function UserOrders() {
     }
     return (
 
-        <Container>
-            {orders && orders.map(o => {
+        <Container className="mt-4 mb-4">
+            <div className="d-flex justify-content-center"><p className="h3 pt-2">My Orders</p></div>
+            {currentOrders && currentOrders.map(o => {
                 return (
                     <OrderItem
                         name={o.Product.name}
@@ -51,6 +62,7 @@ export default function UserOrders() {
                     />)
             })
             }
+            {currentPage < lastPage ? <div className="d-flex justify-content-center mb-4"> <button className="btn btn-primary" onClick={handlePagination}>View More</button> </div> : null}
 
         </Container>
 
