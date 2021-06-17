@@ -4,7 +4,7 @@ import axios from 'axios';
 import { RouteComponentProps } from 'react-router-dom';
 import { IProduct } from '../../interfaces/product';
 
-interface Props extends RouteComponentProps {
+interface Props {
     userId?: string;
     productData: IProduct;
 }

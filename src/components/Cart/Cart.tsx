@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { IProduct } from '../../interfaces/product';
 import axios, { AxiosResponse } from 'axios';
 import { url as URL } from '../../api';
-//import { CartItem } from '../CartCard/CartCard';
+import CartCard from '../CartCard/CartCard';
 import './style.scss';
 
 //redux stuff
@@ -65,10 +65,14 @@ function Cart(props: Props): ReactElement {
         return (
             <div>
                 {cart.map((cartProduct: IProduct) => {
-                    // <CartCard key={cartProduct.productId} userId={userId} cartProduct={cartProduct} />;
-                    <div>{cartProduct.productId}</div>;
+                    return (
+                        <div key={cartProduct.productId}>
+                            Im a card.
+                            <CartCard key={cartProduct.productId} userId={userId} productData={cartProduct} />
+                        </div>
+                    );
                 })}
-                <div>Im a card.</div>
+
                 <hr />
                 <div>
                     <h3>total is: {totalAmount}</h3>
