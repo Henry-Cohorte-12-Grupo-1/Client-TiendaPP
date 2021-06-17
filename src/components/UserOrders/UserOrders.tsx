@@ -7,7 +7,7 @@ import { Container } from 'react-bootstrap';
 import OrderItem from './OrderListItem'
 
 let currentOrders: IUserOrders[] = [];
-let filteredOrders: IUserOrders[] = []
+// let filteredOrders: IUserOrders[] = []
 
 
 export default function UserOrders() {
@@ -34,8 +34,9 @@ export default function UserOrders() {
     let firstIndex: number = lastIndex - 4;
     let lastPage: number = Math.ceil(orders.length / 4);
 
-    (!orders.length) ? currentOrders = [] : (currentOrders = [...currentOrders, ...orders.slice(firstIndex, lastIndex)])
+    (!orders.length || typeof orders === "string") ? currentOrders = [] : (currentOrders = [...currentOrders, ...orders.slice(firstIndex, lastIndex)])
     console.log("currentOrders --> ", currentOrders)
+    console.log("reduxOrders -->", orders)
 
 
 
@@ -46,6 +47,11 @@ export default function UserOrders() {
     if (loading) {
         return (
             <h1>Loading...</h1>
+        )
+    }
+    if (currentOrders.length < 1) {
+        return (
+            <h1>Nothing found</h1>
         )
     }
     return (
@@ -64,8 +70,8 @@ export default function UserOrders() {
                 <label className="btn btn-primary m-2" htmlFor="processing">Processing Payement</label>
 
             </div>
-
-            {currentOrders && currentOrders.map(o => {
+            {console.log(currentOrders)}
+            {currentOrders.length && currentOrders.map(o => {
                 return (
                     <OrderItem
                         name={o.Product.name}

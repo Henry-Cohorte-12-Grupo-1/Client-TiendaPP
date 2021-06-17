@@ -13,7 +13,7 @@ function UserDashboard() {
             <div className="d-flex justify-content-around m-5">
                 <a className="btn btn-primary" id='colorB' href={`/user/activeProducts?username=${userName}`}>Active sales</a>
                 <a className="btn btn-primary" id='colorB' href="/user/create">Create New</a>
-                <a className="btn btn-primary" id='colorB' href={`/user/orders?user=${userName}`}>My Purchases</a>
+                <a className="btn btn-primary" id='colorB' href={`/user/orders?user=${userName}`}>My Orders</a>
             </div>
         </Container>
     )
