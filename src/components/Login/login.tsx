@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import {IErrorUser} from '../../interfaces/forms'
 import { url } from "../../api";
-import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
 function Login() {
@@ -73,9 +72,11 @@ function Login() {
     const handleSubmit = async() => {
         console.log({email:email,pass:password})
         const resp = await axios.post(`${url}/login`,{email:email,pass:password}).catch(err=>console.log(err))
+        
 
         if(resp){
             console.log(resp.data.message)
+            localStorage.setItem('token', resp.data.token);
         if(resp.data.message==='User'){
                 alert('Welcome')
                 history.push('/home');
