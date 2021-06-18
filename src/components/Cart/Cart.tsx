@@ -39,6 +39,7 @@ function Cart(props: Props): ReactElement {
         (async () => {
             await dispatch(loadCartFromDB(userId));
             await console.log(totalAmount);
+
             //await setTotalAmount(getTotalAmount());
         })(); //iif sacado de product detail
     }, [render]);
