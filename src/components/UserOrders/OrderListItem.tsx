@@ -1,10 +1,86 @@
-
+import axios from 'axios'
+import { useState } from 'react'
+import { url } from '../../api'
+import { Review } from '../../interfaces/reviews'
 interface imgs {
     imageId: string
 }
-export default function OrderListItem(props: { name: string; status: string; price: number; productId?: string, images: imgs[], quantity: number; seller?: string | undefined }) {
-    //console.log("image ID: ", props.images)
-    // 
+
+
+export default function OrderListItem(props: {
+    name: string;
+    status: string;
+    price: number;
+    productId?: string,
+    images: imgs[],
+    quantity: number;
+    seller?: string | undefined;
+    reviews: Review[];
+    user: string | null
+}) {
+
+    const [review, setReview] = useState<any>({
+        username: props.user,
+        review: "",
+        score: -1,
+        productId: props.productId
+    })
+
+    const [form, setForm] = useState<boolean>(false)
+    const [errors, setErrors] = useState<any>({
+        review: true,
+        score: true
+    })
+
+    const handleClick = () => {
+        setForm(true)
+    }
+
+    const handleInputChange = (e: any) => {
+        e.preventDefault();
+        if (e.target.name === "review") {
+            if (e.target.value.length > 15) {
+                setErrors({
+                    ...errors,
+                    review: false
+                })
+            }
+        }
+        if (e.target.name === "score") {
+            if (e.target.value > 0 || e.target.value < 6) {
+                setErrors({
+                    ...errors,
+                    score: false
+                })
+            }
+        }
+        setReview({
+            ...review,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    console.log(review)
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        if (errors.review) {
+            return alert("Review must have at least 15 characters")
+        }
+        if (errors.score) {
+            return alert("Score must be between 1 and 5")
+        }
+        const resp = await axios.post(`${url}/reviews`, review)
+        console.log(resp)
+    }
+
+    let hasReview: boolean = false
+    if (props.reviews[0]) {
+        hasReview = true
+    }
+
+
+
     return (
 
         <div className="row">
@@ -33,7 +109,21 @@ export default function OrderListItem(props: { name: string; status: string; pri
                                 <div className="media row justify-content-between ">
                                     <div className="col-auto text-right"><small className="text-right mr-sm-2"></small></div>
                                     <div className="flex-col">
-                                        <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>My Review</a>
+                                        {!hasReview ? <button type="button" onClick={handleClick} className="btn btn-primary">My Review</button> : null}
+                                        {form ? (
+                                            <form onSubmit={e => handleSubmit(e)}>
+                                                <div>
+                                                    <textarea name="review" minLength={15} onChange={e => handleInputChange(e)} />
+                                                </div>
+                                                <div>
+                                                    <input onChange={e => handleInputChange(e)} name="score" type="number" min="1" max="5" />
+                                                </div>
+                                                <div>
+                                                    <button type="submit">Submit</button>
+                                                </div>
+                                            </form>
+                                        ) : null}
+
                                     </div>
                                     <div className="col-auto flex-col-auto">
                                         <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>Buy Again</a>

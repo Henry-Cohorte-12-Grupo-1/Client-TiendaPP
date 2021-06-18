@@ -1,3 +1,5 @@
+import { Review } from "./reviews";
+
 export default interface IUserProduct {
     productId: string;
     name: string;
@@ -7,6 +9,7 @@ export default interface IUserProduct {
     Category: cat;
     Images: img[]
     User?: { username: string }
+    Reviews: Review[]
 }
 
 export interface cat {
