@@ -12,6 +12,9 @@ import AboutUs from '../components/AboutUs/AboutUs'
 import Signup from '../components/SignUp/SignUp';
 import AuthUser from '../components/Auth/AuthUser';
 import AuthAdmin from '../components/Auth/AuthAdmin';
+import UserDashboard from '../components/UserDashboard/UserDashboard';
+import UserOrders from '../components/UserOrders/UserOrders';
+import Validate from '../components/Validate/Validate';
 
 const routes: IRoute[] = [
     {
@@ -35,16 +38,28 @@ const routes: IRoute[] = [
     {
         path: '/user/',
         name: 'User',
-        component: AuthUser,
+        component: UserDashboard, //AuthUser
         exact: true,
-        props: {path:'/user/create',name:'Create',component: UserProducts, exact:true},
+        //props: {path:'/user/create',name:'Create',component: UserProducts, exact:true},
+    },
+    {
+        path: '/user/orders',
+        name: 'UserOrders',
+        component: UserOrders,
+        exact: true
+    },
+    {
+        path: '/user/activeProducts',
+        name: 'User',
+        component: UserProducts,
+        exact: true
     },
     {
         path: '/user/create',
         name: 'Create',
-        component: AuthUser,
+        component: ProductForm, //AuthUser
         exact: true,
-        props: {path:'/user/create',name:'Create',component: ProductForm, exact:true},
+        //props: {path:'/user/create',name:'Create',component: ProductForm, exact:true},
     },
     {
         path: '/home',
@@ -55,9 +70,9 @@ const routes: IRoute[] = [
     {
         path: '/product/edit',
         name: 'ProductEdit',
-        component: AuthUser,
+        component: ProductEdit, //AuthUser
         exact: true,
-        props: {path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact:true},
+        //props: {path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact:true},
     },
     {
         path: '/Product/:id',
@@ -74,14 +89,20 @@ const routes: IRoute[] = [
     {
         path: '/admin',
         name: 'Admin',
-        component: AuthAdmin,
+        component: Admin,//AuthAdmin
         exact: true,
-        props: {path: '/admin', name: 'Admin', component: Admin, exact:true} 
+        //props: {path: '/admin', name: 'Admin', component: Admin, exact:true} 
     },
     {
         path: '/sign-up',
         name: 'Sign Up',
         component: Signup,
+        exact: true
+    },
+    {
+        path: '/validate',
+        name: 'Validate',
+        component: Validate,
         exact: true
     },
 ]

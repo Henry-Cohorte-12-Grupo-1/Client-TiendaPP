@@ -1,0 +1,10 @@
+#bPagination {
+    background-color: #2c666e;
+    border: none;
+    padding: 15px 40px;
+    margin-bottom: 2rem;
+}
+
+#bPagination:hover{
+    background-color: #07393c;
+}

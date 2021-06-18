@@ -113,7 +113,7 @@ function Signup() {
 
     const handleSubmit = async () => {
         console.log(user)
-        let resp = await axios.post(`${url}/usercreate`, user)
+        let resp = await axios.post(`${url}/user/usercreate`, user)
         console.log(resp.data)
         if (resp.data === 'successfully created') {
             history.push(`/login`);
@@ -137,7 +137,7 @@ function Signup() {
                 <Form.Group className="row" controlId="formBasicEmail">
                     <Col>
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control className={`border-${colors.firstName} border-2`} type="email" placeholder="Enter Firs Name" name='firstName' onChange={handleChange} />
+                        <Form.Control className={`border-${colors.firstName} border-2`} type="email" placeholder="Enter First Name" name='firstName' onChange={handleChange} />
                     </Col>
 
                     <Col>
@@ -156,11 +156,11 @@ function Signup() {
                 <Form.Group className="row" controlId="formBasicPassword">
                     <Col>
                         <Form.Label >Password</Form.Label>
-                        <Form.Control className={`border-${colors.pass} border-2`} type="password" placeholder="Password" name='pass' onChange={handleChange} />
+                        <Form.Control className={`border-${colors.pass} border-2`} type="password" placeholder="Enter Password" name='pass' onChange={handleChange} />
                     </Col>
                     <Col>
                         <Form.Label >Repeat Password</Form.Label>
-                        <Form.Control className={`border-${colors.repeatPass} border-2`} type="password" placeholder="Password" name='repeatPass' onChange={handleChange} />
+                        <Form.Control className={`border-${colors.repeatPass} border-2`} type="password"  name='repeatPass' onChange={handleChange} />
                     </Col>
 
                 </Form.Group>

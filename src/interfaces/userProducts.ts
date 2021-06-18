@@ -6,6 +6,7 @@ export default interface IUserProduct {
     description: string;
     Category: cat;
     Images: img[]
+    User?: { username: string }
 }
 
 export interface cat {
