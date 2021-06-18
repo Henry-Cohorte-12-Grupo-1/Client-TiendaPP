@@ -113,7 +113,7 @@ function Signup() {
 
     const handleSubmit = async () => {
         console.log(user)
-        let resp = await axios.post(`${url}/usercreate`, user)
+        let resp = await axios.post(`${url}/user/usercreate`, user)
         console.log(resp.data)
         if (resp.data === 'successfully created') {
             history.push(`/login`);
