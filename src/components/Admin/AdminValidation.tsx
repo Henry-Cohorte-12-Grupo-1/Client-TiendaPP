@@ -1,7 +1,12 @@
-import { Button, Container, Form, Col } from "react-bootstrap";
+import { Button, Container, Form} from "react-bootstrap";
 import {useState} from 'react'
+import jwtDecode from 'jwt-decode'
 
 function AdminValidation() {
+
+    let token = jwtDecode(localStorage.token)
+
+    console.log(token)
     interface IDigits {
         num0?:string,
         num1?:string,
