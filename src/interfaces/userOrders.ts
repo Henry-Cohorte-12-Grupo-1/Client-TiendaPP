@@ -5,4 +5,5 @@ export default interface IUserOrders {
     quantity: number,
     Product: IUserProduct,
     status: string
+    User: { username: string }
 }
