@@ -166,14 +166,14 @@ export const loadCartFromDB = (userId: string) => {
                 });
             })
             .then(() => {
-                console.log('entro then normalized', totalAmount);
-                totalAmount = normalizedArray.map((x: any) => x.price * x.quantity).reduce((a: any, b: any) => a + b);
-
-                dispatch({
-                    type: ActionTypes.LOAD_CART,
-                    payload: normalizedArray,
-                    totalAmount,
-                });
+                (totalAmount = normalizedArray
+                    .map((x: any) => x.price * x.quantity)
+                    .reduce((a: any, b: any) => a + b, 0)),
+                    dispatch({
+                        type: ActionTypes.LOAD_CART,
+                        payload: normalizedArray,
+                        totalAmount,
+                    });
             })
 
             .catch((e) => {
@@ -181,6 +181,16 @@ export const loadCartFromDB = (userId: string) => {
             });
     };
 };
+
+
+export const deleteItemFromCart = (userId: string | undefined, productId: string | null | undefined) => {
+    return async (dispatch: Dispatch) => {
+        await axios.post(url + '/cart/deleteCartItem', { userId, productId }).then(() => {
+            dispatch({
+                type: ActionTypes.DELETE_CART_ITEMS,
+                itemsData: { userId, productId },
+            });
+        });
 
 export const addProductToCart = (userId: string, productId: string) => {
     const URL_ADD_TO_CART = url + '/cart/addCartItem';
@@ -214,5 +224,6 @@ export const addProductToCart = (userId: string, productId: string) => {
             .catch((e) => {
                 console.error(e);
             });
+
     };
 };

@@ -13,5 +13,9 @@ export enum ActionTypes {
     SEARCH_PRODUCT_AC,
     SET_CART_ITEM_QUANTITY,
     LOAD_CART,
+
+    DELETE_CART_ITEMS,
+
     ADD_PRODUCT_TO_CART,
+
 }

@@ -7,6 +7,7 @@ import { url as URL } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCartItemQuantity, loadCartFromDB } from '../../redux/actions';
 import { StoreType } from '../../redux/reducers';
+import DeleteButton from '../CartButtons/DeleteButton';
 
 interface Props {
     userId?: string;
@@ -83,6 +84,12 @@ function CartCard(props: Props): ReactElement {
                 <button onClick={onDecrement}> - </button>
                 <h6>{quantity}</h6>
                 <button onClick={onIncrement}> + </button>
+                <DeleteButton
+                    userId={props.userId}
+                    productId={props.productData.productId}
+                    forceRender={props.forceRender}
+                    render={props.render}
+                />
             </div>
         </div>
     );
