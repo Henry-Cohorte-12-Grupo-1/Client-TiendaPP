@@ -44,6 +44,17 @@ function NavComponent() {
                             Sign Up
                         </button>
                     </Link>
+                    {localStorage.token && 
+                        <div>
+                            <a
+                                className="btn font-weight-bold"
+                                id="colorButton2"
+                                onClick={() => {localStorage.removeItem('token')}}
+                                href='/'
+                            >   
+                                Log out
+                            </a>
+                        </div>}
                     <ul>
                         {categorias &&
                          <li className="btn font-weight-bold" id="colorButton4">Categories
