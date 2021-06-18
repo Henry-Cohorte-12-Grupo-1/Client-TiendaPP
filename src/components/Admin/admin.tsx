@@ -111,6 +111,40 @@ function Admin() {
 
     }
 
+<<<<<<< HEAD
+    return (
+
+        <Container className="border shadow mt-4">
+            <h1 className="mt-4">Admin Dashboard</h1>
+            <Form className="p-5 mb-4">
+                <Row>
+                    <Col>
+                        <br></br>
+                        <Form.Label >Add Category</Form.Label>
+                        <Form.Control type='input' placeholder="New..." name='category' onChange={handleCategoryChange} />
+                    </Col>
+                    <Col>
+                        <Button className="m-5 w-25" variant="primary" type="submit" onClick={addCategory} >Add</Button>
+                    </Col>
+                </Row>
+                <Form.Label>Categories</Form.Label>
+                <Form.Control as="select" multiple >
+                    {categories.map((category) => (
+                        <option value={category} onDoubleClick={handleDelete}>{category}</option>
+                    ))}
+                </Form.Control>
+
+                <Form.Label className='mt-3'>Users</Form.Label>
+                <Form.Control as="select" multiple >
+                    {users?.map((user) => (
+                        <option value={user.username} onDoubleClick={handleDelete}>{user.username}</option>
+                    ))}
+                </Form.Control>
+                <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>
+            </Form>
+        </Container>
+=======
+>>>>>>> 067cfbd4cb322fe27759017909b09ca08cfbfaaa
 
     return (
         <>

@@ -1,18 +1,24 @@
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
-import { Redirect } from 'react-router-dom'
-import { IErrorUser } from '../../interfaces/forms'
+import {IErrorUser} from '../../interfaces/forms'
+import { url } from "../../api";
+import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 function Login() {
 
-    let [user, setUser] = useState<string>()
-    let [redirect, setRedirect] = useState<string>()
+    const history = useHistory();
+
+    let [email, setEmail] = useState<string>()
+    let [password, setPassword] = useState<string>()
+    let [invalid, setInvalid] = useState<boolean>()
     const [errors, setErrors] = useState<IErrorUser>({
         email: true,
         pass: true
     })
 
     const handleChange = (event: React.FormEvent<any>) => {
+        setInvalid(false)
         if (event.target) {
             let tName = (event.target as HTMLButtonElement).name
             let tValue = (event.target as HTMLButtonElement).value
@@ -22,7 +28,10 @@ function Login() {
                     [tName]: false,
                 })
                 if (tName === 'email') {
-                    setUser(tValue)
+                    setEmail(tValue)
+                }
+                if (tName === 'pass') {
+                    setPassword(tValue)
                 }
             } else {
                 setErrors({
@@ -30,30 +39,32 @@ function Login() {
                     [tName]: true
                 })
             }
-
         }
     }
 
 
-    const handleSubmit = () => {
-        console.log(user)
-        if (user === 'admin') {
-            setRedirect('/admin')
-            console.log(redirect)
-        }
-        if (user) {
-            setRedirect(`/user?username=${user}`)
-            console.log('entró')
-        }
-    }
+    const handleSubmit = async() => {
+        console.log({email:email,pass:password})
+        const resp = await axios.post(`${url}/login`,{email:email,pass:password}).catch(err=>console.log(err))
 
-    if (redirect) {
-        if (user === 'admin') {
-            return <Redirect to="/admin" />
+        if(resp){
+            console.log(resp.data.message)
+        if(resp.data.message==='User'){
+                alert('Welcome')
+                history.push('/home');
+ 
+        } 
+        if(resp.data.message==='Admin'){
+            console.log('entro admin')
+            history.push('/adminValidation');
         }
-        if (user) {
-            return <Redirect to={redirect} />
+        if(resp.data.message==='Disabled'){
+            alert('Account Disabled, please contact support')
         }
+        if(resp.data.message==='User or password are incorrect'){
+            setInvalid(true)
+        }
+        } else alert('network error')
     }
 
     return (
@@ -71,10 +82,14 @@ function Login() {
                       <Form.Label >Password</Form.Label>
                       <Form.Control type="password" placeholder="Enter Password" name='pass' onChange={handleChange} />
                   </Form.Group>
-                  {(errors?.email === true || errors?.pass === true) ?
+
+                  {invalid?<label>Invalid email or password </label>:null}
+                  {(errors?.email === true || errors?.pass === true || invalid===true) ?
                       <Button className="mt-5" variant="info" disabled>Log In</Button>:
                       <Button className="mt-5" variant="primary" onClick={handleSubmit}>Log In</Button>
                   }
+
+
               </Form>
           </Container>
       )
