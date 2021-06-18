@@ -75,6 +75,7 @@ interface IAction {
     productDetails: obj;
     setQuantity: { quantity: number; productId: string };
     totalAmount: number;
+    addedCartProduct: IProduct;
 }
 
 export default function reducer(state: StoreType = initialState, action: IAction) {
@@ -135,6 +136,11 @@ export default function reducer(state: StoreType = initialState, action: IAction
             }
             return {
                 ...state,
+            };
+        case ActionTypes.ADD_PRODUCT_TO_CART:
+            return {
+                ...state,
+                cart: [...state.cart, action.addedCartProduct],
             };
         default:
             return state;

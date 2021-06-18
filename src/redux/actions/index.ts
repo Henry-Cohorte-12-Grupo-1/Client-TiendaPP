@@ -3,6 +3,8 @@ import obj from '../../interfaces/products';
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { url } from '../../api';
+import exp from 'constants';
+import { IProduct } from '../../interfaces/product';
 
 export const masUno = () => {
     return {
@@ -174,6 +176,41 @@ export const loadCartFromDB = (userId: string) => {
                 });
             })
 
+            .catch((e) => {
+                console.error(e);
+            });
+    };
+};
+
+export const addProductToCart = (userId: string, productId: string) => {
+    const URL_ADD_TO_CART = url + '/cart/addCartItem';
+    let addedCartProduct: IProduct;
+    return async (dispatch: Dispatch) => {
+        //adding product to user's cart in DB
+        await axios
+            .post(URL_ADD_TO_CART, { userId, productId })
+            .then((res) => {
+                //meter un map
+                const newCartProduct = res.data.Product;
+                addedCartProduct = {
+                    name: newCartProduct.name,
+                    description: newCartProduct.description,
+                    price: newCartProduct.price,
+                    images: newCartProduct.Images.map((x: any) => x.imageId),
+                    categoryId: newCartProduct.categoryId,
+                    quantity: res.data.quantity,
+                    //category: string,
+                    //joinedImage: string,
+                    //initialImages: string,
+                    productId: newCartProduct.productId,
+                };
+            })
+            .then(() => {
+                dispatch({
+                    type: ActionTypes.ADD_PRODUCT_TO_CART,
+                    addedCartProduct: addedCartProduct,
+                });
+            })
             .catch((e) => {
                 console.error(e);
             });
