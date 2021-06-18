@@ -20,6 +20,7 @@ export default function UserOrders() {
     const [currentPage, setCurrentPage] = useState<number>(1)
 
 
+
     const dispatch = useDispatch()
     const orders = useSelector<StoreType, IUserOrders[]>((state) => state.userOrders)
 
@@ -81,6 +82,8 @@ export default function UserOrders() {
                         seller={o.Product.User?.username}
                         quantity={o.quantity}
                         status={o.status}
+                        reviews={o.Product.Reviews}
+                        user={userName}
                     />)
             })
             }
