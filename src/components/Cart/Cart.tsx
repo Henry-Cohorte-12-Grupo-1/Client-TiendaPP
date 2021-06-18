@@ -19,7 +19,6 @@ function Cart(props: Props): ReactElement {
     const EMPTY = 0;
 
     //redux store
-
     const cart = useSelector<StoreType, IProduct[]>((state) => state.cart);
     const totalAmount = useSelector<StoreType, number>((state) => state.totalAmount);
     const dispatch = useDispatch();

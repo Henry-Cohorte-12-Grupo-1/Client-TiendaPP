@@ -79,7 +79,6 @@ interface IAction {
     itemsData: { userId: string; productId: string };
 
     addedCartProduct: IProduct;
-
 }
 
 export default function reducer(state: StoreType = initialState, action: IAction) {
@@ -142,16 +141,15 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 ...state,
             };
 
-        case ActionTypes.DELETE_CART_ITEMS:
+        case ActionTypes.DELETE_CART_ITEM:
             //state.cart = state.cart.filter((product) => product.productId != action.itemsData.productId);
             return {
                 ...state,
-            }
+            };
         case ActionTypes.ADD_PRODUCT_TO_CART:
             return {
                 ...state,
                 cart: [...state.cart, action.addedCartProduct],
-
             };
         default:
             return state;

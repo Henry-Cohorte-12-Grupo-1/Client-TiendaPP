@@ -182,16 +182,16 @@ export const loadCartFromDB = (userId: string) => {
     };
 };
 
-
 export const deleteItemFromCart = (userId: string | undefined, productId: string | null | undefined) => {
     return async (dispatch: Dispatch) => {
         await axios.post(url + '/cart/deleteCartItem', { userId, productId }).then(() => {
             dispatch({
-                type: ActionTypes.DELETE_CART_ITEMS,
+                type: ActionTypes.DELETE_CART_ITEM,
                 itemsData: { userId, productId },
             });
         });
-
+    };
+};
 export const addProductToCart = (userId: string, productId: string) => {
     const URL_ADD_TO_CART = url + '/cart/addCartItem';
     let addedCartProduct: IProduct;
@@ -224,6 +224,5 @@ export const addProductToCart = (userId: string, productId: string) => {
             .catch((e) => {
                 console.error(e);
             });
-
     };
 };
