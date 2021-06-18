@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { useState, MouseEvent } from "react";
 import { searchProduct, searchProductAC } from "../../redux/actions/index";
 import { useHistory } from "react-router-dom";
@@ -46,15 +46,13 @@ function validate(state: localState) {
 export default function SearchBar() {
     const dispatch = useDispatch(); // hook de dispatch
     const history = useHistory();
+    const itemsState = useSelector((store: RootStateOrAny) => store.items);
     const productsState = useSelector<StoreType, ProductsType>(
         (state) => state.products
     );
     const acListState = useSelector<StoreType, ProductsType>(
         (state) => state.acList
     );
-
-    console.log("products", productsState);
-    console.log("ACLIST", acListState);
     // Creo 2 Estados locales. El primero, en product va a guardar el
     // string ingresado en la SearchBar por el user
     // para luego despachar una action, y pegarle a la API
@@ -98,8 +96,7 @@ export default function SearchBar() {
     // local que luego reinicia el input como un campo vacío
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        console.log(state.product);
-        dispatch(searchProduct(state.product));
+        dispatch(searchProduct(state.product, itemsState));
         setState({
             ...state,
             showSuggestions: false,
@@ -111,12 +108,10 @@ export default function SearchBar() {
     // Función onKeyDown
 
     const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-        console.log("ENTRO AL ONKEYDOWN");
         const { activeSuggestion } = state;
 
         if (e.code === "Enter") {
             // <-- Si apreto enter, le clavo en el input el elemento del array con el indice indicado por el activeSuggestion
-            console.log("Entro al Enter");
             setState({
                 ...state,
                 activeSuggestion: 0,
@@ -162,7 +157,6 @@ export default function SearchBar() {
     };
 
     const CloseAC = (e: React.FocusEventHandler<HTMLUListElement>): void => {
-        console.log("Entro al BLUR");
         setState({
             ...state,
             showSuggestions: false,
@@ -183,7 +177,6 @@ export default function SearchBar() {
 
             //Limito a 3 resultados en las recomendaciones.
             acListState.products = acListState.products.slice(0, 3);
-            console.log("Array de reco", acListState.products);
             suggestionsListComponent = (
                 // me guardo en la suggestionsListComponent una lista desordenada cuyos items
                 //provengan de un map que le hago a lo que me trajo el selector
