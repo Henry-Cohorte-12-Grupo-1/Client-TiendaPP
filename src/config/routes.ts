@@ -15,6 +15,8 @@ import AuthAdmin from '../components/Auth/AuthAdmin';
 import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
+import AdminValidation from '../components/Admin/AdminValidation'
+
 
 const routes: IRoute[] = [
     {
@@ -92,6 +94,12 @@ const routes: IRoute[] = [
         component: Admin,//AuthAdmin
         exact: true,
         //props: {path: '/admin', name: 'Admin', component: Admin, exact:true} 
+    },
+    {
+        path: '/adminValidation',
+        name: 'Admin Validation',
+        component: AdminValidation,
+        exact: true
     },
     {
         path: '/sign-up',

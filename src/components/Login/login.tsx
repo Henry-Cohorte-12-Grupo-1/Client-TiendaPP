@@ -111,11 +111,12 @@ function Login() {
                       <Form.Control type="password" placeholder="Enter Password" name='pass' onChange={handleChange} />
                   </Form.Group>
 
-                  {invalid?<label>Invalid email or password </label>:null}
                   {(errors?.email === true || errors?.pass === true || invalid===true) ?
-                      <Button className="mt-5" variant="info" disabled>Log In</Button>:
-                      <Button className="mt-5" variant="primary" onClick={handleSubmit}>Log In</Button>
-                  }
+                      <Button className="mt-3" variant="info" disabled>Log In</Button>:
+                      <Button className="mt-3" variant="primary" onClick={handleSubmit}>Log In</Button>
+                    }
+                    <br></br>
+                    {invalid?<label className='mt-3'>Invalid email or password </label>:null}
 
 
               </Form>
