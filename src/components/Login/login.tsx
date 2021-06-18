@@ -1,3 +1,5 @@
+import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import {IErrorUser} from '../../interfaces/forms'
@@ -6,12 +8,12 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
 function Login() {
-
     const history = useHistory();
 
     let [email, setEmail] = useState<string>()
     let [password, setPassword] = useState<string>()
     let [invalid, setInvalid] = useState<boolean>()
+
     const [errors, setErrors] = useState<IErrorUser>({
         email: true,
         pass: true
@@ -22,6 +24,8 @@ function Login() {
         if (event.target) {
             let tName = (event.target as HTMLButtonElement).name
             let tValue = (event.target as HTMLButtonElement).value
+
+            console.log(tName, tValue);
             if (tValue) {
                 setErrors({
                     ...errors,
@@ -41,6 +45,29 @@ function Login() {
             }
         }
     }
+
+    /*
+    const handleSubmitTest = async () => {
+        const returnToken = await axios.post('http://localhost:3001/api/passportRegister/login', {
+            email: user,
+            password: pass,
+        })
+        localStorage.setItem('token', returnToken.data.accessToken);
+
+        const payloadToken : any = localStorage.token ? jwtDecode(localStorage.token) : false;
+
+        if (payloadToken.admin){
+            setRedirect('/admin')
+        } else {
+            setRedirect(`/user?username=${payloadToken.username}`)
+        }
+        
+    }
+
+    if (redirect) {
+        if (localStorage.token) {
+            return <Redirect to={redirect} />
+    */
 
 
     const handleSubmit = async() => {
@@ -66,7 +93,7 @@ function Login() {
         }
         } else alert('network error')
     }
-
+    
     return (
 
           <Container className="p-5" >
