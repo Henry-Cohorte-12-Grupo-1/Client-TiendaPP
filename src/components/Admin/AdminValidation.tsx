@@ -1,10 +1,13 @@
 import { Button, Container, Form} from "react-bootstrap";
 import {useState} from 'react'
 import jwtDecode from 'jwt-decode'
+import axios from "axios";
+import { url } from "../../api";
+import { useHistory } from 'react-router-dom'
 
 function AdminValidation() {
-
-    let token = jwtDecode(localStorage.token)
+    const history = useHistory();
+    let token:any = jwtDecode(localStorage.token)
 
     console.log(token)
     interface IDigits {
@@ -40,9 +43,19 @@ function AdminValidation() {
         })
     }
 
-    const handleSumbit = (event:any) => {
-        const joinedCode = `${code.num0}${code.num1}${code.num2}${code.num3}${code.num4}${code.num5}`
-        console.log(joinedCode)
+    const handleSumbit = async(event:any) => {
+
+        const joinedCode = parseInt(`${code.num0}${code.num1}${code.num2}${code.num3}${code.num4}${code.num5}`)
+        if(joinedCode === token.key){
+          let resp = await axios.post(`${url}/login/adminValidate`).catch((err:any)=>console.log(err))
+          if(resp){
+            if(resp.data.token){
+              console.log(resp.data)
+              localStorage.setItem('token', resp.data.token);
+              history.push('/home');
+            } else alert('invalid token')
+          } else alert('network error')
+        } else alert('Invalid code number')
     }
 
 
