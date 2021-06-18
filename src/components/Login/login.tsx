@@ -1,4 +1,5 @@
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 import { useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
@@ -40,11 +41,11 @@ function Login() {
         }
     }
 
-
+    /*
     const handleSubmit = () => {
         console.log(user)
         if (user === 'admin') {
-            setRedirect('/admin')
+            
             console.log(redirect)
         }
         if (user) {
@@ -53,24 +54,32 @@ function Login() {
         }
     }
 
-    if (redirect) {
-        if (user === 'admin') {
-            return <Redirect to="/admin" />
-        }
-        if (user) {
-            return <Redirect to={redirect} />
-        }
-    }
+   
 
+    */    
     const handleSubmitTest = async () => {
-        console.log(user, pass);
         const returnToken = await axios.post('http://localhost:3001/api/passportRegister/login', {
             email: user,
             password: pass,
         })
-        console.log(returnToken.data)
         localStorage.setItem('token', returnToken.data.accessToken);
+
+        const payloadToken : any = localStorage.token ? jwtDecode(localStorage.token) : false;
+
+        if (payloadToken.admin){
+            setRedirect('/admin')
+        } else {
+            setRedirect(`/user?username=${payloadToken.username}`)
+        }
+        
     }
+
+    if (redirect) {
+        if (localStorage.token) {
+            return <Redirect to={redirect} />
+        }
+    }
+    
   
     return (
           <Container className="p-5" >

@@ -10,6 +10,8 @@ import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
 import Landing from '../components/Landing/Landing';
 import AboutUs from '../components/AboutUs/AboutUs'
 import Signup from '../components/SignUp/SignUp';
+import AuthUser from '../components/Auth/AuthUser';
+import AuthAdmin from '../components/Auth/AuthAdmin';
 
 const routes: IRoute[] = [
     {
@@ -33,14 +35,16 @@ const routes: IRoute[] = [
     {
         path: '/user/',
         name: 'User',
-        component: UserProducts,
-        exact: true
+        component: AuthUser,
+        exact: true,
+        props: {path:'/user/create',name:'Create',component: UserProducts, exact:true},
     },
     {
         path: '/user/create',
         name: 'Create',
-        component: ProductForm,
-        exact: true
+        component: AuthUser,
+        exact: true,
+        props: {path:'/user/create',name:'Create',component: ProductForm, exact:true},
     },
     {
         path: '/home',
@@ -51,8 +55,9 @@ const routes: IRoute[] = [
     {
         path: '/product/edit',
         name: 'ProductEdit',
-        component: ProductEdit,
-        exact: true
+        component: AuthUser,
+        exact: true,
+        props: {path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact:true},
     },
     {
         path: '/Product/:id',
@@ -69,8 +74,9 @@ const routes: IRoute[] = [
     {
         path: '/admin',
         name: 'Admin',
-        component: Admin,
-        exact: true
+        component: AuthAdmin,
+        exact: true,
+        props: {path: '/admin', name: 'Admin', component: Admin, exact:true} 
     },
     {
         path: '/sign-up',

@@ -9,6 +9,7 @@ function Admin() {
     const [initialCategories, setInitial] = useState<string[]>([])
     const [deleteCategories, setDeleteCategories] = useState<string[]>([])
 
+    
     useEffect(() => {
         (async () => {
             var resp = await axios.get(`${url}/categories`)
