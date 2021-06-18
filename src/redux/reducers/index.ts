@@ -1,7 +1,9 @@
-import { ActionTypes } from "../actions/types";
+import { ActionTypes } from '../actions/types';
 import obj, { category } from '../../interfaces/products';
-import detailedProduct from '../../interfaces/detailedProduct'
-import IUserProduct from "../../interfaces/userProducts";
+import detailedProduct from '../../interfaces/detailedProduct';
+import IUserProduct from '../../interfaces/userProducts';
+import { IProduct } from '../../interfaces/product';
+import { setCartItemQuantity } from '../actions';
 
 // Interface de Store NO CAMBIAR DE LUGAR
 export interface StoreType {
@@ -11,22 +13,24 @@ export interface StoreType {
     filterProducts: obj[];
     products: IProductsType;
     acList: IProductsType;
-    productDetails: detailedProduct
-    userProducts: IUserProduct[]
+    productDetails: detailedProduct;
+    userProducts: IUserProduct[];
+    cart: IProduct[];
+    totalAmount: number;
 }
 
 export interface IPropsObj {
-    id: number,
-    Images: [],
-    name: string,
-    description: string,
-    price: number,
-    productId: string
+    id: number;
+    Images: [];
+    name: string;
+    description: string;
+    price: number;
+    productId: string;
 }
 
 export interface IProductsType {
-    products: IPropsObj[],
-    pages: string,
+    products: IPropsObj[];
+    pages: string;
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
@@ -50,13 +54,15 @@ const initialState: StoreType = {
         Reviews: [],
         quantity: 0,
         categoryId: 0,
-        description: "",
-        name: "",
+        description: '',
+        name: '',
         price: 0,
-        productId: "",
-        userId: ""
+        productId: '',
+        userId: '',
     },
-    userProducts: []
+    userProducts: [],
+    cart: [],
+    totalAmount: 0,
 };
 
 interface IAction {
@@ -67,12 +73,11 @@ interface IAction {
     products: {};
     acList: {};
     productDetails: obj;
+    setQuantity: { quantity: number; productId: string };
+    totalAmount: number;
 }
 
-export default function reducer(
-    state: StoreType = initialState,
-    action: IAction
-) {
+export default function reducer(state: StoreType = initialState, action: IAction) {
     switch (action.type) {
         case ActionTypes.ADD_ONE:
             state.counter++;
@@ -81,40 +86,56 @@ export default function reducer(
             return {
                 ...state,
                 productList: action.payload,
-                filterProducts: action.payload
-            }
+                filterProducts: action.payload,
+            };
 
         case ActionTypes.GET_CATEGORIES:
             return {
                 ...state,
-                filter: action.filter
-            }
+                filter: action.filter,
+            };
         case ActionTypes.SEARCH_PRODUCT:
             return {
                 ...state,
                 products: action.products,
-            }
+            };
         case ActionTypes.SEARCH_PRODUCT_AC:
             return {
                 ...state,
                 acList: action.acList,
-            }
+            };
 
         case ActionTypes.ORDER_BY_CATEGORY:
             return {
                 ...state,
-                filterProducts: state.productList.filter(c => c.Category?.name === action.order)
-            }
+                filterProducts: state.productList.filter((c) => c.Category?.name === action.order),
+            };
         case ActionTypes.GET_DETAILS:
             return {
                 ...state,
-                productDetails: action.productDetails
-            }
+                productDetails: action.productDetails,
+            };
         case ActionTypes.GET_USER_PRODUCTS:
             return {
                 ...state,
-                userProducts: action.payload
+                userProducts: action.payload,
+            };
+        case ActionTypes.LOAD_CART:
+            return {
+                ...state,
+                cart: action.payload,
+                totalAmount: action.totalAmount,
+            };
+        case ActionTypes.SET_CART_ITEM_QUANTITY:
+            for (const each of state.cart) {
+                if (each.productId == action.setQuantity.productId) {
+                    each.quantity = action.setQuantity.quantity;
+                    console.log(each.quantity);
+                }
             }
+            return {
+                ...state,
+            };
         default:
             return state;
     }
