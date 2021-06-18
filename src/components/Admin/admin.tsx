@@ -102,7 +102,6 @@ function Admin() {
                         <option value={user.username} onDoubleClick={handleDelete}>{user.username}</option>
                     ))}
                 </Form.Control>
-
                 <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>
             </Form>
         </Container>
