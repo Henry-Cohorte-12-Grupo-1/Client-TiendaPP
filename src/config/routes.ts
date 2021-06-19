@@ -1,42 +1,43 @@
 import IRoute from '../interfaces/route';
-import Login from '../components/Login/login'
-import Admin from '../components/Admin/admin'
-import ProductForm from '../components/ProductForm/ProductForm'
+import Login from '../components/Login/login';
+import Admin from '../components/Admin/admin';
+import ProductForm from '../components/ProductForm/ProductForm';
 import Home from '../components/Home/Home';
-import UserProducts from '../components/UserProducts/UserProducts'
+import UserProducts from '../components/UserProducts/UserProducts';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
 import ProductEdit from '../components/ProductEdit/ProductEdit';
 import ProductsSearched from '../components/ProductsSearched/ProductsSearched';
 import Landing from '../components/Landing/Landing';
-import AboutUs from '../components/AboutUs/AboutUs'
+
+import AboutUs from '../components/AboutUs/AboutUs';
 import Signup from '../components/SignUp/SignUp';
 import AuthUser from '../components/Auth/AuthUser';
 import AuthAdmin from '../components/Auth/AuthAdmin';
 import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
-import AdminValidation from '../components/Admin/AdminValidation'
+import AdminValidation from '../components/Admin/AdminValidation';
 import UserSales from '../components/UserOrders/UserSales';
-
+import Cart from '../components/Cart/Cart';
 
 const routes: IRoute[] = [
     {
         path: '/',
         name: 'Landing',
         component: Landing,
-        exact: true
+        exact: true,
     },
     {
         path: '/about',
         name: 'AboutUs',
         component: AboutUs,
-        exact: true
+        exact: true,
     },
     {
         path: '/login',
         name: 'Login',
         component: Login,
-        exact: true
+        exact: true,
     },
     {
         path: '/user/',
@@ -49,19 +50,19 @@ const routes: IRoute[] = [
         path: '/user/orders',
         name: 'UserOrders',
         component: UserOrders,
-        exact: true
+        exact: true,
     },
     {
         path: '/user/sales',
         name: 'Usersales',
         component: UserSales,
-        exact: true
+        exact: true,
     },
     {
         path: '/user/activeProducts',
         name: 'User',
         component: UserProducts,
-        exact: true
+        exact: true,
     },
     {
         path: '/user/create',
@@ -74,7 +75,7 @@ const routes: IRoute[] = [
         path: '/home',
         name: 'Home',
         component: Home,
-        exact: true
+        exact: true,
     },
     {
         path: '/product/edit',
@@ -87,39 +88,45 @@ const routes: IRoute[] = [
         path: '/Product/:id',
         name: 'Details',
         component: ProductDetails,
-        exact: true
+        exact: true,
     },
     {
         path: '/ProductsSearched',
         name: 'ProductsSearched',
         component: ProductsSearched,
-        exact: true
+        exact: true,
     },
     {
         path: '/admin',
         name: 'Admin',
-        component: Admin,//AuthAdmin
+        component: Admin, //AuthAdmin
         exact: true,
-        //props: {path: '/admin', name: 'Admin', component: Admin, exact:true} 
+        //props: {path: '/admin', name: 'Admin', component: Admin, exact:true}
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: Cart,
+        exact: true,
     },
     {
         path: '/adminValidation',
         name: 'Admin Validation',
         component: AdminValidation,
-        exact: true
+        exact: true,
     },
     {
         path: '/sign-up',
         name: 'Sign Up',
         component: Signup,
-        exact: true
+        exact: true,
     },
     {
         path: '/validate',
         name: 'Validate',
         component: Validate,
-        exact: true
+        exact: true,
     },
-]
+];
 
 export default routes;
