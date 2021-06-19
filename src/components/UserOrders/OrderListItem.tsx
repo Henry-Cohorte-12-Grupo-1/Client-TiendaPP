@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { url } from '../../api'
 import { Review } from '../../interfaces/reviews'
+import './OrderListItem.css'
 interface imgs {
     imageId: string
 }
@@ -60,6 +61,10 @@ export default function OrderListItem(props: {
         })
     }
 
+    const handleClickButton = () => {
+        setForm(false)
+    }
+
     console.log(review)
 
     const handleSubmit = async (e: any) => {
@@ -103,34 +108,38 @@ export default function OrderListItem(props: {
                             </div>
                         </div>
                         <hr className="my-3 " />
-                        <div className="row">
+                        <div className="row justify-content-between">
                             <div className="col-md-3 mb-3"> <p className="h6"> Status: {props.status}</p> </div>
+                            <div className="justify-content-between col-auto flex-col">
+                                        <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>Buy Again</a>
+                                        {!hasReview ? <button type="button" onClick={handleClick} className="btn btn-primary" id='colorC'>My Review</button> : null}
+                            </div>
+                        </div>
                             <div className="col mt-auto">
-                                <div className="media row justify-content-between ">
+                                <div className="justify-content-between ">
                                     <div className="col-auto text-right"><small className="text-right mr-sm-2"></small></div>
-                                    <div className="flex-col">
-                                        {!hasReview ? <button type="button" onClick={handleClick} className="btn btn-primary">My Review</button> : null}
+                                    <div className="flex-col justify-content-end">
                                         {form ? (
-                                            <form onSubmit={e => handleSubmit(e)}>
+                                            <form onSubmit={e => handleSubmit(e)} className="card-body p-5 m-4 border shadow" id='fReview'>
+                                                    <div id='bClose' onClick={handleClickButton}>
+                                                        <button id='bStyleReview'>x</button>
+                                                    </div>
+                                                    <div>
+                                                        <h5>Review</h5>
+                                                    </div>
                                                 <div>
-                                                    <textarea name="review" minLength={15} onChange={e => handleInputChange(e)} />
+                                                    <textarea  id='wReview' name="review" minLength={15} onChange={e => handleInputChange(e)} />
+                                                    <input id='iReview' onChange={e => handleInputChange(e)} name="score" type="number" min="1" max="5" />
                                                 </div>
-                                                <div>
-                                                    <input onChange={e => handleInputChange(e)} name="score" type="number" min="1" max="5" />
-                                                </div>
-                                                <div>
-                                                    <button type="submit">Submit</button>
+                                                <div id='bReview'>
+                                                    <button type="submit" className="btn btn-primary" id='colorB'>Submit</button>
                                                 </div>
                                             </form>
                                         ) : null}
 
                                     </div>
-                                    <div className="col-auto flex-col-auto">
-                                        <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>Buy Again</a>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
