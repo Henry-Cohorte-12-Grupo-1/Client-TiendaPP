@@ -1,5 +1,4 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { IProduct } from '../../interfaces/product';
 import CartCard from '../CartCard/CartCard';
 import './style.scss';
@@ -8,12 +7,9 @@ import './style.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreType } from '../../redux/reducers/index';
 import { loadCartFromDB, loadGuestCart } from '../../redux/actions';
+import jwtDecode from 'jwt-decode';
 
-interface Props extends RouteComponentProps {
-    userId: string;
-}
-
-function Cart(props: Props): ReactElement {
+function Cart(): ReactElement {
     //Constants
     const EMPTY = 0;
 
@@ -22,9 +18,9 @@ function Cart(props: Props): ReactElement {
     const totalAmount = useSelector<StoreType, number>((state) => state.totalAmount);
     const dispatch = useDispatch();
 
-    //const { userId } = props;
-    //const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
-    const userId = 'guest';
+    //GETTING USER ID FROM LOCAL STORAGE
+    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    const userId = token ? token.id : 'guest';
 
     //////
     //ESTO PARA FORZAR EL RENDER DESDE LOS CHILDREN
