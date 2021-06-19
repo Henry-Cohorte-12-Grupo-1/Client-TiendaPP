@@ -19,9 +19,9 @@ function Footer() {
                         </ul>
                     </div>
                     <div className='footer-col'>
-                        <h4>Help</h4>
+                        <h4>Sing Up</h4>
                         <ul>
-                            <li><a className='noFunctional'>Learn how to sell and buy what you want</a></li> {/* eslint-disable-line */}
+                            <li><a href='/sign-up' className='noFunctional'>Sign up to start selling and buying your products</a></li> {/* eslint-disable-line */}
                         </ul>
                     </div>
                 </div>
