@@ -18,8 +18,8 @@ export default function CheckoutForm() {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    window
-      .fetch("http://localhost:3001/api/payment/stripe", {
+    
+        fetch("http://localhost:3001/api/payment/stripe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -81,15 +81,16 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <input
+    <form className="payment-form" onSubmit={handleSubmit}>
+      {/* Enviar mail luego de la compra */}
+      {/* <input className="stripe-input"
         type="text"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter email address"
-      />
+      /> */}
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-      <button
+      <button className="stripe-button"
         disabled={processing || disabled || succeeded}
         id="submit"
       >
@@ -120,3 +121,5 @@ export default function CheckoutForm() {
     </form>
   );
 }
+
+

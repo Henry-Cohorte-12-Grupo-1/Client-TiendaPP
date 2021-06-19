@@ -113,12 +113,12 @@ const routes: IRoute[] = [
         component: Validate,
         exact: true
     },
-    // {
-    //     path: '/payment',
-    //     name: 'Payment',
-    //     component: Payment, 
-    //     exact: true,
-    // },
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: Payment, 
+        exact: true,
+    },
 ]
 
 export default routes;
