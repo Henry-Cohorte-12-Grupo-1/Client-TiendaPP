@@ -15,7 +15,11 @@ import AuthAdmin from '../components/Auth/AuthAdmin';
 import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
+<<<<<<< HEAD
 import AdminValidation from '../components/Admin/AdminValidation'
+=======
+import UserSales from '../components/UserOrders/UserSales';
+>>>>>>> 023be65cbe74f05c0127d3d1154391bdbf37149d
 
 
 const routes: IRoute[] = [
@@ -48,6 +52,12 @@ const routes: IRoute[] = [
         path: '/user/orders',
         name: 'UserOrders',
         component: UserOrders,
+        exact: true
+    },
+    {
+        path: '/user/sales',
+        name: 'Usersales',
+        component: UserSales,
         exact: true
     },
     {

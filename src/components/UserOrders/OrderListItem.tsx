@@ -17,7 +17,8 @@ export default function OrderListItem(props: {
     quantity: number;
     seller?: string | undefined;
     reviews: Review[];
-    user: string | null
+    user: string | null;
+    role: string
 }) {
 
     const [review, setReview] = useState<any>({
@@ -76,7 +77,7 @@ export default function OrderListItem(props: {
             return alert("Score must be between 1 and 5")
         }
         const resp = await axios.post(`${url}/reviews`, review)
-        console.log(resp)
+        alert(resp)
     }
 
     let hasReview: boolean = false
@@ -99,7 +100,7 @@ export default function OrderListItem(props: {
                                     <div className="col my-auto">
                                         <h5 className="mb-0">{props.name}</h5>
                                     </div>
-                                    <div className="col my-auto"> <p className="h6">Sold by: {props.seller} </p></div>
+                                    <div className="col my-auto"> <p className="h6">Sold {props.role}: {props.seller} </p></div>
                                     <div className="col my-auto"> <p className="h6">Qty : {props.quantity}</p></div>
                                     <div className="col my-auto">
                                         <h4 className="mb-0">$ {props.price} </h4>
