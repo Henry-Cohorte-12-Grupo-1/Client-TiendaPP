@@ -34,7 +34,7 @@ export interface ProductInfo {
 //Busca los detalles de un producto, por ahora hardcodeado del back
 export const productInfo = (id: string) => {
     return async (dispatch: Dispatch) => {
-        const productDetails = await axios.get<object>(`${url}/productDetails/${id}`);
+        const productDetails = await axios.get<any>(`${url}/productDetails/${id}`);
         dispatch({
             type: ActionTypes.GET_DETAILS,
             productDetails: productDetails.data,

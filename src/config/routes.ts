@@ -16,14 +16,10 @@ import AuthAdmin from '../components/Auth/AuthAdmin';
 import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
-<<<<<<< HEAD
 import AdminValidation from '../components/Admin/AdminValidation'
 import Payment from '../components/Payment/Payment';
-=======
-import AdminValidation from '../components/Admin/AdminValidation';
 import UserSales from '../components/UserOrders/UserSales';
 import Cart from '../components/Cart/Cart';
->>>>>>> bcf17a6babc785d9b5633d21be331c54099561f9
 
 const routes: IRoute[] = [
     {
