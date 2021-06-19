@@ -105,6 +105,13 @@ export const orderByCategories = (payload: string) => {
   };
 };
 
+export const filteredOrders = (status: string) => {
+  return {
+    type: ActionTypes.FILTERED_ORDERS,
+    status,
+  };
+};
+
 export const searchProduct = (
   name: string,
   items: number = 3,
