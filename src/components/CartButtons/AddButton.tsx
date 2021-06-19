@@ -1,4 +1,3 @@
-
 import { ReactElement, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { IProduct } from '../../interfaces/product';
@@ -39,4 +38,3 @@ function AddButton(props: Props): ReactElement {
     );
 }
 export default AddButton;
-

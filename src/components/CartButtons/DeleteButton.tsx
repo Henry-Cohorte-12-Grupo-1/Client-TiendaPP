@@ -13,9 +13,12 @@ interface Props {
 function DeleteButton(props: Props): ReactElement {
     const dispatch = useDispatch();
 
+    //PROPS
+    const { userId, productId, forceRender, render } = props;
+
     const handleDelete = async () => {
-        await dispatch(deleteItemFromCart(props.userId, props.productId));
-        props.forceRender(!props.render);
+        await dispatch(deleteItemFromCart(userId, productId));
+        forceRender(!render);
     };
     return <button onClick={handleDelete}>Delete</button>;
 }

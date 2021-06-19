@@ -191,22 +191,23 @@ export const loadCartFromDB = (userId: string) => {
 };
 
 export const deleteItemFromCart = (userId: string | undefined, productId: string | null | undefined) => {
-    return async (dispatch: Dispatch) => {
-        if (userId == 'guest') {
+    if (userId !== 'guest') {
+        return async (dispatch: Dispatch) => {
             await axios.post(url + '/cart/deleteCartItem', { userId, productId }).then(() => {
                 dispatch({
                     type: ActionTypes.DELETE_CART_ITEM,
                     itemsData: { userId, productId },
                 });
             });
-        } else {
-            return {
-                type: ActionTypes.DELETE_CART_ITEM,
-                itemsData: { productId },
-            };
-        }
-    };
+        };
+    } else {
+        return {
+            type: ActionTypes.DELETE_CART_ITEM,
+            itemsData: { userId, productId },
+        };
+    }
 };
+
 export const addProductToCart = (userId: string, productId: string) => {
     const URL_ADD_TO_CART = url + '/cart/addCartItem';
     const URL_GET_PRODUCT = url + '/productDetails/';
@@ -268,7 +269,6 @@ export const addProductToCart = (userId: string, productId: string) => {
                     //LOAD AL LOCAL STORAGE
                     const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
                     const localCart_json = JSON.stringify([...localCart, addedCartProduct]);
-                    console.log('ACTION localCart_json', localCart_json);
                     localStorage.setItem('cart', localCart_json);
                 })
                 .then(() => {

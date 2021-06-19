@@ -142,9 +142,15 @@ export default function reducer(state: StoreType = initialState, action: IAction
             };
 
         case ActionTypes.DELETE_CART_ITEM:
-            state.cart = state.cart.filter((product) => product.productId != action.itemsData.productId);
+            const filteredCart = state.cart.filter((product) => product.productId != action.itemsData.productId);
+            //REMOVE THE PRODUCT FROM THE LOCAL STORAGE
+            if (action.itemsData.userId) {
+                const filteredCart_json = JSON.stringify(filteredCart);
+                localStorage.setItem('cart', filteredCart_json);
+            }
             return {
                 ...state,
+                cart: filteredCart,
             };
         case ActionTypes.ADD_PRODUCT_TO_CART:
             return {
@@ -154,7 +160,7 @@ export default function reducer(state: StoreType = initialState, action: IAction
         case ActionTypes.LOAD_GUEST_CART:
             return {
                 ...state,
-                cart: [...state.cart, action.payload],
+                cart: action.payload,
             };
 
         default:

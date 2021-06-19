@@ -1,7 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { IProduct } from '../../interfaces/product';
-import { url as URL } from '../../api';
 import CartCard from '../CartCard/CartCard';
 import './style.scss';
 
@@ -27,10 +26,9 @@ function Cart(props: Props): ReactElement {
     //const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
     const userId = 'guest';
 
-    ///
-
+    //////
+    //ESTO PARA FORZAR EL RENDER DESDE LOS CHILDREN
     const [render, setRender] = useState(false);
-    //const [totalAmount, setTotalAmount] = useState(getTotalAmount());
 
     /////////////////////
     //this loads/refreshes the cart and the total amount to pay
@@ -40,11 +38,8 @@ function Cart(props: Props): ReactElement {
             (async () => {
                 await dispatch(loadCartFromDB(userId));
                 await console.log(totalAmount);
-
-                //await setTotalAmount(getTotalAmount());
             })(); //iif sacado de product detail
         } else {
-            //localCart deberia asignarse al cart
             const localCart: IProduct[] = JSON.parse(localStorage.getItem('cart') || '');
             dispatch(loadGuestCart(localCart));
         }
@@ -55,11 +50,9 @@ function Cart(props: Props): ReactElement {
     ///////////////////////////////////////
     if (cart.length === EMPTY) {
         //cart is empty
-
         return <h1>You have not added items to your cart yet :(</h1>;
     } else {
         //cart has things
-        console.log('CART COMP:', cart);
         return (
             <div>
                 {cart.map((cartItem: IProduct) => {
