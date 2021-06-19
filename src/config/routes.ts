@@ -20,6 +20,10 @@ import AdminValidation from '../components/Admin/AdminValidation'
 import Payment from '../components/Payment/Payment';
 import UserSales from '../components/UserOrders/UserSales';
 import Cart from '../components/Cart/Cart';
+<<<<<<< HEAD
+=======
+
+>>>>>>> ee483f3573db9c7a81c0f0ac4759fd6e548f9f65
 
 const routes: IRoute[] = [
     {
@@ -128,11 +132,12 @@ const routes: IRoute[] = [
         component: Validate,
         exact: true,
     },
-    // {
-    //     path: '/payment',
-    //     name: 'Payment',
-    //     component: Payment, 
-    //     exact: true,
-    // },
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: Payment, 
+        exact: true,
+    },
 ]
+
 export default routes;
