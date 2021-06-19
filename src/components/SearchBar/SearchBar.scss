@@ -1,7 +1,7 @@
 @import "../App/style.scss";
 #buttonSearch {
-    color: $danger;
-    border: 1px solid $danger;
+    color: $light;
+    border: 1px solid $light;
     border-radius: 5px;
     height: 38px;
     width: 160px;
@@ -69,10 +69,6 @@
     border-radius: 5px;
 }
 
-#inputW{
-    width: 100%;
-}
-
-#wForm{
-    width: 100%;
+#inputS{
+    margin-right: 1rem;
 }

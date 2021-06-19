@@ -5,6 +5,7 @@
   "dependencies": {
     "@cloudinary/base": "*",
     "@cloudinary/react": "*",
+    "@material-ui/core": "^4.11.4",
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
@@ -16,11 +17,13 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "jquery": "^3.6.0",
+    "jwt-decode": "^3.1.2",
     "node-sass": "^6.0.0",
     "query-string": "^4.3.4",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
+    "react-google-recaptcha": "^2.1.0",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-scripts": "^4.0.3",
@@ -28,6 +31,7 @@
     "redux-thunk": "^2.3.0",
     "sass": "^1.34.1",
     "typescript": "^4.3.2",
+    "validator": "^13.6.0",
     "web-vitals": "^2.0.1"
   },
   "scripts": {
@@ -57,6 +61,7 @@
   "devDependencies": {
     "@types/jquery": "^3.5.5",
     "@types/query-string": "^6.3.0",
+    "@types/react-google-recaptcha": "^2.1.0",
     "@types/react-redux": "^7.1.16",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
@@ -65,6 +70,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.3.1",
+    "@types/validator": "^13.1.4",
     "react-router-dom": "^5.2.0",
     "redux-devtools-extension": "^2.13.9"
   }

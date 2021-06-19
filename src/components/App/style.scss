@@ -1,0 +1,19 @@
+// @import "../node_modules/bootstrap/scss/bootstrap";
+
+$enable-grid-classes:false;
+$primary:#006b70;
+$secondary:#E05104;
+$success:#2C666E;
+$danger:#90DDF0;
+$info:#9b9b9b;
+// $warning:#343a40;
+$warning: #dc3545;
+$light:#FFFF;
+$dark:#0A001D;
+@import "bootstrap";
+
+// Add SASS theme customizations here..
+html {font-size: .8rem;}
+@include media-breakpoint-up(sm) {html {font-size: .9rem;}}
+@include media-breakpoint-up(md) {html {font-size: .9rem;}}
+@include media-breakpoint-up(lg) {html {font-size: 1rem;}}

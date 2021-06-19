@@ -2,6 +2,7 @@ import { ActionTypes } from '../actions/types';
 import obj, { category } from '../../interfaces/products';
 import detailedProduct from '../../interfaces/detailedProduct';
 import IUserProduct from '../../interfaces/userProducts';
+import IUserOrders from '../../interfaces/userOrders';
 import { IProduct } from '../../interfaces/product';
 import { setCartItemQuantity } from '../actions';
 
@@ -15,6 +16,7 @@ export interface StoreType {
     acList: IProductsType;
     productDetails: detailedProduct;
     userProducts: IUserProduct[];
+    userOrders: IUserOrders[];
     cart: IProduct[];
     totalAmount: number;
 }
@@ -31,6 +33,10 @@ export interface IPropsObj {
 export interface IProductsType {
     products: IPropsObj[];
     pages: string;
+    items: number;
+    pag: number;
+    tag: string;
+    order: string;
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
@@ -41,10 +47,18 @@ const initialState: StoreType = {
     products: {
         products: [],
         pages: '0',
+        items: 10,
+        pag: 0,
+        tag: 'name',
+        order: 'ASC',
     },
     acList: {
         products: [],
+        items: 10,
+        pag: 0,
         pages: '0',
+        tag: '',
+        order: '',
     },
     filter: [],
     filterProducts: [],
@@ -61,6 +75,7 @@ const initialState: StoreType = {
         userId: '',
     },
     userProducts: [],
+    userOrders: [],
     cart: [],
     totalAmount: 0,
 };
@@ -73,13 +88,20 @@ interface IAction {
     products: {};
     acList: {};
     productDetails: obj;
+    status: string;
     setQuantity: { quantity: number; productId: string };
     totalAmount: number;
-
     itemsData: { userId: string; productId: string };
-
     addedCartProduct: IProduct;
 }
+
+// interface IProducts {
+//   products: {};
+//   items: number;
+//   pag: number;
+//   order: ["ASC","DESC"];
+//   tag: string;
+// }
 
 export default function reducer(state: StoreType = initialState, action: IAction) {
     switch (action.type) {
@@ -99,9 +121,14 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 filter: action.filter,
             };
         case ActionTypes.SEARCH_PRODUCT:
+            console.log('products actions ', action.products);
             return {
                 ...state,
                 products: action.products,
+                // items: action.items,
+                // pag: action.pag,
+                // order: action.order,
+                // tag: action.tag,
             };
         case ActionTypes.SEARCH_PRODUCT_AC:
             return {
@@ -124,6 +151,17 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 ...state,
                 userProducts: action.payload,
             };
+        case ActionTypes.GET_USER_ORDERS:
+            return {
+                ...state,
+                userOrders: action.payload,
+            };
+        case ActionTypes.FILTERED_ORDERS:
+            return {
+                ...state,
+                userOrders: state.userOrders.filter((o) => o.status === action.status),
+            };
+
         case ActionTypes.LOAD_CART:
             return {
                 ...state,
@@ -131,14 +169,6 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 totalAmount: action.totalAmount,
             };
         case ActionTypes.SET_CART_ITEM_QUANTITY:
-            /*
-            for (const each of state.cart) {
-                if (each.productId == action.setQuantity.productId) {
-                    each.quantity = action.setQuantity.quantity;
-                    console.log(each.quantity);
-                }
-            }
-            */
             const newCart = state.cart.map(function (cartItem) {
                 if (cartItem.productId == action.setQuantity.productId) {
                     cartItem.quantity = action.setQuantity.quantity;
@@ -185,7 +215,6 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 cart: action.payload,
                 totalAmount: action.totalAmount,
             };
-
         default:
             return state;
     }

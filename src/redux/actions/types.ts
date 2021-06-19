@@ -16,4 +16,6 @@ export enum ActionTypes {
     DELETE_CART_ITEM,
     ADD_PRODUCT_TO_CART,
     LOAD_GUEST_CART,
+    GET_USER_ORDERS,
+    FILTERED_ORDERS,
 }

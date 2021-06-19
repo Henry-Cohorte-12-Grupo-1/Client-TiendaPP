@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react'
-import { IProduct, ICategories, IError } from '../../interfaces/product'
+import { IProduct, ICategories } from '../../interfaces/product'
+import {IErrorProduct}  from '../../interfaces/forms'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './styles.scss'
@@ -20,7 +21,7 @@ function ProductEdit() {
         price: 0,
         quantity: 1,
     })
-    const [errors, setErrors] = useState<IError>({
+    const [errors, setErrors] = useState<IErrorProduct>({
         name: true,
         description: true,
         price: true,
