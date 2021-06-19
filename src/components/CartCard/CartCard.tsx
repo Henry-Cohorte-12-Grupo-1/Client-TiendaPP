@@ -15,14 +15,21 @@ interface Props {
     forceRender: any;
     render: boolean;
 }
-const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
 
 function CartCard(props: Props): ReactElement {
+    //CONSTANTS
+    const URL_CART_SET_QUANTITY = URL + '/cart/setCartItemQuantity';
+
+    //PROPS
+    //const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
+    const { userId, productData, forceRender, render } = props;
+
     //redux store
     const dispatch = useDispatch();
     const cart = useSelector<StoreType, IProduct[]>((state) => state.cart);
 
-    const [quantity, setQuantity] = useState(quantityShower(props.productData.productId));
+    //STATES
+    const [quantity, setQuantity] = useState(quantityShower(productData.productId));
 
     function quantityShower(productId: any) {
         for (const each of cart) {
@@ -32,31 +39,17 @@ function CartCard(props: Props): ReactElement {
         }
     }
 
-    const URL_CART_SET_QUANTITY = URL + '/cart/setCartItemQuantity';
-
-    async function getItems() {
-        await dispatch(loadCartFromDB(userId));
-        setQuantity(quantityShower(props.productData.productId));
-    }
-    useEffect(() => {
-        getItems();
-    }, []);
-
     //SIN EL AWAIT NO RENDERIZA EN ORDEN -
     async function onIncrement() {
-        await dispatch(setCartItemQuantity(props.userId, props.productData.quantity + 1, props.productData.productId));
-        setQuantity(quantityShower(props.productData.productId));
-        props.forceRender(!props.render);
+        await dispatch(setCartItemQuantity(userId, productData.quantity + 1, productData.productId));
+        setQuantity(quantityShower(productData.productId));
+        forceRender(!render);
     }
 
     async function onDecrement() {
-        if (props.productData.quantity - 1 > 0) {
-            await dispatch(
-                setCartItemQuantity(props.userId, props.productData.quantity - 1, props.productData.productId),
-            );
-            setQuantity(quantityShower(props.productData.productId));
-            props.forceRender(!props.render);
-        }
+        await dispatch(setCartItemQuantity(userId, productData.quantity - 1, productData.productId));
+        setQuantity(quantityShower(productData.productId));
+        forceRender(!render);
     }
 
     return (
@@ -65,8 +58,8 @@ function CartCard(props: Props): ReactElement {
                 <img
                     className="card-img-top"
                     src={
-                        props.productData.images
-                            ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${props.productData.images[0]}`
+                        productData.images
+                            ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${productData.images[0]}`
                             : 'https://media.istockphoto.com/vectors/no-image-available-sign-vector-id922962354?k=6&m=922962354&s=612x612&w=0&h=_KKNzEwxMkutv-DtQ4f54yA5nc39Ojb_KPvoV__aHyU='
                     }
                     alt="not found"
@@ -74,8 +67,8 @@ function CartCard(props: Props): ReactElement {
                 />
             </div>
             <div className="card-body">
-                <h5 className="card-title">{props.productData.name}</h5>
-                <p className="card-text">${`${props.productData.price}`}</p>
+                <h5 className="card-title">{productData.name}</h5>
+                <p className="card-text">${`${productData.price}`}</p>
                 <a href={`/product/${props?.productData.productId}`} className="btn btn-primary" id="colorB">
                     Details
                 </a>
@@ -85,10 +78,10 @@ function CartCard(props: Props): ReactElement {
                 <h6>{quantity}</h6>
                 <button onClick={onIncrement}> + </button>
                 <DeleteButton
-                    userId={props.userId}
-                    productId={props.productData.productId}
-                    forceRender={props.forceRender}
-                    render={props.render}
+                    userId={userId}
+                    productId={productData.productId}
+                    forceRender={forceRender}
+                    render={render}
                 />
             </div>
         </div>

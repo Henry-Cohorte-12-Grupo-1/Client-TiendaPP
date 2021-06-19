@@ -8,7 +8,7 @@ import './style.scss';
 //redux stuff
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreType } from '../../redux/reducers/index';
-import { loadCartFromDB } from '../../redux/actions';
+import { loadCartFromDB, loadGuestCart } from '../../redux/actions';
 
 interface Props extends RouteComponentProps {
     userId: string;
@@ -24,7 +24,8 @@ function Cart(props: Props): ReactElement {
     const dispatch = useDispatch();
 
     //const { userId } = props;
-    const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
+    //const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
+    const userId = 'guest';
 
     ///
 
@@ -35,12 +36,18 @@ function Cart(props: Props): ReactElement {
     //this loads/refreshes the cart and the total amount to pay
     //
     useEffect(() => {
-        (async () => {
-            await dispatch(loadCartFromDB(userId));
-            await console.log(totalAmount);
+        if (userId !== 'guest') {
+            (async () => {
+                await dispatch(loadCartFromDB(userId));
+                await console.log(totalAmount);
 
-            //await setTotalAmount(getTotalAmount());
-        })(); //iif sacado de product detail
+                //await setTotalAmount(getTotalAmount());
+            })(); //iif sacado de product detail
+        } else {
+            //localCart deberia asignarse al cart
+            const localCart: IProduct[] = JSON.parse(localStorage.getItem('cart') || '');
+            dispatch(loadGuestCart(localCart));
+        }
     }, [render]);
 
     ///////////////////////////////////////
@@ -48,9 +55,11 @@ function Cart(props: Props): ReactElement {
     ///////////////////////////////////////
     if (cart.length === EMPTY) {
         //cart is empty
+
         return <h1>You have not added items to your cart yet :(</h1>;
     } else {
         //cart has things
+        console.log('CART COMP:', cart);
         return (
             <div>
                 {cart.map((cartItem: IProduct) => {

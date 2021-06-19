@@ -142,7 +142,7 @@ export default function reducer(state: StoreType = initialState, action: IAction
             };
 
         case ActionTypes.DELETE_CART_ITEM:
-            //state.cart = state.cart.filter((product) => product.productId != action.itemsData.productId);
+            state.cart = state.cart.filter((product) => product.productId != action.itemsData.productId);
             return {
                 ...state,
             };
@@ -151,6 +151,12 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 ...state,
                 cart: [...state.cart, action.addedCartProduct],
             };
+        case ActionTypes.LOAD_GUEST_CART:
+            return {
+                ...state,
+                cart: [...state.cart, action.payload],
+            };
+
         default:
             return state;
     }

@@ -122,21 +122,29 @@ export const setCartItemQuantity = (
     quantity: number,
     productId: string | null | undefined,
 ) => {
-    return async (dispatch: Dispatch) => {
-        try {
-            await axios.post(`${url}/cart/setCartItemQuantity`, {
-                userId,
-                quantity,
-                productId,
-            });
-            dispatch({
-                type: ActionTypes.SET_CART_ITEM_QUANTITY,
-                setQuantity: { quantity, productId },
-            });
-        } catch (error) {
-            return console.log(error);
-        }
-    };
+    //un if para ver si es guest.
+    if (userId !== 'guest') {
+        return async (dispatch: Dispatch) => {
+            try {
+                await axios.post(`${url}/cart/setCartItemQuantity`, {
+                    userId,
+                    quantity,
+                    productId,
+                });
+                dispatch({
+                    type: ActionTypes.SET_CART_ITEM_QUANTITY,
+                    setQuantity: { quantity, productId },
+                });
+            } catch (error) {
+                return console.log(error);
+            }
+        };
+    } else {
+        return {
+            type: ActionTypes.SET_CART_ITEM_QUANTITY,
+            setQuantity: { quantity, productId },
+        };
+    }
 };
 
 export const loadCartFromDB = (userId: string) => {
@@ -184,45 +192,103 @@ export const loadCartFromDB = (userId: string) => {
 
 export const deleteItemFromCart = (userId: string | undefined, productId: string | null | undefined) => {
     return async (dispatch: Dispatch) => {
-        await axios.post(url + '/cart/deleteCartItem', { userId, productId }).then(() => {
-            dispatch({
-                type: ActionTypes.DELETE_CART_ITEM,
-                itemsData: { userId, productId },
+        if (userId == 'guest') {
+            await axios.post(url + '/cart/deleteCartItem', { userId, productId }).then(() => {
+                dispatch({
+                    type: ActionTypes.DELETE_CART_ITEM,
+                    itemsData: { userId, productId },
+                });
             });
-        });
+        } else {
+            return {
+                type: ActionTypes.DELETE_CART_ITEM,
+                itemsData: { productId },
+            };
+        }
     };
 };
 export const addProductToCart = (userId: string, productId: string) => {
     const URL_ADD_TO_CART = url + '/cart/addCartItem';
+    const URL_GET_PRODUCT = url + '/productDetails/';
     let addedCartProduct: IProduct;
-    return async (dispatch: Dispatch) => {
-        //adding product to user's cart in DB
-        await axios
-            .post(URL_ADD_TO_CART, { userId, productId })
-            .then((res) => {
-                //meter un map
-                const newCartProduct = res.data.Product;
-                addedCartProduct = {
-                    name: newCartProduct.name,
-                    description: newCartProduct.description,
-                    price: newCartProduct.price,
-                    images: newCartProduct.Images.map((x: any) => x.imageId),
-                    categoryId: newCartProduct.categoryId,
-                    quantity: res.data.quantity,
-                    //category: string,
-                    //joinedImage: string,
-                    //initialImages: string,
-                    productId: newCartProduct.productId,
-                };
-            })
-            .then(() => {
-                dispatch({
-                    type: ActionTypes.ADD_PRODUCT_TO_CART,
-                    addedCartProduct: addedCartProduct,
+    if (userId !== 'guest') {
+        return async (dispatch: Dispatch) => {
+            //adding product to user's cart in DB
+            await axios
+                .post(URL_ADD_TO_CART, { userId, productId })
+                .then((res) => {
+                    //meter un map
+                    const newCartProduct = res.data.Product;
+                    addedCartProduct = {
+                        name: newCartProduct.name,
+                        description: newCartProduct.description,
+                        price: newCartProduct.price,
+                        images: newCartProduct.Images.map((x: any) => x.imageId),
+                        categoryId: newCartProduct.categoryId,
+                        quantity: res.data.quantity,
+                        //category: string,
+                        //joinedImage: string,
+                        //initialImages: string,
+                        productId: newCartProduct.productId,
+                    };
+                })
+                .then(() => {
+                    dispatch({
+                        type: ActionTypes.ADD_PRODUCT_TO_CART,
+                        addedCartProduct: addedCartProduct,
+                    });
+                })
+                .catch((e) => {
+                    console.error(e);
                 });
-            })
-            .catch((e) => {
-                console.error(e);
-            });
+        };
+    } else {
+        console.log('ACTION!!');
+        return async (dispatch: Dispatch) => {
+            //adding product to user's cart in DB
+            await axios
+                .get(URL_GET_PRODUCT + `${productId}`)
+                .then((res) => {
+                    //meter un map
+                    console.log(res.data);
+                    const Product = res.data;
+                    addedCartProduct = {
+                        name: Product.name,
+                        description: Product.description,
+                        price: Product.price,
+                        images: Product.Images.map((x: any) => x.imageId),
+                        categoryId: Product.categoryId,
+                        quantity: 1,
+                        //category: string,
+                        //joinedImage: string,
+                        //initialImages: string,
+                        productId: Product.productId,
+                    };
+
+                    //LOAD AL LOCAL STORAGE
+                    const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    const localCart_json = JSON.stringify([...localCart, addedCartProduct]);
+                    console.log('ACTION localCart_json', localCart_json);
+                    localStorage.setItem('cart', localCart_json);
+                })
+                .then(() => {
+                    dispatch({
+                        type: ActionTypes.ADD_PRODUCT_TO_CART,
+                        addedCartProduct: addedCartProduct,
+                    });
+                })
+                .catch((e) => {
+                    console.error(e);
+                });
+        };
+    }
+};
+
+export const loadGuestCart = (cart: IProduct[]) => {
+    return async (dispatch: Dispatch) => {
+        dispatch({
+            type: ActionTypes.LOAD_GUEST_CART,
+            payload: cart,
+        });
     };
 };
