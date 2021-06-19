@@ -131,14 +131,24 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 totalAmount: action.totalAmount,
             };
         case ActionTypes.SET_CART_ITEM_QUANTITY:
+            /*
             for (const each of state.cart) {
                 if (each.productId == action.setQuantity.productId) {
                     each.quantity = action.setQuantity.quantity;
                     console.log(each.quantity);
                 }
             }
+            */
+            const newCart = state.cart.map(function (cartItem) {
+                if (cartItem.productId == action.setQuantity.productId) {
+                    cartItem.quantity = action.setQuantity.quantity;
+                }
+                return cartItem;
+            });
+            localStorage.setItem('cart', JSON.stringify(newCart));
             return {
                 ...state,
+                cart: newCart,
             };
 
         case ActionTypes.DELETE_CART_ITEM:
@@ -153,14 +163,27 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 cart: filteredCart,
             };
         case ActionTypes.ADD_PRODUCT_TO_CART:
-            return {
-                ...state,
-                cart: [...state.cart, action.addedCartProduct],
-            };
+            //LOAD AL LOCAL STORAGE
+            const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
+            console.log('entered reducer');
+            if (!localCart.some((cartItem: IProduct) => cartItem.productId == action.addedCartProduct.productId)) {
+                console.log('new item');
+                const localCart_json = JSON.stringify([...localCart, action.addedCartProduct]);
+                localStorage.setItem('cart', localCart_json);
+                return {
+                    ...state,
+                    cart: [...state.cart, action.addedCartProduct],
+                };
+            } else {
+                return {
+                    ...state,
+                };
+            }
         case ActionTypes.LOAD_GUEST_CART:
             return {
                 ...state,
                 cart: action.payload,
+                totalAmount: action.totalAmount,
             };
 
         default:

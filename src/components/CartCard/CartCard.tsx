@@ -47,9 +47,11 @@ function CartCard(props: Props): ReactElement {
     }
 
     async function onDecrement() {
-        await dispatch(setCartItemQuantity(userId, productData.quantity - 1, productData.productId));
-        setQuantity(quantityShower(productData.productId));
-        forceRender(!render);
+        if (productData.quantity - 1 > 0) {
+            await dispatch(setCartItemQuantity(userId, productData.quantity - 1, productData.productId));
+            setQuantity(quantityShower(productData.productId));
+            forceRender(!render);
+        }
     }
 
     return (

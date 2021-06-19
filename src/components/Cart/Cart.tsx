@@ -40,7 +40,7 @@ function Cart(props: Props): ReactElement {
                 await console.log(totalAmount);
             })(); //iif sacado de product detail
         } else {
-            const localCart: IProduct[] = JSON.parse(localStorage.getItem('cart') || '');
+            const localCart: IProduct[] = JSON.parse(localStorage.getItem('cart') || '[]');
             dispatch(loadGuestCart(localCart));
         }
     }, [render]);

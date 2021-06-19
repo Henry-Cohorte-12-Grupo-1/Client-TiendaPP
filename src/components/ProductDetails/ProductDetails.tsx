@@ -5,6 +5,7 @@ import { productInfo } from '../../redux/actions';
 import { RouteComponentProps } from 'react-router-dom';
 import detailedProduct from '../../interfaces/detailedProduct';
 import { Carousel, Container } from 'react-bootstrap';
+import AddButton from '../CartButtons/AddButton';
 import './style.scss';
 
 //defino el tipado para match.params.id
@@ -57,6 +58,7 @@ function ProductDetails(props: Props) {
                         <h4>${details.price}</h4>
                         <p>{details.description}</p>
                         {/* <p>fdsafdsaf kjasdf hkadjsl hdjskafh asdjkfhpsadfpeiwogf spaf dsahjfdajidfqpoi fdasjkf sadffdska fhsadfh sadfd sañjklfh apsofajsp`df asdiufhy aspdfiasfdlkñsa fdsajkf sadkfh sadfhasdipfhsadlfñsh dajkflsd fkusadh flsañdjfhsaidoufhsdaughfjklñ hauif sahfisadhgkjlgh ajdfhsa afksdlh fsadjlñf hdsaifghadsg asdjlf dsahifdsahigsad jkl</p> */}
+                        <AddButton userId={'guest'} productId={id} />
                     </Container>
                 </Container>
                 <hr></hr>

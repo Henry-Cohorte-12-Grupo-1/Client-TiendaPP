@@ -212,6 +212,7 @@ export const addProductToCart = (userId: string, productId: string) => {
     const URL_ADD_TO_CART = url + '/cart/addCartItem';
     const URL_GET_PRODUCT = url + '/productDetails/';
     let addedCartProduct: IProduct;
+
     if (userId !== 'guest') {
         return async (dispatch: Dispatch) => {
             //adding product to user's cart in DB
@@ -265,11 +266,6 @@ export const addProductToCart = (userId: string, productId: string) => {
                         //initialImages: string,
                         productId: Product.productId,
                     };
-
-                    //LOAD AL LOCAL STORAGE
-                    const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
-                    const localCart_json = JSON.stringify([...localCart, addedCartProduct]);
-                    localStorage.setItem('cart', localCart_json);
                 })
                 .then(() => {
                     dispatch({
@@ -285,10 +281,10 @@ export const addProductToCart = (userId: string, productId: string) => {
 };
 
 export const loadGuestCart = (cart: IProduct[]) => {
-    return async (dispatch: Dispatch) => {
-        dispatch({
-            type: ActionTypes.LOAD_GUEST_CART,
-            payload: cart,
-        });
+    const totalAmount = cart.map((x) => x.price * x.quantity).reduce((a, b) => a + b, 0);
+    return {
+        type: ActionTypes.LOAD_GUEST_CART,
+        payload: cart,
+        totalAmount,
     };
 };
