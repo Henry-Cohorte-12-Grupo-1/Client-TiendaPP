@@ -16,7 +16,7 @@ import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
 import AdminValidation from '../components/Admin/AdminValidation'
-
+import Payment from '../components/Payment/Payment';
 
 const routes: IRoute[] = [
     {
@@ -113,6 +113,12 @@ const routes: IRoute[] = [
         component: Validate,
         exact: true
     },
+    // {
+    //     path: '/payment',
+    //     name: 'Payment',
+    //     component: Payment, 
+    //     exact: true,
+    // },
 ]
 
 export default routes;
