@@ -25,6 +25,7 @@ export interface BringUserOrders {
   payload: obj[];
 }
 
+
 export interface ProductInfo {
   type: ActionTypes.GET_DETAILS;
   payload: obj;
@@ -72,6 +73,16 @@ export const bringUserOrders = (userName: string | null) => {
   };
 };
 
+export const bringUserSales = (userName: string | null) => {
+  return async (dispatch: Dispatch) => {
+    const userProducts = await axios.get(`${url}/orders/sales/${userName}`);
+    dispatch<BringUserOrders>({
+      type: ActionTypes.GET_USER_ORDERS,
+      payload: userProducts.data,
+    });
+  };
+};
+
 export const getCategories = () => {
   const URL: string = `${url}/categories`;
   return async function (dispatch: any) {
@@ -109,7 +120,7 @@ export const searchProduct = (
     tag,
     order,
   };
-  
+
   return async function (dispatch: any) {
     console.log("🚀 ~ file: index.ts ~ line 110 ~ params", params)
     try {
@@ -126,7 +137,7 @@ export const searchProduct = (
         type: ActionTypes.SEARCH_PRODUCT,
         products: productAlgo,
       });
-        console.log("🚀 ~ file: index.ts ~ line 130 ~ productData.data", productAlgo)
+      console.log("🚀 ~ file: index.ts ~ line 130 ~ productData.data", productAlgo)
     } catch (error) {
       return console.log("No se pudo realizar la busqueda");
     }
