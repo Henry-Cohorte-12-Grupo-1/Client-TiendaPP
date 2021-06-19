@@ -1,5 +1,6 @@
 export interface IUsers {
     username?: string,
     userId?: string,
-    role?: number
+    role?: number,
+    passReset?: boolean,
 }

@@ -15,9 +15,9 @@ function Admin() {
     const [users, setUsers] = useState<IUsers[]>()
     const [selectedUser, setSelectedUser] = useState<IUsers>({})
     const [open, setOpen] = useState<boolean>(false)
-    const [userSubmit, setUserSumbit] = useState<IUsers>()
+    const [userSubmit, setUserSumbit] = useState<IUsers>({passReset:false})
 
-    
+
     useEffect(() => {
         (async () => {
             var resp = await axios.get(`${url}/categories`)
@@ -74,14 +74,33 @@ function Admin() {
         if (users) {
             setSelectedUser(users[event.target.value])
         }
+        setUserSumbit({
+            ...userSubmit,
+            passReset:false,
+        })
     }
 
     const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setUserSumbit({
+            ...userSubmit,
             userId: selectedUser.userId,
             username: selectedUser.username,
-            role: parseInt(event.target.value)
+            role: parseInt(event.target.value),
         })
+    }
+
+    const handleCheckBox = (event: any) => {
+        if(userSubmit.passReset){
+            setUserSumbit({
+                ...userSubmit,
+                passReset:false
+            })
+        } else {
+            setUserSumbit({
+                ...userSubmit,
+                passReset:true
+            }) 
+        }
     }
 
 
@@ -100,14 +119,12 @@ function Admin() {
             oldCategories: oldCategories
         }
 
-        const response = await axios.put(`${url}/updateCategories`, sendObject)
+        await axios.put(`${url}/updateCategories`, sendObject)
             .catch(() => alert('request failed'))
-        console.log(response)
 
         console.log(userSubmit)
-        const resp = await axios.put(`${url}/user/userUpdate`, userSubmit)
+        await axios.put(`${url}/user/userUpdate`, userSubmit)
             .catch(() => alert('request failed'))
-        console.log(resp)
 
     }
 
@@ -157,6 +174,12 @@ function Admin() {
                             </Form.Control>
                         </Col>
                     </Row>
+                    <Form.Group controlId="formBasicCheckbox">
+                        {userSubmit.passReset?
+                        <Form.Check type="checkbox" label="Force password change for this user" checked onClick={handleCheckBox}/>:
+                        <Form.Check type="checkbox" label="Force password change for this user" onClick={handleCheckBox}/>
+                        }
+                    </Form.Group>
                     <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>
                 </Form>
             </Container>
