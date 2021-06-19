@@ -16,9 +16,11 @@ import AuthAdmin from '../components/Auth/AuthAdmin';
 import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
-import AdminValidation from '../components/Admin/AdminValidation';
+import AdminValidation from '../components/Admin/AdminValidation'
+import Payment from '../components/Payment/Payment';
 import UserSales from '../components/UserOrders/UserSales';
 import Cart from '../components/Cart/Cart';
+
 
 const routes: IRoute[] = [
     {
@@ -127,6 +129,12 @@ const routes: IRoute[] = [
         component: Validate,
         exact: true,
     },
-];
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: Payment, 
+        exact: true,
+    },
+]
 
 export default routes;
