@@ -122,9 +122,17 @@ function Admin() {
         await axios.put(`${url}/updateCategories`, sendObject)
             .catch(() => alert('request failed'))
 
-        console.log(userSubmit)
-        await axios.put(`${url}/user/userUpdate`, userSubmit)
-            .catch(() => alert('request failed'))
+        if(userSubmit.passReset){
+            if(userSubmit.role===2){
+                console.log(userSubmit)
+                await axios.put(`${url}/user/userUpdate`, userSubmit)
+                    .catch(() => alert('request failed'))
+            } else alert('force password is not available for Admins or Disabled accounts')
+        } else {
+            console.log(userSubmit)
+            await axios.put(`${url}/user/userUpdate`, userSubmit)
+                .catch(() => alert('request failed'))
+        }
 
     }
 
