@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { StoreType } from "../../redux/reducers"
 import { useEffect, useState } from "react"
-import { bringUserOrders } from "../../redux/actions"
+import { bringUserOrders, filteredOrders } from "../../redux/actions"
 import IUserOrders from "../../interfaces/userOrders";
 import { Container } from 'react-bootstrap';
 import OrderItem from './OrderListItem'
@@ -18,8 +18,6 @@ export default function UserOrders() {
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)
-
-
 
     const dispatch = useDispatch()
     const orders = useSelector<StoreType, IUserOrders[]>((state) => state.userOrders)
@@ -47,9 +45,8 @@ export default function UserOrders() {
 
     const handleClick = (e: any) => {
         e.preventDefault()
-        // dispatch(bringUserOrders(userName));
-
-
+        dispatch(filteredOrders(e.target.name))
+        console.log('FILTERED', filteredOrders(e.target.name))
     }
 
     if (loading) {
@@ -57,7 +54,7 @@ export default function UserOrders() {
             <h1>Loading...</h1>
         )
     }
-    if (currentOrders.length < 1) {
+    if (orders.length < 1) {
         return (
             <h1>Nothing found</h1>
         )
@@ -79,7 +76,7 @@ export default function UserOrders() {
 
             </div>
             {console.log(currentOrders)}
-            {currentOrders.length && currentOrders.map(o => {
+            {orders.length && orders.map(o => {
                 return (
                     <OrderItem
                         name={o.Product.name}

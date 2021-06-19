@@ -82,6 +82,7 @@ interface IAction {
   products: {};
   acList: {};
   productDetails: obj;
+  status: string;
 }
 
 // interface IProducts {
@@ -149,6 +150,11 @@ export default function reducer(
       return {
         ...state,
         userOrders: action.payload,
+      };
+    case ActionTypes.FILTERED_ORDERS:
+      return {
+        ...state,
+        userOrders: state.userOrders.filter(o => o.status === action.status), 
       };
     default:
       return state;
