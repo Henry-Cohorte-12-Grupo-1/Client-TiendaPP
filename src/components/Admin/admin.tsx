@@ -5,6 +5,7 @@ import { url } from '../../api';
 import { IUsers } from '../../interfaces/users';
 import { DialogAlert } from '../Dialog/DialogAlert';
 import { Role } from '../../interfaces/role';
+import swal from 'sweetalert'
 
 function Admin() {
 
@@ -16,7 +17,7 @@ function Admin() {
     const [users, setUsers] = useState<IUsers[]>()
     const [selectedUser, setSelectedUser] = useState<IUsers>({})
     const [open, setOpen] = useState<boolean>(false)
-    const [userSubmit, setUserSumbit] = useState<IUsers>({passReset:false})
+    const [userSubmit, setUserSumbit] = useState<IUsers>({ passReset: false })
 
 
 
@@ -77,22 +78,22 @@ function Admin() {
 
             setSelectedUser(users[event.target.value])
             var usernameprop = users[event.target.value].username
-        }        
+        }
         setUserSumbit({
             ...userSubmit,
-            username:usernameprop
+            username: usernameprop
         })
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         setUserSumbit({
             ...userSubmit,
-            passReset:false,
-            role:selectedUser.role,
+            passReset: false,
+            role: selectedUser.role,
         })
         // console.log(userSubmit)
-    },[selectedUser])
+    }, [selectedUser])
 
     const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setUserSumbit({
@@ -103,16 +104,16 @@ function Admin() {
     }
 
     const handleCheckBox = (event: any) => {
-        if(userSubmit.passReset){
+        if (userSubmit.passReset) {
             setUserSumbit({
                 ...userSubmit,
-                passReset:false
+                passReset: false
             })
         } else {
             setUserSumbit({
                 ...userSubmit,
-                passReset:true
-            }) 
+                passReset: true
+            })
         }
     }
 
@@ -133,26 +134,26 @@ function Admin() {
         }
 
         await axios.put(`${url}/updateCategories`, sendObject)
-            .catch(() => alert('request failed'))
+            .catch(() => swal('request failed'))
         console.log(userSubmit)
-        if(userSubmit.passReset){
-            if(userSubmit.role===2){
+        if (userSubmit.passReset) {
+            if (userSubmit.role === 2) {
                 console.log(userSubmit)
                 const resp = await axios.put(`${url}/user/userUpdate`, userSubmit)
-                    .catch(() => alert('request failed'))
-                if(resp?.data ==='succesfully updated'){
-                    alert('succesfully updated')
-                } else alert('error')
-            } else alert('force password is not available for Admins or Disabled accounts')
+                    .catch(() => swal('request failed'))
+                if (resp?.data === 'succesfully updated') {
+                    swal('succesfully updated')
+                } else swal('error')
+            } else swal('force password is not available for Admins or Disabled accounts')
         } else {
             console.log(userSubmit)
             await axios.put(`${url}/user/userUpdate`, userSubmit)
-                .catch(() => alert('request failed'))
+                .catch(() => swal('request failed'))
         }
 
 
         console.log(userSubmit);
-        const resp = await axios.put(`${url}/user/userUpdate`, userSubmit).catch(() => alert('request failed'));
+        const resp = await axios.put(`${url}/user/userUpdate`, userSubmit).catch(() => swal('request failed'));
         console.log(resp);
     };
 
@@ -219,9 +220,9 @@ function Admin() {
                     </Row>
 
                     <Form.Group controlId="formBasicCheckbox">
-                        {userSubmit.passReset?
-                        <Form.Check type="checkbox" label="Force password change for this user" checked onClick={handleCheckBox}/>:
-                        <Form.Check type="checkbox" label="Force password change for this user" onClick={handleCheckBox}/>
+                        {userSubmit.passReset ?
+                            <Form.Check type="checkbox" label="Force password change for this user" checked onClick={handleCheckBox} /> :
+                            <Form.Check type="checkbox" label="Force password change for this user" onClick={handleCheckBox} />
                         }
                     </Form.Group>
                     <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>

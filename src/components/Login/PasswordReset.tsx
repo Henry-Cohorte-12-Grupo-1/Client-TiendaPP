@@ -6,6 +6,7 @@ import jwtDecode from 'jwt-decode';
 import isStrongPassword from 'validator/lib/isStrongPassword'
 import { url } from "../../api";
 import { useHistory } from 'react-router-dom'
+import swal from 'sweetalert'
 
 function Login() {
 
@@ -108,7 +109,7 @@ function Login() {
         const userId: string = token ? token.id : 'guest';
         console.log(userId)
         let resp = await axios.put(`${url}/user/passReset`, { pass: passwords?.pass, userId: userId })
-        alert(resp.data)
+        swal(resp.data)
         if (resp.data === 'succesfully updated') {
             history.push(`/login`);
         }

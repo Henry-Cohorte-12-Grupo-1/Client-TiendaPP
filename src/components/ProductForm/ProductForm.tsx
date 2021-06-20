@@ -7,6 +7,7 @@ import './styles.scss'
 import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
+import swal from 'sweetalert'
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
 function ProductForm() {
@@ -89,7 +90,7 @@ function ProductForm() {
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
         if (errors?.name === true || errors?.description === true || errors?.price === true) {
-            alert('No se creo el producto')
+            swal('No se creo el producto')
         } else {
 
             const newProduct: IProduct = {
@@ -103,9 +104,9 @@ function ProductForm() {
             }
             console.log(newProduct)
             const response = await axios.post(`${url}/product`, newProduct)
-                .catch(() => alert('No se creo el producto'))
+                .catch(() => swal('No se creo el producto'))
             if (response) {
-                alert('Producto creado');
+                swal('Producto creado');
                 history.push(`/product/${response.data}`);
             }
         }

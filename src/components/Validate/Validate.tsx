@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory, useLocation } from "react-router"
 import { url } from "../../api";
+import swal from 'sweetalert'
 
 function Validate() {
     let [resp, setResp] = useState<string>()
@@ -17,15 +18,15 @@ function Validate() {
             let response = await axios.post(`${url}/validate?id=${id}`)
             setResp(response.data)
             console.log(response.data)
-            if (response.data === 'verificado'){
-                alert('Verified Account');
+            if (response.data === 'verificado') {
+                swal('Verified Account');
                 history.push(`/login/`);
             }
         })()
     }, [])
 
 
-    if (resp==='verificado') {
+    if (resp === 'verificado') {
         return (
             <div>OK</div>
         )

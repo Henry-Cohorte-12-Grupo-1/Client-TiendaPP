@@ -52,35 +52,35 @@ const routes: IRoute[] = [
         name: 'User',
         component: AuthUser,
         exact: true,
-        props: {path:'/user',name:'User',component: UserDashboard, exact:true},
+        props: { path: '/user', name: 'User', component: UserDashboard, exact: true },
     },
     {
         path: '/user/orders',
         name: 'UserOrders',
         component: AuthUser,
         exact: true,
-        props: {path:'/user/orders',name:'UserOrders',component: UserOrders, exact:true},
+        props: { path: '/user/orders', name: 'UserOrders', component: UserOrders, exact: true },
     },
     {
         path: '/user/sales',
         name: 'Usersales',
         component: AuthUser,
         exact: true,
-        props: {path:'/user/sales',name:'Usersales',component: UserSales, exact:true},
+        props: { path: '/user/sales', name: 'Usersales', component: UserSales, exact: true },
     },
     {
         path: '/user/activeProducts',
         name: 'User',
         component: AuthUser,
         exact: true,
-        props: {path:'/user/activeProducts',name:'User',component: UserProducts, exact:true},
+        props: { path: '/user/activeProducts', name: 'User', component: UserProducts, exact: true },
     },
     {
         path: '/user/create',
         name: 'Create',
         component: AuthUser,
         exact: true,
-        props: {path:'/user/create',name:'Create',component: ProductForm, exact:true},
+        props: { path: '/user/create', name: 'Create', component: ProductForm, exact: true },
     },
     {
         path: '/home',
@@ -93,7 +93,7 @@ const routes: IRoute[] = [
         name: 'ProductEdit',
         component: AuthUser,
         exact: true,
-        props: {path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact:true},
+        props: { path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact: true },
     },
     {
         path: '/Product/:id',
@@ -112,7 +112,7 @@ const routes: IRoute[] = [
         name: 'Admin',
         component: AuthAdmin,
         exact: true,
-        props: {path: '/admin', name: 'Admin', component: Admin, exact:true}
+        props: { path: '/admin', name: 'Admin', component: Admin, exact: true }
     },
     {
         path: '/cart',
@@ -141,7 +141,7 @@ const routes: IRoute[] = [
     {
         path: '/payment',
         name: 'Payment',
-        component: Payment, 
+        component: Payment,
         exact: true,
     },
 ]
