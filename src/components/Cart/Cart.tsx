@@ -1,5 +1,4 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { IProduct } from '../../interfaces/product';
 import CartCard from '../CartCard/CartCard';
 import './style.scss';
@@ -8,12 +7,9 @@ import './style.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreType } from '../../redux/reducers/index';
 import { loadCartFromDB, loadGuestCart } from '../../redux/actions';
+import jwtDecode from 'jwt-decode';
 
-interface Props extends RouteComponentProps {
-    userId: string;
-}
-
-function Cart(props: Props): ReactElement {
+function Cart(): ReactElement {
     //Constants
     const EMPTY = 0;
 
@@ -22,9 +18,9 @@ function Cart(props: Props): ReactElement {
     const totalAmount = useSelector<StoreType, number>((state) => state.totalAmount);
     const dispatch = useDispatch();
 
-    //const { userId } = props;
-    //const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
-    const userId = 'guest';
+    //GETTING USER ID FROM LOCAL STORAGE
+    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    const userId = token ? token.id : 'guest';
 
     //////
     //ESTO PARA FORZAR EL RENDER DESDE LOS CHILDREN
@@ -50,7 +46,18 @@ function Cart(props: Props): ReactElement {
     ///////////////////////////////////////
     if (cart.length === EMPTY) {
         //cart is empty
-        return <h1>You have not added items to your cart yet :(</h1>;
+        return (
+            <div className="bg-light p-5 rounded-lg m-3">
+                <div className="container-fluid py-5">
+                    <h1 className="display-5 fw-bold">Your cart is empty :(</h1>
+                    <p className="col-md-8 fs-4">
+                        It seems that your cart is totally empty. You can fix this by visiting our huge catalog,
+                        clicking on a product you love and adding a product by pressing the "Add to cart" button in the
+                        description!
+                    </p>
+                </div>
+            </div>
+        );
     } else {
         //cart has things
         return (
@@ -70,8 +77,16 @@ function Cart(props: Props): ReactElement {
                 })}
 
                 <hr />
-                <div>
-                    <h3>total is: {totalAmount}</h3>
+
+                <div className="d-flex p-2 bd-highlight">
+                    <div className="d-flex flex-row justify-content-evenly align-items-center">
+                        <div>
+                            <h3>Total Amount of the cart is: </h3>
+                        </div>
+                        <div className="p-2 bd-highlight">
+                            <h2>${totalAmount}</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

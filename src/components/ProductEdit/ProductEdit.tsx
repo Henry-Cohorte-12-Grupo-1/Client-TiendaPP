@@ -8,8 +8,19 @@ import './styles.scss'
 import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
+import ImgCarousel from '../ImgCarousel/ImgCarousel'
+import swal from 'sweetalert'
 
-function ProductEdit() {
+interface ICarouselProps {
+    index?: any,
+    imagesName?: any,
+    setIndex(a: any): any,
+    setImage(a: any): any,
+    setImagesName(a: any): any
+}
+
+const ProductEdit: React.FC<ICarouselProps> = () => {
+    const [index, setIndex] = useState<number>(0)
     const [initialImages, setInitialImages] = useState<string>("")
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
@@ -28,6 +39,8 @@ function ProductEdit() {
     })
 
     const history = useHistory();
+
+    const carouselProps = {index, imagesName, setIndex, setImage, setImagesName}
 
     let location = useLocation()
 
@@ -127,16 +140,10 @@ function ProductEdit() {
         }
     }
 
-    const imageChangeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files) {
-            setImage(event.target.files[0])
-        }
-    }
-
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
         if (errors?.name === true || errors?.description === true || errors?.price === true) {
-            alert('error')
+            swal('error')
         } else {
 
             const newProduct: IProduct = {
@@ -151,9 +158,9 @@ function ProductEdit() {
             }
             console.log(newProduct)
             const response = await axios.put(`${url}/product`, newProduct)
-                .catch(() => alert('error'))
+                .catch(() => swal('error'))
             if (response) {
-                alert('Updated Product');
+                swal('Updated Product');
                 history.push(`/product/${response.data}`);
             }
         }
@@ -167,9 +174,6 @@ function ProductEdit() {
         })
     }
 
-    function handleDelete(i: number) {
-        setImagesName(imagesName.filter(image => (image !== imagesName[i])))
-    }
     if (!product.name) {
         return (
             <div></div>
@@ -226,34 +230,7 @@ function ProductEdit() {
 
                         </Col>
                         <Col md>
-                            <div className="custom-file mt-2">
-                                <label>Add images</label>
-                                <input
-                                    type="file"
-                                    className="h6 flat w-100"
-                                    id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01"
-                                    onChange={imageChangeHandler} />
-                                {/* <label className="custom-file-label" htmlFor="inputGroupFile01">Selecciona una imagen</label> */}
-                            </div>
-                            <Container>
-                                {imagesName.length > 0 ?
-                                    <Carousel>
-                                        {imagesName.map((name, i) => (
-                                            <Carousel.Item key={i}>
-                                                <Button className="carrousel-btn btn-secondary" onClick={() => handleDelete(i)}>X</Button>
-                                                <img
-                                                    key={i}
-                                                    className="carrousel-img"
-                                                    src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
-                                                    alt="First slide"
-                                                />
-                                            </Carousel.Item>
-                                        )
-                                        )}
-                                    </Carousel> :
-                                    null}
-                            </Container>
+                            <ImgCarousel {...carouselProps}/>
                         </Col>
                     </Row>
                     <Row>
@@ -268,9 +245,5 @@ function ProductEdit() {
             </Container>
         )
 }
-
-
-
-
 
 export default ProductEdit;

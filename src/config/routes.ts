@@ -17,9 +17,11 @@ import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
 import AdminValidation from '../components/Admin/AdminValidation'
+import PasswordReset from '../components/Login/PasswordReset'
 import Payment from '../components/Payment/Payment';
 import UserSales from '../components/UserOrders/UserSales';
 import Cart from '../components/Cart/Cart';
+import TokenURL from '../components/Auth/TokenURL';
 
 const routes: IRoute[] = [
     {
@@ -41,36 +43,45 @@ const routes: IRoute[] = [
         exact: true,
     },
     {
+        path: '/login/passReset',
+        name: 'PassReset',
+        component: PasswordReset,
+        exact: true
+    },
+    {
         path: '/user/',
         name: 'User',
-        component: UserDashboard, //AuthUser
+        component: AuthUser,
         exact: true,
-        //props: {path:'/user/create',name:'Create',component: UserProducts, exact:true},
+        props: { path: '/user', name: 'User', component: UserDashboard, exact: true },
     },
     {
         path: '/user/orders',
         name: 'UserOrders',
-        component: UserOrders,
+        component: AuthUser,
         exact: true,
+        props: { path: '/user/orders', name: 'UserOrders', component: UserOrders, exact: true },
     },
     {
         path: '/user/sales',
         name: 'Usersales',
-        component: UserSales,
+        component: AuthUser,
         exact: true,
+        props: { path: '/user/sales', name: 'Usersales', component: UserSales, exact: true },
     },
     {
         path: '/user/activeProducts',
         name: 'User',
-        component: UserProducts,
+        component: AuthUser,
         exact: true,
+        props: { path: '/user/activeProducts', name: 'User', component: UserProducts, exact: true },
     },
     {
         path: '/user/create',
         name: 'Create',
-        component: ProductForm, //AuthUser
+        component: AuthUser,
         exact: true,
-        //props: {path:'/user/create',name:'Create',component: ProductForm, exact:true},
+        props: { path: '/user/create', name: 'Create', component: ProductForm, exact: true },
     },
     {
         path: '/home',
@@ -81,9 +92,9 @@ const routes: IRoute[] = [
     {
         path: '/product/edit',
         name: 'ProductEdit',
-        component: ProductEdit, //AuthUser
+        component: AuthUser,
         exact: true,
-        //props: {path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact:true},
+        props: { path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact: true },
     },
     {
         path: '/Product/:id',
@@ -100,9 +111,9 @@ const routes: IRoute[] = [
     {
         path: '/admin',
         name: 'Admin',
-        component: Admin, //AuthAdmin
+        component: AuthAdmin,
         exact: true,
-        //props: {path: '/admin', name: 'Admin', component: Admin, exact:true}
+        props: { path: '/admin', name: 'Admin', component: Admin, exact: true }
     },
     {
         path: '/cart',
@@ -131,7 +142,13 @@ const routes: IRoute[] = [
     {
         path: '/payment',
         name: 'Payment',
-        component: Payment, 
+        component: Payment,
+        exact: true,
+    },
+    {
+        path: '/tokensignin',
+        name: 'tokensignin',
+        component: TokenURL, 
         exact: true,
     },
 ]

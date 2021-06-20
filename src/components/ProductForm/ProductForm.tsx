@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { IProduct} from '../../interfaces/product'
-import {IErrorProduct as IError}  from '../../interfaces/forms'
+import { IProduct } from '../../interfaces/product'
+import { IErrorProduct as IError } from '../../interfaces/forms'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './styles.scss'
-import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
+import ImgCarousel from '../ImgCarousel/ImgCarousel'
+import swal from 'sweetalert'
+
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
-function ProductForm() {
+interface ICarouselProps {
+    index?: any,
+    imagesName?: any,
+    setIndex(a: any): any,
+    setImage(a: any): any,
+    setImagesName(a: any): any
+}
 
+const ProductForm: React.FC<ICarouselProps> = () => {
+    const [index, setIndex] = useState<number>(0)
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
     const [categories, setCategories] = useState<any[]>([])
@@ -27,6 +38,8 @@ function ProductForm() {
     })
 
     const history = useHistory();
+
+    const carouselProps = {index, imagesName, setIndex, setImage, setImagesName}
 
     // useEffect(() => {
     //     (async () => {
@@ -80,16 +93,16 @@ function ProductForm() {
         }
     }
 
-    const imageChangeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files) {
-            setImage(event.target.files[0])
-        }
-    }
+    // const imageChangeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (event.target.files) {
+    //         setImage(event.target.files[0])
+    //     }
+    // }
 
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
         if (errors?.name === true || errors?.description === true || errors?.price === true) {
-            alert('No se creo el producto')
+            swal('No se creo el producto')
         } else {
 
             const newProduct: IProduct = {
@@ -103,9 +116,9 @@ function ProductForm() {
             }
             console.log(newProduct)
             const response = await axios.post(`${url}/product`, newProduct)
-                .catch(() => alert('No se creo el producto'))
+                .catch(() => swal('No se creo el producto'))
             if (response) {
-                alert('Producto creado');
+                swal('Producto creado');
                 history.push(`/product/${response.data}`);
             }
         }
@@ -120,9 +133,9 @@ function ProductForm() {
         })
     }
 
-    function handleDelete(i: number) {
-        setImagesName(imagesName.filter(image => (image !== imagesName[i])))
-    }
+    // function handleDelete(i: number) {
+    //     setImagesName(imagesName.filter(image => (image !== imagesName[i])))
+    // }
 
     return (
         <Container>
@@ -149,11 +162,11 @@ function ProductForm() {
                         </Form.Group>
 
                         <Row>
-                            <Col>
+                            <Col md>
                                 <Form.Label>Price</Form.Label>
                                 <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} />
                             </Col>
-                            <Col>
+                            <Col md>
                                 <Form.Label>Quantity</Form.Label>
                                 <input name='quantity' onBlur={handleChange} className="form-control" type='number' min="1" max="1000" defaultValue='1'></input>
                             </Col>
@@ -173,37 +186,9 @@ function ProductForm() {
                                 <option value={category.categoryId}>{category.name}</option>
                             ))}
                         </Form.Control>
-
-
                     </Col>
                     <Col md>
-                        <div className="custom-file mt-2">
-                            <label>Add image</label>
-                            <input
-                                type="file"
-                                className="h6 flat w-100"
-                                id="inputGroupFile01"
-                                aria-describedby="inputGroupFileAddon01"
-                                onChange={imageChangeHandler} />
-                        </div>
-                        <Container>
-                            {imagesName.length > 0 ?
-                                <Carousel>
-                                    {imagesName.map((name, i) => (
-                                        <Carousel.Item key={i}>
-                                            <Button className="carrousel-btn btn-primary" onClick={() => handleDelete(i)}>X</Button>
-                                            <img
-                                                key={i}
-                                                className="carrousel-img"
-                                                src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${name}`}
-                                                alt="First slide"
-                                            />
-                                        </Carousel.Item>
-                                    )
-                                    )}
-                                </Carousel> :
-                                null}
-                        </Container>
+                       <ImgCarousel {...carouselProps}/>
                     </Col>
                 </Row>
                 <Row>

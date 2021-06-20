@@ -3,6 +3,9 @@ import { useState } from 'react'
 import { url } from '../../api'
 import { Review } from '../../interfaces/reviews'
 import './OrderListItem.css'
+import { Form } from 'react-bootstrap'
+import swal from 'sweetalert'
+import { useHistory } from 'react-router-dom'
 interface imgs {
     imageId: string
 }
@@ -18,9 +21,11 @@ export default function OrderListItem(props: {
     seller?: string | undefined;
     reviews: Review[];
     user: string | null;
-    role: string
+    role: string,
+    id?: number
 }) {
 
+    const history = useHistory()
     const [review, setReview] = useState<any>({
         username: props.user,
         review: "",
@@ -29,6 +34,8 @@ export default function OrderListItem(props: {
     })
 
     const [form, setForm] = useState<boolean>(false)
+    const [selectStatus, setSelectStatus] = useState<boolean>(false)
+    const [orderStatus, setOrderStatus] = useState<string>("")
     const [errors, setErrors] = useState<any>({
         review: true,
         score: true
@@ -36,6 +43,10 @@ export default function OrderListItem(props: {
 
     const handleClick = () => {
         setForm(true)
+    }
+
+    const handleStatusClick = () => {
+        setSelectStatus(true)
     }
 
     const handleInputChange = (e: any) => {
@@ -71,13 +82,13 @@ export default function OrderListItem(props: {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (errors.review) {
-            return alert("Review must have at least 15 characters")
+            return swal("Review must have at least 15 characters")
         }
         if (errors.score) {
-            return alert("Score must be between 1 and 5")
+            return swal("Score must be between 1 and 5")
         }
         const resp = await axios.post(`${url}/reviews`, review)
-        alert(resp)
+        swal(resp.data)
     }
 
     let hasReview: boolean = false
@@ -85,6 +96,18 @@ export default function OrderListItem(props: {
         hasReview = true
     }
 
+    const handleStatus = (e: any) => {
+        e.preventDefault();
+        setOrderStatus(e.target.value)
+    }
+
+    const handleStatusSubmit = async () => {
+        setSelectStatus(false)
+        await axios.post(`${url}/orders/update`, { id: props.id, status: orderStatus })
+        swal("Status changed succesfully").then(() => history.go(0))
+
+
+    }
 
 
     return (
@@ -112,35 +135,52 @@ export default function OrderListItem(props: {
                         <div className="row justify-content-between">
                             <div className="col-md-3 mb-3"> <p className="h6"> Status: {props.status}</p> </div>
                             <div className="justify-content-between col-auto flex-col">
-                                        <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>Buy Again</a>
-                                        {!hasReview ? <button type="button" onClick={handleClick} className="btn btn-primary" id='colorC'>My Review</button> : null}
+                                <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>Buy Again</a>
+                                {!hasReview ? <button type="button" onClick={handleClick} className="btn btn-primary" id='colorC'>My Review</button> : null}
                             </div>
                         </div>
-                            <div className="col mt-auto">
-                                <div className="justify-content-between ">
-                                    <div className="col-auto text-right"><small className="text-right mr-sm-2"></small></div>
-                                    <div className="flex-col justify-content-end">
-                                        {form ? (
-                                            <form onSubmit={e => handleSubmit(e)} className="card-body p-5 m-4 border shadow" id='fReview'>
-                                                    <div id='bClose' onClick={handleClickButton}>
-                                                        <button id='bStyleReview'>x</button>
-                                                    </div>
-                                                    <div>
-                                                        <h5>Review</h5>
-                                                    </div>
-                                                <div>
-                                                    <textarea  id='wReview' name="review" minLength={15} onChange={e => handleInputChange(e)} />
-                                                    <input id='iReview' onChange={e => handleInputChange(e)} name="score" type="number" min="1" max="5" />
-                                                </div>
-                                                <div id='bReview'>
-                                                    <button type="submit" className="btn btn-primary" id='colorB'>Submit</button>
-                                                </div>
+                        <div className="col mt-auto">
+                            <div className="justify-content-between ">
+                                <div className="col-auto text-right"><small className="text-right mr-sm-2"></small></div>
+                                <div className="flex-col justify-content-end">
+                                    {form ? (
+                                        <form onSubmit={e => handleSubmit(e)} className="card-body p-5 m-4 border shadow" id='fReview'>
+                                            <div id='bClose' onClick={handleClickButton}>
+                                                <button id='bStyleReview'>x</button>
+                                            </div>
+                                            <div>
+                                                <h5>Review</h5>
+                                            </div>
+                                            <div>
+                                                <textarea id='wReview' name="review" minLength={15} onChange={e => handleInputChange(e)} />
+                                                <input id='iReview' onChange={e => handleInputChange(e)} name="score" type="number" min="1" max="5" />
+                                            </div>
+                                            <div id='bReview'>
+                                                <button type="submit" className="btn btn-primary" id='colorB'>Submit</button>
+                                            </div>
+                                        </form>
+                                    ) : null}
+                                    {(props.role === "to" && !selectStatus) ? (
+                                        <button type="button" onClick={handleStatusClick} className="btn btn-primary" id='colorC'>Change Status</button>
+                                    ) : null}
+                                    {selectStatus ? (
+                                        <div>
+                                            <Form.Label>Status</Form.Label>
+                                            <form onSubmit={handleStatusSubmit}>
+                                                <Form.Control as="select" onChange={handleStatus} >
+                                                    <option value="" selected disabled hidden>Choose here</option>
+                                                    <option value="completed">Completed</option>
+                                                    <option value="cancelled">Cancelled</option>
+                                                    <option value="processing">Processing</option>
+                                                </Form.Control>
+                                                <button type="submit" className="btn btn-primary" id='colorB'>Change</button>
                                             </form>
-                                        ) : null}
+                                        </div>
+                                    ) : null}
 
-                                    </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
