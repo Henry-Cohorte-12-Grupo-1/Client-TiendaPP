@@ -153,7 +153,7 @@ export default function OrderListItem(props: {
                                             </div>
                                             <div>
                                                 <textarea id='wReview' name="review" minLength={15} onChange={e => handleInputChange(e)} />
-                                                <input id='iReview' onChange={e => handleInputChange(e)} name="score" type="number" min="1" max="5" />
+                                                <div className="rw-ui-container"></div>
                                             </div>
                                             <div id='bReview'>
                                                 <button type="submit" className="btn btn-primary" id='colorB'>Submit</button>
