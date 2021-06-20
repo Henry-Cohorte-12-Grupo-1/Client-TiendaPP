@@ -4,8 +4,7 @@ import { useEffect, useState } from "react"
 import IUserOrders from "../../interfaces/userOrders";
 import { Container } from 'react-bootstrap';
 import OrderItem from './OrderListItem'
-import { bringUserSales } from "../../redux/actions";
-import jwtDecode from "jwt-decode"
+import { bringUserSales, filteredOrders } from "../../redux/actions";
 
 let currentOrders: IUserOrders[] = [];
 // let filteredOrders: IUserOrders[] = []
@@ -13,12 +12,13 @@ let currentOrders: IUserOrders[] = [];
 
 export default function UserSales() {
 
-
-    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
-    let userName = token.username;
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let userName: string | null = params.get('user');
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)
+    const [filter, setFilter] = useState<Boolean>(true)
 
 
 
@@ -48,7 +48,9 @@ export default function UserSales() {
 
     const handleClick = (e: any) => {
         e.preventDefault()
-        // dispatch(bringUserOrders(userName));
+        dispatch(filteredOrders(e.target.name))
+        setFilter(false)
+        console.log('FILTERED', filteredOrders(e.target.name))
     }
 
     if (loading) {
@@ -71,31 +73,44 @@ export default function UserSales() {
                 <label className="btn btn-primary m-2" htmlFor="completed">Fulfilled</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="dispatched" id="dispatched" />
-                <label className="btn btn-primary m-2" htmlFor="dispatched">Cancelled</label>
+                <label className="btn btn-primary m-2" htmlFor="dispatched">On their way</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
-                <label className="btn btn-primary m-2" htmlFor="processing">Processing</label>
+                <label className="btn btn-primary m-2" htmlFor="processing">Processing Payement</label>
 
             </div>
             {console.log(currentOrders)}
-            {currentOrders.length && currentOrders.map(o => {
-                console.log(o.id)
+            {!filter ? orders.map(o => {
+                return (
+                    <OrderItem 
+                        name={o.Product.name}
+                        price={o.Product.price}
+                        images={o.Product.Images}
+                        productId={o.Product.productId}
+                        seller={o.Product.User?.username}
+                        quantity={o.quantity}
+                        status={o.status}
+                        reviews={o.Product.Reviews}
+                        user={userName}
+                        role="by"
+                    />)
+            })
+            :
+            currentOrders.length && currentOrders.map(o => {
                 return (
                     <OrderItem
                         name={o.Product.name}
                         price={o.Product.price}
                         images={o.Product.Images}
                         productId={o.Product.productId}
-                        seller={o.User.username}
+                        seller={o.Product.User?.username}
                         quantity={o.quantity}
                         status={o.status}
                         reviews={o.Product.Reviews}
                         user={userName}
-                        role="to"
-                        id={o.id}
+                        role="by"
                     />)
-            })
-            }
+            })}
             {currentPage < lastPage ? <div className="d-flex justify-content-center mb-4"> <button className="btn btn-primary" onClick={handlePagination}>View More</button> </div> : null}
 
         </Container>
