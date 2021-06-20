@@ -1,22 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '../../redux/reducers';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { productInfo } from '../../redux/actions';
 import { RouteComponentProps } from 'react-router-dom';
 import detailedProduct from '../../interfaces/detailedProduct';
 import { Carousel, Container } from 'react-bootstrap';
 import './style.scss';
 
+//for the add to cart button
+import AddButton from '../CartButtons/AddButton';
+import jwtDecode from 'jwt-decode';
+
 //defino el tipado para match.params.id
 interface MatchParams {
     id: string;
 }
 type Props = RouteComponentProps<MatchParams>;
-function ProductDetails(props: Props) {
+function ProductDetails(props: Props): ReactElement {
     const id = props.match.params.id;
     const details = useSelector<StoreType, detailedProduct>((state) => state.productDetails);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
+
+    //GETTING USER ID FROM LOCAL STORAGE
+    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    const userId: string = token ? token.id : 'guest';
 
     useEffect(() => {
         (async () => {
@@ -54,7 +62,7 @@ function ProductDetails(props: Props) {
                     <Container className="d-flex flex-column">
                         <h4>${details.price}</h4>
                         <p>{details.description}</p>
-                        {/* <p>fdsafdsaf kjasdf hkadjsl hdjskafh asdjkfhpsadfpeiwogf spaf dsahjfdajidfqpoi fdasjkf sadffdska fhsadfh sadfd sañjklfh apsofajsp`df asdiufhy aspdfiasfdlkñsa fdsajkf sadkfh sadfhasdipfhsadlfñsh dajkflsd fkusadh flsañdjfhsaidoufhsdaughfjklñ hauif sahfisadhgkjlgh ajdfhsa afksdlh fsadjlñf hdsaifghadsg asdjlf dsahifdsahigsad jkl</p> */}
+                        <AddButton productId={details.productId} userId={userId} />
                     </Container>
                 </Container>
                 <hr></hr>
@@ -62,7 +70,7 @@ function ProductDetails(props: Props) {
                 {details.Reviews.length ? (
                     details.Reviews.map((rev) => {
                         return (
-                            <div className="card center">
+                            <div className="card center" key={rev.review}>
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-md-2">
