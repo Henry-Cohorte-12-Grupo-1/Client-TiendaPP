@@ -73,18 +73,22 @@ function Admin() {
     const handleUserChange = (event: any) => {
         if (users) {
             setSelectedUser(users[event.target.value])
+            var usernameprop = users[event.target.value].username
         }
+        
         setUserSumbit({
             ...userSubmit,
             passReset:false,
+            role:selectedUser.role,
+            username:usernameprop
         })
+        console.log(userSubmit)
     }
 
     const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setUserSumbit({
             ...userSubmit,
             userId: selectedUser.userId,
-            username: selectedUser.username,
             role: parseInt(event.target.value),
         })
     }
@@ -121,7 +125,7 @@ function Admin() {
 
         await axios.put(`${url}/updateCategories`, sendObject)
             .catch(() => alert('request failed'))
-
+        console.log(userSubmit)
         if(userSubmit.passReset){
             if(userSubmit.role===2){
                 console.log(userSubmit)

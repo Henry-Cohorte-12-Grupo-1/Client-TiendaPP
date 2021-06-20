@@ -1,5 +1,5 @@
 export interface IUsers {
-    username?: string,
+    username?: string | undefined,
     userId?: string,
     role?: number,
     passReset?: boolean,
