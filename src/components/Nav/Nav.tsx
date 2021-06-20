@@ -6,6 +6,7 @@ import { StoreType } from "../../redux/reducers/index";
 import { Navbar, Nav, Form } from "react-bootstrap";
 import { orderByCategories, bringProducts } from "../../redux/actions/index";
 import { category } from "../../interfaces/products";
+import jwtDecode from "jwt-decode";
 
 function NavComponent() {
     const categorias = useSelector<StoreType, category[]>((s) => s.filter);
@@ -14,6 +15,9 @@ function NavComponent() {
     const handleClick = (category: string) => {
         dispatch(orderByCategories(category));
     };
+
+    let token:any = jwtDecode(localStorage.token)
+    let admin:boolean = token.admin
 
     return (
         <Navbar bg="primary" expand="lg">
@@ -28,36 +32,37 @@ function NavComponent() {
                             Home
                         </button>
                     </Link>
-                    <Link to="/login">
-                        <button
-                            className="btn font-weight-bold"
-                            id="colorButton2"
-                        >
-                            Sign In
-                        </button>
-                    </Link>
-                    <Link to="/sign-up">
-                        <button
-                            className="btn font-weight-bold"
-                            id="colorButton2"
-                        >
-                            Sign Up
-                        </button>
-                    </Link>
-                    {localStorage.token && (
-                        <div>
-                            <a
+                    {localStorage.token ? null : (
+                        <Link to="/login">
+                            <button
                                 className="btn font-weight-bold"
                                 id="colorButton2"
-                                onClick={() => {
-                                    localStorage.removeItem("token");
-                                }}
-                                href="/"
                             >
-                                Log out
-                            </a>
-                        </div>
+                                Sign In
+                            </button>
+                        </Link>
                     )}
+                    {admin ?(
+                        <Link to="/admin">
+                            <button
+                                className="btn font-weight-bold"
+                                id="colorButton2"
+                            >
+                                Admin
+                            </button>
+                        </Link>
+                    ):null}
+                    {localStorage.token ? null : (
+                        <Link to="/sign-up">
+                            <button
+                                className="btn font-weight-bold"
+                                id="colorButton2"
+                            >
+                                Sign Up
+                            </button>
+                        </Link>
+                    )}
+
                     <ul>
                         {categorias && (
                             <li
@@ -95,6 +100,7 @@ function NavComponent() {
                             </li>
                         )}
                     </ul>
+                    {admin?null:(
                     <Link to="/cart">
                         <button
                             className="btn font-weight-bold"
@@ -103,6 +109,21 @@ function NavComponent() {
                             Cart
                         </button>
                     </Link>
+                    )}
+                                        {localStorage.token && (
+                        <div>
+                            <a
+                                className="btn font-weight-bold"
+                                id="colorButton2"
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+                                }}
+                                href="/"
+                            >
+                                Log out
+                            </a>
+                        </div>
+                    )}
                 </Nav>
             </Navbar.Collapse>
             <Form id="wFormNav">
