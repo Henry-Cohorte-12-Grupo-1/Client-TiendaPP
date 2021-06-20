@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { RootStateOrAny, useSelector } from "react-redux"
 import './stripe.css';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
 
 export default function CheckoutForm() {
     const [succeeded, setSucceeded] = useState(false);
@@ -12,15 +14,19 @@ export default function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
 
+    const totalPriceState = useSelector((store) => store.totalAmount);
+
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
+        let totalPrice = totalPriceState * 100;
+        if(totalPrice === 0) totalPrice = 14500;
 
         fetch('http://localhost:3001/api/payment/stripe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ mount: 14000 }),
+            body: JSON.stringify({ mount: totalPrice }),
         })
             .then((res) => {
                 return res.json();

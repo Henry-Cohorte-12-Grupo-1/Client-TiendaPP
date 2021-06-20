@@ -11,9 +11,9 @@ const promise = loadStripe(
     'pk_test_51J3fLkDvBTztdzmKxUMVrAvCre6oktEig63I4WNKeNyOK1HGftr5RcrcCHvTEHj2CkvMDcmAIZHKNCrSMTpRVSTC00rzOzYUXS',
 );
 
-export default function App() {
+export default function Payment() {
     return (
-        <div className="App">
+        <div className="Payment">
             <Elements stripe={promise}>
                 <Stripe />
             </Elements>
