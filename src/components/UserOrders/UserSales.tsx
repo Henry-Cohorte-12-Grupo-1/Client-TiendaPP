@@ -79,7 +79,7 @@ export default function UserSales() {
             </div>
             {console.log(currentOrders)}
             {currentOrders.length && currentOrders.map(o => {
-                console.log(o)
+                console.log(o.id)
                 return (
                     <OrderItem
                         name={o.Product.name}

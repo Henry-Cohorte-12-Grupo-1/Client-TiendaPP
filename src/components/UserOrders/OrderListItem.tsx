@@ -103,7 +103,7 @@ export default function OrderListItem(props: {
 
     const handleStatusSubmit = async () => {
         setSelectStatus(false)
-        await axios.post(`${url}/orders/update`, { id: 1, status: orderStatus })
+        await axios.post(`${url}/orders/update`, { id: props.id, status: orderStatus })
         swal("Status changed succesfully").then(() => history.go(0))
 
 
@@ -169,9 +169,9 @@ export default function OrderListItem(props: {
                                             <form onSubmit={handleStatusSubmit}>
                                                 <Form.Control as="select" onChange={handleStatus} >
                                                     <option value="" selected disabled hidden>Choose here</option>
-                                                    <option value="AAAAAAAAAA">AAAAAAAAAAAAAAAAA</option>
-                                                    <option value="cancelled">cancelled</option>
-                                                    <option value="processing">processing</option>
+                                                    <option value="completed">Completed</option>
+                                                    <option value="cancelled">Cancelled</option>
+                                                    <option value="processing">Processing</option>
                                                 </Form.Control>
                                                 <button type="submit" className="btn btn-primary" id='colorB'>Change</button>
                                             </form>
