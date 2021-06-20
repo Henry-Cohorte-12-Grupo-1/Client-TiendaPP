@@ -1,0 +1,33 @@
+.custom-label{
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-image{
+    object-fit: cover
+}
+
+.carousel-container{
+    position:relative;
+}
+
+// .btn-prev-custom{
+//     position: absolute;
+//     margin-bottom: 16%;
+//     margin-left: 10%;
+//     bottom: 0;
+//     left: 0;
+// }
+
+// .btn-next-custom{
+//     position: absolute;
+// }
+
+.btn-close-custom{
+    position: absolute;
+    margin-top: 1%;
+    margin-right: 5%;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
