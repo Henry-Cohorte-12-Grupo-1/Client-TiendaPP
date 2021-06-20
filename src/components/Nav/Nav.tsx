@@ -1,19 +1,19 @@
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import "./Nav.scss";
-import { useDispatch, useSelector } from 'react-redux';
-import { StoreType } from '../../redux/reducers/index';
+import { useDispatch, useSelector } from "react-redux";
+import { StoreType } from "../../redux/reducers/index";
 import { Navbar, Nav, Form } from "react-bootstrap";
-import { orderByCategories, bringProducts } from '../../redux/actions/index'
-import { category } from '../../interfaces/products';
+import { orderByCategories, bringProducts } from "../../redux/actions/index";
+import { category } from "../../interfaces/products";
 
 function NavComponent() {
-    const categorias = useSelector<StoreType, category[]>((s) => s.filter)
-    const dispatch = useDispatch()
+    const categorias = useSelector<StoreType, category[]>((s) => s.filter);
+    const dispatch = useDispatch();
 
     const handleClick = (category: string) => {
-        dispatch(orderByCategories(category))
-    }
+        dispatch(orderByCategories(category));
+    };
 
     return (
         <Navbar bg="primary" expand="lg">
@@ -44,32 +44,68 @@ function NavComponent() {
                             Sign Up
                         </button>
                     </Link>
-                    {localStorage.token && 
+                    {localStorage.token && (
                         <div>
                             <a
                                 className="btn font-weight-bold"
                                 id="colorButton2"
-                                onClick={() => {localStorage.removeItem('token')}}
-                                href='/'
-                            >   
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+                                }}
+                                href="/"
+                            >
                                 Log out
                             </a>
-                        </div>}
+                        </div>
+                    )}
                     <ul>
-                        {categorias &&
-                         <li className="btn font-weight-bold" id="colorButton4">Categories
-                        <ul>
-                            {categorias.map(c => {
-                                return (
-                                    <li><a id="colorButton3" onClick={() => handleClick(c.name)}>{c.name}</a></li>
-                                )
-                            })}
-                            <li> <a id="colorButton3" onClick={() => dispatch(bringProducts())}>Go back</a></li>
-                        </ul></li>}
+                        {categorias && (
+                            <li
+                                className="btn font-weight-bold"
+                                id="colorButton4"
+                            >
+                                Categories
+                                <ul>
+                                    {categorias.map((c) => {
+                                        return (
+                                            <li>
+                                                <a
+                                                    id="colorButton3"
+                                                    onClick={() =>
+                                                        handleClick(c.name)
+                                                    }
+                                                >
+                                                    {c.name}
+                                                </a>
+                                            </li>
+                                        );
+                                    })}
+                                    <li>
+                                        {" "}
+                                        <a
+                                            id="colorButton3"
+                                            onClick={() =>
+                                                dispatch(bringProducts())
+                                            }
+                                        >
+                                            Go back
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        )}
                     </ul>
+                    <Link to="/cart">
+                        <button
+                            className="btn font-weight-bold"
+                            id="colorButton2"
+                        >
+                            Cart
+                        </button>
+                    </Link>
                 </Nav>
             </Navbar.Collapse>
-            <Form id='wFormNav'>
+            <Form id="wFormNav">
                 <SearchBar />
             </Form>
         </Navbar>
