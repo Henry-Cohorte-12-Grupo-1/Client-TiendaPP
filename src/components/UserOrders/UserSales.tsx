@@ -4,12 +4,7 @@ import { useEffect, useState } from "react"
 import IUserOrders from "../../interfaces/userOrders";
 import { Container } from 'react-bootstrap';
 import OrderItem from './OrderListItem'
-<<<<<<< HEAD
 import { bringUserSales, filteredOrders } from "../../redux/actions";
-=======
-import { bringUserSales } from "../../redux/actions";
-import jwtDecode from "jwt-decode"
->>>>>>> 092f371ba017789435e29919e966b40668ecbb70
 
 let currentOrders: IUserOrders[] = [];
 // let filteredOrders: IUserOrders[] = []
@@ -17,9 +12,9 @@ let currentOrders: IUserOrders[] = [];
 
 export default function UserSales() {
 
-
-    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
-    let userName = token.username;
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let userName: string | null = params.get('user');
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -78,21 +73,16 @@ export default function UserSales() {
                 <label className="btn btn-primary m-2" htmlFor="completed">Fulfilled</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="dispatched" id="dispatched" />
-                <label className="btn btn-primary m-2" htmlFor="dispatched">Cancelled</label>
+                <label className="btn btn-primary m-2" htmlFor="dispatched">On their way</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
-                <label className="btn btn-primary m-2" htmlFor="processing">Processing</label>
+                <label className="btn btn-primary m-2" htmlFor="processing">Processing Payement</label>
 
             </div>
             {console.log(currentOrders)}
-<<<<<<< HEAD
             {!filter ? orders.map(o => {
-=======
-            {currentOrders.length && currentOrders.map(o => {
-                console.log(o.id)
->>>>>>> 092f371ba017789435e29919e966b40668ecbb70
                 return (
-                    <OrderItem
+                    <OrderItem 
                         name={o.Product.name}
                         price={o.Product.price}
                         images={o.Product.Images}
@@ -102,12 +92,7 @@ export default function UserSales() {
                         status={o.status}
                         reviews={o.Product.Reviews}
                         user={userName}
-<<<<<<< HEAD
                         role="by"
-=======
-                        role="to"
-                        id={o.id}
->>>>>>> 092f371ba017789435e29919e966b40668ecbb70
                     />)
             })
             :

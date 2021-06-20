@@ -18,8 +18,8 @@
 }
 
 #bReview{
-    margin-top: 2rem;
-    margin-left: 24rem;
+    margin-top: 3rem;
+    margin-left: 50%;
 }
 
 #bClose{
@@ -36,4 +36,49 @@
     margin-left: 1rem;
     background-color: #2c666e;
     border: none;
+}
+
+.rating{
+    position: absolute;
+    margin-top: 2rem;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(180deg);
+    display: flex;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label:before{
+    content: '\f005';
+    font-family: fontAwesome;
+    position: relative;
+    display: block;
+    font-size: 20px;
+    color: #101010;
+}
+
+.rating label:after{
+    content: '\f005';
+    font-family: fontAwesome;
+    position: absolute;
+    display: block;
+    font-size: 20px;
+    color: #2c666e;
+    top: 0;
+    opacity: 0;
+    transition: .5s;
+    /* text-shadow: 0 2px 5px rgba(0,0,0,.5); */
+}
+
+.rating input label{
+    padding: 2rem;
+}
+
+.rating label:hover:after,
+.rating label:hover ~ label:after,
+.rating input:checked ~ label:after 
+{
+    opacity: 1;
 }
