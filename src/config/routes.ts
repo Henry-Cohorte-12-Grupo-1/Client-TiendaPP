@@ -21,6 +21,7 @@ import PasswordReset from '../components/Login/PasswordReset'
 import Payment from '../components/Payment/Payment';
 import UserSales from '../components/UserOrders/UserSales';
 import Cart from '../components/Cart/Cart';
+import TokenURL from '../components/Auth/TokenURL';
 
 const routes: IRoute[] = [
     {
@@ -142,6 +143,12 @@ const routes: IRoute[] = [
         path: '/payment',
         name: 'Payment',
         component: Payment,
+        exact: true,
+    },
+    {
+        path: '/tokensignin',
+        name: 'tokensignin',
+        component: TokenURL, 
         exact: true,
     },
 ]
