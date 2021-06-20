@@ -76,7 +76,7 @@ function NavComponent() {
                                         return (
                                             <li>
                                                 <a
-                                                    id="colorButton3"
+                                                    id="colorB"
                                                     onClick={() =>
                                                         handleClick(c.name)
                                                     }
@@ -89,7 +89,7 @@ function NavComponent() {
                                     <li>
                                         {" "}
                                         <a
-                                            id="colorButton3"
+                                            id="colorB"
                                             onClick={() =>
                                                 dispatch(bringProducts())
                                             }

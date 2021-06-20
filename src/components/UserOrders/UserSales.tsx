@@ -3,8 +3,9 @@ import { StoreType } from "../../redux/reducers"
 import { useEffect, useState } from "react"
 import IUserOrders from "../../interfaces/userOrders";
 import { Container } from 'react-bootstrap';
-import OrderItem from './OrderListItem'
+import { OrderListItem } from './OrderListItem'
 import { bringUserSales, filteredOrders } from "../../redux/actions";
+import jwtDecode from "jwt-decode";
 
 let currentOrders: IUserOrders[] = [];
 // let filteredOrders: IUserOrders[] = []
@@ -12,9 +13,9 @@ let currentOrders: IUserOrders[] = [];
 
 export default function UserSales() {
 
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let userName: string | null = params.get('user');
+    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
+    let userName = token.username;
+
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -72,43 +73,46 @@ export default function UserSales() {
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="completed" id="completed" />
                 <label className="btn btn-primary m-2" htmlFor="completed">Fulfilled</label>
 
-                <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="dispatched" id="dispatched" />
-                <label className="btn btn-primary m-2" htmlFor="dispatched">On their way</label>
+                <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="cancelled" id="cancelled" />
+                <label className="btn btn-primary m-2" htmlFor="cancelled">Cancelled</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
-                <label className="btn btn-primary m-2" htmlFor="processing">Processing Payement</label>
+                <label className="btn btn-primary m-2" htmlFor="processing">Processing</label>
 
             </div>
             {console.log(currentOrders)}
             {!filter ? orders.map(o => {
                 return (
-                    <OrderItem
+                    <OrderListItem
                         name={o.Product.name}
                         price={o.Product.price}
                         images={o.Product.Images}
                         productId={o.Product.productId}
-                        seller={o.Product.User?.username}
+                        seller={o.User.username}
                         quantity={o.quantity}
                         status={o.status}
                         reviews={o.Product.Reviews}
                         user={userName}
-                        role="by"
+                        role="to"
+                        id={o.id}
                     />)
             })
                 :
                 currentOrders.length && currentOrders.map(o => {
                     return (
-                        <OrderItem
+                        <OrderListItem
                             name={o.Product.name}
                             price={o.Product.price}
                             images={o.Product.Images}
                             productId={o.Product.productId}
-                            seller={o.Product.User?.username}
+                            seller={o.User.username}
                             quantity={o.quantity}
                             status={o.status}
                             reviews={o.Product.Reviews}
                             user={userName}
-                            role="by"
+                            role="to"
+                            id={o.id}
+
                         />)
                 })}
             {currentPage < lastPage ? <div className="d-flex justify-content-center mb-4"> <button className="btn btn-primary" onClick={handlePagination}>View More</button> </div> : null}

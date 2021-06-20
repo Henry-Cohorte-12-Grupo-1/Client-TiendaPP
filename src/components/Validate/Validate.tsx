@@ -23,7 +23,7 @@ function Validate() {
                 history.push(`/login/`);
             }
         })()
-    }, [])
+    }, [])//eslint-disable-line
 
 
     if (resp === 'verificado') {
