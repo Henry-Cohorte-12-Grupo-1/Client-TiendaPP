@@ -20,7 +20,11 @@ function DeleteButton(props: Props): ReactElement {
         await dispatch(deleteItemFromCart(userId, productId));
         forceRender(!render);
     };
-    return <button onClick={handleDelete}>Delete</button>;
+    return (
+        <button onClick={handleDelete} className="btn btn-outline-secondary">
+            Delete
+        </button>
+    );
 }
 
 export default DeleteButton;

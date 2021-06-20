@@ -46,7 +46,18 @@ function Cart(): ReactElement {
     ///////////////////////////////////////
     if (cart.length === EMPTY) {
         //cart is empty
-        return <h1>You have not added items to your cart yet :(</h1>;
+        return (
+            <div className="bg-light p-5 rounded-lg m-3">
+                <div className="container-fluid py-5">
+                    <h1 className="display-5 fw-bold">Your cart is empty :(</h1>
+                    <p className="col-md-8 fs-4">
+                        It seems that your cart is totally empty. You can fix this by visiting our huge catalog,
+                        clicking on a product you love and adding a product by pressing the "Add to cart" button in the
+                        description!
+                    </p>
+                </div>
+            </div>
+        );
     } else {
         //cart has things
         return (
@@ -66,8 +77,16 @@ function Cart(): ReactElement {
                 })}
 
                 <hr />
-                <div>
-                    <h3>total is: {totalAmount}</h3>
+
+                <div className="d-flex p-2 bd-highlight">
+                    <div className="d-flex flex-row justify-content-evenly align-items-center">
+                        <div>
+                            <h3>Total Amount of the cart is: </h3>
+                        </div>
+                        <div className="p-2 bd-highlight">
+                            <h2>${totalAmount}</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
