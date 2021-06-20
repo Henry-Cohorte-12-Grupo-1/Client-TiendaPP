@@ -30,11 +30,11 @@
     position: absolute;
     z-index: 2;
     top: 48px;
-    background-color: rgb(252, 252, 252, 0.6);
+    background-color: rgba(255, 255, 255, 0.6);
     li {
         padding: 0.5rem;
         &:hover {
-            background-color: rgb(0, 22, 122, 0.5);
+            background-color: #2c666e;
             color: #fcfcfc;
             cursor: pointer;
             font-weight: 700;
@@ -42,7 +42,7 @@
     }
 
     .suggestion-active {
-        background-color: rgb(0, 22, 122, 0.5);
+        background-color: #2c666e;
         color: #fcfcfc;
         cursor: pointer;
         font-weight: 700;
