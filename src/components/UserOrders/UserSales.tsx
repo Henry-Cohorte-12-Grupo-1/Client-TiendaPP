@@ -5,6 +5,7 @@ import IUserOrders from "../../interfaces/userOrders";
 import { Container } from 'react-bootstrap';
 import OrderItem from './OrderListItem'
 import { bringUserSales } from "../../redux/actions";
+import jwtDecode from "jwt-decode"
 
 let currentOrders: IUserOrders[] = [];
 // let filteredOrders: IUserOrders[] = []
@@ -12,9 +13,11 @@ let currentOrders: IUserOrders[] = [];
 
 export default function UserSales() {
 
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let userName: string | null = params.get('user');
+    // let search = window.location.search;
+    // let params = new URLSearchParams(search);
+    // let userName: string | null = params.get('user');
+    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
+    let userName = token.username;
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)

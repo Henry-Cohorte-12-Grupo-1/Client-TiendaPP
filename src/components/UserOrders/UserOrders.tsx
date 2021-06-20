@@ -5,6 +5,7 @@ import { bringUserOrders, filteredOrders } from "../../redux/actions"
 import IUserOrders from "../../interfaces/userOrders";
 import { Container } from 'react-bootstrap';
 import OrderItem from './OrderListItem'
+import jwtDecode from "jwt-decode"
 
 let currentOrders: IUserOrders[] = [];
 // let filteredOrders: IUserOrders[] = []
@@ -12,9 +13,13 @@ let currentOrders: IUserOrders[] = [];
 
 export default function UserOrders() {
 
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let userName: string | null = params.get('user');
+    // let search = window.location.search;
+    // let params = new URLSearchParams(search);
+    // let userName: string | null = params.get('user');
+
+    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
+    let userName = token.username;
+    console.log(userName)
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -64,6 +69,7 @@ export default function UserOrders() {
     return (
 
         <Container className="mt-4 mb-4">
+            <h1>{userName}</h1>
             <div className="d-flex justify-content-center"><p className="h3 pt-2">My Orders</p></div>
             <div className="d-flex justify-content-center">
 
@@ -93,22 +99,22 @@ export default function UserOrders() {
                         role="by"
                     />)
             })
-            :
-            currentOrders.length && currentOrders.map(o => {
-                return (
-                    <OrderItem
-                        name={o.Product.name}
-                        price={o.Product.price}
-                        images={o.Product.Images}
-                        productId={o.Product.productId}
-                        seller={o.Product.User?.username}
-                        quantity={o.quantity}
-                        status={o.status}
-                        reviews={o.Product.Reviews}
-                        user={userName}
-                        role="by"
-                    />)
-            })}
+                :
+                currentOrders.length && currentOrders.map(o => {
+                    return (
+                        <OrderItem
+                            name={o.Product.name}
+                            price={o.Product.price}
+                            images={o.Product.Images}
+                            productId={o.Product.productId}
+                            seller={o.Product.User?.username}
+                            quantity={o.quantity}
+                            status={o.status}
+                            reviews={o.Product.Reviews}
+                            user={userName}
+                            role="by"
+                        />)
+                })}
             {currentPage < lastPage ? <div className="d-flex justify-content-center mb-4"> <button className="btn btn-primary" onClick={handlePagination}>View More</button> </div> : null}
 
         </Container>
