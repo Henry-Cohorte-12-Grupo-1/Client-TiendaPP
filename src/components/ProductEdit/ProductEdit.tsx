@@ -8,6 +8,7 @@ import './styles.scss'
 import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
+import swal from 'sweetalert'
 
 function ProductEdit() {
   const [initialImages, setInitialImages] = useState<string>("")
@@ -136,7 +137,7 @@ function ProductEdit() {
   const handleSubmit = async (event: React.FormEvent<any>) => {
     event.preventDefault();
     if (errors?.name === true || errors?.description === true || errors?.price === true) {
-      alert('error')
+      swal('error')
     } else {
 
       const newProduct: IProduct = {
@@ -151,9 +152,9 @@ function ProductEdit() {
       }
       console.log(newProduct)
       const response = await axios.put(`${url}/product`, newProduct)
-        .catch(() => alert('error'))
+        .catch(() => swal('error'))
       if (response) {
-        alert('Updated Product');
+        swal('Updated Product');
         history.push(`/product/${response.data}`);
       }
     }

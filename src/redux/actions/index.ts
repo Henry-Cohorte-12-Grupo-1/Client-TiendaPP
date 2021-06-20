@@ -220,12 +220,12 @@ export const loadCartFromDB = (userId: string) => {
             .then(() => {
                 (totalAmount = normalizedArray
                     .map((x: any) => x.price * x.quantity)
-                    .reduce((a: any, b: any) => a + b, 0)),
-                    dispatch({
-                        type: ActionTypes.LOAD_CART,
-                        payload: normalizedArray,
-                        totalAmount,
-                    });
+                    .reduce((a: any, b: any) => a + b, 0))
+                dispatch({
+                    type: ActionTypes.LOAD_CART,
+                    payload: normalizedArray,
+                    totalAmount,
+                });
             })
 
             .catch((e) => {
