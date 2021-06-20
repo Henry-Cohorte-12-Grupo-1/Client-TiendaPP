@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addProductToCart } from '../../redux/actions';
 import { StoreType } from '../../redux/reducers';
+import swal from 'sweetalert';
 
 interface Props {
     userId: string;
@@ -26,7 +27,7 @@ function AddButton(props: Props): ReactElement {
         //dispatch
         (async () => {
             await dispatch(addProductToCart(userId, productId));
-            alert('The product was added to your cart')
+            swal('The product was added to your cart')
         })(); //iif sacado de product detail
     };
 
