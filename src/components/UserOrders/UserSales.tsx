@@ -82,22 +82,6 @@ export default function UserSales() {
             {console.log(currentOrders)}
             {!filter ? orders.map(o => {
                 return (
-                    <OrderItem 
-                        name={o.Product.name}
-                        price={o.Product.price}
-                        images={o.Product.Images}
-                        productId={o.Product.productId}
-                        seller={o.Product.User?.username}
-                        quantity={o.quantity}
-                        status={o.status}
-                        reviews={o.Product.Reviews}
-                        user={userName}
-                        role="by"
-                    />)
-            })
-            :
-            currentOrders.length && currentOrders.map(o => {
-                return (
                     <OrderItem
                         name={o.Product.name}
                         price={o.Product.price}
@@ -110,7 +94,23 @@ export default function UserSales() {
                         user={userName}
                         role="by"
                     />)
-            })}
+            })
+                :
+                currentOrders.length && currentOrders.map(o => {
+                    return (
+                        <OrderItem
+                            name={o.Product.name}
+                            price={o.Product.price}
+                            images={o.Product.Images}
+                            productId={o.Product.productId}
+                            seller={o.Product.User?.username}
+                            quantity={o.quantity}
+                            status={o.status}
+                            reviews={o.Product.Reviews}
+                            user={userName}
+                            role="by"
+                        />)
+                })}
             {currentPage < lastPage ? <div className="d-flex justify-content-center mb-4"> <button className="btn btn-primary" onClick={handlePagination}>View More</button> </div> : null}
 
         </Container>

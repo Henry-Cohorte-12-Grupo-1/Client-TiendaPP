@@ -45,9 +45,14 @@ export default function UserOrders() {
         setCurrentPage(currentPage + 1)
     }
 
-    const handleClick = (e: any) => {
-        e.preventDefault()
-        dispatch(filteredOrders(e.target.name))
+    const handleClick = async (e: any) => {
+        e.preventDefault();
+        if (!filter) {
+            await dispatch(bringUserOrders(userName));
+            dispatch(filteredOrders(e.target.name))
+            setFilter(false)
+        } else
+            dispatch(filteredOrders(e.target.name))
         setFilter(false)
         console.log('FILTERED', filteredOrders(e.target.name))
     }
