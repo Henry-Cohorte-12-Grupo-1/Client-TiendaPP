@@ -16,8 +16,8 @@ function NavComponent() {
         dispatch(orderByCategories(category));
     };
 
-    let token:any = jwtDecode(localStorage.token)
-    let admin:boolean = token.admin
+    const token : any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    let admin: boolean = token.admin
 
     return (
         <Navbar bg="primary" expand="lg">
@@ -42,7 +42,7 @@ function NavComponent() {
                             </button>
                         </Link>
                     )}
-                    {admin ?(
+                    {admin ? (
                         <Link to="/admin">
                             <button
                                 className="btn font-weight-bold"
@@ -51,7 +51,7 @@ function NavComponent() {
                                 Admin
                             </button>
                         </Link>
-                    ):null}
+                    ) : null}
                     {localStorage.token ? null : (
                         <Link to="/sign-up">
                             <button
@@ -100,17 +100,17 @@ function NavComponent() {
                             </li>
                         )}
                     </ul>
-                    {admin?null:(
-                    <Link to="/cart">
-                        <button
-                            className="btn font-weight-bold"
-                            id="colorButton2"
-                        >
-                            Cart
-                        </button>
-                    </Link>
+                    {admin ? null : (
+                        <Link to="/cart">
+                            <button
+                                className="btn font-weight-bold"
+                                id="colorButton2"
+                            >
+                                Cart
+                            </button>
+                        </Link>
                     )}
-                                        {localStorage.token && (
+                    {localStorage.token && (
                         <div>
                             <a
                                 className="btn font-weight-bold"
