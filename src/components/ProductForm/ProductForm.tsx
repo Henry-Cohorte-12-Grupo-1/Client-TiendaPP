@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { IProduct} from '../../interfaces/product'
-import {IErrorProduct as IError}  from '../../interfaces/forms'
+import { IProduct } from '../../interfaces/product'
+import { IErrorProduct as IError } from '../../interfaces/forms'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './styles.scss'
@@ -8,6 +8,8 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
 import ImgCarousel from '../ImgCarousel/ImgCarousel'
+import swal from 'sweetalert'
+
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
 interface ICarouselProps {
@@ -100,7 +102,7 @@ const ProductForm: React.FC<ICarouselProps> = () => {
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
         if (errors?.name === true || errors?.description === true || errors?.price === true) {
-            alert('No se creo el producto')
+            swal('No se creo el producto')
         } else {
 
             const newProduct: IProduct = {
@@ -114,9 +116,9 @@ const ProductForm: React.FC<ICarouselProps> = () => {
             }
             console.log(newProduct)
             const response = await axios.post(`${url}/product`, newProduct)
-                .catch(() => alert('No se creo el producto'))
+                .catch(() => swal('No se creo el producto'))
             if (response) {
-                alert('Producto creado');
+                swal('Producto creado');
                 history.push(`/product/${response.data}`);
             }
         }

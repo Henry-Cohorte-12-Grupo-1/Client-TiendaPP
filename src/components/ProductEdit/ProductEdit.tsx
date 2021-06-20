@@ -9,6 +9,7 @@ import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
 import ImgCarousel from '../ImgCarousel/ImgCarousel'
+import swal from 'sweetalert'
 
 interface ICarouselProps {
     index?: any,
@@ -142,7 +143,7 @@ const ProductEdit: React.FC<ICarouselProps> = () => {
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
         if (errors?.name === true || errors?.description === true || errors?.price === true) {
-            alert('error')
+            swal('error')
         } else {
 
             const newProduct: IProduct = {
@@ -157,9 +158,9 @@ const ProductEdit: React.FC<ICarouselProps> = () => {
             }
             console.log(newProduct)
             const response = await axios.put(`${url}/product`, newProduct)
-                .catch(() => alert('error'))
+                .catch(() => swal('error'))
             if (response) {
-                alert('Updated Product');
+                swal('Updated Product');
                 history.push(`/product/${response.data}`);
             }
         }
