@@ -1,8 +1,8 @@
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
 import { useEffect, useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import { textChangeRangeIsUnchanged } from 'typescript'
+import jwtDecode from 'jwt-decode';
 import isStrongPassword from 'validator/lib/isStrongPassword'
 import { url } from "../../api";
 
@@ -95,7 +95,10 @@ function Login() {
 
 
 const handleSubmit = async () => {
-    let resp = await axios.put(`${url}/user/passReset`, {pass:passwords?.pass})
+    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    const userId: string = token ? token.id : 'guest';
+    console.log(userId)
+    // let resp = await axios.put(`${url}/user/passReset`, {pass:passwords?.pass})
 }
 
 return (
