@@ -74,16 +74,21 @@ function Admin() {
         if (users) {
             setSelectedUser(users[event.target.value])
             var usernameprop = users[event.target.value].username
-        }
-        
+        }        
+        setUserSumbit({
+            ...userSubmit,
+            username:usernameprop
+        })
+    }
+
+    useEffect(()=>{
         setUserSumbit({
             ...userSubmit,
             passReset:false,
             role:selectedUser.role,
-            username:usernameprop
         })
-        console.log(userSubmit)
-    }
+        // console.log(userSubmit)
+    },[selectedUser])
 
     const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setUserSumbit({
@@ -129,8 +134,11 @@ function Admin() {
         if(userSubmit.passReset){
             if(userSubmit.role===2){
                 console.log(userSubmit)
-                await axios.put(`${url}/user/userUpdate`, userSubmit)
+                const resp = await axios.put(`${url}/user/userUpdate`, userSubmit)
                     .catch(() => alert('request failed'))
+                if(resp?.data ==='succesfully updated'){
+                    alert('succesfully updated')
+                } else alert('error')
             } else alert('force password is not available for Admins or Disabled accounts')
         } else {
             console.log(userSubmit)

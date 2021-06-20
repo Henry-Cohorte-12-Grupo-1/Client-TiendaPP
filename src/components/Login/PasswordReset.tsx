@@ -5,6 +5,7 @@ import { textChangeRangeIsUnchanged } from 'typescript'
 import jwtDecode from 'jwt-decode';
 import isStrongPassword from 'validator/lib/isStrongPassword'
 import { url } from "../../api";
+import { useHistory } from 'react-router-dom'
 
 function Login() {
 
@@ -22,6 +23,8 @@ function Login() {
         pass?: boolean,
         rpass?: boolean
     }
+
+    const history = useHistory();
 
     const [colors, setColors] = useState<IColors>({})
     const [errors, setErrors] = useState<IErrors>()
@@ -98,7 +101,11 @@ const handleSubmit = async () => {
     const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
     const userId: string = token ? token.id : 'guest';
     console.log(userId)
-    // let resp = await axios.put(`${url}/user/passReset`, {pass:passwords?.pass})
+    let resp = await axios.put(`${url}/user/passReset`, {pass:passwords?.pass,userId:userId})
+    alert(resp.data)
+    if(resp.data === 'succesfully updated'){
+        history.push(`/login`);
+    }
 }
 
 return (

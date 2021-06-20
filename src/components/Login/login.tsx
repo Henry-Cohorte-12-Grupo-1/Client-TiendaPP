@@ -78,8 +78,13 @@ function Login() {
             console.log(resp.data.message)
             localStorage.setItem('token', resp.data.token);
             if (resp.data.message === 'User') {
-                alert('Welcome')
-                history.push('/home');
+                if(resp.data.reset){
+                        alert('Password reset required')
+                        history.push('/login/passReset');
+                } else {
+                    alert('Welcome')
+                    history.push('/home');
+                }
 
             }
             if (resp.data.message === 'Admin') {
@@ -92,10 +97,7 @@ function Login() {
             if (resp.data.message === 'User or password are incorrect') {
                 setInvalid(true)
             }
-            if (resp.data.message === 'password reset') {
-                alert('Password reset required')
-                history.push('/login/passReset');
-            }
+
         } else alert('network error')
     }
 
