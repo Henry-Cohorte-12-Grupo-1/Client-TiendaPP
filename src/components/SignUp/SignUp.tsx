@@ -116,6 +116,7 @@ function Signup() {
         let resp = await axios.post(`${url}/user/usercreate`, user)
         console.log(resp.data)
         if (resp.data === 'successfully created') {
+            alert("User created succesfully! Check your email to validate")
             history.push(`/login`);
         }
         if (resp.data === 'username must be unique') {
@@ -160,7 +161,7 @@ function Signup() {
                     </Col>
                     <Col>
                         <Form.Label >Repeat Password</Form.Label>
-                        <Form.Control className={`border-${colors.repeatPass} border-2`} type="password"  name='repeatPass' onChange={handleChange} />
+                        <Form.Control className={`border-${colors.repeatPass} border-2`} type="password" name='repeatPass' onChange={handleChange} />
                     </Col>
 
                 </Form.Group>
@@ -173,36 +174,36 @@ function Signup() {
 
 
                 <div className="d-flex justify-content-center">
-                    <ReCAPTCHA 
+                    <ReCAPTCHA
                         sitekey='6LfoLjYbAAAAACmIqXq5XgsgJMLxiwGMcw1OMhMk'
                         onChange={onCaptchaChange}
                     />
                 </div>
 
-        <div className="d-flex justify-content-center">
-                {(errors?.firstName === true ||
-                    errors?.lastName === true ||
-                    errors?.repeatPass === true ||
-                    errors?.email === true ||
-                    errors?.pass === true ||
-                    errors?.captcha === true ||
-                    errors?.username === true ||
-                    !user?.firstName ||
-                    !user?.lastName ||
-                    !user?.email ||
-                    !user?.pass ||
-                    !user?.repeatPass ||
-                    user?.pass !== user?.repeatPass
-                ) ?
-                    <div className="text-center">
+                <div className="d-flex justify-content-center">
+                    {(errors?.firstName === true ||
+                        errors?.lastName === true ||
+                        errors?.repeatPass === true ||
+                        errors?.email === true ||
+                        errors?.pass === true ||
+                        errors?.captcha === true ||
+                        errors?.username === true ||
+                        !user?.firstName ||
+                        !user?.lastName ||
+                        !user?.email ||
+                        !user?.pass ||
+                        !user?.repeatPass ||
+                        user?.pass !== user?.repeatPass
+                    ) ?
+                        <div className="text-center">
 
                             <Button className="mt-3 column" variant="info" disabled>Sign Up</Button>
 
                             {validationError?.email ? <Alert variant="warning" className="p-2 m-3">{validationError.email}</Alert> : null}
                             {validationError?.userName ? <Alert variant="warning" className="p-2 m-3">{validationError.userName}</Alert> : null}
-                    </div> :
-                    <Button className="mt-3" variant="primary" onClick={handleSubmit}>Sign Up</Button>
-                }
+                        </div> :
+                        <Button className="mt-3" variant="primary" onClick={handleSubmit}>Sign Up</Button>
+                    }
                 </div>
 
             </Form>

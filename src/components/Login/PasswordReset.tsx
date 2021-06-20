@@ -56,15 +56,21 @@ function Login() {
                 })
             })
         }
-        if (event.target.name === 'rpass') {
-            if (passwords?.pass === passwords?.rpass) {
-                setErrors({...errors, rpass: false })
-            } else {
-                setErrors({...errors, rpass: true })
-            }
-        }
-        console.log(errors)
+
+        console.log("Passwords -->", passwords)
     }
+
+    useEffect(() => {
+
+        if (passwords?.pass === passwords?.rpass) {
+            setErrors({ ...errors, rpass: false })
+        } else {
+            setErrors({ ...errors, rpass: true })
+        }
+
+    }, [passwords])
+
+
 
     useEffect(() => {
         console.log(colors)
@@ -83,54 +89,54 @@ function Login() {
     }, [errors?.pass]) // eslint-disable-line
 
     useEffect(() => {
-    if (errors?.rpass) {
-        setColors({
-            ...colors,
-            rpass: 'secondary',
-        })
-    } else {
-        setColors({
-            ...colors,
-            rpass: 'primary',
-        })
+        if (errors?.rpass) {
+            setColors({
+                ...colors,
+                rpass: 'secondary',
+            })
+        } else {
+            setColors({
+                ...colors,
+                rpass: 'primary',
+            })
+        }
+    }, [errors?.rpass]) // eslint-disable-line
+
+
+    const handleSubmit = async () => {
+        const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+        const userId: string = token ? token.id : 'guest';
+        console.log(userId)
+        let resp = await axios.put(`${url}/user/passReset`, { pass: passwords?.pass, userId: userId })
+        alert(resp.data)
+        if (resp.data === 'succesfully updated') {
+            history.push(`/login`);
+        }
     }
-}, [errors?.rpass]) // eslint-disable-line
 
+    return (
 
-const handleSubmit = async () => {
-    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
-    const userId: string = token ? token.id : 'guest';
-    console.log(userId)
-    let resp = await axios.put(`${url}/user/passReset`, {pass:passwords?.pass,userId:userId})
-    alert(resp.data)
-    if(resp.data === 'succesfully updated'){
-        history.push(`/login`);
-    }
-}
+        <Container className="p-5" >
+            <br></br>
+            <h2>Set new password</h2>
+            <Form className='bg-light border shadow p-5 rounded'>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>New Password</Form.Label>
+                    <Form.Control className={`border-${colors.pass} border-2`} type="password" name='pass' onChange={handleChange} />
+                </Form.Group>
 
-return (
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label >Repeat Password</Form.Label>
+                    <Form.Control className={`border-${colors.rpass} border-2`} type="password" name='rpass' onChange={handleChange} />
+                </Form.Group>
 
-    <Container className="p-5" >
-        <br></br>
-        <h2>Set new password</h2>
-        <Form className='bg-light border shadow p-5 rounded'>
-            <Form.Group controlId="formBasicEmail">
-                <Form.Label>New Password</Form.Label>
-                <Form.Control className={`border-${colors.pass} border-2`} type="password" name='pass' onChange={handleChange} />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-                <Form.Label >Repeat Password</Form.Label>
-                <Form.Control className={`border-${colors.rpass} border-2`} type="password" name='rpass' onChange={handleChange} />
-            </Form.Group>
-
-            {(errors?.pass === true || errors?.rpass === true || errors?.rpass === undefined) ?
-                <Button className="mt-3" variant="info" disabled>Log In</Button> :
-                <Button className="mt-3" variant="primary" onClick={handleSubmit}>Log In</Button>
-            }
-        </Form>
-    </Container>
-)
+                {(errors?.pass === true || errors?.rpass === true || errors?.rpass === undefined) ?
+                    <Button className="mt-3" variant="info" disabled>Log In</Button> :
+                    <Button className="mt-3" variant="primary" onClick={handleSubmit}>Log In</Button>
+                }
+            </Form>
+        </Container>
+    )
 }
 
 export default Login
