@@ -99,11 +99,7 @@ function ProductDetails(props: Props): ReactElement {
                                         </div>
                                         <div className="col-md-10">
                                             <div className="clearfix"></div>
-                                            <p className="p-5">{rev.review}</p>
-                                            <p>
-                                                {/* <a className="float-right btn btn-outline-primary ml-2" href="/"> <i className="fa fa-reply"></i> Reply</a>
-                        <a className="float-right btn text-white btn-danger" href="/"> <i className="fa fa-heart"></i> Like</a> */}
-                                            </p>
+                                            <p className="p-5">{rev.review}</p> 
                                         </div>
                                     </div>
                                 </div>
