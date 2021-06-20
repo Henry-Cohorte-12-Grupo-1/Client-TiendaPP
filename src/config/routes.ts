@@ -50,34 +50,37 @@ const routes: IRoute[] = [
     {
         path: '/user/',
         name: 'User',
-        component: UserDashboard, //AuthUser
+        component: AuthUser,
         exact: true,
-        //props: {path:'/user/create',name:'Create',component: UserProducts, exact:true},
+        props: {path:'/user',name:'User',component: UserDashboard, exact:true},
     },
     {
         path: '/user/orders',
         name: 'UserOrders',
-        component: UserOrders,
+        component: AuthUser,
         exact: true,
+        props: {path:'/user/orders',name:'UserOrders',component: UserOrders, exact:true},
     },
     {
         path: '/user/sales',
         name: 'Usersales',
-        component: UserSales,
+        component: AuthUser,
         exact: true,
+        props: {path:'/user/sales',name:'Usersales',component: UserSales, exact:true},
     },
     {
         path: '/user/activeProducts',
         name: 'User',
         component: UserProducts,
         exact: true,
+        props: {path:'/user/activeProducts',name:'User',component: UserProducts, exact:true},
     },
     {
         path: '/user/create',
         name: 'Create',
-        component: ProductForm, //AuthUser
+        component: AuthUser,
         exact: true,
-        //props: {path:'/user/create',name:'Create',component: ProductForm, exact:true},
+        props: {path:'/user/create',name:'Create',component: ProductForm, exact:true},
     },
     {
         path: '/home',
@@ -88,9 +91,9 @@ const routes: IRoute[] = [
     {
         path: '/product/edit',
         name: 'ProductEdit',
-        component: ProductEdit, //AuthUser
+        component: AuthUser,
         exact: true,
-        //props: {path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact:true},
+        props: {path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact:true},
     },
     {
         path: '/Product/:id',
@@ -107,9 +110,9 @@ const routes: IRoute[] = [
     {
         path: '/admin',
         name: 'Admin',
-        component: Admin, //AuthAdmin
+        component: AuthAdmin,
         exact: true,
-        //props: {path: '/admin', name: 'Admin', component: Admin, exact:true}
+        props: {path: '/admin', name: 'Admin', component: Admin, exact:true}
     },
     {
         path: '/cart',
