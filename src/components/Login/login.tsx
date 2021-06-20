@@ -1,8 +1,11 @@
-import axios from "axios";
-import jwtDecode from "jwt-decode";
-import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
-import { IErrorUser } from "../../interfaces/forms";
+
+
+import axios from 'axios'
+import jwtDecode from 'jwt-decode'
+import { useState } from 'react'
+import { Button, Container, Form } from 'react-bootstrap'
+import { IErrorUser } from '../../interfaces/forms'
+
 import { url } from "../../api";
 import { useHistory } from "react-router-dom";
 import { IProduct } from "../../interfaces/product";
@@ -103,6 +106,7 @@ function Login() {
         } else alert("network error");
     };
 
+
     return (
         <Container className="p-5">
             <br></br>
@@ -153,3 +157,4 @@ function Login() {
 }
 
 export default Login;
+

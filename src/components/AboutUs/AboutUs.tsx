@@ -29,7 +29,13 @@ function AboutUs() {
                 <div className='sectionAbout'>
                     <span className='nameA'>About the project</span>
                     <span className='aboutUsBorder'></span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p>We developed a market place using Scrum metodology, React, Typescript, redux, Sequelize, React Boostrap, Boostrap, SCSS and other techonolies.</p> 
+                    <p>The web is full responsive and the pproject lasted four weeks.</p>
+                    <p>Some features are: payment gateway, cart, log In using google or gitHub, Authentication</p>
+                    <b></b>
+                    <span className='aboutUsBorder'></span>
+                    <h3>Contact us!</h3>
+                    <p>Feel free to click in one of the team members image and it will send you to that person's linkedin profile</p>
                 </div>
             </div>
         </div>

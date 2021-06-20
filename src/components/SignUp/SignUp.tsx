@@ -123,6 +123,7 @@ function Signup() {
     };
 
     const handleSubmit = async () => {
+
         console.log(user);
         let resp = await axios.post(`${url}/user/usercreate`, user);
         console.log(resp.data);
@@ -197,6 +198,7 @@ function Signup() {
                         />
                     </Col>
                     <Col>
+
                         <Form.Label>Repeat Password</Form.Label>
                         <Form.Control
                             className={`border-${colors.repeatPass} border-2`}
@@ -204,6 +206,7 @@ function Signup() {
                             name="repeatPass"
                             onChange={handleChange}
                         />
+           
                     </Col>
                 </Form.Group>
 
@@ -220,12 +223,17 @@ function Signup() {
 
                 <div className="d-flex justify-content-center">
                     <ReCAPTCHA
+
                         sitekey="6LfoLjYbAAAAACmIqXq5XgsgJMLxiwGMcw1OMhMk"
+
+                        
+
                         onChange={onCaptchaChange}
                     />
                 </div>
 
                 <div className="d-flex justify-content-center">
+
                     {errors?.firstName === true ||
                     errors?.lastName === true ||
                     errors?.repeatPass === true ||
@@ -268,6 +276,9 @@ function Signup() {
                             Sign Up
                         </Button>
                     )}
+
+                    
+
                 </div>
             </Form>
         </Container>
