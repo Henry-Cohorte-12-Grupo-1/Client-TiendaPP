@@ -16,8 +16,9 @@ function NavComponent() {
         dispatch(orderByCategories(category));
     };
 
-    const token : any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
     let admin: boolean = token.admin
+    let user: boolean = token.user
 
     return (
         <Navbar bg="primary" expand="lg">
@@ -110,20 +111,32 @@ function NavComponent() {
                             </button>
                         </Link>
                     )}
-                    {localStorage.token && (
-                        <div>
-                            <a
+                    {user ? (
+                        <Link to="/user">
+                            <button
                                 className="btn font-weight-bold"
                                 id="colorButton2"
-                                onClick={() => {
-                                    localStorage.removeItem("token");
-                                }}
-                                href="/"
                             >
-                                Log out
-                            </a>
-                        </div>
-                    )}
+                                Profile
+                            </button>
+                        </Link>
+                    ) : null}
+                    {
+                        localStorage.token && (
+                            <div>
+                                <a
+                                    className="btn font-weight-bold"
+                                    id="colorButton2"
+                                    onClick={() => {
+                                        localStorage.removeItem("token");
+                                    }}
+                                    href="/"
+                                >
+                                    Log out
+                                </a>
+                            </div>
+                        )
+                    }
                 </Nav>
             </Navbar.Collapse>
             <Form id="wFormNav">
