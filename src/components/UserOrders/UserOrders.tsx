@@ -13,10 +13,6 @@ let currentOrders: IUserOrders[] = [];
 
 export default function UserOrders() {
 
-    // let search = window.location.search;
-    // let params = new URLSearchParams(search);
-    // let userName: string | null = params.get('user');
-
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
     console.log(userName)
