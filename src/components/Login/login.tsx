@@ -166,12 +166,12 @@ function Login() {
                 ) : null}
 
              <div className={styles.loginForm}>
-                <h4> Or Login With Google </h4>
+                <h5> Or Login With Google </h5>
                 <div className={styles.googleContainer} onClick={googleLogin}>
                     <img src={glogo} alt="Google Icon" />
                     <p>Login With Google</p>
                 </div>
-
+                <h5> Or GitHub </h5>
                 <div className={`${styles.googleContainer} ${styles.githubContainer}`} onClick={githubLogin}>
                     <img src={githubImage} alt="Github Icon" />
                     <p>Login With Github</p>
