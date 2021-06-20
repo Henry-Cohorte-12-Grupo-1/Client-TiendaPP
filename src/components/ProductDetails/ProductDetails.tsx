@@ -70,7 +70,7 @@ function ProductDetails(props: Props): ReactElement {
                 {details.Reviews.length ? (
                     details.Reviews.map((rev) => {
                         return (
-                            <div className="card center" key={rev.review}>
+                            <div className="card center" id="spacingReview" key={rev.review}>
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-md-2">

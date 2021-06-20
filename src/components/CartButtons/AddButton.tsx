@@ -26,6 +26,7 @@ function AddButton(props: Props): ReactElement {
         //dispatch
         (async () => {
             await dispatch(addProductToCart(userId, productId));
+            alert('The product was added to your cart')
         })(); //iif sacado de product detail
     };
 
