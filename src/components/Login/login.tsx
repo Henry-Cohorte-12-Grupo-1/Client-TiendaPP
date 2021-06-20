@@ -75,12 +75,12 @@ function Login() {
 
 
         if (resp) {
-            console.log(resp.data.message)
+            console.log("ENTRO EN RESP.DATA.MSG", resp.data)
             localStorage.setItem('token', resp.data.token);
             if (resp.data.message === 'User') {
-                if(resp.data.reset){
-                        alert('Password reset required')
-                        history.push('/login/passReset');
+                if (!!resp.data.reset) {
+                    alert('Password reset required')
+                    history.push('/login/passReset');
                 } else {
                     alert('Welcome')
                     history.push('/home');
