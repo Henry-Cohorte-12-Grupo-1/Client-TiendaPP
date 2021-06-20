@@ -72,13 +72,13 @@ function Login() {
     const handleSubmit = async () => {
         console.log({ email: email, pass: password });
 
-        const localCart: string = localStorage.getItem("cart") || "[]";
+        let localCart: string = localStorage.getItem("cart") || "[]";
 
         const resp = await axios
             .post(`${url}/login`, {
                 email: email,
                 pass: password,
-                cart: localCart,
+                cart: JSON.parse(localCart),
             })
             .catch((err) => console.log(err));
 
@@ -98,6 +98,7 @@ function Login() {
             }
             if (resp.data.message === "User or password are incorrect") {
                 setInvalid(true);
+                localStorage.removeItem("token");
             }
         } else alert("network error");
     };
