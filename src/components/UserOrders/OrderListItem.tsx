@@ -3,6 +3,9 @@ import { useState } from 'react'
 import { url } from '../../api'
 import { Review } from '../../interfaces/reviews'
 import './OrderListItem.css'
+import { Form } from 'react-bootstrap'
+import swal from 'sweetalert'
+import { useHistory } from 'react-router-dom'
 interface imgs {
     imageId: string
 }
@@ -19,8 +22,10 @@ export default function OrderListItem(props: {
     reviews: Review[];
     user: string | null;
     role: string,
+    id?: number
 }) {
 
+    const history = useHistory()
     const [review, setReview] = useState<any>({
         username: props.user,
         review: "",
@@ -30,6 +35,7 @@ export default function OrderListItem(props: {
 
     const [form, setForm] = useState<boolean>(false)
     const [selectStatus, setSelectStatus] = useState<boolean>(false)
+    const [orderStatus, setOrderStatus] = useState<string>("")
     const [errors, setErrors] = useState<any>({
         review: true,
         score: true
@@ -76,13 +82,13 @@ export default function OrderListItem(props: {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (errors.review) {
-            return alert("Review must have at least 15 characters")
+            return swal("Review must have at least 15 characters")
         }
         if (errors.score) {
-            return alert("Score must be between 1 and 5")
+            return swal("Score must be between 1 and 5")
         }
         const resp = await axios.post(`${url}/reviews`, review)
-        alert(resp)
+        swal(resp.data)
     }
 
     let hasReview: boolean = false
@@ -90,6 +96,18 @@ export default function OrderListItem(props: {
         hasReview = true
     }
 
+    const handleStatus = (e: any) => {
+        e.preventDefault();
+        setOrderStatus(e.target.value)
+    }
+
+    const handleStatusSubmit = async () => {
+        setSelectStatus(false)
+        await axios.post(`${url}/orders/update`, { id: props.id, status: orderStatus })
+        swal("Status changed succesfully").then(() => history.go(0))
+
+
+    }
 
 
     return (
@@ -142,13 +160,22 @@ export default function OrderListItem(props: {
                                             </div>
                                         </form>
                                     ) : null}
-                                    {(props.role === "to") ? (
+                                    {(props.role === "to" && !selectStatus) ? (
                                         <button type="button" onClick={handleStatusClick} className="btn btn-primary" id='colorC'>Change Status</button>
                                     ) : null}
                                     {selectStatus ? (
-                                        <form>
-
-                                        </form>
+                                        <div>
+                                            <Form.Label>Status</Form.Label>
+                                            <form onSubmit={handleStatusSubmit}>
+                                                <Form.Control as="select" onChange={handleStatus} >
+                                                    <option value="" selected disabled hidden>Choose here</option>
+                                                    <option value="completed">Completed</option>
+                                                    <option value="cancelled">Cancelled</option>
+                                                    <option value="processing">Processing</option>
+                                                </Form.Control>
+                                                <button type="submit" className="btn btn-primary" id='colorB'>Change</button>
+                                            </form>
+                                        </div>
                                     ) : null}
 
                                 </div>

@@ -9,7 +9,7 @@ function AuthAdmin (props:any) {
     }
 
     return (
-        <props.component/>
+        <props.component name={props.name} {...props}/>
     )
 }
 

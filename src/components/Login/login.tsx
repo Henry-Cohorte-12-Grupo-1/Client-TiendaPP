@@ -9,6 +9,7 @@ import { IErrorUser } from '../../interfaces/forms'
 import { url } from "../../api";
 import { useHistory } from "react-router-dom";
 import { IProduct } from "../../interfaces/product";
+import swal from 'sweetalert'
 
 function Login() {
     const history = useHistory();
@@ -89,7 +90,7 @@ function Login() {
             console.log(resp.data.message, localCart);
             localStorage.setItem("token", resp.data.token);
             if (resp.data.message === "User") {
-                alert("Welcome");
+                swal("Welcome");
                 history.push("/home");
             }
             if (resp.data.message === "Admin") {
@@ -97,13 +98,13 @@ function Login() {
                 history.push("/adminValidation");
             }
             if (resp.data.message === "Disabled") {
-                alert("Account Disabled, please contact support");
+                swal("Account Disabled, please contact support");
             }
             if (resp.data.message === "User or password are incorrect") {
                 setInvalid(true);
                 localStorage.removeItem("token");
             }
-        } else alert("network error");
+        } else swal("network error");
     };
 
 
@@ -133,8 +134,8 @@ function Login() {
                 </Form.Group>
 
                 {errors?.email === true ||
-                errors?.pass === true ||
-                invalid === true ? (
+                    errors?.pass === true ||
+                    invalid === true ? (
                     <Button className="mt-3" variant="info" disabled>
                         Log In
                     </Button>
