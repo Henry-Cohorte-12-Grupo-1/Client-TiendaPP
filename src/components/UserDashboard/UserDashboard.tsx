@@ -7,7 +7,7 @@ function UserDashboard() {
     let userName = token.username;
     return (
         <Container className="d-flex flex-column m-5">
-            <h1>{userName} Dashboard</h1>
+            <h1>{userName.length < 18 ? userName : null} Dashboard</h1>
             <div className="d-flex justify-content-around m-5">
                 <a className="btn btn-primary" id='colorB' href={`/user/activeProducts`}>Active sales</a>
                 <a className="btn btn-primary" id='colorB' href="/user/create">Create New</a>

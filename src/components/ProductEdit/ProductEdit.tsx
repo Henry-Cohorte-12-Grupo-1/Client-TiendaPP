@@ -1,11 +1,11 @@
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react'
 import { IProduct, ICategories } from '../../interfaces/product'
-import {IErrorProduct}  from '../../interfaces/forms'
+import { IErrorProduct } from '../../interfaces/forms'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import './styles.scss'
-import { Button, Col, Container, Form, Row, Carousel } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
 import ImgCarousel from '../ImgCarousel/ImgCarousel'
@@ -25,7 +25,6 @@ const ProductEdit: React.FC<ICarouselProps> = () => {
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
     const [categories, setCategories] = useState<ICategories[]>([])
-    const [obj, setObj] = useState<any>()
     const [product, setProduct] = useState<IProduct>({
         name: '',
         description: '',
@@ -40,7 +39,7 @@ const ProductEdit: React.FC<ICarouselProps> = () => {
 
     const history = useHistory();
 
-    const carouselProps = {index, imagesName, setIndex, setImage, setImagesName}
+    const carouselProps = { index, imagesName, setIndex, setImage, setImagesName }
 
     let location = useLocation()
 
@@ -98,12 +97,6 @@ const ProductEdit: React.FC<ICarouselProps> = () => {
 
         })()
     }, [])//eslint-disable-line
-
-
-    useEffect(() => {
-        // console.log(categories.find(category => category.id === product.categoryId).name)
-        setObj(categories.find(category => category.id === product.categoryId)?.name)
-    }, [categories])
 
     useEffect(() => {
         (async () => {
@@ -230,7 +223,7 @@ const ProductEdit: React.FC<ICarouselProps> = () => {
 
                         </Col>
                         <Col md>
-                            <ImgCarousel {...carouselProps}/>
+                            <ImgCarousel {...carouselProps} />
                         </Col>
                     </Row>
                     <Row>

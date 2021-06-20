@@ -34,7 +34,7 @@ function UserProducts() {
 
   if (typeof userProducts === 'string') {
     return (
-      <h1>User Does Not Exist</h1>
+      <h1>Nothing Found</h1>
     )
   }
 

@@ -39,7 +39,7 @@ const ProductForm: React.FC<ICarouselProps> = () => {
 
     const history = useHistory();
 
-    const carouselProps = {index, imagesName, setIndex, setImage, setImagesName}
+    const carouselProps = { index, imagesName, setIndex, setImage, setImagesName }
 
     // useEffect(() => {
     //     (async () => {
@@ -182,13 +182,13 @@ const ProductForm: React.FC<ICarouselProps> = () => {
                         <Form.Label>Category</Form.Label>
                         <Form.Control as="select" onChange={handleCategoryChange}>
                             <option value="" selected disabled hidden>Choose here</option>
-                            {categories.map((category, i) => (
+                            {categories.map((category) => (
                                 <option value={category.categoryId}>{category.name}</option>
                             ))}
                         </Form.Control>
                     </Col>
                     <Col md>
-                       <ImgCarousel {...carouselProps}/>
+                        <ImgCarousel {...carouselProps} />
                     </Col>
                 </Row>
                 <Row>
