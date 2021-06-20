@@ -39,7 +39,7 @@ function NavComponent() {
                                 className="btn font-weight-bold"
                                 id="colorButton2"
                             >
-                                Sign In
+                                Login
                             </button>
                         </Link>
                     )}
