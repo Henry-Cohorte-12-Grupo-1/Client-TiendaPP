@@ -7,7 +7,7 @@ function AuthUser (props: any ) {
         return <Redirect to='/login'/>
     }
     return (
-        <Router {...props}/>
+        <props.component name={props.name} {...props}/>
     )
 
 }
