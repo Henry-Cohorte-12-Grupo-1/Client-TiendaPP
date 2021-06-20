@@ -11,6 +11,9 @@ import { useHistory } from "react-router-dom";
 import { IProduct } from "../../interfaces/product";
 import swal from 'sweetalert'
 
+import glogo from '../../assets/glogo.png';
+import styles from './login.module.css';
+
 function Login() {
     const history = useHistory();
 
@@ -107,6 +110,10 @@ function Login() {
         } else swal("network error");
     };
 
+    const googleLogin = () => {
+        window.open("http://localhost:3001/api/auth/google", "_self")
+    }
+
 
     return (
         <Container className="p-5">
@@ -152,6 +159,16 @@ function Login() {
                 {invalid ? (
                     <label className="mt-3">Invalid email or password </label>
                 ) : null}
+
+            <div className={styles.loginForm}>
+                <h4> Or Login With Google </h4>
+                <div className={styles.googleContainer} onClick={googleLogin}>
+                    <img src={glogo} alt="Google Icon" />
+                    <p>Login With Google</p>
+                </div>
+
+            </div>
+
             </Form>
         </Container>
     );
