@@ -14,6 +14,7 @@ function UserDashboard() {
                 <a className="btn btn-primary" id='colorB' href={`/user/activeProducts?username=${userName}`}>Active sales</a>
                 <a className="btn btn-primary" id='colorB' href="/user/create">Create New</a>
                 <a className="btn btn-primary" id='colorB' href={`/user/orders?user=${userName}`}>My Orders</a>
+                <a className="btn btn-primary" id='colorB' href={`/user/sales?user=${userName}`}>Sold</a>
             </div>
         </Container>
     )
