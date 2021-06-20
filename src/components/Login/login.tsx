@@ -12,6 +12,7 @@ import { IProduct } from "../../interfaces/product";
 import swal from 'sweetalert'
 
 import glogo from '../../assets/glogo.png';
+import githubImage from '../../assets/githubImage.png';
 import styles from './login.module.css';
 
 function Login() {
@@ -114,6 +115,10 @@ function Login() {
         window.open("http://localhost:3001/api/auth/google", "_self")
     }
 
+    const githubLogin = () => {
+        window.open("http://localhost:3001/api/auth/github", "_self");
+    }
+
 
     return (
         <Container className="p-5">
@@ -160,11 +165,16 @@ function Login() {
                     <label className="mt-3">Invalid email or password </label>
                 ) : null}
 
-            <div className={styles.loginForm}>
+             <div className={styles.loginForm}>
                 <h4> Or Login With Google </h4>
                 <div className={styles.googleContainer} onClick={googleLogin}>
                     <img src={glogo} alt="Google Icon" />
                     <p>Login With Google</p>
+                </div>
+
+                <div className={`${styles.googleContainer} ${styles.githubContainer}`} onClick={githubLogin}>
+                    <img src={githubImage} alt="Github Icon" />
+                    <p>Login With Github</p>
                 </div>
 
             </div>
