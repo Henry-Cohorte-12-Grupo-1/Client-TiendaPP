@@ -71,7 +71,7 @@ const routes: IRoute[] = [
     {
         path: '/user/activeProducts',
         name: 'User',
-        component: UserProducts,
+        component: AuthUser,
         exact: true,
         props: {path:'/user/activeProducts',name:'User',component: UserProducts, exact:true},
     },
