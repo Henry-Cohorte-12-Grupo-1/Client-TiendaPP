@@ -22,7 +22,7 @@ export default function UserOrders() {
     const [filter, setFilter] = useState<Boolean>(true)
 
     const dispatch = useDispatch()
-    const orders = useSelector<StoreType, IUserOrders[]>((state) => state.userOrders)
+    const orders = useSelector<StoreType, IUserOrders[]>((state) => state.filterOrders)
 
 
     useEffect(() => {
