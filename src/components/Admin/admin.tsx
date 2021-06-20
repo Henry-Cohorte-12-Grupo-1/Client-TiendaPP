@@ -7,15 +7,18 @@ import { DialogAlert } from '../Dialog/DialogAlert';
 import { Role } from '../../interfaces/role';
 
 function Admin() {
-    const [actualCategory, setActualCategory] = useState<string>('');
-    const [category, setCategory] = useState<string>();
-    const [categories, setCategories] = useState<string[]>([]);
-    const [initialCategories, setInitial] = useState<string[]>([]);
-    const [deleteCategories, setDeleteCategories] = useState<string[]>([]);
-    const [users, setUsers] = useState<IUsers[]>();
-    const [selectedUser, setSelectedUser] = useState<IUsers>({});
-    const [open, setOpen] = useState<boolean>(false);
-    const [userSubmit, setUserSumbit] = useState<IUsers>();
+
+    const [actualCategory, setActualCategory] = useState<string>('')
+    const [category, setCategory] = useState<string>()
+    const [categories, setCategories] = useState<string[]>([])
+    const [initialCategories, setInitial] = useState<string[]>([])
+    const [deleteCategories, setDeleteCategories] = useState<string[]>([])
+    const [users, setUsers] = useState<IUsers[]>()
+    const [selectedUser, setSelectedUser] = useState<IUsers>({})
+    const [open, setOpen] = useState<boolean>(false)
+    const [userSubmit, setUserSumbit] = useState<IUsers>({passReset:false})
+
+
 
     useEffect(() => {
         (async () => {
@@ -71,17 +74,48 @@ function Admin() {
 
     const handleUserChange = (event: any) => {
         if (users) {
-            setSelectedUser(users[event.target.value]);
-        }
-    };
+
+            setSelectedUser(users[event.target.value])
+            var usernameprop = users[event.target.value].username
+        }        
+        setUserSumbit({
+            ...userSubmit,
+            username:usernameprop
+        })
+    }
+
+
+    useEffect(()=>{
+        setUserSumbit({
+            ...userSubmit,
+            passReset:false,
+            role:selectedUser.role,
+        })
+        // console.log(userSubmit)
+    },[selectedUser])
 
     const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setUserSumbit({
+            ...userSubmit,
             userId: selectedUser.userId,
-            username: selectedUser.username,
             role: parseInt(event.target.value),
-        });
-    };
+        })
+    }
+
+    const handleCheckBox = (event: any) => {
+        if(userSubmit.passReset){
+            setUserSumbit({
+                ...userSubmit,
+                passReset:false
+            })
+        } else {
+            setUserSumbit({
+                ...userSubmit,
+                passReset:true
+            }) 
+        }
+    }
+
 
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
@@ -95,11 +129,27 @@ function Admin() {
 
         const sendObject = {
             newCategories: newCategories,
-            oldCategories: oldCategories,
-        };
+            oldCategories: oldCategories
+        }
 
-        const response = await axios.put(`${url}/updateCategories`, sendObject).catch(() => alert('request failed'));
-        console.log(response);
+        await axios.put(`${url}/updateCategories`, sendObject)
+            .catch(() => alert('request failed'))
+        console.log(userSubmit)
+        if(userSubmit.passReset){
+            if(userSubmit.role===2){
+                console.log(userSubmit)
+                const resp = await axios.put(`${url}/user/userUpdate`, userSubmit)
+                    .catch(() => alert('request failed'))
+                if(resp?.data ==='succesfully updated'){
+                    alert('succesfully updated')
+                } else alert('error')
+            } else alert('force password is not available for Admins or Disabled accounts')
+        } else {
+            console.log(userSubmit)
+            await axios.put(`${url}/user/userUpdate`, userSubmit)
+                .catch(() => alert('request failed'))
+        }
+
 
         console.log(userSubmit);
         const resp = await axios.put(`${url}/user/userUpdate`, userSubmit).catch(() => alert('request failed'));
@@ -167,9 +217,15 @@ function Admin() {
                             </Form.Control>
                         </Col>
                     </Row>
-                    <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>
-                        Save
-                    </Button>
+
+                    <Form.Group controlId="formBasicCheckbox">
+                        {userSubmit.passReset?
+                        <Form.Check type="checkbox" label="Force password change for this user" checked onClick={handleCheckBox}/>:
+                        <Form.Check type="checkbox" label="Force password change for this user" onClick={handleCheckBox}/>
+                        }
+                    </Form.Group>
+                    <Button className="m-5 w-25" variant="primary" type="submit" onClick={handleSubmit} >Save</Button>
+
                 </Form>
             </Container>
 

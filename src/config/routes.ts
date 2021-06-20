@@ -17,6 +17,7 @@ import UserDashboard from '../components/UserDashboard/UserDashboard';
 import UserOrders from '../components/UserOrders/UserOrders';
 import Validate from '../components/Validate/Validate';
 import AdminValidation from '../components/Admin/AdminValidation'
+import PasswordReset from '../components/Login/PasswordReset'
 import Payment from '../components/Payment/Payment';
 import UserSales from '../components/UserOrders/UserSales';
 import Cart from '../components/Cart/Cart';
@@ -39,6 +40,12 @@ const routes: IRoute[] = [
         name: 'Login',
         component: Login,
         exact: true,
+    },
+    {
+        path: '/login/passReset',
+        name: 'PassReset',
+        component: PasswordReset,
+        exact: true
     },
     {
         path: '/user/',
