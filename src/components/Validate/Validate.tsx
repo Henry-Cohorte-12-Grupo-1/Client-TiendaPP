@@ -32,7 +32,9 @@ function Validate() {
         )
     } else {
         return (
-            <div></div>
+            <div>
+                <h3>Link expired</h3>
+            </div>
         )
     }
 }
