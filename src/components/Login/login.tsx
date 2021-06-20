@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import { IErrorUser } from '../../interfaces/forms'
 
@@ -14,8 +14,18 @@ import swal from 'sweetalert'
 import glogo from '../../assets/glogo.png';
 import githubImage from '../../assets/githubImage.png';
 import styles from './login.module.css';
+import isStrongPassword from 'validator/lib/isStrongPassword'
+import isEmail from 'validator/lib/isEmail'
+import { color } from '@cloudinary/base/qualifiers/background'
 
 function Login() {
+
+
+    interface IColors {
+        email?: string,
+        pass?: string
+    }
+
     const history = useHistory();
 
     let [email, setEmail] = useState<string>();
@@ -27,32 +37,84 @@ function Login() {
         pass: true,
     });
 
+    const [colors, setColors] = useState<IColors>({})
+
     const handleChange = (event: React.FormEvent<any>) => {
         setInvalid(false);
         if (event.target) {
             let tName = (event.target as HTMLButtonElement).name;
             let tValue = (event.target as HTMLButtonElement).value;
+            // console.log(tName,tValue)
+            if (tName === 'pass') {
+                setPassword(tValue)
+                setErrors({
+                    ...errors,
+                    pass: !isStrongPassword(tValue, {
+                        returnScore: false,
+                        minLength: 8,
+                        minLowercase: 0,
+                        minUppercase: 0,
+                        minNumbers: 0,
+                        minSymbols: 0,
+                        pointsPerUnique: 1,
+                        pointsPerRepeat: 0.5,
+                        pointsForContainingLower: 10,
+                        pointsForContainingUpper: 10,
+                        pointsForContainingNumber: 10,
+                        pointsForContainingSymbol: 10
+                    })
+                })
+            }
 
-            console.log(tName, tValue);
-            if (tValue) {
+            if (tName === 'email') {
+                setEmail(tValue)
                 setErrors({
                     ...errors,
-                    [tName]: false,
-                });
-                if (tName === "email") {
-                    setEmail(tValue);
-                }
-                if (tName === "pass") {
-                    setPassword(tValue);
-                }
-            } else {
-                setErrors({
-                    ...errors,
-                    [tName]: true,
-                });
+                    email: !isEmail(tValue)
+                })
             }
         }
     };
+
+
+    useEffect(() => {
+        console.log('aca', email, password)
+        if (email) {
+
+            if (errors?.email === true) {
+                console.log('entro', colors)
+                setColors({
+                    ...colors,
+                    email: 'secondary',
+                })
+            }
+            else {
+                setColors({
+                    ...colors,
+                    email: 'primary',
+                })
+            }
+        }
+
+
+    }, [email])
+
+    useEffect(() => {
+        if (password) {
+
+            if (errors?.pass === true) {
+                setColors({
+                    ...colors,
+                    pass: 'secondary',
+                })
+            } else {
+                setColors({
+                    ...colors,
+                    pass: 'primary',
+                })
+            }
+        }
+    }, [password])
 
     /*
     const handleSubmitTest = async () => {
@@ -61,9 +123,9 @@ function Login() {
             password: pass,
         })
         localStorage.setItem('token', returnToken.data.accessToken);
-
+    
         const payloadToken : any = localStorage.token ? jwtDecode(localStorage.token) : false;
-
+    
         if (payloadToken.admin){
             setRedirect('/admin')
         } else {
@@ -71,7 +133,7 @@ function Login() {
         }
         
     }
-
+    
     if (redirect) {
         if (localStorage.token) {
             return <Redirect to={redirect} />
@@ -105,7 +167,6 @@ function Login() {
                 swal("Account Disabled, please contact support");
             }
             if (resp.data.message === "User or password are incorrect") {
-                setInvalid(true);
                 localStorage.removeItem("token");
             }
         } else swal("network error");
@@ -128,22 +189,31 @@ function Login() {
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
+                        className={`border-${colors.email} border-2`}
                         type="text"
                         placeholder="Enter email"
                         name="email"
                         onChange={handleChange}
                     />
+                    {errors?.email ?
+                        <Form.Label>Email is invalid</Form.Label>
+                        : null}
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
+                        className={`border-${colors.pass} border-2`}
                         type="password"
                         placeholder="Enter Password"
                         name="pass"
                         onChange={handleChange}
                     />
+                    {errors?.pass ?
+                        <Form.Label>Password is too short (Make sure it's at least 8 characters)</Form.Label>
+                        : null}
                 </Form.Group>
+
 
                 {errors?.email === true ||
                     errors?.pass === true ||
@@ -165,19 +235,19 @@ function Login() {
                     <label className="mt-3">Invalid email or password </label>
                 ) : null}
 
-             <div className={styles.loginForm}>
-                <h5> Or Login With Google </h5>
-                <div className={styles.googleContainer} onClick={googleLogin}>
-                    <img src={glogo} alt="Google Icon" />
-                    <p>Login With Google</p>
-                </div>
-                <h5> Or GitHub </h5>
-                <div className={`${styles.googleContainer} ${styles.githubContainer}`} onClick={githubLogin}>
-                    <img src={githubImage} alt="Github Icon" />
-                    <p>Login With Github</p>
-                </div>
+                <div className={styles.loginForm}>
+                    <h5> Or Login With Google </h5>
+                    <div className={styles.googleContainer} onClick={googleLogin}>
+                        <img src={glogo} alt="Google Icon" />
+                        <p>Login With Google</p>
+                    </div>
+                    <h5> Or GitHub </h5>
+                    <div className={`${styles.googleContainer} ${styles.githubContainer}`} onClick={githubLogin}>
+                        <img src={githubImage} alt="Github Icon" />
+                        <p>Login With Github</p>
+                    </div>
 
-            </div>
+                </div>
 
             </Form>
         </Container>
