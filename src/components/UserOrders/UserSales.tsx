@@ -73,10 +73,10 @@ export default function UserSales() {
                 <label className="btn btn-primary m-2" htmlFor="completed">Fulfilled</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="dispatched" id="dispatched" />
-                <label className="btn btn-primary m-2" htmlFor="dispatched">On their way</label>
+                <label className="btn btn-primary m-2" htmlFor="dispatched">Cancelled</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
-                <label className="btn btn-primary m-2" htmlFor="processing">Processing Payement</label>
+                <label className="btn btn-primary m-2" htmlFor="processing">Processing</label>
 
             </div>
             {console.log(currentOrders)}
@@ -93,6 +93,7 @@ export default function UserSales() {
                         reviews={o.Product.Reviews}
                         user={userName}
                         role="to"
+                        id={o.id}
                     />)
             })
             }
