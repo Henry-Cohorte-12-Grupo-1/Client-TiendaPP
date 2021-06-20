@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { url } from '../../api'
 import { Review } from '../../interfaces/reviews'
 import './OrderListItem.css'
+import { Form } from 'react-bootstrap'
 interface imgs {
     imageId: string
 }
@@ -19,6 +20,7 @@ export default function OrderListItem(props: {
     reviews: Review[];
     user: string | null;
     role: string,
+    id?: number
 }) {
 
     const [review, setReview] = useState<any>({
@@ -30,6 +32,7 @@ export default function OrderListItem(props: {
 
     const [form, setForm] = useState<boolean>(false)
     const [selectStatus, setSelectStatus] = useState<boolean>(false)
+    const [orderStatus, setOrderStatus] = useState<string>("")
     const [errors, setErrors] = useState<any>({
         review: true,
         score: true
@@ -90,6 +93,15 @@ export default function OrderListItem(props: {
         hasReview = true
     }
 
+    const handleStatus = (e: any) => {
+        e.preventDefault();
+        setOrderStatus(e.target.value)
+    }
+
+    const handleStatusSubmit = async () => {
+        setSelectStatus(false)
+        await axios.post(`${url}/orders/update`, { id: 1, status: orderStatus })
+    }
 
 
     return (
@@ -142,13 +154,22 @@ export default function OrderListItem(props: {
                                             </div>
                                         </form>
                                     ) : null}
-                                    {(props.role === "to") ? (
+                                    {(props.role === "to" && !selectStatus) ? (
                                         <button type="button" onClick={handleStatusClick} className="btn btn-primary" id='colorC'>Change Status</button>
                                     ) : null}
                                     {selectStatus ? (
-                                        <form>
-
-                                        </form>
+                                        <div>
+                                            <Form.Label>Status</Form.Label>
+                                            <form onSubmit={handleStatusSubmit}>
+                                                <Form.Control as="select" onChange={handleStatus} >
+                                                    <option value="" selected disabled hidden>Choose here</option>
+                                                    <option value="Completed">completed</option>
+                                                    <option value="Cancelled">cancelled</option>
+                                                    <option value="Processing">processing</option>
+                                                </Form.Control>
+                                                <button type="submit" className="btn btn-primary" id='colorB'>Change</button>
+                                            </form>
+                                        </div>
                                     ) : null}
 
                                 </div>
