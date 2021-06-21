@@ -2,6 +2,7 @@ import "./stripe.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { url as URL } from '../../api';
 //https://dashboard.stripe.com/test/payments
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
@@ -20,7 +21,7 @@ export default function CheckoutForm() {
     let totalPrice = totalPriceState * 100;
     if (totalPrice === 0) totalPrice = 14500;
 
-    fetch("http://localhost:3001/api/payment/stripe", {
+    fetch(`${URL}/payment/stripe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
