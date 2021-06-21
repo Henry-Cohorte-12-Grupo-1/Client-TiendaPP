@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { searchProduct } from "../../redux/actions";
 import { StoreType, IProductsType } from '../../redux/reducers/index'
@@ -8,6 +9,7 @@ import Pagination from "../Pagination/Pagination";
 
 export default function ProductsSearched() {
   //Store
+  const [option, setOption] = useState<string>('name');
   const dispatch = useDispatch()
   const products = useSelector<StoreType, IProductsType>((state) => state.products);
   const nameState = useSelector((store: RootStateOrAny) => store.products.name);
@@ -21,9 +23,10 @@ export default function ProductsSearched() {
   return (
     <div id='home-container'>
       {/* Cantidad de items */}
-      <div>
-        <span>
-          <select onChange={
+      <div className="d-flex justify-content-center bg-primary mr-0">
+        <div className="">
+        <label className="text-light ml-5 mr-2">Pages: </label>
+          <select className="form-select form-select-lg py-1 " aria-label="Default select example" onChange={
             (e) => {
               if (e.target.value === '5') {
                 dispatch(
@@ -47,18 +50,20 @@ export default function ProductsSearched() {
             <option
               value='20'>20</option>
           </select>
-        </span>
-      </div>
+        </div>
+     
       {/* Price or Name */}
-      <div>
-        <span>
-          <select onChange={
+      <div className="">
+          <label className="text-light ml-5 mr-2">Order by:</label>
+          <select className="form-select py-1" aria-label="Default select example"  onChange={
             (e) => {
               if (e.target.value === 'name') {
+                setOption('name')
                 dispatch(
                   searchProduct(nameState, itemsState, 0, "name", orderState)
                 )
               } else {
+                setOption('price')
                 dispatch(
                   searchProduct(nameState, itemsState, 0, "price", orderState)
                 )
@@ -70,13 +75,13 @@ export default function ProductsSearched() {
             <option
               value='price'>Price</option>
           </select>
-        </span>
+       
       </div>
 
       {/* Orden */}
-      <div>
-        <span>
-          <select onChange={
+      <div className="">     
+          <label className="text-light ml-5 mr-2">Type:</label>
+          <select className="form-select py-1" aria-label="Default select example"  onChange={
             (e) => {
               if (e.target.value === 'lower-higher') {
                 dispatch(
@@ -95,18 +100,18 @@ export default function ProductsSearched() {
               )
             }
             }
-              value='lower-higher'>Lower to Higher</option>
+              value='lower-higher'>{option && option === 'name' ? 'A - Z' : 'Lower to Higher'}</option>
             <option
-              value='higher-lower'>Higher to Lower</option>
-          </select>
-        </span>
+              value='higher-lower'>{option && option === 'name' ? 'Z - A' : 'Higher to Lower'}</option>
+          </select>     
+      </div>
       </div>
 
       <Container id="homeContainer" className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
         {products.products && products.products.length === 0 ? (
           <h1>No Products to show</h1>
         ) : (
-          <div id="homeContainer" className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
+          <div id="container" className='d-flex justify-content-center flex-wrap ml-0 mr-0'>
             {products.products.map((el): any => <ProductsCards
               image=""
               images={el.Images}

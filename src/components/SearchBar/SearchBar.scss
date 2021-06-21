@@ -3,11 +3,12 @@
     color: $light;
     border: 1px solid $light;
     border-radius: 5px;
-    height: 38px;
-    width: 160px;
+    // height: 38px;
+    // width: 160px;
     &:hover {
-        color: $light;
-        border: 2px solid $light;
+        color: $primary;
+        background-color: $light;
+        border: 1px solid $primary;
     }
 }
 
@@ -70,5 +71,7 @@
 }
 
 #inputS{
-    margin-right: 1rem;
+    // margin-right: 1rem;
+    margin-right: 5px;
+    width: 400px;
 }
