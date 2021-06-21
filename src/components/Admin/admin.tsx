@@ -6,8 +6,11 @@ import { IUsers } from '../../interfaces/users';
 import { DialogAlert } from '../Dialog/DialogAlert';
 import { Role } from '../../interfaces/role';
 import swal from 'sweetalert'
+import { useHistory } from 'react-router';
 
 function Admin() {
+
+    let history = useHistory()
 
     const [actualCategory, setActualCategory] = useState<string>('')
     const [category, setCategory] = useState<string>()
@@ -142,13 +145,16 @@ function Admin() {
                 const resp = await axios.put(`${url}/user/userUpdate`, userSubmit)
                     .catch(() => swal('request failed'))
                 if (resp?.data === 'succesfully updated') {
+                    console.log('entro')
                     swal('succesfully updated')
                 } else swal('error')
             } else swal('force password is not available for Admins or Disabled accounts')
         } else {
             console.log(userSubmit)
-            await axios.put(`${url}/user/userUpdate`, userSubmit)
+            let response = await axios.put(`${url}/user/userUpdate`, userSubmit)
                 .catch(() => swal('request failed'))
+            swal(response.data)
+            .then(()=> history.go(0))
         }
 
 
