@@ -147,7 +147,7 @@ const ProductForm: React.FC<ICarouselProps> = () => {
                     <Col md>
                         <Form.Group controlId="name">
                             <Form.Label>Product Name</Form.Label>
-                            <Form.Control className='label-success' type='input' placeholder="Name" name='name' onBlur={handleChange} />
+                            <Form.Control className='label-success' type='input' placeholder="Name" name='name' onChange={handleChange} />
                             {errors?.name ? <Form.Text className="text-muted">
                                 Name can not be empty
                             </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
@@ -155,7 +155,7 @@ const ProductForm: React.FC<ICarouselProps> = () => {
 
                         <Form.Group controlId="description">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows={3} name='description' placeholder="Description" onBlur={handleChange} />
+                            <Form.Control as="textarea" rows={3} name='description' placeholder="Description" onChange={handleChange} />
                             {errors?.description ? <Form.Text className="text-muted">
                                 Description can not be empty
                             </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>}
@@ -164,11 +164,11 @@ const ProductForm: React.FC<ICarouselProps> = () => {
                         <Row>
                             <Col md>
                                 <Form.Label>Price</Form.Label>
-                                <Form.Control type='input' placeholder="$" name='price' onBlur={handleChange} />
+                                <Form.Control type='number' placeholder="$" name='price' onChange={handleChange} />
                             </Col>
                             <Col md>
                                 <Form.Label>Quantity</Form.Label>
-                                <input name='quantity' onBlur={handleChange} className="form-control" type='number' min="1" max="1000" defaultValue='1'></input>
+                                <input name='quantity' onChange={handleChange} className="form-control" type='number' min="1" max="1000" defaultValue='1'></input>
                             </Col>
                         </Row>
 
@@ -182,7 +182,7 @@ const ProductForm: React.FC<ICarouselProps> = () => {
                         <Form.Label>Category</Form.Label>
                         <Form.Control as="select" onChange={handleCategoryChange}>
                             <option value="" selected disabled hidden>Choose here</option>
-                            {categories.map((category) => (
+                            {categories.map((category, i) => (
                                 <option value={category.categoryId}>{category.name}</option>
                             ))}
                         </Form.Control>
@@ -194,7 +194,7 @@ const ProductForm: React.FC<ICarouselProps> = () => {
                 <Row>
                     <Col className="text-center" md>
                         {(errors?.name === true || errors?.description === true || errors?.price === true || product.categoryId === undefined) ?
-                            <Button className="mt-5 w-25" variant="primary" type="submit" disabled>Send</Button> :
+                            <Button className="mt-5 w-25" variant="info" type="submit" disabled>Send</Button> :
                             <Button className="mt-5 w-25" variant="primary" type="submit" onClick={handleSubmit}>Send</Button>
                         }
                     </Col>
