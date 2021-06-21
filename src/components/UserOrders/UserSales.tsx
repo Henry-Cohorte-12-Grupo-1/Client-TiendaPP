@@ -54,6 +54,11 @@ export default function UserSales() {
         console.log('FILTERED', filteredOrders(e.target.name))
     }
 
+    const handleClick2 = async (e: any) => {
+        e.preventDefault();
+        dispatch(bringUserSales(userName))
+    }
+
     if (loading) {
         return (
             <h1>Loading...</h1>
@@ -78,6 +83,9 @@ export default function UserSales() {
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
                 <label className="btn btn-primary m-2" htmlFor="processing">Processing</label>
+
+                <input type="radio" onClick={(e) => handleClick2(e)} className="btn-check d-none" name="reset" id="reset" />
+                <label className="btn btn-primary m-2" htmlFor="reset">Reset</label>
 
             </div>
             {console.log(currentOrders)}
