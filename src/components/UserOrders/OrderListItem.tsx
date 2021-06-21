@@ -140,8 +140,8 @@ export function OrderListItem(props: {
                         <div className="row justify-content-between">
                             <div className="col-md-3 mb-3"> <p className="h6"> Status: {props.status}</p> </div>
                             <div className="justify-content-between col-auto flex-col">
-                                <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>Buy Again</a>
-                                {props.status === "completed" && !hasReview ? <button type="button" onClick={handleClick} className="btn btn-primary" id='colorC'>My Review</button> : null}
+                                {props.status === "completed" && !hasReview && props.role === "by" ? <button type="button" onClick={handleClick} className="btn mr-2 btn-primary" id='colorC'>My Review</button> : null}
+                                <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>{props.role === "to" ? "Product Details" : "Buy Again"}</a>
                             </div>
                         </div>
                         <div className="col mt-auto">
