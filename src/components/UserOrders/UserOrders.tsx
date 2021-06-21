@@ -111,7 +111,7 @@ export default function UserOrders() {
                     />)
             })
                 :
-                currentOrders.length && currentOrders.map(o => {
+                currentOrders.length > 0 && currentOrders.map(o => {
                     return (
                         <OrderListItem
                             name={o.Product.name}

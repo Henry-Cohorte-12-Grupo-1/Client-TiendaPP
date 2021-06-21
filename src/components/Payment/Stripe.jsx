@@ -91,7 +91,7 @@ export default function CheckoutForm() {
       setProcessing(false);
       setSucceeded(true);
       //ACA LE PEGA A LA API
-      await axios.post(`${url}/`, toSend)
+      await axios.post(`${url}/payment/post-pay`, toSend)
     }
   };
 
