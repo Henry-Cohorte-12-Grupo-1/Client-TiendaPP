@@ -59,11 +59,7 @@ export default function UserSales() {
             <h1>Loading...</h1>
         )
     }
-    if (currentOrders.length < 1) {
-        return (
-            <h1>Nothing found</h1>
-        )
-    }
+
     return (
 
         <Container className="mt-4 mb-4">
@@ -80,7 +76,7 @@ export default function UserSales() {
                 <label className="btn btn-primary m-2" htmlFor="processing">Processing</label>
 
             </div>
-            {console.log(currentOrders)}
+            {(currentOrders.length < 1) ? <h4>Nothing Found</h4> : null}
             {!filter ? orders.map(o => {
                 return (
                     <OrderListItem
