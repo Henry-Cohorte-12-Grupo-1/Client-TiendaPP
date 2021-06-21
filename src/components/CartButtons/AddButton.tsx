@@ -22,7 +22,7 @@ function AddButton(props: Props): ReactElement {
     //redux store
     const cart = useSelector<StoreType, IProduct[]>((state) => state.cart);
     const dispatch = useDispatch();
-    console.log("CART SUELTO", cart);
+
 
     //STATES
     let inCart = cart.some((product: IProduct) => {
@@ -53,15 +53,12 @@ function AddButton(props: Props): ReactElement {
             (async () => {
                 await dispatch(loadCartFromDB(userId));
                 checkInCart(); //se fija si está
-            })().then(() => {
-                console.log("AFTER DISAPTCH!! ", cart);
-            }); //iif
+            })()
         } else {
             const localCart: IProduct[] = JSON.parse(
                 localStorage.getItem("cart") || "[]"
             );
             dispatch(loadGuestCart(localCart));
-            console.log("AFTER DISAPTCH DE ABAJO!! ", cart);
             checkInCart();
         }
     }, []);

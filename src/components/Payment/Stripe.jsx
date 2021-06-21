@@ -2,8 +2,15 @@ import React, { useState, useEffect } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
 import "./stripe.css";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import axios from "axios";
+import { url } from "../../api";
+import jwtDecode from 'jwt-decode';
 
 export default function CheckoutForm() {
+
+  const token = localStorage.token ? jwtDecode(localStorage.token) : false;
+  const userId = token ? token.id : 'guest';
+
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
@@ -14,6 +21,7 @@ export default function CheckoutForm() {
   const elements = useElements();
 
   const totalPriceState = useSelector((store) => store.totalAmount);
+  const cart = useSelector((store) => store.cart)
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -33,7 +41,11 @@ export default function CheckoutForm() {
       .then((data) => {
         setClientSecret(data.clientSecret);
       });
-  }, []);
+  }, []);//eslint-disable-line
+
+  const toSend = { userId, items: cart }
+
+  console.log("LE LLEGA A STRIPE -->", toSend)
 
   const cardStyle = {
     style: {
@@ -78,7 +90,8 @@ export default function CheckoutForm() {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
-      console.log("🚀 ~ file: Stripe.jsx ~ line 73 ~ handleSubmit ~ payload", payload)
+      //ACA LE PEGA A LA API
+      await axios.post(`${url}/`, toSend)
     }
   };
 
@@ -117,12 +130,7 @@ export default function CheckoutForm() {
       )}
       {/* Show a success message upon completion */}
       <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded, see the result in your
-        <a href={`https://dashboard.stripe.com/test/payments`}>
-          {" "}
-          Stripe dashboard.
-        </a>{" "}
-        Refresh the page to pay again.
+        Payement succeeded.
       </p>
     </form>
   );

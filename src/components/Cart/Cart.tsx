@@ -82,6 +82,7 @@ function Cart(): ReactElement {
                     <div className="d-flex flex-row justify-content-evenly align-items-center">
                         <div>
                             <h3>Total Amount of the cart is: </h3>
+                            <a className="btn btn-primary m-2" href="../payment" >Go to Payement</a>
                         </div>
                         <div className="p-2 bd-highlight">
                             <h2>${totalAmount}</h2>
