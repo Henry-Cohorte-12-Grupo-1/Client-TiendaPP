@@ -85,12 +85,12 @@ function ProductDetails(props: Props): ReactElement {
                                             </div>
                                             <div className="row">
                                                 <p>
-                                                    <a className="ml-2" href="/">
+                                                    <a className="ml-5" href="/">
                                                         <strong>{rev.User?.username}</strong>
                                                     </a>
                                                 </p>
                                             </div>
-                                            <div className="mr-5 d-flex no-wrap">
+                                            <div className="mr-5 ml-4 d-flex no-wrap">
                                                 {Array(rev.score).fill(
                                                     <span>
                                                         <i className="text-warning fa fa-star"></i>

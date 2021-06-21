@@ -1,5 +1,5 @@
 
-
+import { url as URL } from '../../api';
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { useEffect, useState } from 'react'
@@ -173,11 +173,11 @@ function Login() {
     };
 
     const googleLogin = () => {
-        window.open("http://localhost:3001/api/auth/google", "_self")
+        window.open(`${URL}/auth/google`, "_self")
     }
 
     const githubLogin = () => {
-        window.open("http://localhost:3001/api/auth/github", "_self");
+        window.open(`${URL}/auth/google`, "_self");
     }
 
 

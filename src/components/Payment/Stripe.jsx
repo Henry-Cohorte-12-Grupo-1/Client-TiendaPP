@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { RootStateOrAny, useSelector } from "react-redux";
 import "./stripe.css";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { url } from "../../api";
@@ -28,7 +28,7 @@ export default function CheckoutForm() {
     let totalPrice = totalPriceState * 100;
     if (totalPrice === 0) totalPrice = 14500;
 
-    fetch("http://localhost:3001/api/payment/stripe", {
+    fetch(`${URL}/payment/stripe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,8 +90,10 @@ export default function CheckoutForm() {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
+
       //ACA LE PEGA A LA API
       await axios.post(`${url}/payment/post-pay`, toSend)
+
     }
   };
 
@@ -130,7 +132,7 @@ export default function CheckoutForm() {
       )}
       {/* Show a success message upon completion */}
       <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payement succeeded.
+        Payment succeeded.
       </p>
     </form>
   );
