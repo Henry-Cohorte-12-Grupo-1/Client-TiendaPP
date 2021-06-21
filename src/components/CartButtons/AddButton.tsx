@@ -72,36 +72,32 @@ function AddButton(props: Props): ReactElement {
 
     //check if productId is in cart
 
-    if (cart.length > 0) {
-        checkInCart();
-        if (inCart) {
-            return (
-                <div>
-                    <button
-                        type="button"
-                        className="btn btn-info"
-                        onClick={onClick}
-                        disabled
-                    >
-                        {"Added to cart!"}
-                    </button>
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <button
-                        type="button"
-                        className="btn btn-success"
-                        onClick={onClick}
-                    >
-                        {"Add to cart!"}
-                    </button>
-                </div>
-            );
-        }
+    checkInCart();
+    if (inCart) {
+        return (
+            <div>
+                <button
+                    type="button"
+                    className="btn btn-info"
+                    onClick={onClick}
+                    disabled
+                >
+                    {"Added to cart!"}
+                </button>
+            </div>
+        );
     } else {
-        return <h1>LOADING </h1>;
+        return (
+            <div>
+                <button
+                    type="button"
+                    className="btn btn-success"
+                    onClick={onClick}
+                >
+                    {"Add to cart!"}
+                </button>
+            </div>
+        );
     }
 }
 export default AddButton;
