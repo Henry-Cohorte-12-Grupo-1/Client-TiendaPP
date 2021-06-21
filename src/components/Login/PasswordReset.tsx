@@ -110,6 +110,7 @@ function Login() {
         console.log(userId)
         let resp = await axios.put(`${url}/user/passReset`, { pass: passwords?.pass, userId: userId })
         swal(resp.data)
+        console.log(resp)
         if (resp.data === 'succesfully updated') {
             history.push(`/login`);
         }

@@ -152,22 +152,30 @@ function Login() {
             })
             .catch((err) => console.log(err));
 
+        console.log(resp)
+
         if (resp) {
-            console.log(resp.data.message, localCart);
-            localStorage.setItem("token", resp.data.token);
-            if (resp.data.message === "User") {
-                swal("Welcome");
-                history.push("/home");
-            }
-            if (resp.data.message === "Admin") {
-                console.log("entro admin");
-                history.push("/adminValidation");
-            }
-            if (resp.data.message === "Disabled") {
-                swal("Your Account has not been validated yet, please check your mail");
-            }
-            if (resp.data.message === "User or password are incorrect") {
-                localStorage.removeItem("token");
+            console.log(resp.data.reset)
+            if (resp.data.reset === true) {
+                localStorage.setItem("token", resp.data.token);
+                swal('You need to reset your password').then(() => history.push('/login/passReset'))
+            } else {
+                console.log(resp.data.message, localCart);
+                localStorage.setItem("token", resp.data.token);
+                if (resp.data.message === "User") {
+                    swal("Welcome");
+                    history.push("/home");
+                }
+                if (resp.data.message === "Admin") {
+                    console.log("entro admin");
+                    history.push("/adminValidation");
+                }
+                if (resp.data.message === "Disabled") {
+                    swal("Your Account has not been validated yet, please check your mail");
+                }
+                if (resp.data.message === "User or password are incorrect") {
+                    localStorage.removeItem("token");
+                }
             }
         } else swal("network error");
     };
