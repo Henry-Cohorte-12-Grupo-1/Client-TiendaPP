@@ -82,6 +82,7 @@ export function OrderListItem(props: {
         }
         await axios.post(`${url}/reviews`, review)
         swal("Review created")
+        history.go(0)
     }
 
     let hasReview: boolean = false

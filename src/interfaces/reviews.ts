@@ -4,4 +4,5 @@ export interface Review {
     review: string,
     score: number,
     userId: string
+    User?: { username: string }
 }
