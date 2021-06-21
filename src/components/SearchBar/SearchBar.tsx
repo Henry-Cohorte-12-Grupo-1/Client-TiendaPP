@@ -211,7 +211,7 @@ export default function SearchBar() {
     return (
         <form className="d-flex">
             <input
-                className="form-control me-3" id="inputS"
+                className="form-control" id="inputS"
                 type="search"
                 aria-label="Search"
                 placeholder="Search product here!"
@@ -224,7 +224,7 @@ export default function SearchBar() {
             {errors.product && <p className="SBerror">{errors.product}</p>}
             <button
                 id="buttonSearch"
-                className="btn font-weight-bold"
+                className="btn btn-outline-primary font-weight-bold"
                 type="submit"
                 value="Search"
                 onClick={(e: any) => handleSubmit(e)}

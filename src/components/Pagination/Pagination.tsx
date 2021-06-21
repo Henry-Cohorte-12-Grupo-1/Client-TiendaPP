@@ -14,23 +14,23 @@ function Pagination(){
     const hasNextPage = pagState < pagesState - 1
     return(
         <div>
-            <button className="btn btn-primary" id='bPagination'
+            <button className="btn btn-primary py-2 px-5 mr-3" id='bPagination'
             disabled={!hasPreviousPage}
             onClick={() => {
                 dispatch(
                     searchProduct(nameState, itemsState, pagState - 1, tagState, orderState)
                 )
             }}>
-                Previous Page
+                {'Prev'}
             </button>
-            <button className="btn btn-primary" id='bPagination'
+            <button className="btn btn-primary py-2 px-5 ml-3" id='bPagination'
             disabled={!hasNextPage}
             onClick={() => {
                 dispatch(
                     searchProduct(nameState, itemsState, pagState + 1, tagState, orderState)
                 )
             }}>
-                Next Page
+                {'Next'}
             </button>
         </div>
     )
