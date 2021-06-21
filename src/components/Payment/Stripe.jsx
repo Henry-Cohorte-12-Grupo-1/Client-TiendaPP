@@ -28,7 +28,7 @@ export default function CheckoutForm() {
     let totalPrice = totalPriceState * 100;
     if (totalPrice === 0) totalPrice = 14500;
 
-    fetch(`${URL}/payment/stripe`, {
+    fetch(`${url}/payment/stripe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
