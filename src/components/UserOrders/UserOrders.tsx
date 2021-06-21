@@ -15,7 +15,7 @@ export default function UserOrders() {
 
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
-    console.log(userName)
+    console.log('CHAUUU',userName)
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -53,8 +53,12 @@ export default function UserOrders() {
             setFilter(false)
         } else
             dispatch(filteredOrders(e.target.name))
-        setFilter(false)
-        console.log('FILTERED', filteredOrders(e.target.name))
+            setFilter(false)
+    }
+
+    const handleClick2 = async (e: any) => {
+        e.preventDefault();
+        dispatch(bringUserOrders(userName))
     }
 
     if (loading) {
@@ -78,6 +82,9 @@ export default function UserOrders() {
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
                 <label className="btn btn-primary m-2" htmlFor="processing">Processing Payement</label>
+                
+                <input type="radio" onClick={(e) => handleClick2(e)} className="btn-check d-none" name="reset" id="reset" />
+                <label className="btn btn-primary m-2" htmlFor="reset">Reset</label>
 
             </div>
             {(currentOrders.length < 1) ? <h4>Nothing Found</h4> : null}
