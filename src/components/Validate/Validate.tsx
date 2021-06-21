@@ -23,7 +23,7 @@ function Validate() {
                 history.push(`/login/`);
             }
         })()
-    }, [])
+    }, [])//eslint-disable-line
 
 
     if (resp === 'verificado') {
@@ -32,7 +32,9 @@ function Validate() {
         )
     } else {
         return (
-            <div></div>
+            <div>
+                <h3>Link expired</h3>
+            </div>
         )
     }
 }

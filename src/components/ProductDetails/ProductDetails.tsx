@@ -82,24 +82,24 @@ function ProductDetails(props: Props): ReactElement {
                                                 />
                                                 <p className="text-secondary text-center">15 Minutes Ago</p>
                                             </div>
-                                            <p>
-                                                <a className="float-left" href="/">
-                                                    <strong>Superpedro92</strong>
-                                                </a>
+                                            <div>
+                                                <p>
+                                                    <a className="float-left" href="/">
+                                                        <strong>Superpedro92</strong>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                            <div className="mr-5">
                                                 {Array(rev.score).fill(
-                                                    <span className="float-left">
+                                                    <span>
                                                         <i className="text-warning fa fa-star"></i>
                                                     </span>,
                                                 )}
-                                            </p>
+                                            </div>
                                         </div>
                                         <div className="col-md-10">
                                             <div className="clearfix"></div>
-                                            <p className="p-5">{rev.review}</p>
-                                            <p>
-                                                {/* <a className="float-right btn btn-outline-primary ml-2" href="/"> <i className="fa fa-reply"></i> Reply</a>
-                        <a className="float-right btn text-white btn-danger" href="/"> <i className="fa fa-heart"></i> Like</a> */}
-                                            </p>
+                                            <p className="p-5">{rev.review}</p> 
                                         </div>
                                     </div>
                                 </div>

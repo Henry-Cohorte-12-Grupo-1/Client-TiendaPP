@@ -17,6 +17,7 @@ export interface StoreType {
     productDetails: detailedProduct;
     userProducts: IUserProduct[];
     userOrders: IUserOrders[];
+    filterOrders: IUserOrders[];
     cart: IProduct[];
     totalAmount: number;
 }
@@ -76,6 +77,7 @@ const initialState: StoreType = {
     },
     userProducts: [],
     userOrders: [],
+    filterOrders: [],
     cart: [],
     totalAmount: 0,
 };
@@ -125,10 +127,6 @@ export default function reducer(state: StoreType = initialState, action: IAction
             return {
                 ...state,
                 products: action.products,
-                // items: action.items,
-                // pag: action.pag,
-                // order: action.order,
-                // tag: action.tag,
             };
         case ActionTypes.SEARCH_PRODUCT_AC:
             return {
@@ -149,17 +147,18 @@ export default function reducer(state: StoreType = initialState, action: IAction
         case ActionTypes.GET_USER_PRODUCTS:
             return {
                 ...state,
-                userProducts: action.payload,
+                userProducts: action.payload
             };
         case ActionTypes.GET_USER_ORDERS:
             return {
                 ...state,
                 userOrders: action.payload,
+                filterOrders: action.payload
             };
         case ActionTypes.FILTERED_ORDERS:
             return {
                 ...state,
-                userOrders: state.userOrders.filter((o) => o.status === action.status),
+                filterOrders: state.userOrders.filter((o) => o.status === action.status),
             };
 
         case ActionTypes.LOAD_CART:

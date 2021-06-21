@@ -47,9 +47,6 @@ export default function SearchBar() {
     const dispatch = useDispatch(); // hook de dispatch
     const history = useHistory();
     const itemsState = useSelector((store: RootStateOrAny) => store.items);
-    const productsState = useSelector<StoreType, ProductsType>(
-        (state) => state.products
-    );
     const acListState = useSelector<StoreType, ProductsType>(
         (state) => state.acList
     );

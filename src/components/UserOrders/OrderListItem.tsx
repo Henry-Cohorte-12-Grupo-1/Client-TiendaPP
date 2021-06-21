@@ -4,13 +4,16 @@ import { url } from '../../api'
 import { Review } from '../../interfaces/reviews'
 import './OrderListItem.css'
 import swal from 'sweetalert'
+import { useHistory } from 'react-router-dom'
+import { Form } from 'react-bootstrap'
+
 
 interface imgs {
     imageId: string
 }
 
 
-export default function OrderListItem(props: {
+export function OrderListItem(props: {
     name: string;
     status: string;
     price: number;
@@ -20,9 +23,11 @@ export default function OrderListItem(props: {
     seller?: string | undefined;
     reviews: Review[];
     user: string | null;
-    role: string
+    role: string;
+    id?: number
 }) {
 
+    const history = useHistory()
     const [review, setReview] = useState<any>({
         username: props.user,
         review: "",
@@ -31,6 +36,8 @@ export default function OrderListItem(props: {
     })
 
     const [form, setForm] = useState<boolean>(false)
+    const [selectStatus, setSelectStatus] = useState<boolean>(false)
+    const [orderStatus, setOrderStatus] = useState<string>("")
     const [errors, setErrors] = useState<any>({
         review: true,
         score: true
@@ -38,6 +45,10 @@ export default function OrderListItem(props: {
 
     const handleClick = () => {
         setForm(true)
+    }
+
+    const handleStatusClick = () => {
+        setSelectStatus(true)
     }
 
     const handleInputChange = (e: any) => {
@@ -76,6 +87,19 @@ export default function OrderListItem(props: {
     let hasReview: boolean = false
     if (props.reviews[0]) {
         hasReview = true
+    }
+
+    const handleStatus = (e: any) => {
+        e.preventDefault();
+        setOrderStatus(e.target.value)
+    }
+
+    const handleStatusSubmit = async () => {
+        setSelectStatus(false)
+        await axios.post(`${url}/orders/update`, { id: props.id, status: orderStatus })
+        swal("Status changed succesfully").then(() => history.go(0))
+
+
     }
 
 
@@ -135,6 +159,23 @@ export default function OrderListItem(props: {
                                                 <button type="submit" className="btn btn-primary" id='colorB'>Submit</button>
                                             </div>
                                         </form>
+                                    ) : null}
+                                    {(props.role === "to" && !selectStatus) ? (
+                                        <button type="button" onClick={handleStatusClick} className="btn btn-primary" id='colorC'>Change Status</button>
+                                    ) : null}
+                                    {selectStatus ? (
+                                        <div>
+                                            <Form.Label>Status</Form.Label>
+                                            <form onSubmit={handleStatusSubmit}>
+                                                <Form.Control as="select" onChange={handleStatus} >
+                                                    <option value="" selected disabled hidden>Choose here</option>
+                                                    <option value="completed">Completed</option>
+                                                    <option value="cancelled">Cancelled</option>
+                                                    <option value="processing">Processing</option>
+                                                </Form.Control>
+                                                <button type="submit" className="btn btn-primary" id='colorB'>Change</button>
+                                            </form>
+                                        </div>
                                     ) : null}
                                 </div>
                             </div>

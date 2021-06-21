@@ -164,7 +164,7 @@ function Login() {
                 history.push("/adminValidation");
             }
             if (resp.data.message === "Disabled") {
-                swal("Account Disabled, please contact support");
+                swal("Your Account has not been validated yet, please check your mail");
             }
             if (resp.data.message === "User or password are incorrect") {
                 localStorage.removeItem("token");

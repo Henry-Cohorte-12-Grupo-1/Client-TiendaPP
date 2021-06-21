@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { bringUserOrders, filteredOrders } from "../../redux/actions"
 import IUserOrders from "../../interfaces/userOrders";
 import { Container } from 'react-bootstrap';
-import OrderItem from './OrderListItem'
+import { OrderListItem } from './OrderListItem'
 import jwtDecode from "jwt-decode"
 
 let currentOrders: IUserOrders[] = [];
@@ -22,7 +22,7 @@ export default function UserOrders() {
     const [filter, setFilter] = useState<Boolean>(true)
 
     const dispatch = useDispatch()
-    const orders = useSelector<StoreType, IUserOrders[]>((state) => state.userOrders)
+    const orders = useSelector<StoreType, IUserOrders[]>((state) => state.filterOrders)
 
 
     useEffect(() => {
@@ -77,8 +77,8 @@ export default function UserOrders() {
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="completed" id="completed" />
                 <label className="btn btn-primary m-2" htmlFor="completed">Fulfilled</label>
 
-                <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="dispatched" id="dispatched" />
-                <label className="btn btn-primary m-2" htmlFor="dispatched">On their way</label>
+                <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="cancelled" id="cancelled" />
+                <label className="btn btn-primary m-2" htmlFor="cancelled">Cancelled</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
                 <label className="btn btn-primary m-2" htmlFor="processing">Processing Payement</label>
@@ -87,7 +87,7 @@ export default function UserOrders() {
             {console.log(currentOrders)}
             {!filter ? orders.map(o => {
                 return (
-                    <OrderItem
+                    <OrderListItem
                         name={o.Product.name}
                         price={o.Product.price}
                         images={o.Product.Images}
@@ -103,7 +103,7 @@ export default function UserOrders() {
                 :
                 currentOrders.length && currentOrders.map(o => {
                     return (
-                        <OrderItem
+                        <OrderListItem
                             name={o.Product.name}
                             price={o.Product.price}
                             images={o.Product.Images}
