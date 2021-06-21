@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { RootStateOrAny, useSelector } from "react-redux";
 import "./stripe.css";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-
+//https://dashboard.stripe.com/test/payments
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -78,7 +78,7 @@ export default function CheckoutForm() {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
-      console.log("🚀 ~ file: Stripe.jsx ~ line 73 ~ handleSubmit ~ payload", payload)
+      //creo que aquí va el destroy
     }
   };
 
@@ -117,11 +117,7 @@ export default function CheckoutForm() {
       )}
       {/* Show a success message upon completion */}
       <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded, see the result in your
-        <a href={`https://dashboard.stripe.com/test/payments`}>
-          {" "}
-          Stripe dashboard.
-        </a>{" "}
+        Payment succeeded.
         Refresh the page to pay again.
       </p>
     </form>
