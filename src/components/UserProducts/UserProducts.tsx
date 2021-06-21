@@ -6,6 +6,8 @@ import ProductsCards from '../ProductsCards/ProductsCards';
 import IUserProduct from '../../interfaces/userProducts';
 import { Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import jwtDecode from "jwt-decode";
+
 
 
 import './styles.scss'
@@ -18,9 +20,8 @@ function UserProducts() {
 
   const dispatch = useDispatch()
 
-  let search = window.location.search;
-  let params = new URLSearchParams(search);
-  let userName: string | null = params.get('username');
+  const token: any = localStorage ? jwtDecode(localStorage.token) : false;
+  let userName = token.username;
 
 
   console.log('superpedro92', userProducts)

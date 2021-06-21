@@ -6,6 +6,7 @@ import './OrderListItem.css'
 import swal from 'sweetalert'
 import { useHistory } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
+import jwtDecode from "jwt-decode"
 
 
 interface imgs {
@@ -27,11 +28,14 @@ export function OrderListItem(props: {
     id?: number
 }) {
 
+    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
+    const userId = token.id;
+
     const history = useHistory()
     const [review, setReview] = useState<any>({
         username: props.user,
         review: "",
-        score: -1,
+        score: 3,
         productId: props.productId
     })
 
@@ -86,9 +90,15 @@ export function OrderListItem(props: {
     }
 
     let hasReview: boolean = false
-    if (props.reviews[0]) {
-        hasReview = true
-    }
+    hasReview = (props.reviews?.some(r => r.userId === userId))
+
+    console.log("USER ID ----->>>>>", token)
+
+    // if (props.reviews?.some(r => r.userId === userId)) {
+    //     hasReview = true
+    // } else {
+    //     hasReview = false
+    // }
 
     const handleStatus = (e: any) => {
         e.preventDefault();
@@ -131,7 +141,7 @@ export function OrderListItem(props: {
                             <div className="col-md-3 mb-3"> <p className="h6"> Status: {props.status}</p> </div>
                             <div className="justify-content-between col-auto flex-col">
                                 <a href={`/product/${props?.productId}`} className="btn btn-primary" id='colorB'>Buy Again</a>
-                                {!hasReview ? <button type="button" onClick={handleClick} className="btn btn-primary" id='colorC'>My Review</button> : null}
+                                {props.status === "completed" && !hasReview ? <button type="button" onClick={handleClick} className="btn btn-primary" id='colorC'>My Review</button> : null}
                             </div>
                         </div>
                         <div className="col mt-auto">

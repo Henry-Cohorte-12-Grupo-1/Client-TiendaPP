@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import Stripe from './Stripe';
 import './payment.css';
+import PaymentCard from './PaymentCard'
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -14,9 +15,8 @@ const promise = loadStripe(
 export default function Payment() {
     return (
         <div className="Payment">
-            <Elements stripe={promise}>
-                <Stripe />
-            </Elements>
+            <PaymentCard />
+
         </div>
     );
 }

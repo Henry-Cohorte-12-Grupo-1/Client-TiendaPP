@@ -90,11 +90,11 @@ const routes: IRoute[] = [
         exact: true,
     },
     {
-        path: '/product/edit',
+        path: '/user/product/edit',
         name: 'ProductEdit',
         component: AuthUser,
         exact: true,
-        props: { path: '/product/edit', name: 'ProductEdit', component: ProductEdit, exact: true },
+        props: { path: '/user/product/edit', name: 'ProductEdit', component: ProductEdit, exact: true },
     },
     {
         path: '/Product/:id',
@@ -148,7 +148,7 @@ const routes: IRoute[] = [
     {
         path: '/tokensignin',
         name: 'tokensignin',
-        component: TokenURL, 
+        component: TokenURL,
         exact: true,
     },
 ]
