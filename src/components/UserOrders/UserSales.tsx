@@ -6,6 +6,7 @@ import { Container } from 'react-bootstrap';
 import { OrderListItem } from './OrderListItem'
 import { bringUserSales, filteredOrders } from "../../redux/actions";
 import jwtDecode from "jwt-decode";
+import { useHistory } from 'react-router-dom'
 
 let currentOrders: IUserOrders[] = [];
 // let filteredOrders: IUserOrders[] = []
@@ -15,7 +16,7 @@ export default function UserSales() {
 
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
-
+    const history = useHistory()
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -54,6 +55,13 @@ export default function UserSales() {
         console.log('FILTERED', filteredOrders(e.target.name))
     }
 
+    const handleReset = (e: any) => {
+        e.preventDefault();
+        history.go(0)
+        setFilter(true)
+
+    }
+
     if (loading) {
         return (
             <h1>Loading...</h1>
@@ -74,6 +82,9 @@ export default function UserSales() {
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
                 <label className="btn btn-primary m-2" htmlFor="processing">Processing</label>
+
+                <input type="radio" onClick={(e) => handleReset(e)} className="btn-check d-none" name="reset" id="reset" />
+                <label className="btn btn-primary m-2" htmlFor="reset">Reset</label>
 
             </div>
             {(currentOrders.length < 1) ? <h4>Nothing Found</h4> : null}

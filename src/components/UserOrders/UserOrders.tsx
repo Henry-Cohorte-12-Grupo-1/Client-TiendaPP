@@ -5,6 +5,7 @@ import { bringUserOrders, filteredOrders } from "../../redux/actions"
 import IUserOrders from "../../interfaces/userOrders";
 import { Container } from 'react-bootstrap';
 import { OrderListItem } from './OrderListItem'
+import { useHistory } from 'react-router-dom'
 import jwtDecode from "jwt-decode"
 
 let currentOrders: IUserOrders[] = [];
@@ -15,7 +16,7 @@ export default function UserOrders() {
 
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
-    console.log(userName)
+    const history = useHistory()
 
     const [loading, setLoading] = useState<Boolean>(true)
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -23,6 +24,7 @@ export default function UserOrders() {
 
     const dispatch = useDispatch()
     const orders = useSelector<StoreType, IUserOrders[]>((state) => state.filterOrders)
+
 
 
     useEffect(() => {
@@ -43,6 +45,14 @@ export default function UserOrders() {
 
     const handlePagination = () => {
         setCurrentPage(currentPage + 1)
+    }
+
+
+    const handleReset = (e: any) => {
+        e.preventDefault();
+        history.go(0)
+        setFilter(true)
+
     }
 
     const handleClick = async (e: any) => {
@@ -77,7 +87,10 @@ export default function UserOrders() {
                 <label className="btn btn-primary m-2" htmlFor="cancelled">Cancelled</label>
 
                 <input type="radio" onClick={(e) => handleClick(e)} className="btn-check d-none" name="processing" id="processing" />
-                <label className="btn btn-primary m-2" htmlFor="processing">Processing Payement</label>
+                <label className="btn btn-primary m-2" htmlFor="processing">Processing</label>
+
+                <input type="radio" onClick={(e) => handleReset(e)} className="btn-check d-none" name="reset" id="reset" />
+                <label className="btn btn-primary m-2" htmlFor="reset">Reset</label>
 
             </div>
             {(currentOrders.length < 1) ? <h4>Nothing Found</h4> : null}
