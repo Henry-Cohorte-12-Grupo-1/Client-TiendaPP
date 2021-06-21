@@ -6,6 +6,7 @@ export interface SqlImg {
 export interface ReviewObj {
     score: number;
     review: string;
+    User?: { username: string }
 }
 
 export default interface detailedProduct {

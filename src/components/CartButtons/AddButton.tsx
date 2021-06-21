@@ -1,14 +1,14 @@
-import { ReactElement, useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { IProduct } from '../../interfaces/product';
-import { useSelector } from 'react-redux';
+import { ReactElement, useEffect, useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { IProduct } from "../../interfaces/product";
 //import './style.scss';
 
 //redux stuff
-import { useDispatch } from 'react-redux';
-import { addProductToCart } from '../../redux/actions';
-import { StoreType } from '../../redux/reducers';
-import swal from 'sweetalert';
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart } from "../../redux/actions";
+import { StoreType } from "../../redux/reducers";
+import { loadCartFromDB, loadGuestCart } from "../../redux/actions";
+import swal from "sweetalert";
 
 interface Props {
     userId: string;
@@ -20,26 +20,84 @@ function AddButton(props: Props): ReactElement {
     const { userId, productId } = props;
 
     //redux store
+    const cart = useSelector<StoreType, IProduct[]>((state) => state.cart);
     const dispatch = useDispatch();
+    console.log("CART SUELTO", cart);
+
+    //STATES
+    let inCart = cart.some((product: IProduct) => {
+        return product.productId === productId;
+    });
 
     //FUNCTIONALITY
     const onClick = () => {
         //dispatch
         (async () => {
             await dispatch(addProductToCart(userId, productId));
-            swal('The product was added to your cart')
-        })(); //iif sacado de product detail
+            swal("The product was added to your cart");
+            console.log("CARTSS BEFORE CHECKING: ", cart);
+        })().then(() => {
+            checkInCart();
+            console.log("CARTS AFTER CHECKING: ", cart);
+        });
     };
+
+    const checkInCart = () => {
+        inCart = cart.some((product: IProduct) => {
+            return product.productId === productId;
+        });
+    };
+
+    useEffect(() => {
+        if (userId !== "guest") {
+            (async () => {
+                await dispatch(loadCartFromDB(userId));
+                checkInCart(); //se fija si está
+            })().then(() => {
+                console.log("AFTER DISAPTCH!! ", cart);
+            }); //iif
+        } else {
+            const localCart: IProduct[] = JSON.parse(
+                localStorage.getItem("cart") || "[]"
+            );
+            dispatch(loadGuestCart(localCart));
+            console.log("AFTER DISAPTCH DE ABAJO!! ", cart);
+            checkInCart();
+        }
+    }, []);
 
     ///////////////////////////////////////
     //The render/////////////
     ///////////////////////////////////////
-    return (
-        <div>
-            <button type="button" className="btn btn-success" onClick={onClick}>
-                {'Add to cart!'}
-            </button>
-        </div>
-    );
+
+    //check if productId is in cart
+
+    checkInCart();
+    if (inCart) {
+        return (
+            <div>
+                <button
+                    type="button"
+                    className="btn btn-info"
+                    onClick={onClick}
+                    disabled
+                >
+                    {"Added to cart!"}
+                </button>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <button
+                    type="button"
+                    className="btn btn-success"
+                    onClick={onClick}
+                >
+                    {"Add to cart!"}
+                </button>
+            </div>
+        );
+    }
 }
 export default AddButton;

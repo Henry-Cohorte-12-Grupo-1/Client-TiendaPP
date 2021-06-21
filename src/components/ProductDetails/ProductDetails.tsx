@@ -69,6 +69,7 @@ function ProductDetails(props: Props): ReactElement {
                 <h2 className="text-center mt-4">Reviews</h2>
                 {details.Reviews.length ? (
                     details.Reviews.map((rev) => {
+                        console.log("Reviews --->", rev)
                         return (
                             <div className="card center" id="spacingReview" key={rev.review}>
                                 <div className="card-body">
@@ -80,16 +81,16 @@ function ProductDetails(props: Props): ReactElement {
                                                     className="img img-rounded img-fluid"
                                                     alt="person portrait"
                                                 />
-                                                <p className="text-secondary text-center">15 Minutes Ago</p>
+
                                             </div>
-                                            <div>
+                                            <div className="row">
                                                 <p>
-                                                    <a className="float-left" href="/">
-                                                        <strong>Superpedro92</strong>
+                                                    <a className="ml-5" href="/">
+                                                        <strong>{rev.User?.username}</strong>
                                                     </a>
                                                 </p>
                                             </div>
-                                            <div className="mr-5">
+                                            <div className="mr-5 ml-4 d-flex no-wrap">
                                                 {Array(rev.score).fill(
                                                     <span>
                                                         <i className="text-warning fa fa-star"></i>
@@ -99,7 +100,7 @@ function ProductDetails(props: Props): ReactElement {
                                         </div>
                                         <div className="col-md-10">
                                             <div className="clearfix"></div>
-                                            <p className="p-5">{rev.review}</p> 
+                                            <p className="p-5">{rev.review}</p>
                                         </div>
                                     </div>
                                 </div>
