@@ -160,7 +160,7 @@ function Login() {
                 localStorage.setItem("token", resp.data.token);
                 swal('You need to reset your password').then(() => history.push('/login/passReset'))
             } else {
-                console.log(resp.data.message, localCart);
+
                 localStorage.setItem("token", resp.data.token);
                 if (resp.data.message === "User") {
                     swal("Welcome");
@@ -174,6 +174,7 @@ function Login() {
                     swal("Your Account has not been validated yet, please check your mail");
                 }
                 if (resp.data.message === "User or password are incorrect") {
+                    swal("User or password are incorrect");
                     localStorage.removeItem("token");
                 }
             }
