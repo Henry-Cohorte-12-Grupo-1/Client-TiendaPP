@@ -1,13 +1,13 @@
-import { ReactElement, useEffect, useState } from 'react';
-import './CartCard.css';
-import axios from 'axios';
-import { RouteComponentProps } from 'react-router-dom';
-import { IProduct } from '../../interfaces/product';
-import { url as URL } from '../../api';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCartItemQuantity, loadCartFromDB } from '../../redux/actions';
-import { StoreType } from '../../redux/reducers';
-import DeleteButton from '../CartButtons/DeleteButton';
+import { ReactElement, useEffect, useState } from "react";
+import "./CartCard.css";
+import axios from "axios";
+import { RouteComponentProps } from "react-router-dom";
+import { IProduct } from "../../interfaces/product";
+import { url as URL } from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { setCartItemQuantity, loadCartFromDB } from "../../redux/actions";
+import { StoreType } from "../../redux/reducers";
+import DeleteButton from "../CartButtons/DeleteButton";
 
 interface Props {
     userId?: string;
@@ -18,7 +18,7 @@ interface Props {
 
 function CartCard(props: Props): ReactElement {
     //CONSTANTS
-    const URL_CART_SET_QUANTITY = URL + '/cart/setCartItemQuantity';
+    const URL_CART_SET_QUANTITY = URL + "/cart/setCartItemQuantity";
 
     //PROPS
     //const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
@@ -29,7 +29,9 @@ function CartCard(props: Props): ReactElement {
     const cart = useSelector<StoreType, IProduct[]>((state) => state.cart);
 
     //STATES
-    const [quantity, setQuantity] = useState(quantityShower(productData.productId));
+    const [quantity, setQuantity] = useState(
+        quantityShower(productData.productId)
+    );
 
     function quantityShower(productId: any) {
         for (const each of cart) {
@@ -41,14 +43,28 @@ function CartCard(props: Props): ReactElement {
 
     //SIN EL AWAIT NO RENDERIZA EN ORDEN -
     async function onIncrement() {
-        await dispatch(setCartItemQuantity(userId, productData.quantity + 1, productData.productId));
-        setQuantity(quantityShower(productData.productId));
-        forceRender(!render);
+        if (productData.quantity + 1 <= productData.stock) {
+            await dispatch(
+                setCartItemQuantity(
+                    userId,
+                    productData.quantity + 1,
+                    productData.productId
+                )
+            );
+            setQuantity(quantityShower(productData.productId));
+            forceRender(!render);
+        }
     }
 
     async function onDecrement() {
         if (productData.quantity - 1 > 0) {
-            await dispatch(setCartItemQuantity(userId, productData.quantity - 1, productData.productId));
+            await dispatch(
+                setCartItemQuantity(
+                    userId,
+                    productData.quantity - 1,
+                    productData.productId
+                )
+            );
             setQuantity(quantityShower(productData.productId));
             forceRender(!render);
         }
@@ -66,14 +82,18 @@ function CartCard(props: Props): ReactElement {
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
-        const setQuantityDB = async (qty: number) => {
-            await dispatch(setCartItemQuantity(userId, qty, productData.productId));
-            setQuantity(quantityShower(productData.productId));
-            forceRender(!render);
-        };
+        if (newValue <= productData.stock) {
+            const setQuantityDB = async (qty: number) => {
+                await dispatch(
+                    setCartItemQuantity(userId, qty, productData.productId)
+                );
+                setQuantity(quantityShower(productData.productId));
+                forceRender(!render);
+            };
 
-        if (parseInt(newValue) > 0) {
-            setQuantityDB(parseInt(newValue));
+            if (parseInt(newValue) > 0) {
+                setQuantityDB(parseInt(newValue));
+            }
         }
     };
 
@@ -116,13 +136,17 @@ function CartCard(props: Props): ReactElement {
                 <div className="card-body p-5 m-4 border">
                     <div className="media">
                         <div className="sq align-self-center ">
-                            <a href={`/product/${productData.productId}`} className="btn btn-danger" id="colorB">
+                            <a
+                                href={`/product/${productData.productId}`}
+                                className="btn btn-danger"
+                                id="colorB"
+                            >
                                 <img
                                     className="img-fluid my-auto align-self-center"
                                     src={
                                         productData.images
                                             ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${productData.images[0]}`
-                                            : 'https://media.istockphoto.com/vectors/no-image-available-sign-vector-id922962354?k=6&m=922962354&s=612x612&w=0&h=_KKNzEwxMkutv-DtQ4f54yA5nc39Ojb_KPvoV__aHyU='
+                                            : "https://media.istockphoto.com/vectors/no-image-available-sign-vector-id922962354?k=6&m=922962354&s=612x612&w=0&h=_KKNzEwxMkutv-DtQ4f54yA5nc39Ojb_KPvoV__aHyU="
                                     }
                                     width="135"
                                     height="135"
@@ -147,7 +171,9 @@ function CartCard(props: Props): ReactElement {
                                                         data-dir="dwn"
                                                         onClick={onDecrement}
                                                     >
-                                                        <span className="glyphicon glyphicon-minus">-</span>
+                                                        <span className="glyphicon glyphicon-minus">
+                                                            -
+                                                        </span>
                                                     </button>
                                                 </span>
                                                 <input
@@ -162,19 +188,25 @@ function CartCard(props: Props): ReactElement {
                                                         data-dir="up"
                                                         onClick={onIncrement}
                                                     >
-                                                        <span className="glyphicon glyphicon-plus">+</span>
+                                                        <span className="glyphicon glyphicon-plus">
+                                                            +
+                                                        </span>
                                                     </button>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                <div>in Stock: {productData.stock}</div>
                                 {/*QUANTITY*/}
                                 <div className="col my-auto">
-                                    <h4 className="mb-0">$ {(productData.price * (quantity || 1)).toFixed(2)} </h4>
+                                    <h4 className="mb-0">
+                                        ${" "}
+                                        {(
+                                            productData.price * (quantity || 1)
+                                        ).toFixed(2)}{" "}
+                                    </h4>
                                 </div>
-
                                 {/*DELETE BUTTON*/}
                                 <div className="col my-auto">
                                     <DeleteButton
@@ -184,7 +216,6 @@ function CartCard(props: Props): ReactElement {
                                         render={render}
                                     />
                                 </div>
-
                                 {/* <div className="col my-auto">
                                         <button onClick={onIncrement}> + </button>
                                         <p className="h6">Qty : {quantity}</p>
