@@ -1,15 +1,18 @@
+import WishlistButton from '../Wishlist/Buttons/WishlistButton';
 import './Products.css';
 
 interface imgs {
     imageId: string;
 }
 function ProductsCards(props: {
+    userId?: string;
     name: string;
     price: number;
     image: string;
-    productId?: string;
+    productId: string;
     images?: imgs[];
     editId?: string;
+    wished?: boolean;
 }) {
     console.log('image ID: ', props.images);
 
@@ -40,6 +43,12 @@ function ProductsCards(props: {
                 <a href={`/product/${props?.productId}`} className="btn btn-primary" id="colorB">
                     Details
                 </a>
+                {props.userId !== "guest" ?
+                    <WishlistButton
+                        userId={props.userId}
+                        productId={props.productId}
+                        isWished={props.wished} /> : null
+                }
             </div>
         </div>
     );

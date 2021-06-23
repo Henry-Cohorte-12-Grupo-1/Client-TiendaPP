@@ -55,6 +55,17 @@ export const bringProducts = () => {
         });
     };
 };
+export const bringWishlist = (userId: string) => {
+    return async (dispatch: Dispatch) => {
+        const productos = await axios.get<any[]>(
+            `${url}/wishlist/${userId}`
+        );
+        dispatch({
+            type: ActionTypes.BRING_WISHLIST,
+            payload: productos.data.map(p => p.Product),
+        });
+    };
+};
 
 export const bringUserProducts = (userName: string | null) => {
     return async (dispatch: Dispatch) => {

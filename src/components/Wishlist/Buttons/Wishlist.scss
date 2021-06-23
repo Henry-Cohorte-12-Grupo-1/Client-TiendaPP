@@ -1,0 +1,16 @@
+#wishlist-container {
+    // display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // font-size: calc(10px + 2vmin);
+    text-align: center;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+#wl {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100vw;
+}

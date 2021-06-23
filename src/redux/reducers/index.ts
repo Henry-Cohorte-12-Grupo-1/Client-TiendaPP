@@ -8,6 +8,7 @@ import { setCartItemQuantity } from '../actions';
 
 // Interface de Store NO CAMBIAR DE LUGAR
 export interface StoreType {
+    wishlist: obj[];
     counter: number;
     productList: obj[];
     filter: category[];
@@ -80,6 +81,7 @@ const initialState: StoreType = {
     filterOrders: [],
     cart: [],
     totalAmount: 0,
+    wishlist: []
 };
 
 interface IAction {
@@ -95,6 +97,7 @@ interface IAction {
     totalAmount: number;
     itemsData: { userId: string; productId: string };
     addedCartProduct: IProduct;
+    wishlist: obj[]
 }
 
 // interface IProducts {
@@ -160,6 +163,11 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 ...state,
                 filterOrders: (state.userOrders.length > 0 && typeof state.userOrders === "object") ? state.userOrders.filter((o) => o.status === action.status) : [],
             };
+        case ActionTypes.BRING_WISHLIST:
+            return {
+                ...state,
+                wishlist: action.payload
+            }
 
         case ActionTypes.LOAD_CART:
             return {

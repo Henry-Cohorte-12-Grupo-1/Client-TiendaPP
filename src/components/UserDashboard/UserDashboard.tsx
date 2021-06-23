@@ -19,25 +19,31 @@ function UserDashboard() {
                 <div className="card mr-5" id="cardWidth">
                     <img src="https://underconstructionpage.com/app/wp-content/uploads/2018/08/how-to-effectively-manage-online-sales.jpg" id="cardsHeight" className="card-img-top" alt="not found" />
                     <div className="card-body">
-                    <a className="btn btn-primary" id="mButtonU" href={`/user/activeProducts`}>Active sales</a>
+                        <a className="btn btn-primary" id="mButtonU" href={`/user/activeProducts`}>Active sales</a>
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">
                     <img src="https://www.intheblack.com/-/media/intheblack/allimages/magazine-2020/07-july/illustration-online-sales-recipts-ipad.jpg?rev=0ac69ac842954cbe82782edd331ad3c3" className="card-img-top" id="cardsHeight" alt="not found" />
                     <div className="card-body">
-                    <a className="btn btn-primary" id="mButtonU" href="/user/create">Create new</a>
+                        <a className="btn btn-primary" id="mButtonU" href="/user/create">Create new</a>
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">
                     <img src="https://thenewdaily.com.au/wp-content/uploads/2019/10/1572243151-online-shopping-edm-960x540.jpg" className="card-img-top" id="cardsHeight" alt="not found" />
                     <div className="card-body">
-                    <a className="btn btn-primary" id="mButtonU" href={`/user/orders`}>My orders</a>
+                        <a className="btn btn-primary" id="mButtonU" href={`/user/orders`}>My orders</a>
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">
-                    <img src="https://shipearly.com/wp-content/uploads/2016/12/12_ways_to_increase_online_sales_1100x500px.png" className="card-img-top" id="cardsHeight"  alt="not found" />
+                    <img src="https://shipearly.com/wp-content/uploads/2016/12/12_ways_to_increase_online_sales_1100x500px.png" className="card-img-top" id="cardsHeight" alt="not found" />
                     <div className="card-body">
-                    <a className="btn btn-primary" id="mButtonU" href={`/user/sales`}>Sold products</a>
+                        <a className="btn btn-primary" id="mButtonU" href={`/user/sales`}>Sold products</a>
+                    </div>
+                </div>
+                <div className="card mr-5" id="cardWidth">
+                    <img src="https://randems.lk/wp-content/uploads/2020/05/wish-list-Small.png" className="card-img-top" id="cardsHeight" alt="not found" />
+                    <div className="card-body">
+                        <a className="btn btn-primary" id="mButtonU" href={`/user/wishlist`}>My whishlist</a>
                     </div>
                 </div>
             </div>

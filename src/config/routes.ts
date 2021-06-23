@@ -22,6 +22,7 @@ import Payment from '../components/Payment/Payment';
 import UserSales from '../components/UserOrders/UserSales';
 import Cart from '../components/Cart/Cart';
 import TokenURL from '../components/Auth/TokenURL';
+import Wishlist from '../components/Wishlist/Wishlist';
 
 const routes: IRoute[] = [
     {
@@ -68,6 +69,13 @@ const routes: IRoute[] = [
         component: AuthUser,
         exact: true,
         props: { path: '/user/sales', name: 'Usersales', component: UserSales, exact: true },
+    },
+    {
+        path: '/user/wishlist',
+        name: 'Wishlist',
+        component: AuthUser,
+        exact: true,
+        props: { path: '/user/wishlist', name: 'Wishlist', component: Wishlist, exact: true },
     },
     {
         path: '/user/activeProducts',
