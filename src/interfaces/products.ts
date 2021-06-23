@@ -5,7 +5,8 @@ export default interface obj {
     description: string;
     price: number;
     Category: category;
-    Images: imgs[]
+    Images: imgs[];
+    quantity: number
 }
 
 export interface imgs {

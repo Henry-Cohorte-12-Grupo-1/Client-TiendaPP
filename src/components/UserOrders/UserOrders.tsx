@@ -64,7 +64,7 @@ export default function UserOrders() {
             setFilter(false)
         } else
             dispatch(filteredOrders(e.target.name))
-            setFilter(false)
+        setFilter(false)
     }
 
     const handleClick2 = async (e: any) => {
@@ -100,8 +100,8 @@ export default function UserOrders() {
                 <label className="btn btn-primary m-2" htmlFor="reset">Reset</label>
 
             </div>
-            {(currentOrders.length < 1) ? <h4>Nothing Found</h4> : null}
-            {console.log(currentOrders)}
+            {(currentOrders.length < 1) ? <div className="justify-content-center"><h4>Nothing Found</h4> </div> : null}
+
             {!filter ? orders.map(o => {
                 return (
                     <OrderListItem
