@@ -50,7 +50,6 @@ function App() {
                         })}
                     </Switch>
                 </div>
-                <Footer />
             </div>
         );
     };
@@ -65,6 +64,7 @@ function App() {
                 <Route exact path="/" component={Landing} />
                 <Route component={DefaultRoutes} />
             </Switch>
+            <Footer />
         </div>
     );
 }
