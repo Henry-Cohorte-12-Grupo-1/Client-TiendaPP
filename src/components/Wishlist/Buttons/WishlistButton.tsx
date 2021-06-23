@@ -3,6 +3,8 @@ import swal from 'sweetalert'
 import axios from "axios";
 import { url } from "../../../api";
 import { useHistory } from "react-router";
+import heart from '../../../assets/heart1.svg'
+import heartUnfilled from '../../../assets/heart2.svg'
 
 interface Props {
     userId?: string;
@@ -37,11 +39,15 @@ function WishlistButton(props: Props): ReactElement {
     }
     if (props.isWished) {
         return (
-            <button className="btn btn-primary" onClick={handleRemove} >Remove</button>
+            <button type="button" className="btn" onClick={handleRemove} >
+                <img src={heart} width="30" height="30" alt="remove heart" />
+            </button>
         )
     } else {
         return (
-            <button className="btn btn-primary" onClick={handleAdd}>Add</button>
+            <button type="button" className="btn" onClick={handleAdd}>
+                <img src={heartUnfilled} width="30" height="30" alt="add heart" />
+            </button>
         )
     }
 }

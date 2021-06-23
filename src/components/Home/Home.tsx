@@ -16,8 +16,10 @@ function Home() {
         (state) => state.wishlist
     );
     const dispatch = useDispatch();
-    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
-    let userId: string = token.id;
+    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    const userId = token ? token.id : 'guest';
+
+
 
     useEffect(() => {
         dispatch(bringProducts());

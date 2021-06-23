@@ -43,10 +43,12 @@ function ProductsCards(props: {
                 <a href={`/product/${props?.productId}`} className="btn btn-primary" id="colorB">
                     Details
                 </a>
-                <WishlistButton
-                    userId={props.userId}
-                    productId={props.productId}
-                    isWished={props.wished} />
+                {props.userId !== "guest" ?
+                    <WishlistButton
+                        userId={props.userId}
+                        productId={props.productId}
+                        isWished={props.wished} /> : null
+                }
             </div>
         </div>
     );

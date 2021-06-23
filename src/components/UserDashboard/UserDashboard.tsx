@@ -41,7 +41,7 @@ function UserDashboard() {
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">
-                    <img src="https://shipearly.com/wp-content/uploads/2016/12/12_ways_to_increase_online_sales_1100x500px.png" className="card-img-top" id="cardsHeight" alt="not found" />
+                    <img src="https://randems.lk/wp-content/uploads/2020/05/wish-list-Small.png" className="card-img-top" id="cardsHeight" alt="not found" />
                     <div className="card-body">
                         <a className="btn btn-primary" id="mButtonU" href={`/user/wishlist`}>My whishlist</a>
                     </div>
