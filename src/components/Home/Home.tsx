@@ -24,7 +24,9 @@ function Home() {
     useEffect(() => {
         dispatch(bringProducts());
         dispatch(getCategories());
-        dispatch(bringWishlist(userId));
+        if (userId !== "guest") {
+            dispatch(bringWishlist(userId));
+        }
     }, []); //eslint-disable-line
 
     const [index, setIndex] = useState(0);
