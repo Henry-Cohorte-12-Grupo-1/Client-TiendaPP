@@ -17,7 +17,7 @@ function Home() {
     );
     const dispatch = useDispatch();
     const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
-    const userId = token ? token.id : 'guest';
+    const userId = token?.id ? token.id : 'guest';
 
 
 
