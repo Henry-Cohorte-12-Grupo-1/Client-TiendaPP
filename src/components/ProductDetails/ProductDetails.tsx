@@ -62,7 +62,8 @@ function ProductDetails(props: Props): ReactElement {
                     <Container className="d-flex flex-column">
                         <h4>${details.price}</h4>
                         <p>{details.description}</p>
-                        <AddButton productId={details.productId} userId={userId} />
+                        {details.quantity > 0 ? <AddButton productId={details.productId} userId={userId} /> : <em>Not available right now</em>}
+
                     </Container>
                 </Container>
                 <hr></hr>
