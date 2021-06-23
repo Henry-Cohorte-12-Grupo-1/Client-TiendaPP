@@ -1,21 +1,28 @@
 import { StoreType } from "../../redux/reducers/index";
-import { bringProducts, getCategories } from "../../redux/actions/index";
+import { bringProducts, bringWishlist, getCategories } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import obj from "../../interfaces/products";
 import ProductsCards from "../ProductsCards/ProductsCards";
 import "./Home.scss";
 import { Container, Carousel } from "react-bootstrap";
+import jwtDecode from "jwt-decode"
 
 function Home() {
     const producto = useSelector<StoreType, obj[]>(
         (state) => state.filterProducts
     );
+    const wishlist = useSelector<StoreType, obj[]>(
+        (state) => state.wishlist
+    );
     const dispatch = useDispatch();
+    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
+    let userId: string = token.id;
 
     useEffect(() => {
         dispatch(bringProducts());
         dispatch(getCategories());
+        dispatch(bringWishlist(userId));
     }, []); //eslint-disable-line
 
     const [index, setIndex] = useState(0);
@@ -81,6 +88,8 @@ function Home() {
                                     productId={p.productId}
                                     image=""
                                     images={p.Images ? p.Images : []}
+                                    userId={userId}
+                                    wished={wishlist.some(w => w.productId === p.productId)}
                                 />
                             );
                         })}

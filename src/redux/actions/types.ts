@@ -18,4 +18,5 @@ export enum ActionTypes {
     LOAD_GUEST_CART,
     GET_USER_ORDERS,
     FILTERED_ORDERS,
+    BRING_WISHLIST
 }
