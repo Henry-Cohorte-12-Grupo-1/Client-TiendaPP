@@ -8,8 +8,8 @@ import ProductsCards from "../ProductsCards/ProductsCards";
 
 export default function Wishlist() {
 
-    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
-    let userId: string = token.id;
+    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    const userId = token ? token.id : 'guest';
 
     const producto = useSelector<StoreType, obj[]>(
         (state) => state.wishlist
@@ -19,7 +19,9 @@ export default function Wishlist() {
 
     //When loading it calls for the user's wishlist
     useEffect(() => {
-        dispatch(bringWishlist(userId));
+        if (userId !== "guest") {
+            dispatch(bringWishlist(userId));
+        }
     }, []); //eslint-disable-line
 
 
