@@ -158,7 +158,7 @@ export default function reducer(state: StoreType = initialState, action: IAction
         case ActionTypes.FILTERED_ORDERS:
             return {
                 ...state,
-                filterOrders: state.userOrders.filter((o) => o.status === action.status),
+                filterOrders: (state.userOrders.length > 0 && typeof state.userOrders === "object") ? state.userOrders.filter((o) => o.status === action.status) : [],
             };
 
         case ActionTypes.LOAD_CART:

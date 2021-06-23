@@ -72,7 +72,7 @@ function Home() {
                 >
                     {producto &&
                         // <div className="row row-cols-1 row-cols-md-2">
-                        producto.map((p) => {
+                        producto.filter(p => p.quantity > 0).map((p) => {
                             return (
                                 <ProductsCards
                                     key={p.productId}
