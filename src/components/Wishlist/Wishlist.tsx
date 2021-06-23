@@ -26,29 +26,32 @@ export default function Wishlist() {
 
 
     return (
-        <div>
+        <div id="wishlist-container">
             {/* renderiza cards con los productos que están en la wishlist */}
-            {producto &&
-                // <div className="row row-cols-1 row-cols-md-2">
-                producto.filter(p => p.quantity > 0).map((p) => {
-                    return (
-                        <ProductsCards
-                            key={p.productId}
-                            name={p.name}
-                            price={p.price}
-                            productId={p.productId}
-                            image=""
-                            userId={userId}
-                            wished={producto.some(p => p.productId)}
-                            images={p.Images ? p.Images : []}
-                        />
-                    );
-                })}
-            <h1>WISHLIST RATATATATA</h1>
+            <div id="separation">
+                <div id="wl"
+                    className="d-flex justify-content-center flex-wrap ml-0 mr-0">
+                    {producto &&
+                        // <div className="row row-cols-1 row-cols-md-2">
+                        producto.filter(p => p.quantity > 0).map((p) => {
+                            return (
+                                <div className="d-flex justify-content-center flex-wrap ml-0 mr-0">
+                                    <ProductsCards
+                                        key={p.productId}
+                                        name={p.name}
+                                        price={p.price}
+                                        productId={p.productId}
+                                        image=""
+                                        userId={userId}
+                                        wished={producto.some(p => p.productId)}
+                                        images={p.Images ? p.Images : []}
+                                    />
+                                </div>
+                            );
+                        })}
+                </div>
+            </div>
         </div>
     )
 }
 
-function dispatch(arg0: any) {
-    throw new Error("Function not implemented.");
-}
