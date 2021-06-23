@@ -1,27 +1,39 @@
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import './Landing.scss'
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "./Landing.scss";
 
 function Landing() {
     return (
         <div>
-            <header className='hero'>
-                <div className='textos-hero'>
+            <header className="hero">
+                <div className="textos-hero">
                     <h1>Welcome to TiendApp</h1>
                     <p>Come in and find what you are looking for</p>
-                    <Link to='/home'>
-                        <Button variant="outline-secondary">Let's go</Button>
+                    <Link to="/home">
+                        <Button variant="btn btn-secondary">
+                            Let&apos;s go
+                        </Button>
                     </Link>
                 </div>
-                <div className="svg-hero" style={{ height: "150px", overflow: "hidden" }}>
-                    <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{ height: "100%", width: "100%" }}>
-                        <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style={{ stroke: "none", fill: "#fff" }}></path>
+                <div
+                    className="svg-hero"
+                    style={{ height: "150px", overflow: "hidden" }}
+                >
+                    <svg
+                        viewBox="0 0 500 150"
+                        preserveAspectRatio="none"
+                        style={{ height: "100%", width: "100%" }}
+                    >
+                        <path
+                            d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+                            style={{ stroke: "none", fill: "#fff" }}
+                        ></path>
                     </svg>
                 </div>
             </header>
 
-            <section className="cardsL contenedor">
-                {/* <div className="content-cardsL">
+            {/* <section className="cardsL contenedor"> */}
+            {/* <div className="content-cardsL">
                     <article className="cardL">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
@@ -47,13 +59,9 @@ function Landing() {
                         <p>Enjoy your product in the comfort of your home.</p>
                     </article>
                 </div> */}
-            </section>
-
-
-
+            {/* </section> */}
         </div>
-    )
+    );
 }
-
 
 export default Landing;
