@@ -1,5 +1,5 @@
 #cardWidth{
-    width: 80rem;
+    width: 20rem;
 }
 
 #cardsHeight{
@@ -11,5 +11,9 @@
 }
 
 #mButtonU{
-    margin-left: 2rem;
+    margin-left: 5rem;
+}
+
+#usernameD{
+    margin-left: 3rem;
 }
