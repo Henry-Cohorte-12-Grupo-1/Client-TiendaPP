@@ -36,8 +36,9 @@ function Admin() {
             const users = rusers.data.map((user: any) => ({
                 username: user.username,
                 userId: user.userId,
-                role: user.roleId,
+                role: user.role,
             }));
+            console.log('rusers', rusers)
             // let usersName = (rusers.data.map((user: any) => user.username))
             // setUsers({
             //     ...users,
@@ -138,7 +139,7 @@ function Admin() {
 
         await axios.put(`${url}/updateCategories`, sendObject)
             .catch(() => swal('request failed'))
-        console.log(userSubmit)
+        console.log("userSubmit",userSubmit)
         if (userSubmit.passReset) {
             if (userSubmit.role === 2) {
                 console.log(userSubmit)
