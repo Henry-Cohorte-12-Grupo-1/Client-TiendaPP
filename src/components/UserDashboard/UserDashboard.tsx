@@ -7,8 +7,8 @@ function UserDashboard() {
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
     return (
-        <Container className="d-flex flex-column ml-8 mt-4">
-            <h1>{userName.length < 18 ? userName : null} Dashboard</h1>
+        <div className="d-flex flex-column ml-8 mt-5">
+            <h1 id="usernameD">{userName.length < 18 ? userName : null} Dashboard</h1>
             {/* <div className="d-flex justify-content-around m-5">
                 <a className="btn btn-primary" id='colorB' href={`/user/activeProducts`}>Active sales</a>
                 <a className="btn btn-primary" id='colorB' href="/user/create">Create New</a>
@@ -41,13 +41,13 @@ function UserDashboard() {
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">
-                    <img src="https://randems.lk/wp-content/uploads/2020/05/wish-list-Small.png" className="card-img-top" id="cardsHeight" alt="not found" />
+                    <img src="https://cdn.dribbble.com/users/40733/screenshots/1631989/wishlist.png" className="card-img-top" id="cardsHeight" alt="not found" />
                     <div className="card-body">
                         <a className="btn btn-primary" id="mButtonU" href={`/user/wishlist`}>My whishlist</a>
                     </div>
                 </div>
             </div>
-        </Container>
+        </div>
     )
 }
 export default UserDashboard
