@@ -26,7 +26,7 @@ function AboutUs() {
                     <a href='https://www.linkedin.com/in/violeta-fuentes-fullstackdeveloper/'><img src={logo8} alt=' not found'></img></a>
                     <a href='https://www.linkedin.com/in/jc-becerra/'><img src={logo9} alt=''></img></a>
                 </div>
-                <div className='sectionAbout'>
+                <div className='container sectionAbout'>
                     <span className='nameA'>About the project</span>
                     <span className='aboutUsBorder'></span>
                     <p>We developed a market place using Scrum metodology, React, Typescript, redux, Sequelize, React Boostrap, Boostrap, SCSS and other techonolies.</p> 
