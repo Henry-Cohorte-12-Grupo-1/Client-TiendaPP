@@ -76,3 +76,33 @@
 /* .ourTeam{
     margin-bottom: 1rem;
 } */
+
+@media  screen and (max-width: 1137px) {
+     .sectionAbout{
+        width: 50rem;
+     }
+}
+
+@media  screen and (max-width: 768px) {
+     .sectionAbout{
+        width: 40rem;
+     }
+}
+
+@media  screen and (max-width: 548px) {
+     .sectionAbout{
+        width: 30rem;
+     }
+}
+
+@media  screen and (max-width: 407px) {
+     .sectionAbout{
+        width: 20rem;
+     }
+}
+
+@media  screen and (max-width: 271px) {
+     .sectionAbout{
+        width: 10rem;
+     }
+}
