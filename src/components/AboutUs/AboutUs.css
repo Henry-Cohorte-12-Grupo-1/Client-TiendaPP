@@ -7,6 +7,8 @@
     overflow: hidden;
     text-align: center;
     background: #2c666e;
+    background-size: cover;
+    min-height: 80vh;
 }
 
 .team-section h1{
@@ -22,12 +24,13 @@
     margin: auto;
     width: 160px;
     height: 5px;
-    background: #90ddf0;
-    margin-bottom: 20px;
+    background: hsl(192, 76%, 75%);
+    margin-bottom: 3rem;
+    margin-top: 2rem;
 }
 
 .ps{
-    margin-bottom: 50px;
+    margin-bottom: 4rem;
 }
 
 .ps a{
@@ -50,17 +53,17 @@
 }
 
 .sectionAbout{
-    width: 800px;
+    width: 70rem;
     margin: auto;
     font-size: 20px;
     color: #ffffff;
     text-align: justify;
-    margin-bottom: 9rem;
+    margin-bottom: 3rem;
 }
 
 .nameA{
     display: block;
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
     text-align: center;
     text-transform: uppercase;
     font-size: 22px;
@@ -69,3 +72,7 @@
 .marginAbout{
     height: 100%;
 }
+
+/* .ourTeam{
+    margin-bottom: 1rem;
+} */
