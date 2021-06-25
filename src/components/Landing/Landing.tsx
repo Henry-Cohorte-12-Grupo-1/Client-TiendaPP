@@ -1,10 +1,13 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Landing.scss";
+import sell from "./sell.svg";
+import buy from "./buy.svg";
+import enjoy from "./enjoy.svg";
 
 function Landing() {
     return (
-        <div>
+        <div style={{backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems:'center'}}>
             <header className="hero">
                 <div className="textos-hero">
                     <h1>Welcome to TiendApp</h1>
@@ -32,34 +35,25 @@ function Landing() {
                 </div>
             </header>
 
-            {/* <section className="cardsL contenedor"> */}
-            {/* <div className="content-cardsL">
+            <section className="cardsL contenedor"> 
+            <div className="content-cardsL">
                     <article className="cardL">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
-                            <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
-                            <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
-                        </svg>
+                        <img className='cardL-img' src={sell} alt="" />
                         <h3>Sell</h3>
                         <p>Sell your products without worries.</p>
                     </article>
                     <article className="cardL">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
-                            <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
-                            <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
-                        </svg>
+                    <img className='cardL-img' src={buy} alt="" />
                         <h3>Buy</h3>
                         <p>Buy quickly and easily.</p>
                     </article>
                     <article className="cardL">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
-                            <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
-                            <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
-                        </svg>
+                    <img className='cardL-img' src={enjoy} alt="" />
                         <h3>Enjoy</h3>
                         <p>Enjoy your product in the comfort of your home.</p>
                     </article>
-                </div> */}
-            {/* </section> */}
+                </div>
+            </section>
         </div>
     );
 }
