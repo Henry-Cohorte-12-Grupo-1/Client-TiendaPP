@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Footer from "../Footer/Footer";
 import "./Landing.scss";
 import sell from "./sell.svg";
 import buy from "./buy.svg";
@@ -34,7 +35,6 @@ function Landing() {
                     </svg>
                 </div>
             </header>
-
             <section className="cardsL contenedor"> 
             <div className="content-cardsL">
                     <article className="cardL">
