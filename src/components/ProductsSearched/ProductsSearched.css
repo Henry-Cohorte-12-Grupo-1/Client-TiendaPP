@@ -9,14 +9,11 @@
     background: #2c666e;
 }
 
+.pagesS:hover{
+    box-shadow: -3px 3px #123B24;
+}
+
 #selectS{
     border: none;
     margin-top: 3px;
-}
-
-.pagesS1{
-    border: none;
-    border-radius: 10px;
-    padding: 5px 10px;
-    background: #2c666e;
 }
