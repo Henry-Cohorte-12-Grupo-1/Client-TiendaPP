@@ -4,7 +4,6 @@ import detailedProduct from '../../interfaces/detailedProduct';
 import IUserProduct from '../../interfaces/userProducts';
 import IUserOrders from '../../interfaces/userOrders';
 import { IProduct } from '../../interfaces/product';
-import { setCartItemQuantity } from '../actions';
 import { IQuestions } from '../../interfaces/questions';
 
 // Interface de Store NO CAMBIAR DE LUGAR
@@ -193,7 +192,7 @@ export default function reducer(state: StoreType = initialState, action: IAction
             };
 
         case ActionTypes.DELETE_CART_ITEM:
-            const filteredCart = state.cart.filter((product) => product.productId != action.itemsData.productId);
+            const filteredCart = state.cart.filter((product) => product.productId !== action.itemsData.productId);
             //REMOVE THE PRODUCT FROM THE LOCAL STORAGE
             if (action.itemsData.userId) {
                 const filteredCart_json = JSON.stringify(filteredCart);
@@ -227,7 +226,6 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 totalAmount: action.totalAmount,
             };
         case ActionTypes.PRODUCT_QUESTIONS:
-            console.log('entro al reducer')
             return {
                 ...state,
                 productQuestions: action.payload,
