@@ -46,12 +46,9 @@ body {
     height: 30rem;
     //filter: linear-gradient(0deg, #00000038 30%, #ffffff44 100%);
 }
-Carousel.Item {
-    filter: brightness(50%);
-}
 
 #ContainerC {
-    margin-top: 2rem;
+    //margin-top: 2rem;
 }
 
 .overlay {
@@ -64,4 +61,8 @@ Carousel.Item {
     width: 100%;
     opacity: 1;
     background: linear-gradient(0deg, #000000b0 30%, #ffffff00 100%);
+}
+
+.carousel-item img {
+    object-fit: cover;
 }
