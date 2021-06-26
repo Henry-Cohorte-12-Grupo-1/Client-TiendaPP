@@ -8,6 +8,8 @@ import { orderByCategories, bringProducts } from "../../redux/actions/index";
 import { category } from "../../interfaces/products";
 import jwtDecode from "jwt-decode";
 
+import Sidebar from "./Sidebar/Sidebar";
+
 function NavComponent() {
     const categorias = useSelector<StoreType, category[]>((s) => s.filter);
     const dispatch = useDispatch();
@@ -16,13 +18,18 @@ function NavComponent() {
         dispatch(orderByCategories(category));
     };
 
-    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
-    let admin: boolean = token.admin
-    let user: boolean = token.user
+    const token: any = localStorage.token
+        ? jwtDecode(localStorage.token)
+        : false;
+    const admin: boolean = token.admin;
+    const user: boolean = token.user;
 
     return (
         <Navbar bg="primary" expand="lg">
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+            <div className="navbar-toggler" aria-controls="basic-navbar-nav">
+                <Sidebar />
+            </div>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Link to="/home">
@@ -33,6 +40,7 @@ function NavComponent() {
                             Home
                         </button>
                     </Link>
+
                     {localStorage.token ? null : (
                         <Link to="/login">
                             <button
@@ -43,6 +51,7 @@ function NavComponent() {
                             </button>
                         </Link>
                     )}
+
                     {admin ? (
                         <Link to="/admin">
                             <button
@@ -53,6 +62,7 @@ function NavComponent() {
                             </button>
                         </Link>
                     ) : null}
+
                     {localStorage.token ? null : (
                         <Link to="/sign-up">
                             <button
@@ -72,9 +82,9 @@ function NavComponent() {
                             >
                                 Categories
                                 <ul>
-                                    {categorias.map((c) => {
+                                    {categorias.map((c, i) => {
                                         return (
-                                            <li>
+                                            <li key={i}>
                                                 <a
                                                     id="colorB"
                                                     onClick={() =>
@@ -121,22 +131,20 @@ function NavComponent() {
                             </button>
                         </Link>
                     ) : null}
-                    {
-                        localStorage.token && (
-                            <div>
-                                <a
-                                    className="btn font-weight-bold"
-                                    id="colorButton2"
-                                    onClick={() => {
-                                        localStorage.removeItem("token");
-                                    }}
-                                    href="/"
-                                >
-                                    Log out
-                                </a>
-                            </div>
-                        )
-                    }
+                    {localStorage.token && (
+                        <div>
+                            <a
+                                className="btn font-weight-bold"
+                                id="colorButton2"
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+                                }}
+                                href="/"
+                            >
+                                Log out
+                            </a>
+                        </div>
+                    )}
                 </Nav>
             </Navbar.Collapse>
             <Form id="wFormNav">
