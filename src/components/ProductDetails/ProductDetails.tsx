@@ -16,7 +16,10 @@ interface MatchParams {
     id: string;
 }
 type Props = RouteComponentProps<MatchParams>;
+
+
 function ProductDetails(props: Props): ReactElement {
+
     const id = props.match.params.id;
     const details = useSelector<StoreType, detailedProduct>(
         (state) => state.productDetails
@@ -37,6 +40,8 @@ function ProductDetails(props: Props): ReactElement {
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
     console.log(details, "Componente ProductDetails");
+
+    
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -133,6 +138,8 @@ function ProductDetails(props: Props): ReactElement {
                 ) : (
                     <label>No reviews yet :'( </label>
                 )}
+                <hr></hr>
+                <h2 className="text-center mt-4">Customer questions and answers</h2>
             </div>
         </Container>
     );

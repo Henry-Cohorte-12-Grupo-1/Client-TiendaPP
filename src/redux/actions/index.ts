@@ -363,3 +363,16 @@ export const loadGuestCart = (cart: IProduct[]) => {
         totalAmount,
     };
 };
+
+
+export const productQuestions = (id: string) => {
+    return async (dispatch: Dispatch) => {
+        const productQuestions = await axios.get<any>(
+            `${url}/productQuestions`
+        );
+        dispatch({
+            type: ActionTypes.PRODUCT_QUESTIONS,
+            productDetails: productQuestions.data,
+        });
+    };
+};
