@@ -49,11 +49,18 @@ function Sidebar() {
 
                     {SidebarData.map((item, index) => {
                         if (
+                            //Matches role
                             userStatus === item.role ||
+                            //always show
                             item.role === UserStatus.all ||
+                            //Is logged
                             ((userStatus === UserStatus.admin ||
                                 userStatus === UserStatus.user) &&
-                                item.role === UserStatus.logged)
+                                item.role === UserStatus.logged) ||
+                            //Not admin
+                            (userStatus !== UserStatus.admin &&
+                                userStatus === UserStatus.user &&
+                                item.role === UserStatus.notAdmin)
                         ) {
                             return (
                                 <li

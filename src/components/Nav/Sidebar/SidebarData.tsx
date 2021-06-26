@@ -6,6 +6,7 @@ import * as IoIcons from "react-icons/io";
 export enum UserStatus {
     all,
     admin,
+    notAdmin,
     user,
     guest,
     logged,
@@ -37,7 +38,7 @@ export const SidebarData = [
         path: "/user",
         icon: <AiIcons.AiOutlineUser />,
         cName: "nav-text",
-        role: UserStatus.logged,
+        role: UserStatus.notAdmin,
         onClick: () => {
             return;
         },
@@ -67,7 +68,7 @@ export const SidebarData = [
         path: "/cart",
         icon: <AiIcons.AiOutlineShoppingCart />,
         cName: "nav-text",
-        role: UserStatus.all,
+        role: UserStatus.notAdmin,
         onClick: () => {
             return;
         },
