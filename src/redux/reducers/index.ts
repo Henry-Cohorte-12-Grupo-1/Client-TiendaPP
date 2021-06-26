@@ -4,7 +4,7 @@ import detailedProduct from '../../interfaces/detailedProduct';
 import IUserProduct from '../../interfaces/userProducts';
 import IUserOrders from '../../interfaces/userOrders';
 import { IProduct } from '../../interfaces/product';
-import { IQuestions } from '../../interfaces/questions';
+import { IQuestAndId } from '../../interfaces/questions';
 
 // Interface de Store NO CAMBIAR DE LUGAR
 export interface StoreType {
@@ -21,7 +21,7 @@ export interface StoreType {
     filterOrders: IUserOrders[];
     cart: IProduct[];
     totalAmount: number;
-    productQuestions: IQuestions[];
+    productQuestions: IQuestAndId;
 }
 
 export interface IPropsObj {
@@ -83,7 +83,10 @@ const initialState: StoreType = {
     cart: [],
     totalAmount: 0,
     wishlist: [],
-    productQuestions: []
+    productQuestions: {
+        resp:[],
+        id:''
+    }
 };
 
 interface IAction {
@@ -100,7 +103,7 @@ interface IAction {
     itemsData: { userId: string; productId: string };
     addedCartProduct: IProduct;
     wishlist: obj[];
-    productQuestions: IQuestions[];
+    productQuestions: IQuestAndId[];
 }
 
 // interface IProducts {

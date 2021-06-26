@@ -370,7 +370,6 @@ export const productQuestions = (id: string) => {
         const productQuestions: any = await axios.post(
             `${url}/questions`, {id:id}
         );
-        console.log('AAAA', productQuestions)
         dispatch(
             {
                 type: ActionTypes.PRODUCT_QUESTIONS,

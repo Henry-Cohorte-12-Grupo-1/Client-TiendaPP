@@ -4,13 +4,16 @@ import { ReactElement, useEffect, useState } from "react";
 import { productInfo, productQuestions } from "../../redux/actions";
 import { RouteComponentProps } from "react-router-dom";
 import detailedProduct from "../../interfaces/detailedProduct";
-import { Button, Carousel, Container, Form } from "react-bootstrap";
+import { Button, Carousel, Container } from "react-bootstrap";
 import "./style.scss";
 //for the add to cart button
 import AddButton from "../CartButtons/AddButton";
 import jwtDecode from "jwt-decode";
-import { IQuestions } from "../../interfaces/questions";
+import { IQuestAndId } from "../../interfaces/questions";
 import { BsArrowReturnRight } from 'react-icons/bs'
+// import axios from "axios";
+import { url } from "../../api";
+import sweetAlertInput from "./sweetAlertInput";
 
 //defino el tipado para match.params.id
 interface MatchParams {
@@ -20,16 +23,18 @@ type Props = RouteComponentProps<MatchParams>;
 
 
 function ProductDetails(props: Props): ReactElement {
-    const [question, setQuestion] = useState<string>()
+    // const [question, setQuestion] = useState<string>()
 
     const id = props.match.params.id;
 
     const details = useSelector<StoreType, detailedProduct>(
         (state) => state.productDetails
     );
-    const questions = useSelector<StoreType, IQuestions[]>(
+    const questions = useSelector<StoreType, IQuestAndId>(
         (state) => state.productQuestions
     );
+
+    console.log('eaeaeaeae', questions)
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
 
@@ -49,15 +54,16 @@ function ProductDetails(props: Props): ReactElement {
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    
-    const handleChange = (event: React.FormEvent<any>) =>{
-        let ques:string = (event.target as HTMLButtonElement).value
-        setQuestion(ques)
-    }
 
-    const handleSubmit = () =>{
-        console.log(question)
-    }
+    // const handleChange = (event: React.FormEvent<any>) => {
+    //     let ques: string = (event.target as HTMLButtonElement).value
+    //     setQuestion(ques)
+    // }
+
+    // const handleSubmit = async () => {
+    //     const resp = await axios.post(`${url}/questions/new`, { question: question, userId: userId, productId: id })
+    //     console.log('NEW resp', resp)
+    // }
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -155,26 +161,34 @@ function ProductDetails(props: Props): ReactElement {
                 )}
                 <hr></hr>
                 <h2 className="text-center mt-4">Questions and answers</h2>
-                <h3>Make a question</h3>
-                <Form.Group className="row d-flex align-center justify-content-center" controlId="exampleForm.ControlTextarea1">
-
-                    {/* <Col> */}
-                        <Form.Control className="w-50 ml-3 mb-3" id='questionTextarea' as="textarea" onChange={handleChange}/>
-                    {/* </Col> */}
-
-                    {/* <Col> */}
-                        <Button className="col-5 ml-5" id='questionButton' onClick={handleSubmit}>Ask</Button>
-                    {/* </Col> */}
-                </Form.Group>
-                <hr></hr>
+                {console.log('Id del token: ', userId)}
+                {console.log('Id del back:', questions.id)}
+                {(userId === questions.id) ? null : (
+                    <div>
+                        <Button onClick={() => sweetAlertInput('Your Question:', 'send question', `${url}/questions/new`, '',userId, id)}>Make a question</Button>
+                        {/* <h3>Make a question</h3>
+                        <Form.Group className="row d-flex align-center justify-content-center" controlId="exampleForm.ControlTextarea1">
+                            <Form.Control className="w-50 ml-3 mb-3" id='questionTextarea' as="textarea" onChange={handleChange} />
+                            <Button className="col-5 ml-5" id='questionButton' onClick={handleSubmit}>Ask</Button>
+                        </Form.Group> */}
+                        <hr></hr>
+                    </div>
+                )}
                 <h3>Last questions</h3>
                 <Container className='bg-light p-4'>
-                    {questions && questions.map((question, id) => (
+                    {questions.resp && questions.resp.map((question, i) => (
                         <div>
-                            <p className="mb-0" key={id}>{question.question}</p>
-                            {question.question ? (
-                                <p className="ml-3" key={id}>{ }<BsArrowReturnRight />&nbsp;{question.answer}</p>
+                            <p className="mb-0" key={i}>{question.question}</p>
+                            {question.answer ? (
+                                <p className="ml-3" key={i}>{ }<BsArrowReturnRight />&nbsp;{question.answer}</p>
                             ) : null}
+                            <div>
+                                {console.log('userId', userId)}
+                                {console.log('questions.id', questions.id)}
+                                {console.log('answer', question.answer)}
+                                {(userId === questions.id && !question.answer) ? (<Button onClick={() => sweetAlertInput('Your Answer:', 'send answer', `${url}/questions/answer`, question.questionId)}>Answer</Button>) : null}
+                            </div>
+
                             <hr></hr>
                         </div>
                     )

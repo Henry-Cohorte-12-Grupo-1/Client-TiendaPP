@@ -3,4 +3,11 @@ export interface IQuestions {
     question?:string,
     answer?:string,
     productId?:string,
+    questionId?:string
+}
+
+
+export interface IQuestAndId {
+    resp?: IQuestions[],
+    id?: string
 }
