@@ -7,6 +7,7 @@ import { Navbar, Nav, Form } from "react-bootstrap";
 import { orderByCategories, bringProducts } from "../../redux/actions/index";
 import { category } from "../../interfaces/products";
 import jwtDecode from "jwt-decode";
+import Dropdown from "../Dropdown/Dropdown";
 
 function NavComponent() {
     const categorias = useSelector<StoreType, category[]>((s) => s.filter);
@@ -112,6 +113,9 @@ function NavComponent() {
                         </Link>
                     )}
                     {user ? (
+                        <Dropdown />
+                    ): null}
+                    {/* {user ? (
                         <Link to="/user">
                             <button
                                 className="btn font-weight-bold"
@@ -136,7 +140,7 @@ function NavComponent() {
                                 </a>
                             </div>
                         )
-                    }
+                    } */}
                 </Nav>
             </Navbar.Collapse>
             <Form id="wFormNav">
