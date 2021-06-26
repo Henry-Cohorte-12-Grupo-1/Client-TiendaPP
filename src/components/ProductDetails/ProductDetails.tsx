@@ -4,14 +4,13 @@ import { ReactElement, useEffect, useState } from "react";
 import { productInfo, productQuestions } from "../../redux/actions";
 import { RouteComponentProps } from "react-router-dom";
 import detailedProduct from "../../interfaces/detailedProduct";
-import { Carousel, Container } from "react-bootstrap";
+import { Button, Carousel, Container, Form } from "react-bootstrap";
 import "./style.scss";
-import axios from 'axios'
-import { url } from "../../api";
-
 //for the add to cart button
 import AddButton from "../CartButtons/AddButton";
 import jwtDecode from "jwt-decode";
+import { IQuestions } from "../../interfaces/questions";
+import { BsArrowReturnRight } from 'react-icons/bs'
 
 //defino el tipado para match.params.id
 interface MatchParams {
@@ -21,10 +20,15 @@ type Props = RouteComponentProps<MatchParams>;
 
 
 function ProductDetails(props: Props): ReactElement {
+    const [question, setQuestion] = useState<string>()
 
     const id = props.match.params.id;
+
     const details = useSelector<StoreType, detailedProduct>(
         (state) => state.productDetails
+    );
+    const questions = useSelector<StoreType, IQuestions[]>(
+        (state) => state.productQuestions
     );
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
@@ -35,18 +39,25 @@ function ProductDetails(props: Props): ReactElement {
         : false;
     const userId: string = token ? token.id : "guest";
 
+
+
     useEffect(() => {
         (async () => {
             await dispatch(productInfo(id));
+            await dispatch(productQuestions(id))
             setLoading(false);
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    useEffect(() => {
-        (async ()=>{
-            await dispatch(productQuestions())
-        })()
-    },[]) // eslint-disable-line react-hooks/exhaustive-deps
+    
+    const handleChange = (event: React.FormEvent<any>) =>{
+        let ques:string = (event.target as HTMLButtonElement).value
+        setQuestion(ques)
+    }
+
+    const handleSubmit = () =>{
+        console.log(question)
+    }
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -143,7 +154,33 @@ function ProductDetails(props: Props): ReactElement {
                     <label>No reviews yet :'( </label>
                 )}
                 <hr></hr>
-                <h2 className="text-center mt-4">Customer questions and answers</h2>
+                <h2 className="text-center mt-4">Questions and answers</h2>
+                <h3>Make a question</h3>
+                <Form.Group className="row d-flex align-center justify-content-center" controlId="exampleForm.ControlTextarea1">
+
+                    {/* <Col> */}
+                        <Form.Control className="w-50 ml-3 mb-3" id='questionTextarea' as="textarea" onChange={handleChange}/>
+                    {/* </Col> */}
+
+                    {/* <Col> */}
+                        <Button className="col-5 ml-5" id='questionButton' onClick={handleSubmit}>Ask</Button>
+                    {/* </Col> */}
+                </Form.Group>
+                <hr></hr>
+                <h3>Last questions</h3>
+                <Container className='bg-light p-4'>
+                    {questions && questions.map((question, id) => (
+                        <div>
+                            <p className="mb-0" key={id}>{question.question}</p>
+                            {question.question ? (
+                                <p className="ml-3" key={id}>{ }<BsArrowReturnRight />&nbsp;{question.answer}</p>
+                            ) : null}
+                            <hr></hr>
+                        </div>
+                    )
+                    )}
+                </Container>
+
             </div>
         </Container>
     );
