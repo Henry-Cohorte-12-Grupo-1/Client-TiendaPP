@@ -5,6 +5,7 @@ import { StoreType, IProductsType } from '../../redux/reducers/index'
 import { Container } from 'react-bootstrap'
 import ProductsCards from '../ProductsCards/ProductsCards';
 import Pagination from "../Pagination/Pagination";
+import './ProductsSearched.css'
 
 
 export default function ProductsSearched() {
@@ -23,10 +24,10 @@ export default function ProductsSearched() {
   return (
     <div id='home-container'>
       {/* Cantidad de items */}
-      <div className="d-flex justify-content-center bg-primary mr-0">
-        <div className="">
-        <label className="text-light ml-5 mr-2">Pages: </label>
-          <select className="form-select form-select-lg py-1 " aria-label="Default select example" onChange={
+      <div className="d-flex justify-content-center mt-3 mb-5">
+        <div className="pagesS mr-3">
+        <label className="text-light ml-2 mr-2">Pages: </label>
+          <select id="selectS" className="form-select form-select-lg py-1 mr-2" aria-label="Default select example" onChange={
             (e) => {
               if (e.target.value === '5') {
                 dispatch(
@@ -53,9 +54,9 @@ export default function ProductsSearched() {
         </div>
      
       {/* Price or Name */}
-      <div className="">
-          <label className="text-light ml-5 mr-2">Order by:</label>
-          <select className="form-select py-1" aria-label="Default select example"  onChange={
+      <div className="pagesS mr-3">
+          <label className="text-light ml-2 mr-2">Order by:</label>
+          <select id="selectS" className="form-select py-1" aria-label="Default select example"  onChange={
             (e) => {
               if (e.target.value === 'name') {
                 setOption('name')
@@ -79,9 +80,9 @@ export default function ProductsSearched() {
       </div>
 
       {/* Orden */}
-      <div className="">     
-          <label className="text-light ml-5 mr-2">Type:</label>
-          <select className="form-select py-1" aria-label="Default select example"  onChange={
+      <div className="pagesS">     
+          <label className="text-light ml-2 mr-2">Type:</label>
+          <select id="selectS" className="form-select py-1" aria-label="Default select example"  onChange={
             (e) => {
               if (e.target.value === 'lower-higher') {
                 dispatch(
