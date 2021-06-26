@@ -4,7 +4,7 @@ import detailedProduct from '../../interfaces/detailedProduct';
 import IUserProduct from '../../interfaces/userProducts';
 import IUserOrders from '../../interfaces/userOrders';
 import { IProduct } from '../../interfaces/product';
-import { setCartItemQuantity } from '../actions';
+import { IQuestAndId } from '../../interfaces/questions';
 
 // Interface de Store NO CAMBIAR DE LUGAR
 export interface StoreType {
@@ -21,6 +21,7 @@ export interface StoreType {
     filterOrders: IUserOrders[];
     cart: IProduct[];
     totalAmount: number;
+    productQuestions: IQuestAndId;
 }
 
 export interface IPropsObj {
@@ -81,7 +82,11 @@ const initialState: StoreType = {
     filterOrders: [],
     cart: [],
     totalAmount: 0,
-    wishlist: []
+    wishlist: [],
+    productQuestions: {
+        resp:[],
+        id:''
+    }
 };
 
 interface IAction {
@@ -97,7 +102,8 @@ interface IAction {
     totalAmount: number;
     itemsData: { userId: string; productId: string };
     addedCartProduct: IProduct;
-    wishlist: obj[]
+    wishlist: obj[];
+    productQuestions: IQuestAndId[];
 }
 
 // interface IProducts {
@@ -177,7 +183,7 @@ export default function reducer(state: StoreType = initialState, action: IAction
             };
         case ActionTypes.SET_CART_ITEM_QUANTITY:
             const newCart = state.cart.map(function (cartItem) {
-                if (cartItem.productId == action.setQuantity.productId) {
+                if (cartItem.productId === action.setQuantity.productId) {
                     cartItem.quantity = action.setQuantity.quantity;
                 }
                 return cartItem;
@@ -189,7 +195,7 @@ export default function reducer(state: StoreType = initialState, action: IAction
             };
 
         case ActionTypes.DELETE_CART_ITEM:
-            const filteredCart = state.cart.filter((product) => product.productId != action.itemsData.productId);
+            const filteredCart = state.cart.filter((product) => product.productId !== action.itemsData.productId);
             //REMOVE THE PRODUCT FROM THE LOCAL STORAGE
             if (action.itemsData.userId) {
                 const filteredCart_json = JSON.stringify(filteredCart);
@@ -203,7 +209,7 @@ export default function reducer(state: StoreType = initialState, action: IAction
             //LOAD AL LOCAL STORAGE
             const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
             console.log('entered reducer');
-            if (!localCart.some((cartItem: IProduct) => cartItem.productId == action.addedCartProduct.productId)) {
+            if (!localCart.some((cartItem: IProduct) => cartItem.productId === action.addedCartProduct.productId)) {
                 console.log('new item');
                 const localCart_json = JSON.stringify([...localCart, action.addedCartProduct]);
                 localStorage.setItem('cart', localCart_json);
@@ -221,6 +227,11 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 ...state,
                 cart: action.payload,
                 totalAmount: action.totalAmount,
+            };
+        case ActionTypes.PRODUCT_QUESTIONS:
+            return {
+                ...state,
+                productQuestions: action.payload,
             };
         default:
             return state;
