@@ -365,14 +365,17 @@ export const loadGuestCart = (cart: IProduct[]) => {
 };
 
 
-export const productQuestions = (id: string) => {
+export const productQuestions = () => {
     return async (dispatch: Dispatch) => {
-        const productQuestions = await axios.get<any>(
-            `${url}/productQuestions`
-        );
-        dispatch({
+        const productQuestions:any = await axios.get(
+            `${url}/questions`
+            );
+            console.log('AAAA',productQuestions)
+        dispatch(
+            {
             type: ActionTypes.PRODUCT_QUESTIONS,
-            productDetails: productQuestions.data,
-        });
+            payload: productQuestions.data,
+        }
+        );
     };
 };

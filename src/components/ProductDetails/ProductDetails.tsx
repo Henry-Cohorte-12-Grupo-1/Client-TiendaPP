@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { StoreType } from "../../redux/reducers";
 import { ReactElement, useEffect, useState } from "react";
-import { productInfo } from "../../redux/actions";
+import { productInfo, productQuestions } from "../../redux/actions";
 import { RouteComponentProps } from "react-router-dom";
 import detailedProduct from "../../interfaces/detailedProduct";
 import { Carousel, Container } from "react-bootstrap";
 import "./style.scss";
+import axios from 'axios'
+import { url } from "../../api";
 
 //for the add to cart button
 import AddButton from "../CartButtons/AddButton";
@@ -39,9 +41,12 @@ function ProductDetails(props: Props): ReactElement {
             setLoading(false);
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-    console.log(details, "Componente ProductDetails");
 
-    
+    useEffect(() => {
+        (async ()=>{
+            await dispatch(productQuestions())
+        })()
+    },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -89,7 +94,6 @@ function ProductDetails(props: Props): ReactElement {
                 <h2 className="text-center mt-4">Reviews</h2>
                 {details.Reviews.length ? (
                     details.Reviews.map((rev) => {
-                        console.log("Reviews --->", rev);
                         return (
                             <div
                                 className="card center"
@@ -144,4 +148,5 @@ function ProductDetails(props: Props): ReactElement {
         </Container>
     );
 }
+
 export default ProductDetails;
