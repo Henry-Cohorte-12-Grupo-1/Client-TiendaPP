@@ -67,6 +67,18 @@ export const bringWishlist = (userId: string) => {
     };
 };
 
+export const bringSellerProfile = (userName: string) => {
+    return async (dispatch: Dispatch) => {
+        const sellerProfile = await axios.get<any[]>(
+            `${url}/seller/${userName}`
+        );
+        dispatch({
+            type: ActionTypes.BRING_SELLER_PROFILE,
+            payload: sellerProfile.data
+        });
+    };
+};
+
 export const bringUserProducts = (userName: string | null) => {
     return async (dispatch: Dispatch) => {
         const userProducts = await axios.get(`${url}/username/${userName}`);

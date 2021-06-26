@@ -5,6 +5,7 @@ import IUserProduct from '../../interfaces/userProducts';
 import IUserOrders from '../../interfaces/userOrders';
 import { IProduct } from '../../interfaces/product';
 import { setCartItemQuantity } from '../actions';
+import SellerProfile from '../../interfaces/sellerProfile';
 
 // Interface de Store NO CAMBIAR DE LUGAR
 export interface StoreType {
@@ -21,6 +22,7 @@ export interface StoreType {
     filterOrders: IUserOrders[];
     cart: IProduct[];
     totalAmount: number;
+    sellerProfile: SellerProfile
 }
 
 export interface IPropsObj {
@@ -81,7 +83,13 @@ const initialState: StoreType = {
     filterOrders: [],
     cart: [],
     totalAmount: 0,
-    wishlist: []
+    wishlist: [],
+    sellerProfile: {
+        userId: "",
+        header: "",
+        description: "",
+        images: []
+    }
 };
 
 interface IAction {
@@ -222,6 +230,11 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 cart: action.payload,
                 totalAmount: action.totalAmount,
             };
+        case ActionTypes.BRING_SELLER_PROFILE:
+            return {
+                ...state,
+                sellerProfile: action.payload
+            }
         default:
             return state;
     }

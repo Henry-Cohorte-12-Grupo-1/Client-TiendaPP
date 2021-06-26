@@ -57,6 +57,22 @@ function UserDashboard() {
                         <a className="btn btn-primary" id="mButtonU" href={`/user/wishlist`}>My whishlist</a>
                     </div>
                 </div>
+                <div className="card mr-5" id="cardWidth">
+                    <Link to={`/seller/edit/${userName}`}>
+                        <img src="https://cdn.dribbble.com/users/40733/screenshots/1631989/wishlist.png" className="card-img-top" id="cardsHeight" alt="not found" />
+                    </Link>
+                    <div className="card-body">
+                        <a className="btn btn-primary" id="mButtonU" href={`/seller/edit/${userName}`}>Create / Update Seller Profile</a>
+                    </div>
+                </div>
+                <div className="card mr-5" id="cardWidth">
+                    <Link to={`/seller/${userName}`}>
+                        <img src="https://cdn.dribbble.com/users/40733/screenshots/1631989/wishlist.png" className="card-img-top" id="cardsHeight" alt="not found" />
+                    </Link>
+                    <div className="card-body">
+                        <a className="btn btn-primary" id="mButtonU" href={`/seller/${userName}`}>My Seller Profile</a>
+                    </div>
+                </div>
             </div>
         </div>
     )
