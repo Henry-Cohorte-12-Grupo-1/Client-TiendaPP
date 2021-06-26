@@ -29,10 +29,11 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
 
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     const userId = token.id
+    const dispatch = useDispatch()
 
     const [sellerProfile, setSellerProfile] = useState<SellerProfile>({ userId: userId, header: "", description: "", images: [] })
-    const dispatch = useDispatch()
-    const history = useHistory()
+    //const [sellerProfile, setSellerProfile] = useState<SellerProfile>({ userId: userId, header: "", description: "", images: [] })
+
 
     const userName = props.match.params.userName
 
@@ -48,6 +49,7 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
     const seller = useSelector<StoreType, SellerProfile>(
         (state) => state.sellerProfile
     );
+    console.log("SELLER --->", seller)
 
 
 
