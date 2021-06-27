@@ -1,8 +1,8 @@
 import axios from 'axios';
 import swal from 'sweetalert'
 
-function sweetAlertInput(title: string, buttonTxt: string, path: string, questionId?: string, userId?: string, productId?: string) {
-    swal({
+async function sweetAlertInput(title: string, buttonTxt: string, path: string, questionId?: string, userId?: string, productId?: string) {
+    await swal({
         text: title,
         content: {
             element: "input"
@@ -21,11 +21,8 @@ function sweetAlertInput(title: string, buttonTxt: string, path: string, questio
                 return axios.post(path, { answer: name, questionId: questionId })
             }
         })
-        //   .then(results => {
-        //     return results.json();
-        //   })
         .then(json => {
-            swal(json.data).then(() => window.location.reload())
+            swal(json.data).then(() => console.log("holi"))
         })
 }
 
