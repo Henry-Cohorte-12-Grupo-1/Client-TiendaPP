@@ -1,10 +1,5 @@
-import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react'
-import { IProduct, ICategories } from '../../interfaces/product'
-import { IErrorProduct } from '../../interfaces/forms'
-import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-
 import { StoreType } from '../../redux/reducers/index';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -37,9 +32,7 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
         description: "",
         images: []
     })
-    //const [sellerProfile, setSellerProfile] = useState<SellerProfile>({ userId: userId, header: "", description: "", images: [] })
     const [index, setIndex] = useState<number>(0)
-    //const [initialImages, setInitialImages] = useState<string[]>([])
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
 
@@ -49,15 +42,8 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
     const userName = props.match.params.userName;
     const carouselProps = { index, imagesName, setIndex, setImage, setImagesName }
 
-
-
-
-
-
     useEffect(() => {
         dispatch(bringSellerProfile(userName));
-        //setSellerProfile(seller)
-        //setInitialImages(seller.images);
     }, [])//eslint-disable-line
 
     useEffect(() => {
@@ -67,14 +53,14 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
             header: seller.header,
             description: seller.description
         })
-    }, [seller])
+    }, [seller])//eslint-disable-line
 
     useEffect(() => {
         setSellerProfile({
             ...sellerProfile,
             images: imagesName
         })
-    }, [imagesName])
+    }, [imagesName])//eslint-disable-line
 
 
     useEffect(() => {
@@ -88,10 +74,6 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
             }
         })()
     }, [image])
-
-    //console.log("SELLER --->", seller)
-
-
 
     const handleChange = (event: any) => {
         if (event.target) {
@@ -107,8 +89,6 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
         await axios.post(`${url}/seller`, sellerProfile);
         swal("COSO UPDATED")
     }
-
-
 
     return (
         <Container>
