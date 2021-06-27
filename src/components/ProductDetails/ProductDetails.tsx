@@ -9,7 +9,7 @@ import "./style.scss";
 //for the add to cart button
 import AddButton from "../CartButtons/AddButton";
 import jwtDecode from "jwt-decode";
-import { IQuestAndId, IQuestions } from "../../interfaces/questions";
+import { IQuestAndId } from "../../interfaces/questions";
 import { BsArrowReturnRight } from "react-icons/bs";
 // import axios from "axios";
 import { url } from "../../api";
@@ -22,8 +22,6 @@ interface MatchParams {
 type Props = RouteComponentProps<MatchParams>;
 
 function ProductDetails(props: Props): ReactElement {
-  // const [question, setQuestion] = useState<string>()
-
   async function handleQuestion() {
     await SweetAlertInput(
       "Your Question:",
@@ -40,7 +38,7 @@ function ProductDetails(props: Props): ReactElement {
       "Your Answer:",
       "send answer",
       `${url}/questions/answer`,
-      quest,
+      quest
     );
     console.log("diai");
     dispatch(productQuestions(id));
@@ -60,7 +58,9 @@ function ProductDetails(props: Props): ReactElement {
   const [loading, setLoading] = useState(true);
 
   //GETTING USER ID FROM LOCAL STORAGE
-  const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+  const token: Storage | false = localStorage.token
+    ? jwtDecode(localStorage.token)
+    : false;
   const userId: string = token ? token.id : "guest";
 
   useEffect(() => {
