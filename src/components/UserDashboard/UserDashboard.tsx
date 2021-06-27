@@ -51,7 +51,7 @@ function UserDashboard() {
                 </div>
                 <div className="card mr-5" id="cardWidth">
                     <Link to={`/user/wishlist`}>
-                        <img src="https://cdn.dribbble.com/users/40733/screenshots/1631989/wishlist.png" className="card-img-top" id="cardsHeight" alt="not found" />
+                        <img src="https://img.freepik.com/free-vector/online-wishes-list-concept-illustration_114360-3632.jpg?size=338&ext=jpg" className="card-img-top" id="cardsHeight" alt="not found" />
                     </Link>
                     <div className="card-body">
                         <a className="btn btn-primary" id="mButtonU" href={`/user/wishlist`}>My whishlist</a>
@@ -59,7 +59,7 @@ function UserDashboard() {
                 </div>
                 <div className="card mr-5" id="cardWidth">
                     <Link to={`/seller/edit/${userName}`}>
-                        <img src="https://cdn.dribbble.com/users/40733/screenshots/1631989/wishlist.png" className="card-img-top" id="cardsHeight" alt="not found" />
+                        <img src="https://www.torodigital.com.au/wp-content/uploads/2018/10/Lawyers-Profile-Page.jpg" className="card-img-top" id="cardsHeight" alt="not found" />
                     </Link>
                     <div className="card-body">
                         <a className="btn btn-primary ml-3" href={`/seller/edit/${userName}`}>Create / Update Seller Profile</a>
@@ -67,7 +67,7 @@ function UserDashboard() {
                 </div>
                 <div className="card mr-5" id="cardWidth">
                     <Link to={`/seller/${userName}`}>
-                        <img src="https://cdn.dribbble.com/users/40733/screenshots/1631989/wishlist.png" className="card-img-top" id="cardsHeight" alt="not found" />
+                        <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fGxpbmtlZGluJTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" className="card-img-top" id="cardsHeight" alt="not found" />
                     </Link>
                     <div className="card-body">
                         <a className="btn btn-primary" id="mButtonU" href={`/seller/${userName}`}>My Seller Profile</a>
