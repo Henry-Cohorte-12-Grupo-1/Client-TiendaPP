@@ -46,13 +46,18 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
         dispatch(bringSellerProfile(userName));
     }, [])//eslint-disable-line
 
+    if (!seller.error) {
+
+    }
     useEffect(() => {
-        setImagesName(seller.images)
-        setSellerProfile({
-            ...sellerProfile,
-            header: seller.header,
-            description: seller.description
-        })
+        if (!seller.error) {
+            setImagesName(seller.images)
+            setSellerProfile({
+                ...sellerProfile,
+                header: seller.header,
+                description: seller.description
+            })
+        }
     }, [seller])//eslint-disable-line
 
     useEffect(() => {

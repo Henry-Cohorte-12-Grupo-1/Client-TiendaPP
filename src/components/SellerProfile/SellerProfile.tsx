@@ -17,13 +17,19 @@ function SellerProfileForm(props: any): ReactElement {
     const userId = token?.id ? token.id : 'guest';
 
     const dispatch = useDispatch()
+
+
+
     const seller = useSelector<StoreType, SellerProfile>(
         (state) => state.sellerProfile
     );
+
+
     const userProducts = useSelector<StoreType, IUserProduct[]>((state) => state.userProducts)
     const wishlist = useSelector<StoreType, obj[]>(
         (state) => state.wishlist
     );
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
         dispatch(bringSellerProfile(userName));
@@ -32,10 +38,16 @@ function SellerProfileForm(props: any): ReactElement {
             dispatch(bringWishlist(userId));
         }
     }, [])//eslint-disable-line
+
+    if (seller.error) {
+        return (
+            <h2>AAAAAAAAA</h2>
+        )
+    }
+
     let header = seller.header
     let description = seller.description
 
-    const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex: any) => {
         setIndex(selectedIndex);
@@ -43,7 +55,7 @@ function SellerProfileForm(props: any): ReactElement {
 
     return (
         <div className="sellerCont">
-            {seller.images.length ? (
+            {seller.images?.length ? (
                 <Carousel
                     activeIndex={index}
                     onSelect={handleSelect}
@@ -75,7 +87,7 @@ function SellerProfileForm(props: any): ReactElement {
                 <h5>{description}</h5>
             </div>
             <div className="d-flex justify-content-center flex-wrap ml-0 mr-0'">
-                {userProducts.length ? userProducts.map(p => {
+                {userProducts?.length ? userProducts.map(p => {
                     return (
                         <ProductsCards
                             name={p.name}
