@@ -50,7 +50,7 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
 
     }
     useEffect(() => {
-        if (!seller.error) {
+        if (!seller.error && typeof seller !== 'string') {
             setImagesName(seller.images)
             setSellerProfile({
                 ...sellerProfile,
