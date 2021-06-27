@@ -1,0 +1,68 @@
+.paymentCardContainer{
+    display: grid;
+    grid-gap: 20px;
+    width: 75%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, auto);
+    grid-template-areas: "image info price";
+}
+
+.paymentCardContainer .paymentCardImage{
+    grid-area: image;
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paymentCardContainer .paymentCardInfo{
+    grid-area: info;
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.paymentCardContainer .paymentCardPrice{
+    grid-area: price;
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 780px){
+    .paymentCardContainer{
+        grid-gap: 5px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, auto);
+        grid-template-areas: "image info"
+                            "image price";
+    }
+    .paymentCardContainer .paymentCardImage{
+        grid-area: image;
+        padding-bottom: 15px;
+        align-items: center;
+        justify-content: center
+    }
+
+    .paymentCardContainer .paymentCardInfo{
+        grid-area: info;
+        padding-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        // align-items: center;
+        // justify-content: center;
+    }
+
+    .paymentCardContainer .paymentCardPrice{
+        grid-area: price;
+        padding-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+} 
