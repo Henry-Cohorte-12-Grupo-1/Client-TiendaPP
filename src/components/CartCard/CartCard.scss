@@ -1,0 +1,73 @@
+.cartCardContainer{
+    display: grid;
+    grid-gap: 20px;
+    // width: 75%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas: "image name price button"
+                         "image stock quantity button";
+}
+
+.cartCardContainer .cartCardImage{
+    grid-area: image;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartCardContainer .cartCardDeleteBtn{
+    grid-area: button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartCardContainer .cartCardPrice{
+    grid-area: price;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartCardContainer .cartCardName{
+    grid-area: name;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.cartCardContainer .cartCardQuantity{
+    grid-area: quantity;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartCardContainer .cartCardStock{
+    grid-area: stock;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1000px){
+    .cartCardContainer{
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, auto);
+        grid-template-areas: "name price "
+                             "image quantity"
+                             "stock button";
+    }
+}
+
+@media screen and (max-width: 600px){
+    .cartCardContainer{
+        grid-gap: 5px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, auto);
+        grid-template-areas: "name price "
+                             "image quantity"
+                             "stock button";
+    }
+}

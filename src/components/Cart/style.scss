@@ -1,0 +1,38 @@
+.cartContainer{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, auto);
+    grid-template-areas: "text text amount button";
+}
+
+.cartText{
+    grid-area: text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartTotalAmount{
+    grid-area: amount;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cartGoToPaymentBtn{
+    grid-area: button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 920px){
+    .cartContainer{
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, auto);
+        grid-template-areas: "text"
+                             "amount"
+                             "button ";
+    }
+}
