@@ -12,20 +12,17 @@ async function sweetAlertInput(title: string, buttonTxt: string, path: string, q
             closeModal: false,
         },
     } as any)
-        .then(async name => {
+        .then(name => {
             if (!name) throw null;
             console.log(name)
             if (userId) {
-                return await axios.post(path, { question: name, userId: userId, productId: productId })
+                return axios.post(path, { question: name, userId: userId, productId: productId })
             } else {
-                return await axios.post(path, { answer: name, questionId: questionId })
+                return axios.post(path, { answer: name, questionId: questionId })
             }
         })
-        //   .then(results => {
-        //     return results.json();
-        //   })
         .then(json => {
-            swal(json.data).then(() => /* window.location.reload() */console.log("holi"))
+            swal(json.data).then(() => console.log("holi"))
         })
 }
 
