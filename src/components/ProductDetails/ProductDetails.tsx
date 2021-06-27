@@ -24,18 +24,27 @@ type Props = RouteComponentProps<MatchParams>;
 function ProductDetails(props: Props): ReactElement {
   // const [question, setQuestion] = useState<string>()
 
-async function handleQuestion(){
-  await SweetAlertInput(
-    "Your Question:",
-    "send question",
-    `${url}/questions/new`,
-    "",
-    userId,
-    id
-  )
-  console.log("diai")
-  await dispatch(productQuestions(id));
-}
+  async function handleQuestion() {
+    await SweetAlertInput(
+      "Your Question:",
+      "send question",
+      `${url}/questions/new`,
+      "",
+      userId,
+      id
+    );
+    await dispatch(productQuestions(id));
+  }
+  async function handleAnswer(q: any) {
+    await SweetAlertInput(
+      "Your Answer:",
+      "send answer",
+      `${url}/questions/answer`,
+      q
+    );
+    console.log("diai");
+    await dispatch(productQuestions(id));
+  }
 
   const id = props.match.params.id;
 
@@ -148,13 +157,7 @@ async function handleQuestion(){
         <h2 className="text-center mt-4">Questions and answers</h2>
         {userId === questions.id ? null : (
           <div>
-            <Button
-              onClick={() =>
-                handleQuestion()
-              }
-            >
-              Make a question
-            </Button>
+            <Button onClick={() => handleQuestion()}>Make a question</Button>
             <hr></hr>
           </div>
         )}
@@ -176,16 +179,9 @@ async function handleQuestion(){
                 <div>
                   {userId === questions.id && !question.answer ? (
                     <Button
-                      onClick={() =>{
-                        SweetAlertInput(
-                          "Your Answer:",
-                          "send answer",
-                          `${url}/questions/answer`,
-                          question.questionId
-                        )
-                        console.log("esto esta al reves?")
-                      }
-                      }
+                      onClick={() => {
+                        handleAnswer(question.questionId);
+                      }}
                     >
                       Answer
                     </Button>
