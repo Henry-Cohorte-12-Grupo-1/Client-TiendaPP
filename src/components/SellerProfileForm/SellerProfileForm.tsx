@@ -31,25 +31,65 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
     const userId = token.id
     const dispatch = useDispatch()
 
-    const [sellerProfile, setSellerProfile] = useState<SellerProfile>({ userId: userId, header: "", description: "", images: [] })
+    const [sellerProfile, setSellerProfile] = useState<SellerProfile>({
+        userId: userId,
+        header: "",
+        description: "",
+        images: []
+    })
     //const [sellerProfile, setSellerProfile] = useState<SellerProfile>({ userId: userId, header: "", description: "", images: [] })
+    const [index, setIndex] = useState<number>(0)
+    //const [initialImages, setInitialImages] = useState<string[]>([])
+    const [image, setImage] = useState<File>()
+    const [imagesName, setImagesName] = useState<string[]>([])
 
+    const seller = useSelector<StoreType, SellerProfile>(
+        (state) => state.sellerProfile
+    );
+    const userName = props.match.params.userName;
+    const carouselProps = { index, imagesName, setIndex, setImage, setImagesName }
 
-    const userName = props.match.params.userName
 
 
 
 
 
     useEffect(() => {
-        dispatch(bringSellerProfile(userName))
+        dispatch(bringSellerProfile(userName));
+        //setSellerProfile(seller)
+        //setInitialImages(seller.images);
     }, [])//eslint-disable-line
 
+    useEffect(() => {
+        setImagesName(seller.images)
+        setSellerProfile({
+            ...sellerProfile,
+            header: seller.header,
+            description: seller.description
+        })
+    }, [seller])
 
-    const seller = useSelector<StoreType, SellerProfile>(
-        (state) => state.sellerProfile
-    );
-    console.log("SELLER --->", seller)
+    useEffect(() => {
+        setSellerProfile({
+            ...sellerProfile,
+            images: imagesName
+        })
+    }, [imagesName])
+
+
+    useEffect(() => {
+        (async () => {
+            const formData = new FormData()
+            if (image) {
+                formData.append('file', image)
+                formData.append('upload_preset', 'tiendapp')
+                let resp = await axios.post('https://api.cloudinary.com/v1_1/tiendapp/image/upload', formData)
+                setImagesName(imagesName => [...imagesName, resp.data.public_id])
+            }
+        })()
+    }, [image])
+
+    //console.log("SELLER --->", seller)
 
 
 
@@ -94,6 +134,11 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
                                 </Form.Text> : <Form.Text className="text-muted">&#160;</Form.Text>} */}
                         </Form.Group>
                     </Col>
+                    <Row>
+                        <Col md>
+                            <ImgCarousel {...carouselProps} />
+                        </Col>
+                    </Row>
                 </Row>
                 <Button type="submit">Create</Button>
 
