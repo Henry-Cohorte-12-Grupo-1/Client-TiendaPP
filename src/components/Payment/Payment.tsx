@@ -55,12 +55,13 @@ export default function Payment() {
                         </div>
                     );
                 })}
-                <h1 className="d-flex justify-content-end">Total Amount: ${totalAmount}</h1>
-            </div>
-            <div>
-                <Elements stripe={promise}>
-                    <Stripe />
-                </Elements>
+                <hr></hr>
+                <h1 className="mt-3 d-flex justify-content-end">Total Amount: ${totalAmount}</h1>
+                <div className='paymentStrype' >
+                    <Elements stripe={promise}>
+                        <Stripe />
+                    </Elements>
+                </div>
             </div>
         </div>
     );
