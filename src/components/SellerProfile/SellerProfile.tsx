@@ -87,7 +87,7 @@ function SellerProfileForm(props: any): ReactElement {
                 <h5>{description}</h5>
             </div>
             <div className="d-flex justify-content-center flex-wrap ml-0 mr-0'">
-                {userProducts?.length ? userProducts.map(p => {
+                {(typeof userProducts !== 'string' && userProducts?.length) ? userProducts.map(p => {
                     return (
                         <ProductsCards
                             name={p.name}
