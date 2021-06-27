@@ -2,14 +2,13 @@ import "./stripe.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axios from "axios";
 import { url } from "../../api";
-import jwtDecode from 'jwt-decode';
+import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 export default function CheckoutForm() {
-
   const token = localStorage.token ? jwtDecode(localStorage.token) : false;
-  const userId = token ? token.id : 'guest';
+  const userId = token ? token.id : "guest";
 
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -21,31 +20,25 @@ export default function CheckoutForm() {
   const elements = useElements();
 
   const totalPriceState = useSelector((store) => store.totalAmount);
-  const cart = useSelector((store) => store.cart)
+  const cart = useSelector((store) => store.cart);
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     let totalPrice = totalPriceState * 100;
     if (totalPrice === 0) totalPrice = 14500;
 
-    fetch(`${url}/payment/stripe`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ mount: totalPrice }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setClientSecret(data.clientSecret);
+    const request = async () => {
+      const res = await axios.post(`${url}/payment/stripe`, {
+        mount: totalPrice,
       });
-  }, []);//eslint-disable-line
+      setClientSecret(res.data.clientSecret);
+    };
+    request();
+  }, []); //eslint-disable-line
 
-  const toSend = { userId, items: cart }
+  const toSend = { userId, items: cart };
 
-  console.log("LE LLEGA A STRIPE -->", toSend)
+  console.log("LE LLEGA A STRIPE -->", toSend);
 
   const cardStyle = {
     style: {
@@ -81,7 +74,7 @@ export default function CheckoutForm() {
       payment_method: {
         card: elements.getElement(CardElement),
       },
-    })
+    });
 
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
@@ -92,8 +85,7 @@ export default function CheckoutForm() {
       setSucceeded(true);
 
       //ACA LE PEGA A LA API
-      await axios.post(`${url}/payment/post-pay`, toSend)
-
+      await axios.post(`${url}/payment/post-pay`, toSend);
     }
   };
 
