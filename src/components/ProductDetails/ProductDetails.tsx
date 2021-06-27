@@ -22,25 +22,20 @@ interface MatchParams {
 type Props = RouteComponentProps<MatchParams>;
 
 function ProductDetails(props: Props): ReactElement {
-  async function handleQuestion() {
+  //Funcion que maneja preguntas y respuestas
+  async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
+    const questId = qoA === "Answer" ? quest : "";
+    const routePath = qoA === "Answer" ? "answer" : "new";
+    const uId = qoA === "Question" ? userId : undefined;
+    const paramId = qoA === "Question" ? id : undefined
     await SweetAlertInput(
-      "Your Question:",
-      "send question",
-      `${url}/questions/new`,
-      "",
-      userId,
-      id
+      `Your ${qoA}:`,
+      `Send ${qoA}:`,
+      `${url}/questions/${routePath}`,
+      questId,
+      uId,
+      paramId,
     );
-    await dispatch(productQuestions(id));
-  }
-  async function handleAnswer(quest: IQuestAndId["id"]) {
-    await SweetAlertInput(
-      "Your Answer:",
-      "send answer",
-      `${url}/questions/answer`,
-      quest
-    );
-    console.log("diai");
     dispatch(productQuestions(id));
   }
 
@@ -157,7 +152,9 @@ function ProductDetails(props: Props): ReactElement {
         <h2 className="text-center mt-4">Questions and answers</h2>
         {userId === questions.id ? null : (
           <div>
-            <Button onClick={() => handleQuestion()}>Make a question</Button>
+            <Button onClick={() => handleQA("Question", undefined)}>
+              Make a question
+            </Button>
             <hr></hr>
           </div>
         )}
@@ -180,7 +177,7 @@ function ProductDetails(props: Props): ReactElement {
                   {userId === questions.id && !question.answer ? (
                     <Button
                       onClick={() => {
-                        handleAnswer(question.questionId);
+                        handleQA("Answer", question.questionId);
                       }}
                     >
                       Answer
