@@ -35,7 +35,7 @@ function CartCard(props: Props): ReactElement {
 
     function quantityShower(productId: any) {
         for (const each of cart) {
-            if (productId == each.productId) {
+            if (productId === each.productId) {
                 return each.quantity;
             }
         }

@@ -39,9 +39,9 @@ export default function Payment() {
 
     return (
         <div className="Payment">
-            <div className="card-body p-6 m-4 border shadow">
+            <div className="m-4 card-body border shadow">
 
-                <h4 className="text-center">Order details</h4>
+                <h4 className="mb-5 text-center">Order details</h4>
                 {cart.map((cartItem: IProduct) => {
                     return (
                         <div key={cartItem.productId}>
@@ -55,9 +55,9 @@ export default function Payment() {
                         </div>
                     );
                 })}
-                <h1 className="d-flex justify-content-end">Total Amount: ${totalAmount}</h1>
+                <h1 className="mt-3 d-flex justify-content-end">Total Amount: ${totalAmount}</h1>
             </div>
-            <div>
+            <div className='paymentStrype' >
                 <Elements stripe={promise}>
                     <Stripe />
                 </Elements>
