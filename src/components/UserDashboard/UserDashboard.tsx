@@ -8,7 +8,7 @@ function UserDashboard() {
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
     return (
-        <div className="d-flex flex-column ml-8 mt-5">
+        <div>
             <h1 id="usernameD">{userName.length < 18 ? userName : null} Dashboard</h1>
             {/* <div className="d-flex justify-content-around m-5">
                 <a className="btn btn-primary" id='colorB' href={`/user/activeProducts`}>Active sales</a>
@@ -16,7 +16,7 @@ function UserDashboard() {
                 <a className="btn btn-primary" id='colorB' href={`/user/orders`}>My Orders</a>
                 <a className="btn btn-primary" id='colorB' href={`/user/sales`}>Sold</a>
             </div> */}
-            <div className="d-flex justify-content-around m-5">
+            <div id="displayUserBoard">
                 <div className="card mr-5" id="cardWidth">
                     <Link to={`/user/activeProducts`}>
                         <img src="https://underconstructionpage.com/app/wp-content/uploads/2018/08/how-to-effectively-manage-online-sales.jpg" id="cardsHeight" className="card-img-top" alt="not found" />
@@ -62,7 +62,7 @@ function UserDashboard() {
                         <img src="https://cdn.dribbble.com/users/40733/screenshots/1631989/wishlist.png" className="card-img-top" id="cardsHeight" alt="not found" />
                     </Link>
                     <div className="card-body">
-                        <a className="btn btn-primary" id="mButtonU" href={`/seller/edit/${userName}`}>Create / Update Seller Profile</a>
+                        <a className="btn btn-primary ml-3" href={`/seller/edit/${userName}`}>Create / Update Seller Profile</a>
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">

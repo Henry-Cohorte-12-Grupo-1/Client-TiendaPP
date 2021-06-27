@@ -1,5 +1,6 @@
 #cardWidth{
     width: 20rem;
+    margin-bottom: 2rem;
 }
 
 #cardsHeight{
@@ -16,4 +17,12 @@
 
 #usernameD{
     margin-left: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+#displayUserBoard{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
