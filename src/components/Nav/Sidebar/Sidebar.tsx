@@ -39,12 +39,28 @@ function Sidebar() {
                 </Link>
             </div>
 
+            <div
+                className={sidebar ? "full-overlay active" : "full-overlay"}
+                onClick={toggleSidebar}
+            ></div>
+
             <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
                 <ul className="nav-menu-items" onClick={toggleSidebar}>
                     <li className="navbar-toggle">
-                        <Link to="#" className="menu-bars">
-                            <AiIcons.AiOutlineClose />
+                        <Link to="#" className="tiendapp">
+                            TiendApp
+                            <FaIcons.FaOpencart />
                         </Link>
+                    </li>
+
+                    <li className="nav-menu-items profile">
+                        <img src="https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg"></img>
+                        <div id="circle">
+                            <img
+                                src="https://avatars.githubusercontent.com/u/26018920?v=4"
+                                className="pfp"
+                            ></img>
+                        </div>
                     </li>
 
                     {SidebarData.map((item, index) => {
