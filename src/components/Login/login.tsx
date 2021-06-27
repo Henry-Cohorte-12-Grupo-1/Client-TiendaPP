@@ -191,10 +191,9 @@ function Login() {
 
 
     return (
-        <Container className="p-5">
-            <br></br>
-            <h2>Sign In</h2>
-            <Form className="bg-light border shadow p-5 rounded">
+        <Container className="p-4">
+            <h2 className="text-center">Login</h2>
+            <Form className="bg-light border shadow p-5 mb-4 rounded">
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
@@ -243,8 +242,7 @@ function Login() {
                 {invalid ? (
                     <label className="mt-3">Invalid email or password </label>
                 ) : null}
-
-                <div className={styles.loginForm}>
+                <div className={styles.loginForm} id="containerGoogle">
                     <h5> Or Login With Google </h5>
                     <div className={styles.googleContainer} onClick={googleLogin}>
                         <img src={glogo} alt="Google Icon" />
@@ -255,7 +253,6 @@ function Login() {
                         <img src={githubImage} alt="Github Icon" />
                         <p>Login With Github</p>
                     </div>
-
                 </div>
 
             </Form>
