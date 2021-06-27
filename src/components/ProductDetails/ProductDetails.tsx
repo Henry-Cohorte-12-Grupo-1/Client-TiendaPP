@@ -1,19 +1,18 @@
+import "./style.scss";
+import detailedProduct from "../../interfaces/detailedProduct";
+import jwtDecode from "jwt-decode";
+import SweetAlertInput from "./sweetAlertInput";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreType } from "../../redux/reducers";
 import { ReactElement, useEffect, useState } from "react";
 import { productInfo, productQuestions } from "../../redux/actions";
 import { RouteComponentProps } from "react-router-dom";
-import detailedProduct from "../../interfaces/detailedProduct";
 import { Button, Carousel, Container } from "react-bootstrap";
-import "./style.scss";
-//for the add to cart button
-import AddButton from "../CartButtons/AddButton";
-import jwtDecode from "jwt-decode";
 import { IQuestAndId } from "../../interfaces/questions";
 import { BsArrowReturnRight } from "react-icons/bs";
-// import axios from "axios";
 import { url } from "../../api";
-import SweetAlertInput from "./sweetAlertInput";
+//for the add to cart button
+import AddButton from "../CartButtons/AddButton";
 
 //defino el tipado para match.params.id
 interface MatchParams {
@@ -22,35 +21,35 @@ interface MatchParams {
 type Props = RouteComponentProps<MatchParams>;
 
 function ProductDetails(props: Props): ReactElement {
-  //Funcion que maneja preguntas y respuestas
-  async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
-    const questId = qoA === "Answer" ? quest : "";
-    const routePath = qoA === "Answer" ? "answer" : "new";
-    const uId = qoA === "Question" ? userId : undefined;
-    const paramId = qoA === "Question" ? id : undefined
-    await SweetAlertInput(
-      `Your ${qoA}:`,
-      `Send ${qoA}:`,
-      `${url}/questions/${routePath}`,
-      questId,
-      uId,
-      paramId,
-    );
-    dispatch(productQuestions(id));
-  }
-
+  //Constantes
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const id = props.match.params.id;
-
+  //Selectors
   const details = useSelector<StoreType, detailedProduct>(
     (state) => state.productDetails
   );
   const questions = useSelector<StoreType, IQuestAndId>(
     (state) => state.productQuestions
   );
+  //Handlers
 
-  //console.log("eaeaeaeae", questions);
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  //Funcion que maneja preguntas y respuestas
+  async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
+    const questId = qoA === "Answer" ? quest : "";
+    const routePath = qoA === "Answer" ? "answer" : "new";
+    const uId = qoA === "Question" ? userId : undefined;
+    const paramId = qoA === "Question" ? id : undefined;
+    await SweetAlertInput(
+      `Your ${qoA}:`,
+      `Send ${qoA}:`,
+      `${url}/questions/${routePath}`,
+      questId,
+      uId,
+      paramId
+    );
+    dispatch(productQuestions(id));
+  }
 
   //GETTING USER ID FROM LOCAL STORAGE
   const token: Storage | false = localStorage.token
