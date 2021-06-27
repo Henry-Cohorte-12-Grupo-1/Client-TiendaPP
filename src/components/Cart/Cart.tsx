@@ -47,7 +47,7 @@ function Cart(): ReactElement {
     if (cart.length === EMPTY) {
         //cart is empty
         return (
-            <div className="bg-light p-5 rounded-lg m-3">
+            <div className="container ml-auto mr-auto mt-4 bg-light border shadow p-5 rounded-lg m-3">
                 <div className="container-fluid py-5">
                     <h1 className="display-5 fw-bold">Your cart is empty :(</h1>
                     <p className="col-md-8 fs-4">
@@ -61,10 +61,11 @@ function Cart(): ReactElement {
     } else {
         //cart has things
         return (
-            <div>
+            <div className="m-4 p-4">
+                <h2 className="text-center">Shop Cart</h2>
                 {cart.map((cartItem: IProduct) => {
                     return (
-                        <div key={cartItem.productId}>
+                        <div className="border shadow bg-light p-4 m-4" key={cartItem.productId}>
                             <CartCard
                                 key={cartItem.productId}
                                 userId={userId}
@@ -78,20 +79,19 @@ function Cart(): ReactElement {
 
                 <hr />
 
-                <div className="d-flex p-2 bd-highlight">
-                    <div className="d-flex flex-row justify-content-evenly align-items-center">
-                        <div>
-                            <h3>Total Amount of the cart is: </h3>
+                <div className="cartContainer p-2">
+                        <h2 className="cartText">Total Amount of the cart is: </h2>
+                        <div className="cartTotalAmount p-2 bd-highlight">
+                            <h2>${totalAmount}</h2>
+                        </div>
+                        <div className="cartGoToPaymentBtn">
                             {userId === 'guest'?(
                                 <a className="btn btn-primary m-2" href="../login" >Go to Payement</a>
                             ):(
                                 <a className="btn btn-primary m-2" href="../payment" >Go to Payement</a>
                             )}
                         </div>
-                        <div className="p-2 bd-highlight">
-                            <h2>${totalAmount}</h2>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         );
