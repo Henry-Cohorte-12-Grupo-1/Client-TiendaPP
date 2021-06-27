@@ -39,12 +39,12 @@ export default function Payment() {
 
     return (
         <div className="Payment">
-            <div className="card-body p-6 m-4 border shadow">
+            <div className="m-4 card-body ">
 
-                <h4 className="text-center">Order details</h4>
+                <h2 className="text-center">Order details</h2>
                 {cart.map((cartItem: IProduct) => {
                     return (
-                        <div key={cartItem.productId}>
+                        <div className="bg-light shadow border p-4 m-4" key={cartItem.productId}>
                             <PaymentCard
                                 key={cartItem.productId}
                                 userId={userId}
