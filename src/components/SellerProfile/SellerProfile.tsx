@@ -2,27 +2,35 @@ import { ReactElement, useEffect, useState } from 'react';
 import './style.scss'
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreType } from '../../redux/reducers/index';
-import { bringSellerProfile, bringUserProducts } from '../../redux/actions';
+import { bringSellerProfile, bringUserProducts, bringWishlist } from '../../redux/actions';
 import SellerProfile from '../../interfaces/sellerProfile';
 import { Carousel } from 'react-bootstrap';
 import IUserProduct from '../../interfaces/userProducts';
 import ProductsCards from '../ProductsCards/ProductsCards';
+import jwtDecode from 'jwt-decode';
+import obj from '../../interfaces/products';
 
 function SellerProfileForm(props: any): ReactElement {
 
     const userName = props.match.params.userName
-    console.log(userName)
+    const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
+    const userId = token?.id ? token.id : 'guest';
 
     const dispatch = useDispatch()
     const seller = useSelector<StoreType, SellerProfile>(
         (state) => state.sellerProfile
     );
     const userProducts = useSelector<StoreType, IUserProduct[]>((state) => state.userProducts)
-
+    const wishlist = useSelector<StoreType, obj[]>(
+        (state) => state.wishlist
+    );
 
     useEffect(() => {
         dispatch(bringSellerProfile(userName));
-        dispatch(bringUserProducts(userName))
+        dispatch(bringUserProducts(userName));
+        if (userId !== "guest") {
+            dispatch(bringWishlist(userId));
+        }
     }, [])//eslint-disable-line
     let header = seller.header
     let description = seller.description
@@ -66,18 +74,23 @@ function SellerProfileForm(props: any): ReactElement {
             <div>
                 <h5>{description}</h5>
             </div>
-            {userProducts.length ? userProducts.map(p => {
-                return (
-                    <ProductsCards
-                        name={p.name}
-                        price={p.price}
-                        images={p.Images}
-                        image=""
-                        productId={p.productId}
-                        editId={'product/edit?id=' + p.productId} />
-                    //url = { p }
-                )
-            }) : null}
+            <div className="d-flex justify-content-center flex-wrap ml-0 mr-0'">
+                {userProducts.length ? userProducts.map(p => {
+                    return (
+                        <ProductsCards
+                            name={p.name}
+                            price={p.price}
+                            images={p.Images}
+                            image=""
+                            productId={p.productId}
+                            userId={userId}
+                            wished={wishlist.some(w => w.productId === p.productId)}
+                        />
+                        //url = { p }
+                    )
+                }) : null}
+            </div>
+
         </div>
     )
 }
