@@ -15,7 +15,7 @@ export default function CheckoutForm() {
   const [processing, setProcessing] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState("");
-  const [email, setEmail] = useState("");
+  //const [email, setEmail] = useState("");
   const stripe = useStripe();
   const elements = useElements();
 
@@ -70,7 +70,7 @@ export default function CheckoutForm() {
     setProcessing(true);
 
     const payload = await stripe.confirmCardPayment(clientSecret, {
-      receipt_email: email,
+      //receipt_email: email,
       payment_method: {
         card: elements.getElement(CardElement),
       },

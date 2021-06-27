@@ -9,7 +9,7 @@ import "./style.scss";
 //for the add to cart button
 import AddButton from "../CartButtons/AddButton";
 import jwtDecode from "jwt-decode";
-import { IQuestAndId } from "../../interfaces/questions";
+import { IQuestAndId, IQuestions } from "../../interfaces/questions";
 import { BsArrowReturnRight } from "react-icons/bs";
 // import axios from "axios";
 import { url } from "../../api";
@@ -35,15 +35,15 @@ function ProductDetails(props: Props): ReactElement {
     );
     await dispatch(productQuestions(id));
   }
-  async function handleAnswer(q: any) {
+  async function handleAnswer(quest: IQuestAndId["id"]) {
     await SweetAlertInput(
       "Your Answer:",
       "send answer",
       `${url}/questions/answer`,
-      q
+      quest,
     );
     console.log("diai");
-    await dispatch(productQuestions(id));
+    dispatch(productQuestions(id));
   }
 
   const id = props.match.params.id;
@@ -65,8 +65,8 @@ function ProductDetails(props: Props): ReactElement {
 
   useEffect(() => {
     (async () => {
-      await dispatch(productInfo(id));
-      await dispatch(productQuestions(id));
+      dispatch(productInfo(id));
+      dispatch(productQuestions(id));
       setLoading(false);
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
