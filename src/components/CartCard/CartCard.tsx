@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCartItemQuantity, loadCartFromDB } from "../../redux/actions";
 import { StoreType } from "../../redux/reducers";
 import DeleteButton from "../CartButtons/DeleteButton";
-
+import './CartCard.css'
 interface Props {
     userId?: string;
     productData: IProduct;
@@ -162,7 +162,7 @@ function CartCard(props: Props): ReactElement {
 
                                 {/*QUANTITY INPUT*/}
                                 <div className="col my-auto">
-                                    <div className="row justify-content-md-center">
+                                    <div className="row justify-content-md-center" id="cantidadR">
                                         <div className="col-xs-3 col-xs-offset-3">
                                             <div className="input-group number-spinner">
                                                 <span className="input-group-btn">
@@ -197,7 +197,7 @@ function CartCard(props: Props): ReactElement {
                                         </div>
                                     </div>
                                 </div>
-                                <div>in Stock: {productData.stock}</div>
+                                <div id="stockR">in Stock: {productData.stock}</div>
                                 {/*QUANTITY*/}
                                 <div className="col my-auto">
                                     <h4 className="mb-0">
