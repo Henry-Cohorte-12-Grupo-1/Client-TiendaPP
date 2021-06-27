@@ -34,6 +34,7 @@
 
 @media screen and (max-width: 780px){
     .paymentCardContainer{
+        grid-gap: 5px;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, auto);
         grid-template-areas: "image info"

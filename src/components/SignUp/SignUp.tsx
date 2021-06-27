@@ -149,10 +149,9 @@ function Signup() {
     };
 
     return (
-        <Container className="p-5">
-            <br></br>
-            <h2>Sign Up</h2>
-            <Form className="bg-light border shadow p-5 rounded">
+        <Container className="p-4">
+            <h2 className="text-center">Sign Up</h2>
+            <Form className="bg-light border shadow p-5 mb-4 rounded">
                 <Form.Group className="row" controlId="formBasicEmail">
                     <Col>
                         <Form.Label>First Name</Form.Label>

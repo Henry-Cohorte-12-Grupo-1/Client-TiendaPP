@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { StoreType } from '../../redux/reducers/index';
 import { loadCartFromDB, loadGuestCart } from '../../redux/actions';
 import jwtDecode from 'jwt-decode';
-import { Container } from 'react-bootstrap';
 
 function Cart(): ReactElement {
     //Constants
@@ -48,7 +47,7 @@ function Cart(): ReactElement {
     if (cart.length === EMPTY) {
         //cart is empty
         return (
-            <div className="container border shadow p-5 rounded-lg m-3">
+            <div className="container ml-auto mr-auto mt-4 bg-light border shadow p-5 rounded-lg m-3">
                 <div className="container-fluid py-5">
                     <h1 className="display-5 fw-bold">Your cart is empty :(</h1>
                     <p className="col-md-8 fs-4">
@@ -63,11 +62,11 @@ function Cart(): ReactElement {
         //cart has things
         return (
             // <Container className="media m-4 border shadow">
-            <div className="m-4 p-4 border shadow">
+            <div className="m-4 p-4">
                 <h2 className="text-center">Shop Cart</h2>
                 {cart.map((cartItem: IProduct) => {
                     return (
-                        <div className="border p-4 m-4" key={cartItem.productId}>
+                        <div className="border shadow bg-light p-4 m-4" key={cartItem.productId}>
                             <CartCard
                                 key={cartItem.productId}
                                 userId={userId}
