@@ -15,7 +15,7 @@ body{
 .hero{
     background-image: linear-gradient(120deg, rgba(44, 102, 110, 0.699) 0%, rgba(7, 57, 60, 0.692) 100%), url("https://images.pexels.com/photos/34577/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
     width: 100%;
-    height: 650px;
+    height: 49.5rem;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -61,6 +61,7 @@ body{
 }
 .contenedor{
     padding: 80px 0;
+    max-width: 100vw;
 }
 
 .titulo{
@@ -78,10 +79,12 @@ body{
     text-align: right;
 }
 
+/* Cards */
+
 .content-cardsL{
     display: flex;
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -89,24 +92,14 @@ body{
     width: 30%;
     text-align: center;
     height: 300px;
-    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
-    transform: scale(1);
-    transition: transform 0.6s;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.cardL:hover{
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .5);
-    transform: scale(1.03);
-}
-
-.cardL i{
-    margin: 30px 0 20px 0;
-    color: #cc9199;
-    font-size: 50px;
+.cardL-img {
+    width: 60%;
 }
 
 .cardL p{
@@ -114,6 +107,8 @@ body{
     font-size: 25px;
     margin-bottom: 10px;
 }
+
+/* Responsive */
 
 @media screen and (max-width:800px){
     .textos-hero h1{
@@ -123,6 +118,9 @@ body{
     .cardL{
         width: 90%;
         margin-bottom: 20px;
+    }
+    .cardL-img {
+        width: 40%;
     }
 }
 

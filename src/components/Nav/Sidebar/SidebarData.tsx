@@ -1,0 +1,96 @@
+import React from "react";
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import * as IoIcons from "react-icons/io";
+
+export enum UserStatus {
+    all,
+    admin,
+    notAdmin,
+    user,
+    guest,
+    logged,
+}
+
+export const SidebarData = [
+    {
+        title: "Home",
+        path: "/",
+        icon: <AiIcons.AiFillHome />,
+        cName: "nav-text",
+        role: UserStatus.all,
+        onClick: () => {
+            return;
+        },
+    },
+    {
+        title: "Admin ctrl",
+        path: "/admin",
+        icon: <AiIcons.AiOutlineTool />,
+        cName: "nav-text",
+        role: UserStatus.admin,
+        onClick: () => {
+            return;
+        },
+    },
+    {
+        title: "My Profile",
+        path: "/user",
+        icon: <AiIcons.AiOutlineUser />,
+        cName: "nav-text",
+        role: UserStatus.notAdmin,
+        onClick: () => {
+            return;
+        },
+    },
+    {
+        title: "Login",
+        path: "/login",
+        icon: <AiIcons.AiOutlineLogin />,
+        cName: "nav-text",
+        role: UserStatus.guest,
+        onClick: () => {
+            return;
+        },
+    },
+    {
+        title: "Sign Up",
+        path: "/sign-up",
+        icon: <AiIcons.AiOutlineForm />,
+        cName: "nav-text",
+        role: UserStatus.guest,
+        onClick: () => {
+            return;
+        },
+    },
+    {
+        title: "Cart",
+        path: "/cart",
+        icon: <AiIcons.AiOutlineShoppingCart />,
+        cName: "nav-text",
+        role: UserStatus.notAdmin,
+        onClick: () => {
+            return;
+        },
+    },
+    {
+        title: "About",
+        path: "/about",
+        icon: <AiIcons.AiOutlineInfoCircle />,
+        cName: "nav-text",
+        role: UserStatus.all,
+        onClick: () => {
+            return;
+        },
+    },
+    {
+        title: "Log out",
+        path: "/",
+        icon: <AiIcons.AiOutlineLogout />,
+        cName: "nav-text",
+        role: UserStatus.logged,
+        onClick: () => {
+            localStorage.removeItem("token");
+        },
+    },
+];

@@ -375,3 +375,18 @@ export const loadGuestCart = (cart: IProduct[]) => {
         totalAmount,
     };
 };
+
+
+export const productQuestions = (id: string) => {
+    return async (dispatch: Dispatch) => {
+        const productQuestions: any = await axios.post(
+            `${url}/questions`, {id:id}
+        );
+        dispatch(
+            {
+                type: ActionTypes.PRODUCT_QUESTIONS,
+                payload: productQuestions.data,
+            }
+        );
+    };
+};
