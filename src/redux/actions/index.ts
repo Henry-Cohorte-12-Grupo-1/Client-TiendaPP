@@ -4,6 +4,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { url } from "../../api";
 import { IProduct } from "../../interfaces/product";
+import { IQuestAndId, IQuestions } from "../../interfaces/questions";
 
 export const masUno = () => {
   return {
@@ -102,7 +103,7 @@ export const bringUserSales = (userName: string | null) => {
 
 export const getCategories = () => {
   const URL = `${url}/categories`;
-  return async function (dispatch: any) {
+  return async function (dispatch: Dispatch) {
     try {
       const productCategory = await axios.get(URL);
       dispatch({
@@ -145,7 +146,7 @@ export const searchProduct = (
     order,
   };
 
-  return async function (dispatch: any) {
+  return async function (dispatch: Dispatch) {
     try {
       const productData = await axios.get(URL, { params });
       const productAlgo = {
@@ -171,7 +172,7 @@ export const searchProductAC = (name: string) => {
   const params = {
     name,
   };
-  return async function (dispatch: any) {
+  return async function (dispatch: Dispatch) {
     try {
       const productData = await axios.get(URL, { params });
       dispatch({
@@ -217,7 +218,7 @@ export const setCartItemQuantity = (
 export const loadCartFromDB = (userId: string) => {
   const URL_GET_CART = url + "/cart/getCart";
   let totalAmount = 0;
-  let normalizedArray: any = [];
+  let normalizedArray: [] = [];
   return async (dispatch: Dispatch) => {
     await axios
       .post(URL_GET_CART, { userId })
