@@ -4,7 +4,7 @@ import { IProducts } from "../../interfaces/products";
 import { Dispatch } from "redux";
 import { url } from "../../api";
 import { IProduct } from "../../interfaces/product";
-import { IQuestAndId, IQuestions } from "../../interfaces/questions";
+
 
 export const masUno = () => {
   return {
