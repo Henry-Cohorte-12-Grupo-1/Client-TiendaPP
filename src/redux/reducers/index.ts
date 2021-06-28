@@ -4,7 +4,6 @@ import detailedProduct from '../../interfaces/detailedProduct';
 import IUserProduct from '../../interfaces/userProducts';
 import IUserOrders from '../../interfaces/userOrders';
 import { IProduct } from '../../interfaces/product';
-import { setCartItemQuantity } from '../actions';
 import SellerProfile from '../../interfaces/sellerProfile';
 import { IQuestAndId } from '../../interfaces/questions';
 
@@ -44,6 +43,7 @@ export interface IProductsType {
     pag: number;
     tag: string;
     order: string;
+    seller: string;
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)
@@ -58,6 +58,7 @@ const initialState: StoreType = {
         pag: 0,
         tag: 'name',
         order: 'ASC',
+        seller: "",
     },
     acList: {
         products: [],
@@ -66,6 +67,7 @@ const initialState: StoreType = {
         pages: '0',
         tag: '',
         order: '',
+        seller: "",
     },
     filter: [],
     filterProducts: [],

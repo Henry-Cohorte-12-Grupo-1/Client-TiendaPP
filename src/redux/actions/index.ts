@@ -135,7 +135,8 @@ export const searchProduct = (
   items = 5,
   pag = 0,
   tag = "name",
-  order = "ASC"
+  order = "ASC",
+  seller= "Leandro",
 ) => {
   const URL = `${url}/search`;
   const params = {
@@ -144,6 +145,7 @@ export const searchProduct = (
     pag,
     tag,
     order,
+    seller,
   };
 
   return async function (dispatch: Dispatch) {
@@ -156,13 +158,14 @@ export const searchProduct = (
         pag: pag,
         tag: tag,
         order: order,
+        seller: seller,
       };
       dispatch({
         type: ActionTypes.SEARCH_PRODUCT,
         products: productAlgo,
       });
     } catch (error) {
-      return console.log("No se pudo realizar la busqueda");
+      return console.log("No se pudo realizar la búsqueda");
     }
   };
 };
