@@ -91,7 +91,6 @@ function Cart(): ReactElement {
                                 <a className="btn btn-primary m-2" href="../payment" >Go to Payement</a>
                             )}
                         </div>
-
                 </div>
             </div>
         );
