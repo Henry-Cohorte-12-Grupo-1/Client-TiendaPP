@@ -1,10 +1,8 @@
+import { IProduct } from "../../interfaces/product";
 import { ReactElement, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { IProduct } from "../../interfaces/product";
-import { setCartItemQuantity } from "../../redux/actions";
 import { StoreType } from "../../redux/reducers";
-import DeleteButton from "../CartButtons/DeleteButton";
 import "./PaymentCard.scss";
 
 interface Props {

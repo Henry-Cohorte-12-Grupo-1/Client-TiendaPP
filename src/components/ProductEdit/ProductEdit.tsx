@@ -1,15 +1,15 @@
-import { useLocation } from "react-router-dom";
+import './styles.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ImgCarousel from '../ImgCarousel/ImgCarousel'
+import swal from 'sweetalert'
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useLocation } from "react-router-dom";
 import { IProduct, ICategories } from '../../interfaces/product'
 import { IErrorProduct } from '../../interfaces/forms'
 import { useHistory } from 'react-router-dom'
-import axios from 'axios'
-import './styles.scss'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
-import ImgCarousel from '../ImgCarousel/ImgCarousel'
-import swal from 'sweetalert'
 
 interface ICarouselProps {
     index?: any,

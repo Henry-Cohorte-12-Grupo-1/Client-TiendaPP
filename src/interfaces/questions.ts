@@ -7,7 +7,7 @@ export interface IQuestions {
 }
 
 
-export interface IQuestAndId {
+export default interface IQuestAndId {
     resp?: IQuestions[],
     id?: string
 }

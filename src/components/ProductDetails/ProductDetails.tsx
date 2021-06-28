@@ -2,18 +2,18 @@ import "./style.scss";
 import detailedProduct from "../../interfaces/detailedProduct";
 import jwtDecode from "jwt-decode";
 import SweetAlertInput from "./sweetAlertInput";
+import IQuestAndId from "../../interfaces/questions";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreType } from "../../redux/reducers";
 import { ReactElement, useEffect, useState } from "react";
 import { buyNow, loadCartBuyNow, productInfo, productQuestions } from "../../redux/actions";
 import { Link, RouteComponentProps, useHistory } from "react-router-dom";
 import { Button, Carousel, Container } from "react-bootstrap";
-import { IQuestAndId } from "../../interfaces/questions";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { url } from "../../api";
 
 //for the add to cart button
-import AddButton from "../CartButtons/AddButton";
+import AddButton from "../Cart/CartButtons/AddButton";
 
 //defino el tipado para match.params.id
 interface MatchParams {

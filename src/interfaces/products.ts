@@ -1,17 +1,17 @@
-export default interface obj {
+export interface IProducts {
     productId: string;
     name: string;
     image?: string;
     description: string;
     price: number;
-    Category: category;
-    Images: imgs[];
+    Category: ICategory;
+    Images: IImgs[];
     quantity: number
 }
 
-export interface imgs {
+interface IImgs {
     imageId: string
 }
-export interface category {
+export interface ICategory {
     name: string
 }

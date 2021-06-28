@@ -1,4 +1,4 @@
-export default interface SellerProfile {
+export default interface ISellerProfile {
     error?: string;
     userId: string,
     header: string,
