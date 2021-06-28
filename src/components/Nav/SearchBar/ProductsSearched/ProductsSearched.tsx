@@ -1,6 +1,6 @@
 import "./ProductsSearched";
 import ProductsCards from "../../../ProductsCards/ProductsCards";
-import Pagination from "../../../Pagination/Pagination";
+import Pagination from "./parts/Pagination/Pagination";
 import Order from "./parts/Order";
 import { useSelector } from "react-redux";
 import { StoreType } from "../../../../redux/reducers/index";
