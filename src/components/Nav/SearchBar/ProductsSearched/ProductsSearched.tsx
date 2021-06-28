@@ -1,4 +1,4 @@
-import "./ProductsSearched.css";
+import "./ProductsSearched";
 import { useSelector } from "react-redux";
 import { StoreType, IProductsType } from "../../../../redux/reducers/index";
 import { Container } from "react-bootstrap";
@@ -12,9 +12,7 @@ export default function ProductsSearched() {
   );
   return (
     <div id="home-container">
-      <div className="d-flex justify-content-center mt-3 mb-5">
-        <Order />
-      </div>
+      <Order />
 
       <Container
         id="homeContainer"
