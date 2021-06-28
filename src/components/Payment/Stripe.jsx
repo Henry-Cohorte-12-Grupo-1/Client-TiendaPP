@@ -9,7 +9,6 @@ import jwtDecode from "jwt-decode";
 export default function CheckoutForm() {
   const token = localStorage.token ? jwtDecode(localStorage.token) : false;
   const userId = token ? token.id : "guest";
-
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
@@ -19,6 +18,7 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
+  const isBuyNow = useSelector((state) => state.buyNow);
   const totalPriceState = useSelector((store) => store.totalAmount);
   const cart = useSelector((store) => store.cart);
 
@@ -36,7 +36,7 @@ export default function CheckoutForm() {
     request();
   }, []); //eslint-disable-line
 
-  const toSend = { userId, items: cart };
+  const toSend = { userId, items: cart, isBuyNow };
 
   console.log("LE LLEGA A STRIPE -->", toSend);
 

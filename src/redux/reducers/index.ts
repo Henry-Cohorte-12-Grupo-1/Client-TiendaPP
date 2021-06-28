@@ -25,6 +25,7 @@ export interface StoreType {
     totalAmount: number;
     sellerProfile: SellerProfile;
     productQuestions: IQuestAndId;
+    buyNow: boolean;
 }
 
 export interface IPropsObj {
@@ -93,9 +94,10 @@ const initialState: StoreType = {
         images: []
     },
     productQuestions: {
-        resp:[],
-        id:''
-    }
+        resp: [],
+        id: ''
+    },
+    buyNow: false,
 };
 
 interface IAction {
@@ -249,6 +251,12 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 ...state,
                 productQuestions: action.payload,
             };
+
+        case ActionTypes.BUY_NOW:
+            return {
+                ...state,
+                buyNow: !state.buyNow
+            }
 
         default:
             return state;
