@@ -21,6 +21,9 @@ const promise = loadStripe(
 
 export default function Payment() {
 
+
+    const isBuyNow = useSelector<StoreType, boolean>((state) => state.buyNow)
+
     const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
     const userId = token ? token.id : 'guest';
     const cart = useSelector<StoreType, IProduct[]>((state) => state.cart);
@@ -32,7 +35,9 @@ export default function Payment() {
 
 
     useEffect(() => {
-        (async () => { await dispatch(loadCartFromDB(userId)) })();
+        if (!isBuyNow) {
+            (async () => { await dispatch(loadCartFromDB(userId)) })();
+        }
     }, []);//eslint-disable-line
 
     console.log(cart, "<--- CART")

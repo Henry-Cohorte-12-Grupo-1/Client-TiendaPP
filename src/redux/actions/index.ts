@@ -375,6 +375,54 @@ export const productQuestions = (id: string) => {
       type: ActionTypes.PRODUCT_QUESTIONS,
       payload: productQuestions.data,
     });
-      console.log("🚀 ~ file: index.ts ~ line 378 ~ return ~ data", productQuestions.data)
+    console.log("🚀 ~ file: index.ts ~ line 378 ~ return ~ data", productQuestions.data)
   };
 };
+
+export const buyNow = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch({
+      type: ActionTypes.BUY_NOW,
+      payload: null
+    });
+  };
+}
+
+export const loadCartBuyNow = (productId: string) => {
+  const URL_GET_PRODUCT = url + "/productDetails/";
+  let addedCartProduct: IProduct;
+  return async (dispatch: Dispatch) => {
+    //adding product to user's cart in DB
+    await axios
+      .get(URL_GET_PRODUCT + `${productId}`)
+      .then((res) => {
+        //meter un map
+        console.log(res.data);
+        const Product = res.data;
+        addedCartProduct = {
+          name: Product.name,
+          description: Product.description,
+          price: Product.price,
+          images: Product.Images.map((x: any) => x.imageId),
+          categoryId: Product.categoryId,
+          quantity: 1,
+          //category: string,
+          //joinedImage: string,
+          //initialImages: string,
+          productId: Product.productId,
+          stock: Product.quantity,
+        };
+      })
+      .then(() => {
+        dispatch({
+          type: ActionTypes.LOAD_GUEST_CART,
+          payload: [addedCartProduct],
+          totalAmount: addedCartProduct.price
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+}
+
