@@ -23,26 +23,26 @@ const ImgCarousel: React.FC<ICarouselProps> = ({
     };
 
     const next = () => {
-        if (index === imagesName.length - 1) return setIndex(0);
+        if (index === imagesName?.length - 1) return setIndex(0);
         setIndex(index + 1);
     };
 
-    const onClose = (event:any) => {
+    const onClose = (event: any) => {
         // const { name } = event.target;
         console.log(imagesName[index]);
         setImagesName(
-            imagesName.filter((image:any) => image !== imagesName[index])
+            imagesName.filter((image: any) => image !== imagesName[index])
         );
-        if(imagesName.length > 1) setIndex(0);
-        
+        if (imagesName?.length > 1) setIndex(0);
+
     };
 
-    const imageChangeHandler = async (event:any) => {
+    const imageChangeHandler = async (event: any) => {
         const { files } = event.target;
         if (files) {
-          setImage(files[0]);
+            setImage(files[0]);
         }
-      };
+    };
 
     return (
         <Container className="mt-3">
@@ -58,7 +58,7 @@ const ImgCarousel: React.FC<ICarouselProps> = ({
                 </label>
             </Form.Group>
 
-            {imagesName.length === 0 ? (
+            {imagesName?.length === 0 ? (
                 null
             ) : (
                 <Container className="carousel-container">
@@ -81,7 +81,7 @@ const ImgCarousel: React.FC<ICarouselProps> = ({
                 </Container>
             )}
 
-            {imagesName?.length === 0 ? 
+            {imagesName?.length === 0 ?
                 null
                 // <Container>
                 //     <Button className="btn btn-primary" disabled>
@@ -91,12 +91,12 @@ const ImgCarousel: React.FC<ICarouselProps> = ({
                 //         {">>"}
                 //     </Button>
                 // </Container>
-             : (
-                <Container>
-                    <Button className="btn btn-primary w-50 border" onClick={() => prev()}>{"<<"}</Button>
-                    <Button className="btn btn-primary w-50 border" onClick={() => next()}>{">>"}</Button>
-                </Container>
-            )}
+                : (
+                    <Container>
+                        <Button className="btn btn-primary w-50 border" onClick={() => prev()}>{"<<"}</Button>
+                        <Button className="btn btn-primary w-50 border" onClick={() => next()}>{">>"}</Button>
+                    </Container>
+                )}
         </Container>
     );
 };

@@ -23,6 +23,8 @@ import UserSales from '../components/UserOrders/UserSales';
 import Cart from '../components/Cart/Cart';
 import TokenURL from '../components/Auth/TokenURL';
 import Wishlist from '../components/Wishlist/Wishlist';
+import SellerProfile from '../components/SellerProfile/SellerProfile';
+import SellerProfileForm from '../components/SellerProfileForm/SellerProfileForm';
 
 const routes: IRoute[] = [
     {
@@ -157,6 +159,18 @@ const routes: IRoute[] = [
         path: '/tokensignin',
         name: 'tokensignin',
         component: TokenURL,
+        exact: true,
+    },
+    {
+        path: '/seller/edit/:userName',
+        name: 'SellerProfileForm',
+        component: SellerProfileForm,
+        exact: true,
+    },
+    {
+        path: '/seller/:userName',
+        name: 'SellerProfile',
+        component: SellerProfile,
         exact: true,
     },
 ]

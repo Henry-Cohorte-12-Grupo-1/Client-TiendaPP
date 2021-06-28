@@ -9,7 +9,6 @@ import { StoreType } from "../../redux/reducers";
 import DeleteButton from "../CartButtons/DeleteButton";
 import { Container } from "react-bootstrap";
 import "./CartCard.scss";
-
 interface Props {
     userId?: string;
     productData: IProduct;
@@ -71,15 +70,6 @@ function CartCard(props: Props): ReactElement {
         }
     }
 
-    // async function onChange(event: Event): Promise<void> {
-    //     event.preventDefault();
-    //     const element = event.currentTarget as unknown as HTMLInputElement;
-    //     if (productData.quantity - 1 > 0) {
-    //         await dispatch(setCartItemQuantity(userId, parseInt(element.value), productData.productId));
-    //         setQuantity(quantityShower(productData.productId));
-    //         forceRender(!render);
-    //     }
-    // }
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;

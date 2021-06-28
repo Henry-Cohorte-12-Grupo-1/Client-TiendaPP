@@ -242,7 +242,6 @@ function Login() {
                 {invalid ? (
                     <label className="mt-3">Invalid email or password </label>
                 ) : null}
-
                 <div className={styles.loginForm} id="containerGoogle">
                     <h5> Or Login With Google </h5>
                     <div className={styles.googleContainer} onClick={googleLogin}>

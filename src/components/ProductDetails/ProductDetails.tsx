@@ -1,19 +1,19 @@
+import "./style.scss";
+import detailedProduct from "../../interfaces/detailedProduct";
+import jwtDecode from "jwt-decode";
+import SweetAlertInput from "./sweetAlertInput";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreType } from "../../redux/reducers";
 import { ReactElement, useEffect, useState } from "react";
-import { productInfo, productQuestions } from "../../redux/actions";
-import { RouteComponentProps } from "react-router-dom";
-import detailedProduct from "../../interfaces/detailedProduct";
+import { buyNow, loadCartBuyNow, productInfo, productQuestions } from "../../redux/actions";
+import { Link, RouteComponentProps, useHistory } from "react-router-dom";
 import { Button, Carousel, Container } from "react-bootstrap";
-import "./style.scss";
+import { IQuestAndId } from "../../interfaces/questions";
+import { BsArrowReturnRight } from "react-icons/bs";
+import { url } from "../../api";
+
 //for the add to cart button
 import AddButton from "../CartButtons/AddButton";
-import jwtDecode from "jwt-decode";
-import { IQuestAndId } from "../../interfaces/questions";
-import { BsArrowReturnRight } from 'react-icons/bs'
-// import axios from "axios";
-import { url } from "../../api";
-import sweetAlertInput from "./sweetAlertInput";
 
 //defino el tipado para match.params.id
 interface MatchParams {
@@ -21,49 +21,56 @@ interface MatchParams {
 }
 type Props = RouteComponentProps<MatchParams>;
 
-
 function ProductDetails(props: Props): ReactElement {
-    // const [question, setQuestion] = useState<string>()
-
+    //Constantes
+    const history = useHistory()
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
     const id = props.match.params.id;
-
+    //Selectors
     const details = useSelector<StoreType, detailedProduct>(
         (state) => state.productDetails
     );
     const questions = useSelector<StoreType, IQuestAndId>(
         (state) => state.productQuestions
     );
+    //Handlers
 
-    console.log('eaeaeaeae', questions)
-    const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true);
+    //Funcion que maneja preguntas y respuestas
+    async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
+        const questId = qoA === "Answer" ? quest : "";
+        const routePath = qoA === "Answer" ? "answer" : "new";
+        const uId = qoA === "Question" ? userId : undefined;
+        const paramId = qoA === "Question" ? id : undefined;
+        await SweetAlertInput(
+            `Your ${qoA}:`,
+            `Send ${qoA}:`,
+            `${url}/questions/${routePath}`,
+            questId,
+            uId,
+            paramId
+        );
+        dispatch(productQuestions(id));
+    }
 
     //GETTING USER ID FROM LOCAL STORAGE
-    const token: any = localStorage.token
+    const token: Storage | false = localStorage.token
         ? jwtDecode(localStorage.token)
         : false;
     const userId: string = token ? token.id : "guest";
-
-
-
+    const handleBuyNow = (e: any) => {
+        e.preventDefault();
+        dispatch(buyNow());
+        dispatch(loadCartBuyNow(id))
+        history.push('/payment')
+    }
     useEffect(() => {
         (async () => {
-            await dispatch(productInfo(id));
-            await dispatch(productQuestions(id))
+            dispatch(productInfo(id));
+            dispatch(productQuestions(id));
             setLoading(false);
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-
-    // const handleChange = (event: React.FormEvent<any>) => {
-    //     let ques: string = (event.target as HTMLButtonElement).value
-    //     setQuestion(ques)
-    // }
-
-    // const handleSubmit = async () => {
-    //     const resp = await axios.post(`${url}/questions/new`, { question: question, userId: userId, productId: id })
-    //     console.log('NEW resp', resp)
-    // }
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -98,10 +105,12 @@ function ProductDetails(props: Props): ReactElement {
                         <h4>${details.price}</h4>
                         <p>{details.description}</p>
                         {details.quantity > 0 ? (
-                            <AddButton
-                                productId={details.productId}
-                                userId={userId}
-                            />
+                            <div>
+                                <AddButton productId={details.productId} userId={userId} />
+                                <Link to={'/payment'} onClick={handleBuyNow}>
+                                    <Button type="button" className="mt-1">Buy Now</Button>
+                                </Link>
+                            </div>
                         ) : (
                             <em>Not available right now</em>
                         )}
@@ -112,11 +121,7 @@ function ProductDetails(props: Props): ReactElement {
                 {details.Reviews.length ? (
                     details.Reviews.map((rev) => {
                         return (
-                            <div
-                                className="card center"
-                                id="spacingReview"
-                                key={rev.review}
-                            >
+                            <div className="card center" id="spacingReview" key={rev.review}>
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-md-2">
@@ -129,13 +134,8 @@ function ProductDetails(props: Props): ReactElement {
                                             </div>
                                             <div className="row">
                                                 <p>
-                                                    <a
-                                                        className="ml-5"
-                                                        href="/"
-                                                    >
-                                                        <strong>
-                                                            {rev.User?.username}
-                                                        </strong>
+                                                    <a className="ml-5" href="/">
+                                                        <strong>{rev.User?.username}</strong>
                                                     </a>
                                                 </p>
                                             </div>
@@ -161,40 +161,45 @@ function ProductDetails(props: Props): ReactElement {
                 )}
                 <hr></hr>
                 <h2 className="text-center mt-4">Questions and answers</h2>
-                {console.log('Id del token: ', userId)}
-                {console.log('Id del back:', questions.id)}
-                {(userId === questions.id) ? null : (
+                {userId === questions.id ? null : (
                     <div>
-                        <Button onClick={() => sweetAlertInput('Your Question:', 'send question', `${url}/questions/new`, '',userId, id)}>Make a question</Button>
-                        {/* <h3>Make a question</h3>
-                        <Form.Group className="row d-flex align-center justify-content-center" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control className="w-50 ml-3 mb-3" id='questionTextarea' as="textarea" onChange={handleChange} />
-                            <Button className="col-5 ml-5" id='questionButton' onClick={handleSubmit}>Ask</Button>
-                        </Form.Group> */}
+                        <Button onClick={() => handleQA("Question", undefined)}>
+                            Make a question
+                        </Button>
                         <hr></hr>
                     </div>
                 )}
                 <h3>Last questions</h3>
-                <Container className='bg-light p-4'>
-                    {questions.resp && questions.resp.map((question, i) => (
-                        <div>
-                            <p className="mb-0" key={i}>{question.question}</p>
-                            {question.answer ? (
-                                <p className="ml-3" key={i}>{ }<BsArrowReturnRight />&nbsp;{question.answer}</p>
-                            ) : null}
+                <Container className="bg-light p-4">
+                    {questions.resp &&
+                        questions.resp.map((question, i) => (
                             <div>
-                                {console.log('userId', userId)}
-                                {console.log('questions.id', questions.id)}
-                                {console.log('answer', question.answer)}
-                                {(userId === questions.id && !question.answer) ? (<Button onClick={() => sweetAlertInput('Your Answer:', 'send answer', `${url}/questions/answer`, question.questionId)}>Answer</Button>) : null}
+                                <p className="mb-0" key={i}>
+                                    {question.question}
+                                </p>
+                                {question.answer ? (
+                                    <p className="ml-3" key={i}>
+                                        { }
+                                        <BsArrowReturnRight />
+                                        &nbsp;{question.answer}
+                                    </p>
+                                ) : null}
+                                <div>
+                                    {userId === questions.id && !question.answer ? (
+                                        <Button
+                                            onClick={() => {
+                                                handleQA("Answer", question.questionId);
+                                            }}
+                                        >
+                                            Answer
+                                        </Button>
+                                    ) : null}
+                                </div>
+
+                                <hr></hr>
                             </div>
-
-                            <hr></hr>
-                        </div>
-                    )
-                    )}
+                        ))}
                 </Container>
-
             </div>
         </Container>
     );

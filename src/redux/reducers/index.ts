@@ -4,6 +4,8 @@ import detailedProduct from '../../interfaces/detailedProduct';
 import IUserProduct from '../../interfaces/userProducts';
 import IUserOrders from '../../interfaces/userOrders';
 import { IProduct } from '../../interfaces/product';
+import { setCartItemQuantity } from '../actions';
+import SellerProfile from '../../interfaces/sellerProfile';
 import { IQuestAndId } from '../../interfaces/questions';
 
 // Interface de Store NO CAMBIAR DE LUGAR
@@ -21,7 +23,9 @@ export interface StoreType {
     filterOrders: IUserOrders[];
     cart: IProduct[];
     totalAmount: number;
+    sellerProfile: SellerProfile;
     productQuestions: IQuestAndId;
+    buyNow: boolean;
 }
 
 export interface IPropsObj {
@@ -83,10 +87,17 @@ const initialState: StoreType = {
     cart: [],
     totalAmount: 0,
     wishlist: [],
+    sellerProfile: {
+        userId: "",
+        header: "",
+        description: "",
+        images: []
+    },
     productQuestions: {
-        resp:[],
-        id:''
-    }
+        resp: [],
+        id: ''
+    },
+    buyNow: false,
 };
 
 interface IAction {
@@ -221,18 +232,32 @@ export default function reducer(state: StoreType = initialState, action: IAction
                 return {
                     ...state,
                 };
-            }
+            };
         case ActionTypes.LOAD_GUEST_CART:
             return {
                 ...state,
                 cart: action.payload,
                 totalAmount: action.totalAmount,
             };
+
+        case ActionTypes.BRING_SELLER_PROFILE:
+            return {
+                ...state,
+                sellerProfile: action.payload
+            };
+
         case ActionTypes.PRODUCT_QUESTIONS:
             return {
                 ...state,
                 productQuestions: action.payload,
             };
+
+        case ActionTypes.BUY_NOW:
+            return {
+                ...state,
+                buyNow: !state.buyNow
+            }
+
         default:
             return state;
     }

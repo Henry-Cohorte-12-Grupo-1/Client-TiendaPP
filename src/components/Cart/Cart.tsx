@@ -61,7 +61,6 @@ function Cart(): ReactElement {
     } else {
         //cart has things
         return (
-            // <Container className="media m-4 border shadow">
             <div className="m-4 p-4">
                 <h2 className="text-center">Shop Cart</h2>
                 {cart.map((cartItem: IProduct) => {
