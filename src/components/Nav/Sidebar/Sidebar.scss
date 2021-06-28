@@ -4,6 +4,7 @@
     text-decoration: none !important;
     color: $light;
     font-size: 30px;
+    font-weight: bolder;
     width: 99%;
     height: 100%;
     display: flex;
@@ -36,7 +37,7 @@
 
 .full-overlay {
     display: none;
-    z-index: 99;
+    z-index: 89;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -54,66 +55,39 @@
     }
 }
 
-.nav-menu {
-    z-index: 99;
-    background-color: $success;
-    width: 250px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: -100%;
-    transition: 850ms;
-    &.active {
-        left: 0;
-        transition: 350ms;
-    }
+.nav-header {
+    height: 4rem;
 }
 
-.nav-text {
+.nav-profile {
+    height: 12rem;
+    background-size: cover;
+    background-position: center;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 0px 8px 16px;
-    list-style: none;
-    height: 60px;
-    & a {
-        text-decoration: none !important;
-        color: $light;
-        font-size: 20px;
-        width: 99%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0px 16px;
-        border-radius: 4px;
+    flex-direction: row;
+    align-items: center; //x axis center
+    justify-content: flex-start; //y axis pos
+    align-content: space-around;
 
-        &:hover {
-            text-decoration: none !important;
-            color: $light;
-            background-color: $primary;
-        }
-
-        span {
-            margin-left: 16px;
-        }
-    }
-}
-
-.nav-menu-items {
-    width: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: relative;
-
-    #circle {
+    .profile-overlay {
+        z-index: 91;
         position: absolute;
-        align-self: center;
+        width: 100%;
+        height: inherit;
+        background: #000;
+
+        filter: alpha(opacity = 50); /* required for opacity to work in IE */
+        opacity: 0.3;
+    }
+    .circle {
+        z-index: 92;
+        position: relative;
+        // position: absolute;
+        // align-self: center;
         $circle-d: 100px;
         height: $circle-d;
         width: $circle-d;
+        margin-left: 1rem;
 
         -webkit-border-radius: 63px;
         -moz-border-radius: 63px;
@@ -122,25 +96,33 @@
         display: flex;
         justify-content: center;
         .pfp {
+            z-index: 93;
+            position: relative;
             align-self: center;
-            $circle-d: 90px;
-            height: $circle-d;
-            width: $circle-d;
+            height: $circle-d - 5px;
+            width: $circle-d - 5px;
             -webkit-border-radius: 63px;
             -moz-border-radius: 63px;
             border-radius: 50%;
         }
     }
+    .username {
+        z-index: 92;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        p {
+            margin-left: 10px;
+            color: white;
+            font-weight: bolder;
+        }
+    }
 }
 
-.nav-menu-items.profile {
-    justify-content: center;
+.nav-body {
+    flex: 1; //filling the available space
 }
 
-.navbar-toggle {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
+.nav-footer {
+    height: 6rem;
 }
