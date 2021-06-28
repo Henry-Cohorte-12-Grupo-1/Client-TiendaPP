@@ -1,18 +1,18 @@
 import "./style.scss";
+import SellerProfile from "../../interfaces/sellerProfile";
+import IUserProduct from "../../interfaces/userProducts";
+import ProductsCards from "../ProductsCards/ProductsCards";
+import jwtDecode from "jwt-decode";
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Carousel } from "react-bootstrap";
 import { StoreType } from "../../redux/reducers/index";
+import {IProducts} from "../../interfaces/products";
 import {
   bringSellerProfile,
   bringUserProducts,
   bringWishlist,
 } from "../../redux/actions";
-import SellerProfile from "../../interfaces/sellerProfile";
-import IUserProduct from "../../interfaces/userProducts";
-import ProductsCards from "../ProductsCards/ProductsCards";
-import jwtDecode from "jwt-decode";
-import obj from "../../interfaces/products";
 
 function SellerProfileForm(props: any): ReactElement {
   const userName = props.match.params.userName;
@@ -28,7 +28,7 @@ function SellerProfileForm(props: any): ReactElement {
   const userProducts = useSelector<StoreType, IUserProduct[]>(
     (state) => state.userProducts
   );
-  const wishlist = useSelector<StoreType, obj[]>((state) => state.wishlist);
+  const wishlist = useSelector<StoreType, IProducts[]>((state) => state.wishlist);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

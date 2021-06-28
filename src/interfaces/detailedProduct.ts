@@ -1,15 +1,15 @@
-export interface SqlImg {
+interface SqlImg {
     url: string;
     imageId: string;
 }
 
-export interface ReviewObj {
+interface ReviewObj {
     score: number;
     review: string;
     User?: { username: string }
 }
 
-export default interface detailedProduct {
+export default interface IDetailedProduct {
     Images: SqlImg[];
     Reviews: ReviewObj[];
     categoryId: number;

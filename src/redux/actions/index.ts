@@ -1,10 +1,9 @@
-import { ActionTypes } from "./types";
-import obj from "../../interfaces/products";
 import axios from "axios";
+import { ActionTypes } from "./types";
+import { IProducts } from "../../interfaces/products";
 import { Dispatch } from "redux";
 import { url } from "../../api";
 import { IProduct } from "../../interfaces/product";
-import { IQuestAndId, IQuestions } from "../../interfaces/questions";
 
 export const masUno = () => {
   return {
@@ -15,21 +14,21 @@ export const masUno = () => {
 
 export interface AxiosProducts {
   type: ActionTypes.BRING_PRODUCTS;
-  payload: obj[];
+  payload: IProducts[];
 }
 
 export interface BringUserProducts {
   type: ActionTypes.GET_USER_PRODUCTS;
-  payload: obj[];
+  payload: IProducts[];
 }
 export interface BringUserOrders {
   type: ActionTypes.GET_USER_ORDERS;
-  payload: obj[];
+  payload: IProducts[];
 }
 
 export interface ProductInfo {
   type: ActionTypes.GET_DETAILS;
-  payload: obj;
+  payload: IProducts;
 }
 
 //Busca los detalles de un producto, por ahora hardcodeado del back
@@ -45,7 +44,9 @@ export const productInfo = (id: string) => {
 
 export const bringProducts = () => {
   return async (dispatch: Dispatch) => {
-    const productos = await axios.get<obj[]>(`${url}/product/getallproducts`);
+    const productos = await axios.get<IProducts[]>(
+      `${url}/product/getallproducts`
+    );
     dispatch<AxiosProducts>({
       type: ActionTypes.BRING_PRODUCTS,
       payload: productos.data,
@@ -136,7 +137,7 @@ export const searchProduct = (
   pag = 0,
   tag = "name",
   order = "ASC",
-  seller= "Leandro",
+  seller = ""
 ) => {
   const URL = `${url}/search`;
   const params = {
@@ -158,7 +159,7 @@ export const searchProduct = (
         pag: pag,
         tag: tag,
         order: order,
-        seller: seller,
+        //seller: seller,
       };
       dispatch({
         type: ActionTypes.SEARCH_PRODUCT,
@@ -170,14 +171,16 @@ export const searchProduct = (
   };
 };
 
-export const searchProductAC = (name: string) => {
+export const searchProductAC = (name: string, seller: string = "") => {
   const URL = `${url}/search`;
   const params = {
     name,
+    seller,
   };
   return async function (dispatch: Dispatch) {
     try {
       const productData = await axios.get(URL, { params });
+      console.log("productdata", productData.data);
       dispatch({
         type: ActionTypes.SEARCH_PRODUCT_AC,
         acList: productData.data,
@@ -379,7 +382,10 @@ export const productQuestions = (id: string) => {
       type: ActionTypes.PRODUCT_QUESTIONS,
       payload: productQuestions.data,
     });
-    console.log("🚀 ~ file: index.ts ~ line 378 ~ return ~ data", productQuestions.data)
+    console.log(
+      "🚀 ~ file: index.ts ~ line 378 ~ return ~ data",
+      productQuestions.data
+    );
   };
 };
 
@@ -387,10 +393,10 @@ export const buyNow = () => {
   return async (dispatch: Dispatch) => {
     dispatch({
       type: ActionTypes.BUY_NOW,
-      payload: null
+      payload: null,
     });
   };
-}
+};
 
 export const loadCartBuyNow = (productId: string) => {
   const URL_GET_PRODUCT = url + "/productDetails/";
@@ -421,12 +427,11 @@ export const loadCartBuyNow = (productId: string) => {
         dispatch({
           type: ActionTypes.LOAD_GUEST_CART,
           payload: [addedCartProduct],
-          totalAmount: addedCartProduct.price
+          totalAmount: addedCartProduct.price,
         });
       })
       .catch((e) => {
         console.error(e);
       });
   };
-}
-
+};

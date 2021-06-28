@@ -1,22 +1,22 @@
+import "./Home.scss";
+import ProductsCards from "../ProductsCards/ProductsCards";
+import jwtDecode from "jwt-decode";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { Container, Carousel } from "react-bootstrap";
+import {IProducts} from "../../interfaces/products";
 import { StoreType } from "../../redux/reducers/index";
 import {
   bringProducts,
   bringWishlist,
   getCategories,
 } from "../../redux/actions/index";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import "./Home.scss";
-import { Container, Carousel } from "react-bootstrap";
-import obj from "../../interfaces/products";
-import ProductsCards from "../ProductsCards/ProductsCards";
-import jwtDecode from "jwt-decode";
 
 function Home() {
-  const producto = useSelector<StoreType, obj[]>(
+  const producto = useSelector<StoreType, IProducts[]>(
     (state) => state.filterProducts
   );
-  const wishlist = useSelector<StoreType, obj[]>((state) => state.wishlist);
+  const wishlist = useSelector<StoreType, IProducts[]>((state) => state.wishlist);
   const dispatch = useDispatch();
   const token: any = localStorage.token ? jwtDecode(localStorage.token) : false;
   const userId = token?.id ? token.id : "guest";

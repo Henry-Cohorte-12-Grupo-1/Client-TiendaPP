@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { StoreType } from "../../redux/reducers/index";
 import { Navbar, Nav, Form } from "react-bootstrap";
 import { orderByCategories, bringProducts } from "../../redux/actions/index";
-import { category } from "../../interfaces/products";
+import { ICategory } from "../../interfaces/products";
 import jwtDecode from "jwt-decode";
 import Dropdown from "../Dropdown/Dropdown";
 
 import Sidebar from "./Sidebar/Sidebar";
 
 function NavComponent() {
-  const categories = useSelector<StoreType, category[]>((s) => s.filter);
+  const categories = useSelector<StoreType, ICategory[]>((s) => s.filter);
   const dispatch = useDispatch();
 
   const handleClick = (category: string) => {

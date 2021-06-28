@@ -1,10 +1,11 @@
 import "./ProductsSearched";
-import { useSelector } from "react-redux";
-import { StoreType, IProductsType } from "../../../../redux/reducers/index";
-import { Container } from "react-bootstrap";
 import ProductsCards from "../../../ProductsCards/ProductsCards";
 import Pagination from "../../../Pagination/Pagination";
 import Order from "./parts/Order";
+import { useSelector } from "react-redux";
+import { StoreType } from "../../../../redux/reducers/index";
+import { IProductsType } from "../../../../interfaces/search";
+import { Container } from "react-bootstrap";
 
 export default function ProductsSearched() {
   const products = useSelector<StoreType, IProductsType>(
