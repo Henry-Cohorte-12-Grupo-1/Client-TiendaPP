@@ -13,7 +13,7 @@ import { BsArrowReturnRight } from "react-icons/bs";
 import { url } from "../../api";
 
 //for the add to cart button
-import AddButton from "../CartButtons/AddButton";
+import AddButton from "../Cart/CartButtons/AddButton";
 
 //defino el tipado para match.params.id
 interface MatchParams {

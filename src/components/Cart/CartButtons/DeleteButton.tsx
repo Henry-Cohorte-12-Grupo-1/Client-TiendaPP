@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
-import { url as URL } from '../../api';
-import { deleteItemFromCart } from '../../redux/actions/';
+import { url as URL } from '../../../api';
+import { deleteItemFromCart } from '../../../redux/actions';
 interface Props {
     userId: string | undefined;
     productId: string | null | undefined;

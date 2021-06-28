@@ -1,5 +1,5 @@
 import "./style.scss";
-import CartCard from "../CartCard/CartCard";
+import CartCard from "./CartCard/CartCard";
 import { ReactElement, useEffect, useState } from "react";
 import {IProduct} from "../../interfaces/product";
 

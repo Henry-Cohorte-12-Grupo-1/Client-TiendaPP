@@ -1,12 +1,12 @@
 import swal from "sweetalert";
 import { ReactElement, useEffect } from "react";
-import { IProduct } from "../../interfaces/product";
+import { IProduct } from "../../../interfaces/product";
 
 //redux stuff
 import { useDispatch, useSelector } from "react-redux";
-import { addProductToCart } from "../../redux/actions";
-import { StoreType } from "../../redux/reducers";
-import { loadCartFromDB, loadGuestCart } from "../../redux/actions";
+import { addProductToCart } from "../../../redux/actions";
+import { StoreType } from "../../../redux/reducers";
+import { loadCartFromDB, loadGuestCart } from "../../../redux/actions";
 
 interface Props {
   userId: string;

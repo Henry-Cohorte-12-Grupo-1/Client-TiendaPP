@@ -1,12 +1,12 @@
 import "./CartCard.scss";
 import DeleteButton from "../CartButtons/DeleteButton";
 import { ReactElement, useState } from "react";
-import { url as URL } from "../../api";
+import { url as URL } from "../../../api";
 import { useDispatch, useSelector } from "react-redux";
-import { setCartItemQuantity } from "../../redux/actions";
-import { StoreType } from "../../redux/reducers";
+import { setCartItemQuantity } from "../../../redux/actions";
+import { StoreType } from "../../../redux/reducers";
 import { Container } from "react-bootstrap";
-import { IProduct } from "../../interfaces/product";
+import { IProduct } from "../../../interfaces/product";
 interface Props {
   userId?: string;
   productData: IProduct;
