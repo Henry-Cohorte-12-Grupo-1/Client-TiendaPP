@@ -24,7 +24,7 @@ export const SidebarData = [
         },
     },
     {
-        title: "Admin ctrl",
+        title: "Admin Tools",
         path: "/admin",
         icon: <AiIcons.AiOutlineTool />,
         cName: "nav-text",
@@ -38,7 +38,7 @@ export const SidebarData = [
         path: "/user",
         icon: <AiIcons.AiOutlineUser />,
         cName: "nav-text",
-        role: UserStatus.notAdmin,
+        role: UserStatus.user,
         onClick: () => {
             return;
         },

@@ -32,7 +32,7 @@ function Sidebar() {
         ? UserStatus.user
         : UserStatus.guest;
 
-    const username = "SUPAHOTPEDRO92";
+    const username = token.username;
     const cover_URL =
         "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
 
@@ -48,7 +48,7 @@ function Sidebar() {
                 //Is logged
                 (logged && item.role === UserStatus.logged) ||
                 //Not admin and logged
-                (!admin && logged && item.role === UserStatus.notAdmin))
+                (!admin && item.role === UserStatus.notAdmin))
         );
     });
 
@@ -84,13 +84,13 @@ function Sidebar() {
                     }}
                 >
                     <div className="profile-overlay"></div>
-                    <a href={`/user/${username}`}>
+                    <a href={`/seller/${username}`}>
                         <div className="circle">
                             <img src={`${pfp_URL}`} className="pfp"></img>
                         </div>
                     </a>
                     <div className="username">
-                        <p>SupahotPedro92</p>
+                        <p>{username}</p>
                     </div>
                 </div>
 
