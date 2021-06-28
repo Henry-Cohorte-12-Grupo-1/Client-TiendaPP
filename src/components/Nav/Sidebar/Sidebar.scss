@@ -55,6 +55,25 @@
     }
 }
 
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    z-index: 90;
+    background-color: $success;
+    width: 400px;
+    height: 100vh;
+
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: 850ms;
+    &.active {
+        left: 0;
+        transition: 350ms;
+    }
+}
+
 .nav-header {
     height: 4rem;
 }
@@ -125,4 +144,34 @@
 
 .nav-footer {
     height: 6rem;
+}
+
+.nav-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0px 8px 16px;
+    list-style: none;
+    height: 60px;
+    & a {
+        text-decoration: none !important;
+        color: $light;
+        font-size: 20px;
+        width: 99%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0px 16px;
+        border-radius: 4px;
+
+        &:hover {
+            text-decoration: none !important;
+            color: $light;
+            background-color: $primary;
+        }
+
+        span {
+            margin-left: 16px;
+        }
+    }
 }
