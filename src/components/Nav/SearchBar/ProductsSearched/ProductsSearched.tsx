@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
-import { searchProduct } from "../../redux/actions";
-import { StoreType, IProductsType } from '../../redux/reducers/index'
+import { searchProduct } from "../../../../redux/actions";
+import { StoreType, IProductsType } from '../../../../redux/reducers/index'
 import { Container } from 'react-bootstrap'
-import ProductsCards from '../ProductsCards/ProductsCards';
-import Pagination from "../Pagination/Pagination";
+import ProductsCards from '../../../ProductsCards/ProductsCards';
+import Pagination from "../../../Pagination/Pagination";
 import './ProductsSearched.css'
 
 
