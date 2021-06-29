@@ -20,7 +20,7 @@ function UserProducts() {
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
 
-    console.log("superpedro92", userProducts);
+    console.log("superpedro92", userName);
 
     useEffect(() => {
         dispatch(bringUserProducts(userName));

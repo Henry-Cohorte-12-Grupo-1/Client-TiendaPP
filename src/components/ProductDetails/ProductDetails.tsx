@@ -85,7 +85,7 @@ function ProductDetails(props: Props): ReactElement {
             console.log(details.User.username)
             if (details.User) {
                 const profile = await axios.get(`${url}/seller/${details.User.username}`);
-                console.log('aaaaa',profile)
+                console.log('aaaaa', profile)
                 if (profile.data.header) {
                     setHasProfile(true)
                 }
@@ -142,9 +142,9 @@ function ProductDetails(props: Props): ReactElement {
                             <em>Not available right now</em>
                         )}
                         <div>
-                        <p className='mt-4'>Vendor:</p>
-                        <p>{details?.User.username}</p>
-                        {hasProfile ? (<Button href={`/seller/${details.User.username}`}>Seller Profile</Button>) : null}                            
+                            <p className='mt-4'>Vendor:</p>
+                            <p>{details?.User.username}</p>
+                            {hasProfile ? (<Button href={`/seller/${details?.User.username}`}>Seller Profile</Button>) : null}
                         </div>
                     </Container>
                 </Container>

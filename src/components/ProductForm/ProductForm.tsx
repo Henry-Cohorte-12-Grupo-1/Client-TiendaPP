@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { url } from "../../api";
 import ImgCarousel from '../ImgCarousel/ImgCarousel'
 import swal from 'sweetalert'
+import jwtDecode from "jwt-decode";
 
 //AGREGAR USUARIO/ TIENE QUE ESTAR EN LA STORE DE REDUX
 
@@ -21,6 +22,10 @@ interface ICarouselProps {
 }
 
 const ProductForm: React.FC<ICarouselProps> = () => {
+    const token: any = localStorage.token
+        ? jwtDecode(localStorage.token)
+        : false;
+    const userId = token?.id ? token.id : "guest";
     const [index, setIndex] = useState<number>(0)
     const [image, setImage] = useState<File>()
     const [imagesName, setImagesName] = useState<string[]>([])
@@ -29,7 +34,8 @@ const ProductForm: React.FC<ICarouselProps> = () => {
         name: '',
         description: '',
         price: 0,
-        quantity: 1
+        quantity: 1,
+        userId: userId
     })
     const [errors, setErrors] = useState<IError>({
         name: true,
@@ -112,7 +118,7 @@ const ProductForm: React.FC<ICarouselProps> = () => {
                 categoryId: product.categoryId,
                 joinedImage: imagesName.join(' - '),
                 quantity: product.quantity,
-
+                userId: userId
             }
             console.log(newProduct)
             const response = await axios.post(`${url}/product`, newProduct)

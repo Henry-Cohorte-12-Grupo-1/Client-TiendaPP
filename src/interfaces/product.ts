@@ -10,6 +10,7 @@ export interface IProduct {
     initialImages?: string;
     productId?: string | null | undefined;
     stock?: any | undefined;
+    userId?: string
 }
 
 export interface ICategories {
