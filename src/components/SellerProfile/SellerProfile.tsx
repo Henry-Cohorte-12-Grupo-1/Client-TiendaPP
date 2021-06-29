@@ -5,8 +5,8 @@ import ProductsCards from "../ProductsCards/ProductsCards";
 import jwtDecode from "jwt-decode";
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Carousel } from "react-bootstrap";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { Button, Carousel } from "react-bootstrap";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { IProducts } from "../../interfaces/products";
 
 import { bringSellerProfile } from "../../redux/seller/sellerActions";
@@ -43,7 +43,17 @@ function SellerProfileForm(props: any): ReactElement {
     }, []); //eslint-disable-line
 
     if (seller.error) {
-        return <h2>AAAAAAAAA</h2>;
+        return (
+            <div className="container ml-auto mr-auto mt-4 bg-light border shadow p-5 rounded-lg m-3">
+                <div className="container-fluid py-5">
+                    <h1 className="display-5 fw-bold">This seller hasn't made a page yet:(</h1>
+                    <p className="col-md-8 fs-4">
+                        This seller has not yet made his own page. In the meantime, we suggest you keep looking for products you might like on the main page
+                    </p>
+                    <Button href="/Home" >Go to Home</Button>
+                </div>
+            </div>
+        );
     }
 
     let header = seller.header;
@@ -86,21 +96,21 @@ function SellerProfileForm(props: any): ReactElement {
             <div className="d-flex justify-content-center flex-wrap ml-0 mr-0'">
                 {typeof userProducts !== "string" && userProducts?.length
                     ? userProducts.map((p) => {
-                          return (
-                              <ProductsCards
-                                  name={p.name}
-                                  price={p.price}
-                                  images={p.Images}
-                                  image=""
-                                  productId={p.productId}
-                                  userId={userId}
-                                  wished={wishlist.some(
-                                      (w) => w.productId === p.productId
-                                  )}
-                              />
-                              //url = { p }
-                          );
-                      })
+                        return (
+                            <ProductsCards
+                                name={p.name}
+                                price={p.price}
+                                images={p.Images}
+                                image=""
+                                productId={p.productId}
+                                userId={userId}
+                                wished={wishlist.some(
+                                    (w) => w.productId === p.productId
+                                )}
+                            />
+                            //url = { p }
+                        );
+                    })
                     : null}
             </div>
         </div>

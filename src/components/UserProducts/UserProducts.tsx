@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { bringUserProducts } from "../../redux/products/productsActions";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import ProductsCards from "../ProductsCards/ProductsCards";
 import IUserProduct from "../../interfaces/userProducts";
 import { Container, Button } from "react-bootstrap";

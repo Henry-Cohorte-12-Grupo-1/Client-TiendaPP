@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IProducts } from "../../interfaces/products";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
+import { Button } from "react-bootstrap";
 
 export default function Wishlist() {
     const token: any = localStorage.token
@@ -24,6 +25,21 @@ export default function Wishlist() {
             dispatch(bringWishlist(userId));
         }
     }, []); //eslint-disable-line
+
+    if (!producto.length) {
+        return (
+
+            <div className="container ml-auto mr-auto mt-4 bg-light border shadow p-5 rounded-lg m-3">
+                <div className="container-fluid py-5">
+                    <h1 className="display-5 fw-bold">Your wishlist is empty :(</h1>
+                    <p className="col-md-8 fs-4">
+                        It seems like you haven't added items to your wishlist. What are you waiting for? keep track of your favorite items by hitting that lovely heart!
+                    </p>
+                    <Button href="/Home" >Go to Home</Button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div id="wishlist-container">
