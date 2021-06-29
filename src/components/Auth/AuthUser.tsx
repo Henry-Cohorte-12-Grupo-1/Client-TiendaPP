@@ -3,7 +3,7 @@ import { Redirect, Router } from "react-router";
 
 function AuthUser (props: any ) {
     const user : any = localStorage.token ? jwtDecode(localStorage.token) : false;
-    if(!user || !user.user){
+    if(!user || !user.user || !props.component){
         return <Redirect to='/login'/>
     }
     return (
