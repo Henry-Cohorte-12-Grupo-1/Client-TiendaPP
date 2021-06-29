@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bringSellerProfile } from "../../redux/seller/sellerActions";
 import SellerProfile from "../../interfaces/sellerProfile";
 import jwtDecode from "jwt-decode";
+import { useHistory } from "react-router";
 
 interface ICarouselProps {
     index?: any;
@@ -23,6 +24,7 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     const userId = token.id;
     const dispatch = useDispatch();
+    const history = useHistory()
 
     const [sellerProfile, setSellerProfile] = useState<SellerProfile>({
         userId: userId,
@@ -100,7 +102,7 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
         await axios.post(`${url}/seller`, sellerProfile);
-        swal("COSO UPDATED");
+        swal("Changes Saved!").then(() => history.push(`/seller/${userName}`));
     };
 
     return (
@@ -145,7 +147,7 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
                         </Col>
                     </Row>
                 </Row>
-                <Button type="submit">Create</Button>
+                <Button type="submit">Save</Button>
             </Form>
         </Container>
     );
