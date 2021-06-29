@@ -18,6 +18,6 @@ export default interface IDetailedProduct {
     price: number;
     productId: string;
     userId: string;
-    quantity: number
-
+    quantity: number;
+    User:{username:string};
 }
