@@ -29,6 +29,7 @@ export const initialState: StoreType = {
         price: 0,
         productId: "",
         userId: "",
+        User: {username: ""}
     },
     userProducts: [],
     userOrders: [],

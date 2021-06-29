@@ -21,6 +21,7 @@ import { url } from "../../api";
 
 //for the add to cart button
 import AddButton from "../Cart/CartButtons/AddButton";
+import axios from "axios";
 
 //defino el tipado para match.params.id
 interface MatchParams {
@@ -33,6 +34,7 @@ function ProductDetails(props: Props): ReactElement {
     const history = useHistory();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
+    const [hasProfile, setHasProfile] = useState<boolean>(false);
     const id = props.match.params.id;
     //Selectors
     const details = useSelector<CombinedStores, detailedProduct>(
@@ -42,7 +44,6 @@ function ProductDetails(props: Props): ReactElement {
         (state) => state.productsReducer.productQuestions
     );
     //Handlers
-
     //Funcion que maneja preguntas y respuestas
     async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
         const questId = qoA === "Answer" ? quest : "";
@@ -75,9 +76,23 @@ function ProductDetails(props: Props): ReactElement {
         (async () => {
             dispatch(productInfo(id));
             dispatch(productQuestions(id));
-            setLoading(false);
+            setLoading(false)
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        (async () => {
+            console.log(details.User.username)
+            if (details.User) {
+                const profile = await axios.get(`${url}/seller/${details.User.username}`);
+                console.log('aaaaa',profile)
+                if (profile.data.header) {
+                    setHasProfile(true)
+                }
+                // setLoading(false)
+            }
+        })()
+    }, [details])
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -126,6 +141,11 @@ function ProductDetails(props: Props): ReactElement {
                         ) : (
                             <em>Not available right now</em>
                         )}
+                        <div>
+                        <p className='mt-4'>Vendor:</p>
+                        <p>{details?.User.username}</p>
+                        {hasProfile ? (<Button href={`/seller/${details.User.username}`}>Seller Profile</Button>) : null}                            
+                        </div>
                     </Container>
                 </Container>
                 <hr></hr>
@@ -200,14 +220,14 @@ function ProductDetails(props: Props): ReactElement {
                                 </p>
                                 {question.answer ? (
                                     <p className="ml-3" key={i}>
-                                        {}
+                                        { }
                                         <BsArrowReturnRight />
                                         &nbsp;{question.answer}
                                     </p>
                                 ) : null}
                                 <div>
                                     {userId === questions.id &&
-                                    !question.answer ? (
+                                        !question.answer ? (
                                         <Button
                                             onClick={() => {
                                                 handleQA(
