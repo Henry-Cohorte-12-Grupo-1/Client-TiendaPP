@@ -164,7 +164,14 @@ const routes: IRoute[] = [
     {
         path: '/seller/edit/:userName',
         name: 'SellerProfileForm',
-        component: SellerProfileForm,
+        component: AuthUser,
+        exact: true,
+        props: { path: '/seller/edit/:userName', name: 'SellerProfileForm', component: SellerProfileForm, exact: true }
+    },
+    {
+        path: '/seller/edit/',
+        name: 'SellerProfileForm',
+        component: AuthUser,
         exact: true,
     },
     {
