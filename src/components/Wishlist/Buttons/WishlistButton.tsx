@@ -35,6 +35,7 @@ function WishlistButton(props: Props): ReactElement {
         return (
             <button
                 type="button"
+                style={{ outline: "none", boxShadow: "none" }}
                 className="btn"
                 onClick={() => handleWish(false)}
             >
@@ -44,6 +45,7 @@ function WishlistButton(props: Props): ReactElement {
     } else {
         return (
             <button
+                style={{ outline: "none", boxShadow: "none" }}
                 type="button"
                 className="btn"
                 onClick={() => handleWish(true)}

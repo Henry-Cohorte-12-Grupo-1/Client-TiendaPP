@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { url } from "../../api";

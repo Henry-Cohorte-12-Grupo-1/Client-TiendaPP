@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IProducts } from "../../interfaces/products";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { Button } from "react-bootstrap";
 
 export default function Wishlist() {

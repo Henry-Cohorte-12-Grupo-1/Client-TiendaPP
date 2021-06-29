@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode";
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Carousel } from "react-bootstrap";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { IProducts } from "../../interfaces/products";
 
 import { bringSellerProfile } from "../../redux/seller/sellerActions";
