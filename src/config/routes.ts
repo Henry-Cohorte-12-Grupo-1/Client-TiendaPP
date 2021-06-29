@@ -26,6 +26,7 @@ import Wishlist from '../components/Wishlist/Wishlist';
 import SellerProfile from '../components/SellerProfile/SellerProfile';
 import SellerProfileForm from '../components/SellerProfileForm/SellerProfileForm';
 
+
 const routes: IRoute[] = [
     {
         path: '/',
@@ -170,7 +171,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/seller/edit/',
-        name: 'SellerProfileForm',
+        name: 'RutaNoValida',
         component: AuthUser,
         exact: true,
     },
