@@ -10,19 +10,19 @@ import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 
 //redux stuff
-import { StoreType } from "../../redux/reducers/index";
-import { masUno } from "../../redux/actions/index";
+import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+//import { masUno } from "../../redux/actions/index";
 
 import "./style.scss";
 
 function App() {
-    const counter = useSelector<StoreType, number>((state) => state.counter); //redux store counter varible
+    //const counter = useSelector<CombinedStores, number>((state) => state.counter); //redux store counter varible
     const dispatch = useDispatch(); //redux dispatch
 
-    const onButtonClick = (event: any): void => {
-        event.preventDefault();
-        dispatch(masUno());
-    };
+    // const onButtonClick = (event: any): void => {
+    //     event.preventDefault();
+    //     dispatch(masUno());
+    // };
 
     const DefaultRoutes = () => {
         return (
@@ -56,9 +56,9 @@ function App() {
 
     return (
         <div className="App">
-            <button style={{ display: "none" }} onClick={onButtonClick}>
+            {/* <button style={{ display: "none" }} onClick={onButtonClick}>
                 {counter}
-            </button>
+            </button> */}
             <Switch>
                 {/* <Route exact path="/notfound" component={NotFound} /> */}
                 <Route exact path="/" component={Landing} />

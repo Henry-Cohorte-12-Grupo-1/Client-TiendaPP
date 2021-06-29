@@ -4,9 +4,16 @@ import jwtDecode from "jwt-decode";
 import SweetAlertInput from "./sweetAlertInput";
 import IQuestAndId from "../../interfaces/questions";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreType } from "../../redux/reducers";
+import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
 import { ReactElement, useEffect, useState } from "react";
-import { buyNow, loadCartBuyNow, productInfo, productQuestions } from "../../redux/actions";
+
+import { loadCartBuyNow, buyNow } from "../../redux/cart/cartActions";
+
+import {
+    productInfo,
+    productQuestions,
+} from "../../redux/products/productsActions";
+
 import { Link, RouteComponentProps, useHistory } from "react-router-dom";
 import { Button, Carousel, Container } from "react-bootstrap";
 import { BsArrowReturnRight } from "react-icons/bs";
@@ -23,16 +30,16 @@ type Props = RouteComponentProps<MatchParams>;
 
 function ProductDetails(props: Props): ReactElement {
     //Constantes
-    const history = useHistory()
+    const history = useHistory();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const id = props.match.params.id;
     //Selectors
-    const details = useSelector<StoreType, detailedProduct>(
-        (state) => state.productDetails
+    const details = useSelector<CombinedStores, detailedProduct>(
+        (state) => state.productsReducer.productDetails
     );
-    const questions = useSelector<StoreType, IQuestAndId>(
-        (state) => state.productQuestions
+    const questions = useSelector<CombinedStores, IQuestAndId>(
+        (state) => state.productsReducer.productQuestions
     );
     //Handlers
 
@@ -61,9 +68,9 @@ function ProductDetails(props: Props): ReactElement {
     const handleBuyNow = (e: any) => {
         e.preventDefault();
         dispatch(buyNow());
-        dispatch(loadCartBuyNow(id))
-        history.push('/payment')
-    }
+        dispatch(loadCartBuyNow(id));
+        history.push("/payment");
+    };
     useEffect(() => {
         (async () => {
             dispatch(productInfo(id));
@@ -106,9 +113,14 @@ function ProductDetails(props: Props): ReactElement {
                         <p>{details.description}</p>
                         {details.quantity > 0 ? (
                             <div>
-                                <AddButton productId={details.productId} userId={userId} />
-                                <Link to={'/payment'} onClick={handleBuyNow}>
-                                    <Button type="button" className="mt-1">Buy Now</Button>
+                                <AddButton
+                                    productId={details.productId}
+                                    userId={userId}
+                                />
+                                <Link to={"/payment"} onClick={handleBuyNow}>
+                                    <Button type="button" className="mt-1">
+                                        Buy Now
+                                    </Button>
                                 </Link>
                             </div>
                         ) : (
@@ -121,7 +133,11 @@ function ProductDetails(props: Props): ReactElement {
                 {details.Reviews.length ? (
                     details.Reviews.map((rev) => {
                         return (
-                            <div className="card center" id="spacingReview" key={rev.review}>
+                            <div
+                                className="card center"
+                                id="spacingReview"
+                                key={rev.review}
+                            >
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-md-2">
@@ -134,8 +150,13 @@ function ProductDetails(props: Props): ReactElement {
                                             </div>
                                             <div className="row">
                                                 <p>
-                                                    <a className="ml-5" href="/">
-                                                        <strong>{rev.User?.username}</strong>
+                                                    <a
+                                                        className="ml-5"
+                                                        href="/"
+                                                    >
+                                                        <strong>
+                                                            {rev.User?.username}
+                                                        </strong>
                                                     </a>
                                                 </p>
                                             </div>
@@ -179,16 +200,20 @@ function ProductDetails(props: Props): ReactElement {
                                 </p>
                                 {question.answer ? (
                                     <p className="ml-3" key={i}>
-                                        { }
+                                        {}
                                         <BsArrowReturnRight />
                                         &nbsp;{question.answer}
                                     </p>
                                 ) : null}
                                 <div>
-                                    {userId === questions.id && !question.answer ? (
+                                    {userId === questions.id &&
+                                    !question.answer ? (
                                         <Button
                                             onClick={() => {
-                                                handleQA("Answer", question.questionId);
+                                                handleQA(
+                                                    "Answer",
+                                                    question.questionId
+                                                );
                                             }}
                                         >
                                             Answer
