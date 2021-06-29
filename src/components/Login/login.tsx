@@ -1,6 +1,5 @@
 import swal from "sweetalert";
 import glogo from "../../assets/glogo.png";
-import githubImage from "../../assets/githubImage.png";
 import styles from "./login.module.css";
 import isStrongPassword from "validator/lib/isStrongPassword";
 import isEmail from "validator/lib/isEmail";
@@ -10,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { IErrorUser } from "../../interfaces/forms";
 import { useHistory } from "react-router-dom";
+import twitterImage from '../../assets/twitterImage.png';
 
 
 
@@ -175,9 +175,9 @@ function Login() {
     window.open(`${URL}/auth/google`, "_self");
   };
 
-  const githubLogin = () => {
-    window.open(`${URL}/auth/google`, "_self");
-  };
+  const twitterLogin = () => {
+    window.location.href = `${URL}/auth/twitter`
+}
 
   return (
     <Container className="p-4">
@@ -232,13 +232,10 @@ function Login() {
             <img src={glogo} alt="Google Icon" />
             <p>Login With Google</p>
           </div>
-          <h5> Or GitHub </h5>
-          <div
-            className={`${styles.googleContainer} ${styles.githubContainer}`}
-            onClick={githubLogin}
-          >
-            <img src={githubImage} alt="Github Icon" />
-            <p>Login With Github</p>
+          <h5> Or Twitter </h5>
+          <div className={`${styles.googleContainer} ${styles.twitterContainer}`} onClick={twitterLogin}>
+              <img src={twitterImage} alt="Twitter Icon" />
+              <p>Login With Twitter</p>
           </div>
         </div>
       </Form>
