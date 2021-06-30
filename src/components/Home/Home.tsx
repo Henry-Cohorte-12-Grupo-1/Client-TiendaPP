@@ -3,26 +3,24 @@ import ProductsCards from "../ProductsCards/ProductsCards";
 import jwtDecode from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Container, Carousel } from "react-bootstrap";
+import { Container, Carousel, Button } from "react-bootstrap";
 import { IProducts } from "../../interfaces/products";
 import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
-import Pagination from '../Pagination/Pagination'
 import { bringProducts } from "../../redux/products/productsActions";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
 import { getCategories } from "../../redux/categories/categoriesActions";
 import CategorySearch from "./CategorySearch";
-import { IPaginationProps } from "../Pagination/Pagination";
 
 
 function Home() {
-    const producto = useSelector<CombinedStores, IProducts[]>(
+    const product = useSelector<CombinedStores, IProducts[]>(
         (state) => state.productsReducer.filterProducts
     );
     const wishlist = useSelector<CombinedStores, IProducts[]>(
         (state) => state.wishlistReducer.wishlist
     );
     //PAGINADO
-    const [page,setPage] = useState<number>(1)
+    const [page, setPage] = useState<number>(1)
 
     //////////
     const dispatch = useDispatch();
@@ -30,6 +28,8 @@ function Home() {
         ? jwtDecode(localStorage.token)
         : false;
     const userId = token?.id ? token.id : "guest";
+
+    var totalPages = product.length / 8
 
     useEffect(() => {
         dispatch(bringProducts());
@@ -94,10 +94,11 @@ function Home() {
                     id="homeContainer"
                     className="d-flex justify-content-center flex-wrap ml-0 mr-0"
                 >
-                    {producto &&
+                    {product &&
                         // <div className="row row-cols-1 row-cols-md-2">
-                        producto
+                        product
                             .filter((p) => p.quantity > 0)
+                            .slice((page - 1) * 8, page * 8)
                             .map((p) => {
                                 return (
                                     <ProductsCards
@@ -116,10 +117,26 @@ function Home() {
                             })}
                 </Container>
             </div>
-            <div>
-                <Pagination direction={'left'} callback={()=>console.log('Left funk')}/>
+            {/* <div>
+                <Pagination direction={'left'} callback={page>1?(()=>setPage(page-1)):null}/>
 
-                <Pagination direction={'right'} callback={()=>console.log('Right funk')}/>
+                <Pagination direction={'right'} callback={page<()=>setPage(page+1)}/>
+            </div> */}
+
+            <div className="allmightContainer mb-4">
+                <div className="paginationContainer">
+                    {page > 1 ? (
+                        <button className="paginationPrev prev page-numbers" onClick={() => setPage(page - 1)}>{'< Prev'}</button>
+                    ) : (
+                        <button className="disabled paginationPrev">{'< Prev'}</button>
+                    )}
+                    <button className="paginationPage page-numbers current">{page}</button>
+                    {page < totalPages ? (
+                        <button className="paginationNext next page-numbers" onClick={() => setPage(page + 1)}>{'Next >'}</button>
+                    ) : (
+                        <button className='disabled paginationNext' >{'Next >'}</button>
+                    )}
+                </div>
             </div>
         </div>
     );
