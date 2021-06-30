@@ -9,6 +9,7 @@ import {
 } from "../../../../redux/interfaces/reduxStore";
 import { IProductsType } from "../../../../interfaces/search";
 import { Container } from "react-bootstrap";
+import SellerSearchBar from '../../../SellerSearchBar/SellerSearchBar';
 
 export default function ProductsSearched() {
     const products = useSelector<CombinedStores, IProductsType>(
@@ -17,7 +18,7 @@ export default function ProductsSearched() {
     return (
         <div id="home-container">
             <Order />
-
+            <SellerSearchBar />
             <Container
                 id="homeContainer"
                 className="d-flex justify-content-center flex-wrap ml-0 mr-0"
