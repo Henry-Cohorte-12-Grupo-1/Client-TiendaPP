@@ -20,8 +20,8 @@ export function cartReducer(state: StoreType = initialState, action: IAction) {
         case CART_ACTIONS.LOAD_CART:
             return {
                 ...state,
-                cart: action.payload,
                 cartItem: action.payload,
+                cart: action.payload,
                 totalAmount: action.totalAmount,
             };
         case CART_ACTIONS.SET_CART_ITEM_QUANTITY:
