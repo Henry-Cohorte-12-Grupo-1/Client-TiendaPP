@@ -49,7 +49,7 @@ function Sidebar() {
     const userId = token.id;
     useEffect(() => {
         dispatch(bringSellerProfile(username));
-    });
+    }, []);
 
     //SET IMAGES URL
     let cover_URL: string;
