@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import axios from "axios";
 import { url } from "../../api";
 import { IProducts } from "../../interfaces/products";
+import { PRODUCTS_ACTIONS } from "../products/productsActions";
 
 export const CATEGORIES_ACTIONS = {
     ORDER_BY_CATEGORY: "ORDER_BY_CATEGORY",
@@ -28,9 +29,18 @@ export const getCategories = () => {
     };
 };
 
+// ATENCION: estas actions son del reducer de products, no del de categories
 export const orderByCategories = (payload: string) => {
+    console.log('entro a la action')
     return {
-        type: CATEGORIES_ACTIONS.ORDER_BY_CATEGORY,
+        type: PRODUCTS_ACTIONS.ORDER_BY_CATEGORY,
         order: payload,
     };
 };
+export const resetCategoriesFilter = () => {
+    console.log('entro a la action')
+    return {
+        type: PRODUCTS_ACTIONS.RESET_CATEGORIES_FILTER,
+    };
+};
+
