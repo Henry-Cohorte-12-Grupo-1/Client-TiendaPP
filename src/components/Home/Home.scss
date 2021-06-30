@@ -3,10 +3,10 @@
 //     position: relative;
 // }
 
-body {
-    margin: 0;
-    margin-bottom: 12rem;
-}
+// body {
+//     margin: 0;
+//     margin-bottom: 12rem;
+// }
 .btn-space {
     margin-right: 2rem;
     color: #2c666e;
@@ -66,3 +66,150 @@ body {
 .carousel-item img {
     object-fit: cover;
 }
+
+
+#categoriesDD {
+}
+
+@media screen and (max-width: 800px) {
+    #categoriesDD {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+  }
+
+.allmightContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.paginationContainer{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: (1, auto);
+
+    grid-template-areas: "prev page next";
+}
+
+.paginationContainer .paginationPrev{
+    grid-area: prev;
+    border: none;
+    background-color: #eaeaea;
+}
+
+.paginationContainer .paginationNext{
+    grid-area: next;
+    border: none;
+    background-color: #eaeaea;
+}
+
+.paginationContainer .paginationPage{
+    grid-area: page;
+    color: black;
+    border: none;
+    background-color: #eaeaea;
+}
+
+
+
+//------------------------------------------------------------------------------
+@mixin breakpoint ($value) {
+    @if $value == 'phone' {
+      @media only screen and (min-width: 120px) and (max-width: 767px) { @content; }
+    } @else if $value == 'tablet' {
+      @media only screen and (min-width: 768px) and (max-width: 1024px) { @content; }
+    } @else if $value == 'touch' {
+      @media only screen and (min-width: 120px) and (max-width: 1024px) { @content; }
+    } @else if $value == 'desktop' {
+      @media only screen and (min-width: 1025px) { @content; }
+    } @else {
+      @media only screen and (max-width: $value) { @content; }
+    }
+  }
+  
+  // Colors
+  $white: #fff;
+  $black: #000;
+  $grey: #595959;
+  $grey-dark: #2b2b2b;
+  $grey-light: #eee;
+  $green: #86c023;
+  $blue: #017ac7;
+  
+  // Transition
+  $duration: 400ms;
+  $easing: ease;
+  
+  //----------  reset
+  //------------------------------------------------------------------------------
+  
+  //----------  pagination
+  //------------------------------------------------------------------------------
+
+  
+
+  
+  .page-numbers {
+    //   display: block;
+    //   padding: 0 25px;
+    //   float: left;
+      transition: $duration $easing;
+    //   color: $grey;
+      font-size: 25px;
+      letter-spacing: 0.1em;
+    //   line-height: 70px;
+  
+      &:hover,
+      &.current {
+        //   background-color: #b4b4b4;
+          color: black;
+      }
+  
+      &.prev:hover,
+      &.next:hover {
+          background-color: transparent;
+      color: #93e2b1;
+      }
+  
+      @include breakpoint(1199px) {
+          padding: 0 15px;
+          font-size: 16px;
+          line-height: 50px;
+      }
+  
+      @include breakpoint(touch) {
+        //   padding: 0 14px;
+          display: none;
+  
+          &:nth-of-type(2) {
+              position: relative;
+            //   padding-right: 50px;
+  
+              &::after {
+                  content: '...';
+                  position: absolute;
+                  font-size: 25px;
+                  top: 0;
+                  left: 45px;
+              }
+          }
+  
+          &:nth-child(-n+3),
+          &:nth-last-child(-n+3) {
+              display: block;
+          }
+  
+          &:nth-last-child(-n+4) {
+            //   padding-right: 14px;
+  
+              &::after {
+                  content: none;
+              }
+          }
+      }
+  }

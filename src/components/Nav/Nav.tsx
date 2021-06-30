@@ -14,14 +14,6 @@ import Dropdown from "../Dropdown/Dropdown";
 import Sidebar from "./Sidebar/Sidebar";
 
 function NavComponent() {
-    const categories = useSelector<CombinedStores, ICategory[]>(
-        (s) => s.categoriesReducer.filter
-    );
-    const dispatch = useDispatch();
-
-    // const cart = useSelector<CombinedStores, IProduct[]>(
-    //     (c) => c.cartReducer.cart
-    // )
 
     const cartItem = useSelector<CombinedStores, IProduct[]>(
         (c) => c.cartReducer.cartItem
@@ -32,6 +24,7 @@ function NavComponent() {
     const handleClick = (category: string) => {
         dispatch(orderByCategories(category));
     };
+
 
     const token: any = localStorage.token
         ? jwtDecode(localStorage.token)
@@ -89,7 +82,7 @@ function NavComponent() {
                         </Link>
                     )}
 
-                    <ul>
+                    {/* <ul>
                         {categories && (
                             <li
                                 className="btn font-weight-bold"
@@ -125,7 +118,7 @@ function NavComponent() {
                                 </ul>
                             </li>
                         )}
-                    </ul>
+                    </ul> */}
                     {admin ? null : (
                         <div>
                             {cartItem ? (

@@ -3,8 +3,8 @@ import './Footer.css'
 function Footer() {
     return (
         <footer className='footer'>
-            <div className='containerF'>
-                <div className='rowF'>
+            <div className='containerF '>
+                <div className='rowF d-flex justify-content-center'>
                     <div className='footer-col'>
                         <h4>About us</h4>
                         <ul>
