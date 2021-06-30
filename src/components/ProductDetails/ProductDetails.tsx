@@ -229,14 +229,9 @@ function ProductDetails(props: Props): ReactElement {
                                             </div>
                                             <div className="row">
                                                 <p>
-                                                    <a
-                                                        className="ml-5"
-                                                        href="/"
-                                                    >
-                                                        <strong>
-                                                            {rev.User?.username}
-                                                        </strong>
-                                                    </a>
+                                                    <strong className="ml-5">
+                                                        {rev.User?.username}
+                                                    </strong>
                                                 </p>
                                             </div>
                                             <div className="mr-5 ml-4 d-flex no-wrap">
