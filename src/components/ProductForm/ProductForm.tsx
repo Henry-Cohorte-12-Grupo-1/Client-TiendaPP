@@ -121,7 +121,7 @@ const ProductForm: React.FC<ICarouselProps> = () => {
                 userId: userId
             }
             console.log(newProduct)
-            const response = await axios.post(`${url}/product`, newProduct)
+            const response = await axios.post(`${url}/product`, newProduct, {headers: { Authorization: `Bearer ${localStorage.token}`}})
                 .catch(() => swal('No se creo el producto'))
             if (response) {
                 swal('Producto creado');
