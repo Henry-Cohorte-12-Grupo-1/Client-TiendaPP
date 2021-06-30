@@ -26,6 +26,20 @@
     }
 }
 
+#colorButton5 {
+    color: $light;
+    border: none;
+    padding-bottom: 1px;
+    margin-right: 2rem;
+    margin-top: -1.7rem;
+    &:hover {
+        color: $light;
+        border-bottom: 1px solid $light;
+        border-radius: 0;
+        padding-bottom: 0px;
+    }
+}
+
 #colorButton3 {
     color: #2c666e;
     border: none;
@@ -48,9 +62,9 @@
     }
 }
 
-#wFormNav{
-    // width: 28.1rem;
-}
+// #wFormNav{
+//     width: 28.1rem;
+// }
 
 nav ul li a{
     display: block;
@@ -82,4 +96,27 @@ nav ul li ul li a {
 
 nav ul li ul li a:hover{
     background-color: #efefef;
+}
+
+.counterContainer{
+    border: 1px solid #e05104;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #e05104;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    top: 0rem;
+    left: 2.3rem;
+}
+
+.counterContainer span{
+    color:#fff;
+    font-size: 10px;
+}
+
+#cartContainer{
+    margin-top: 0px;
 }
