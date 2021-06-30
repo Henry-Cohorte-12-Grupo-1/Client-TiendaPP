@@ -36,6 +36,7 @@ function Sidebar() {
     const token: any = localStorage.token
         ? jwtDecode(localStorage.token)
         : false;
+
     const admin: boolean = token.admin;
     const user: boolean = token.user;
     const logged: boolean = admin || user;
@@ -44,25 +45,26 @@ function Sidebar() {
         : user
         ? UserStatus.user
         : UserStatus.guest;
-
-    const username = token.username;
     const userId = token.id;
+        
+    const username = token.username ? token.username :  "Guest";
+    
     useEffect(() => {
-        dispatch(bringSellerProfile(username));
+        if(token){
+            
+            dispatch(bringSellerProfile(username));
+        }
     }, []);
 
     //SET IMAGES URL
     let cover_URL: string;
     let pfp_URL: string;
-    if (seller.error && !seller.images?.length) {
+    if (seller.error || seller.images?.length || !seller) {
         cover_URL =
             "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
-
         pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
     } else {
-        console.log("SELLER:", seller);
         cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images[0]}`;
-
         pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
     }
 
