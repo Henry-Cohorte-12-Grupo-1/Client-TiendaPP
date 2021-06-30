@@ -14,7 +14,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import Sidebar from "./Sidebar/Sidebar";
 
 function NavComponent() {
-
+    const dispatch = useDispatch()
     const cartItem = useSelector<CombinedStores, IProduct[]>(
         (c) => c.cartReducer.cartItem
     )
