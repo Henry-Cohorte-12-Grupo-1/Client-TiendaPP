@@ -49,4 +49,5 @@ export const initialState: StoreType = {
         id: "",
     },
     buyNow: false,
+    actualPage:1
 };

@@ -27,6 +27,7 @@ export interface StoreType {
     sellerProfile: IReducer.ISellerProfile;
     productQuestions: IReducer.IQuestAndId;
     buyNow: boolean;
+    actualPage:number
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)

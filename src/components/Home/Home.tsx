@@ -8,7 +8,7 @@ import { IProducts } from "../../interfaces/products";
 import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
 import { bringProducts } from "../../redux/products/productsActions";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
-import { getCategories } from "../../redux/categories/categoriesActions";
+import { decreasePage, getCategories, increasePage } from "../../redux/categories/categoriesActions";
 import CategorySearch from "./CategorySearch";
 
 
@@ -20,8 +20,10 @@ function Home() {
         (state) => state.wishlistReducer.wishlist
     );
     //PAGINADO
-    const [page, setPage] = useState<number>(1)
-
+    // const [page, setPage] = useState<number>(1)
+    const page = useSelector<CombinedStores, number>(
+        (state) => state.categoriesReducer.actualPage
+    )
     //////////
     const dispatch = useDispatch();
     const token: any = localStorage.token
@@ -126,13 +128,13 @@ function Home() {
             <div className="allmightContainer mb-4">
                 <div className="paginationContainer">
                     {page > 1 ? (
-                        <button className="paginationPrev prev page-numbers" onClick={() => setPage(page - 1)}>{'< Prev'}</button>
+                        <button className="paginationPrev prev page-numbers" onClick={() => dispatch(decreasePage(page))}>{'< Prev'}</button>
                     ) : (
                         <button className="disabled paginationPrev">{'< Prev'}</button>
                     )}
                     <button className="paginationPage page-numbers current">{page}</button>
                     {page < totalPages ? (
-                        <button className="paginationNext next page-numbers" onClick={() => setPage(page + 1)}>{'Next >'}</button>
+                        <button className="paginationNext next page-numbers" onClick={() => dispatch(increasePage(page))}>{'Next >'}</button>
                     ) : (
                         <button className='disabled paginationNext' >{'Next >'}</button>
                     )}
