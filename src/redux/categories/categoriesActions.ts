@@ -7,6 +7,9 @@ import { PRODUCTS_ACTIONS } from "../products/productsActions";
 export const CATEGORIES_ACTIONS = {
     ORDER_BY_CATEGORY: "ORDER_BY_CATEGORY",
     GET_CATEGORIES: "GET_CATEGORIES",
+    INCREASE_PAGE:'INCREASE_PAGE',
+    DECREASE_PAGE:'DECREASE_PAGE',
+    RESET_PAGE:'RESET_PAGE'
 };
 
 export interface BringUserOrders {
@@ -44,3 +47,23 @@ export const resetCategoriesFilter = () => {
     };
 };
 
+export const increasePage = (page: number) => {
+    console.log('entro a la action')
+    return {
+        type: CATEGORIES_ACTIONS.INCREASE_PAGE,
+        payload: page + 1
+    };
+};
+export const decreasePage = (page: number) => {
+    console.log('entro a la action')
+    return {
+        type: CATEGORIES_ACTIONS.DECREASE_PAGE,
+        payload: page - 1
+    };
+};
+export const resetPage = () => {
+    console.log('entro a la action')
+    return {
+        type: CATEGORIES_ACTIONS.RESET_PAGE,
+    };
+};

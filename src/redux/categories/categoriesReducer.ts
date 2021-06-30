@@ -13,6 +13,21 @@ export function categoriesReducer(
                 ...state,
                 filter: action.filter,
             };
+        case CATEGORIES_ACTIONS.INCREASE_PAGE:
+            return {
+                ...state,
+                actualPage: action.payload,
+            };
+        case CATEGORIES_ACTIONS.DECREASE_PAGE:
+            return {
+                ...state,
+                actualPage: action.payload,
+            };
+        case CATEGORIES_ACTIONS.RESET_PAGE:
+            return {
+                ...state,
+                actualPage: 1,
+            };
         default:
             return state;
     }

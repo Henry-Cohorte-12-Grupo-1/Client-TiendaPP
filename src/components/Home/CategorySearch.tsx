@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import {  orderByCategories, resetCategoriesFilter} from '../../redux/categories/categoriesActions';
+import {  orderByCategories, resetCategoriesFilter, resetPage} from '../../redux/categories/categoriesActions';
 
 import "./CategorySearch.scss";
 import { url } from '../../api';
 import { useRef } from 'react';
+import { CombinedStores } from '../../redux/interfaces/reduxStore';
 
 const CategorySearch = () => {
     
@@ -17,8 +18,12 @@ const CategorySearch = () => {
     const [searched, setSearched] = useState<any>([]);
 
     const dispatch = useDispatch();
-    const ref = useRef(null);
+    // const ref = useRef(null);
     
+    const page = useSelector<CombinedStores, number>(
+        (state) => state.categoriesReducer.actualPage
+    )
+
     useEffect(() => {
         (async () => {
             const resp = await axios.get(`${url}/categories`);
@@ -33,6 +38,12 @@ const CategorySearch = () => {
             initialCategories.filter((cat: any) => cat.name.toLowerCase().includes(searching))
         )
     }, [searching])
+
+    useEffect(() => {
+        if(page!==1){
+            dispatch(resetPage())
+        }
+    },[selected])
     
     // console.log('initial categories',initialCategories);
     // console.log('searched', searched)
@@ -61,7 +72,7 @@ const CategorySearch = () => {
     
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault()
-        setOpen(true)
+
         setSearching(event.target.value);
         console.log(event.target.value);
     }
