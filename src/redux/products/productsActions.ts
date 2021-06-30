@@ -51,7 +51,7 @@ export const bringProducts = () => {
 
 export const bringUserProducts = (userName: string | null) => {
     return async (dispatch: Dispatch) => {
-        const userProducts = await axios.get(`${url}/username/${userName}`);
+        const userProducts = await axios.get(`${url}/username/${userName}`, {headers: { Authorization: `Bearer ${localStorage.token}`}});
         dispatch<BringUserProducts>({
             type: PRODUCTS_ACTIONS.GET_USER_PRODUCTS,
             payload: userProducts.data,
