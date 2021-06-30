@@ -15,7 +15,7 @@ function ProductsCards(props: {
     editId?: string;
     wished?: boolean;
 }) {
-    console.log('image ID: ', props.images);
+    // console.log('image ID: ', props.images);
 
     return (
         <div className="card" id="firstDiv">

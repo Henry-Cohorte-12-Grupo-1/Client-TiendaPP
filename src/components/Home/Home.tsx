@@ -10,6 +10,7 @@ import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
 import { bringProducts } from "../../redux/products/productsActions";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
 import { getCategories } from "../../redux/categories/categoriesActions";
+import CategorySearch from "./CategorySearch";
 
 function Home() {
     const producto = useSelector<CombinedStores, IProducts[]>(
@@ -79,6 +80,9 @@ function Home() {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
+            <div className='w-25'>
+            <CategorySearch></CategorySearch>
+            </div>
 
             <div id="separation">
                 <Container
