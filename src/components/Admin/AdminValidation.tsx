@@ -48,7 +48,7 @@ function AdminValidation() {
 
     const joinedCode = parseInt(`${code.num0}${code.num1}${code.num2}${code.num3}${code.num4}${code.num5}`)
     if (joinedCode === token.key) {
-      let resp = await axios.post(`${url}/login/adminValidate`).catch((err: any) => console.log(err))
+      let resp = await axios.get(`${url}/login/adminValidate`, {headers: { Authorization: `Bearer ${token}`}}).catch((err: any) => console.log(err))
       if (resp) {
         if (resp.data.token) {
           console.log(resp.data)
