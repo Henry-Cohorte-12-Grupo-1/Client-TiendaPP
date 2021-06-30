@@ -101,7 +101,7 @@ const SellerProfileForm: React.FC<ICarouselProps> = (props: any) => {
 
     const handleSubmit = async (event: React.FormEvent<any>) => {
         event.preventDefault();
-        await axios.post(`${url}/seller`, sellerProfile);
+        await axios.post(`${url}/seller`, sellerProfile, {headers: { Authorization: `Bearer ${localStorage.token}`}});
         swal("Changes Saved!").then(() => history.push(`/seller/${userName}`));
     };
 
