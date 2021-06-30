@@ -24,7 +24,7 @@ function WishlistButton(props: Props): ReactElement {
 
     const handleWish = async (wishValue: boolean) => {
         let wishParam = wishValue ? "add" : "delete"; //wishParam deberia ser una tupla.
-        await axios.post(`${url}/wishlist/${wishParam}`, wishItem);
+        await axios.post(`${url}/wishlist/${wishParam}`, wishItem, {headers: { Authorization: `Bearer ${localStorage.token}`}});
         dispatch(bringWishlist(userId));
     };
 
