@@ -12,6 +12,7 @@ import { initialState } from "../store/initialState";
     LOAD_GUEST_CART,
     BUY_NOW,
     LOAD_CART_BUY_NOW,
+    CART_ITEMS
 */
 
 export function cartReducer(state: StoreType = initialState, action: IAction) {
@@ -20,8 +21,14 @@ export function cartReducer(state: StoreType = initialState, action: IAction) {
             return {
                 ...state,
                 cart: action.payload,
+                cartItem: action.payload,
                 totalAmount: action.totalAmount,
             };
+        // case CART_ACTIONS.CART_ITEMS:
+        //     return{
+        //         ...state,
+        //         cartItem: action.cartItem
+        //     };
         case CART_ACTIONS.SET_CART_ITEM_QUANTITY:
             const newCart = state.cart.map(function (cartItem) {
                 if (cartItem.productId === action.setQuantity.productId) {
@@ -33,6 +40,7 @@ export function cartReducer(state: StoreType = initialState, action: IAction) {
             return {
                 ...state,
                 cart: newCart,
+                // cartItem: newCart
             };
 
         case CART_ACTIONS.DELETE_CART_ITEM:
@@ -47,6 +55,7 @@ export function cartReducer(state: StoreType = initialState, action: IAction) {
             return {
                 ...state,
                 cart: filteredCart,
+                // cartItem: filteredCart
             };
         case CART_ACTIONS.ADD_PRODUCT_TO_CART:
             //LOAD AL LOCAL STORAGE
@@ -67,6 +76,7 @@ export function cartReducer(state: StoreType = initialState, action: IAction) {
                 return {
                     ...state,
                     cart: [...state.cart, action.addedCartProduct],
+                    // cartItem: [...state.cartItem, action.addedCartProduct]
                 };
             } else {
                 return {
@@ -77,6 +87,7 @@ export function cartReducer(state: StoreType = initialState, action: IAction) {
             return {
                 ...state,
                 cart: action.payload,
+                // cartItem: action.cartItem,
                 totalAmount: action.totalAmount,
             };
         case CART_ACTIONS.BUY_NOW:

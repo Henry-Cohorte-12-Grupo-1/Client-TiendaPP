@@ -22,6 +22,7 @@ export interface StoreType {
     userOrders: IReducer.IUserOrders[];
     filterOrders: IReducer.IUserOrders[];
     cart: IReducer.IProduct[];
+    cartItem: IReducer.IProduct[];
     totalAmount: number;
     sellerProfile: IReducer.ISellerProfile;
     productQuestions: IReducer.IQuestAndId;
@@ -33,6 +34,7 @@ export interface StoreType {
 export interface IAction {
     type: number;
     payload: IReducer.IProducts[];
+    cartItem: IReducer.IProducts[];
     filter: IReducer.ICategory[];
     order: string;
     products: {};

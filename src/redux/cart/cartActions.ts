@@ -11,6 +11,7 @@ export const CART_ACTIONS = {
     LOAD_GUEST_CART: "LOAD_GUEST_CART",
     BUY_NOW: "BUY_NOW",
     LOAD_CART_BUY_NOW: "LOAD_CART_BUY_NOW",
+    CART_ITEMS: "CART_ITEMS"
 };
 
 /*
@@ -88,6 +89,21 @@ export const loadCartFromDB = (userId: string) => {
             .catch((e) => {
                 console.error(e);
             });
+    };
+};
+
+export const cartItems = () => {
+    const URL_GET_CART = url + "/cart/getCart";
+    return async function (dispatch: Dispatch) {
+        try {
+            const cartNumberItems = await axios.get(URL_GET_CART);
+            dispatch({
+                type: CART_ACTIONS.CART_ITEMS,
+                cartItem: cartNumberItems.data, 
+            });
+        } catch (error) {
+            return console.log("No se encontraron productos");
+        }
     };
 };
 
