@@ -3,6 +3,7 @@ import * as IReducer from "../../interfaces/reducer";
 export interface IAction {
     type: string;
     payload: IReducer.IProducts[];
+    cartItem: IReducer.IProducts[];
     filter: IReducer.ICategory[];
     order: string;
     products: {};

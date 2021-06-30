@@ -18,6 +18,110 @@
     margin: auto;
 }
 
+.carousel-item img {
+    object-fit: cover;
+}
+
+.carousel-border {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #696969;
+}
+
+.details-card {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: white;
+}
+
+//PRODUCT DETAILS//
+.prod-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: stretch;
+    .prod-name {
+        width: 100%;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        p {
+            color: #555;
+            &.long-name {
+                font-size: 1em;
+            }
+            &.short-name {
+                font-size: 1.5em;
+            }
+        }
+    }
+
+    .prod-price-seller {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: baseline;
+        .price {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            p {
+                margin-bottom: 0;
+                white-space: nowrap;
+                font-size: 2rem;
+                align-self: flex-end;
+            }
+        }
+        .seller-det {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            .sold-by {
+                margin-left: 2em;
+                margin-right: 0.5em;
+                white-space: nowrap;
+                font-size: 1em;
+                align-self: flex-end;
+            }
+            .username {
+                white-space: nowrap;
+                font-size: 1rem;
+                font-weight: bold;
+                align-self: flex-end;
+            }
+        }
+    }
+    .prod-text {
+        width: 100%;
+        flex: 1;
+    }
+    .prod-foot {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        .prod-buttons {
+            display: flex;
+            flex-direction: row;
+            .btn-margin {
+                margin-right: 0.5em;
+            }
+        }
+    }
+}
+
+.buy-btn {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.buy-now {
+    font-size: 1.5em;
+}
+
 #spacingReview {
     margin-bottom: 1rem;
 }

@@ -2,6 +2,11 @@ import swal from "sweetalert";
 import { ReactElement, useEffect } from "react";
 import { IProduct } from "../../../interfaces/product";
 
+import { IconContext } from "react-icons";
+import * as AiIcons from "react-icons/ai";
+
+import "./CartButtons.scss";
+
 //redux stuff
 import { useDispatch, useSelector } from "react-redux";
 
@@ -94,10 +99,13 @@ function AddButton(props: Props): ReactElement {
             <div>
                 <button
                     type="button"
-                    className="btn btn-success"
+                    className="btn btn-success add-btn"
                     onClick={onClick}
                 >
-                    {"Add to cart!"}
+                    <IconContext.Provider value={{ size: "2em" }}>
+                        <AiIcons.AiOutlineShoppingCart />
+                    </IconContext.Provider>
+                    <span className="add-span">Add to Cart</span>
                 </button>
             </div>
         );

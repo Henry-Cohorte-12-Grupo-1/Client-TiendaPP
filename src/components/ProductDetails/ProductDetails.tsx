@@ -19,6 +19,10 @@ import { Button, Carousel, Container } from "react-bootstrap";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { url } from "../../api";
 
+//icons
+import { IconContext } from "react-icons";
+import * as AiIcons from "react-icons/ai";
+
 //for the add to cart button
 import AddButton from "../Cart/CartButtons/AddButton";
 import axios from "axios";
@@ -76,23 +80,30 @@ function ProductDetails(props: Props): ReactElement {
         (async () => {
             dispatch(productInfo(id));
             dispatch(productQuestions(id));
-            setLoading(false)
+            setLoading(false);
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         (async () => {
-            console.log(details.User.username)
+            console.log(details.User.username);
             if (details.User) {
-                const profile = await axios.get(`${url}/seller/${details.User.username}`);
-                console.log('aaaaa', profile)
-                if (profile.data.header) {
-                    setHasProfile(true)
+                try {
+                    const profile = await axios.get(
+                        `${url}/seller/${details.User.username}`
+                    );
+                    console.log("aaaaa", profile);
+                    if (profile.data.header) {
+                        setHasProfile(true);
+                    }
+                } catch (e) {
+                    console.error(e);
                 }
+
                 // setLoading(false)
             }
-        })()
-    }, [details])
+        })();
+    }, [details]);
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -103,51 +114,99 @@ function ProductDetails(props: Props): ReactElement {
     return (
         <Container className="mb-5">
             <div>
-                <h2 className="text-center mt-5 mb-5">{details.name}</h2>
-                <Container
-                    className="d-flex flex-column flex-md-row"
-                    id="productInfoResponsive"
-                >
-                    {details.Images.length > 0 ? (
-                        <Carousel>
-                            {details.Images.map((img, i) => (
-                                <Carousel.Item key={i}>
-                                    <img
-                                        key={i}
-                                        className="d-block w-100"
-                                        src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${img.imageId}`}
-                                        alt="Slides"
-                                    />
-                                    <div className="prod-pic-overlay"> </div>
-                                </Carousel.Item>
-                            ))}
-                        </Carousel>
-                    ) : null}
-                    <Container className="d-flex flex-column">
-                        <h4>${details.price}</h4>
-                        <p>{details.description}</p>
-                        {details.quantity > 0 ? (
-                            <div>
-                                <AddButton
-                                    productId={details.productId}
-                                    userId={userId}
-                                />
-                                <Link to={"/payment"} onClick={handleBuyNow}>
-                                    <Button type="button" className="mt-1">
-                                        Buy Now
-                                    </Button>
-                                </Link>
+                <div className="details-card">
+                    <Container
+                        className="d-flex flex-column flex-md-row"
+                        id="productInfoResponsive"
+                    >
+                        {details.Images.length > 0 ? (
+                            <Carousel className="carousel-border">
+                                {details.Images.map((img, i) => (
+                                    <Carousel.Item key={i}>
+                                        <img
+                                            key={i}
+                                            className="d-block w-100"
+                                            src={`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${img.imageId}`}
+                                            alt="Slides"
+                                        />
+                                        <div className="prod-pic-overlay">
+                                            {" "}
+                                        </div>
+                                    </Carousel.Item>
+                                ))}
+                            </Carousel>
+                        ) : null}
+                        <Container className="prod-details">
+                            {/*TITLE */}
+                            <div className="prod-name">
+                                <p
+                                    className={
+                                        details.name.length > 50
+                                            ? "long-name"
+                                            : "short-name"
+                                    }
+                                >
+                                    {details.name}
+                                </p>
                             </div>
-                        ) : (
-                            <em>Not available right now</em>
-                        )}
-                        <div>
-                            <p className='mt-4'>Vendor:</p>
-                            <p>{details?.User.username}</p>
-                            {hasProfile ? (<Button href={`/seller/${details?.User.username}`}>Seller Profile</Button>) : null}
-                        </div>
+
+                            {/*PRICE AND SOLD BY */}
+                            <div className="prod-price-seller">
+                                <div className="price">
+                                    <p>$ {details.price}</p>
+                                </div>
+                                <div className="seller-det">
+                                    <p className="sold-by">Sold by: </p>
+                                    <p className="username">
+                                        <a
+                                            href={`/seller/${details?.User.username}`}
+                                        >
+                                            {details?.User.username}
+                                        </a>
+                                    </p>
+                                    {hasProfile ? (
+                                        <Button
+                                            href={`/seller/${details?.User.username}`}
+                                        >
+                                            Seller Profile
+                                        </Button>
+                                    ) : null}
+                                </div>
+                            </div>
+
+                            {/*DESCRIPTION */}
+                            <p className="prod-text">{details.description}</p>
+
+                            {/*FOOTER */}
+                            <div className="prod-foot">
+                                {details.quantity > 0 ? (
+                                    <div className="prod-buttons">
+                                        <Link
+                                            className="btn-margin"
+                                            to={"/payment"}
+                                            onClick={handleBuyNow}
+                                        >
+                                            <Button
+                                                type="button"
+                                                className="buy-btn"
+                                            >
+                                                <span className="buy-now">
+                                                    Buy Now
+                                                </span>
+                                            </Button>
+                                        </Link>
+                                        <AddButton
+                                            productId={details.productId}
+                                            userId={userId}
+                                        />
+                                    </div>
+                                ) : (
+                                    <em>Not available right now</em>
+                                )}
+                            </div>
+                        </Container>
                     </Container>
-                </Container>
+                </div>
                 <hr></hr>
                 <h2 className="text-center mt-4">Reviews</h2>
                 {details.Reviews.length ? (
@@ -170,14 +229,9 @@ function ProductDetails(props: Props): ReactElement {
                                             </div>
                                             <div className="row">
                                                 <p>
-                                                    <a
-                                                        className="ml-5"
-                                                        href="/"
-                                                    >
-                                                        <strong>
-                                                            {rev.User?.username}
-                                                        </strong>
-                                                    </a>
+                                                    <strong className="ml-5">
+                                                        {rev.User?.username}
+                                                    </strong>
                                                 </p>
                                             </div>
                                             <div className="mr-5 ml-4 d-flex no-wrap">
@@ -214,20 +268,18 @@ function ProductDetails(props: Props): ReactElement {
                 <Container className="bg-light p-4">
                     {questions.resp &&
                         questions.resp.map((question, i) => (
-                            <div>
-                                <p className="mb-0" key={i}>
-                                    {question.question}
-                                </p>
+                            <div key={i}>
+                                <p className="mb-0">{question.question}</p>
                                 {question.answer ? (
                                     <p className="ml-3" key={i}>
-                                        { }
+                                        {}
                                         <BsArrowReturnRight />
                                         &nbsp;{question.answer}
                                     </p>
                                 ) : null}
                                 <div>
                                     {userId === questions.id &&
-                                        !question.answer ? (
+                                    !question.answer ? (
                                         <Button
                                             onClick={() => {
                                                 handleQA(

@@ -172,11 +172,11 @@ function Login() {
   };
 
   const googleLogin = () => {
-    window.open("http://tiendapp.servebeer.com/api/auth/google", "_self");
+    window.open(`${URL}/auth/google`, "_self");
   };
 
   const twitterLogin = () => {
-    window.location.href = "http://tiendapp.servebeer.com/api/auth/twitter"
+    window.location.href = `${URL}/auth/twitter`
 }
 
   return (

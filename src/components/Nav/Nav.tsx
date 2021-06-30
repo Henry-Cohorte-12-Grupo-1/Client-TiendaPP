@@ -1,26 +1,30 @@
 import SearchBar from "./SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import "./Nav.scss";
-// import { useDispatch, useSelector } from "react-redux";
-// import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { Navbar, Nav, Form } from "react-bootstrap";
-// import { orderByCategories } from "../../redux/categories/categoriesActions";
-// import { bringProducts } from "../../redux/products/productsActions";
-// import { ICategory } from "../../interfaces/products";
+import { orderByCategories } from "../../redux/categories/categoriesActions";
+import { bringProducts } from "../../redux/products/productsActions";
+import { ICategory } from "../../interfaces/products";
+import { IProduct } from "../../interfaces/product";
 import jwtDecode from "jwt-decode";
 import Dropdown from "../Dropdown/Dropdown";
 
 import Sidebar from "./Sidebar/Sidebar";
 
 function NavComponent() {
-    // const categories = useSelector<CombinedStores, ICategory[]>(
-    //     (s) => s.categoriesReducer.filter
-    // );
-    // const dispatch = useDispatch();
 
-    // const handleClick = (category: string) => {
-    //     dispatch(orderByCategories(category));
-    // };
+    const cartItem = useSelector<CombinedStores, IProduct[]>(
+        (c) => c.cartReducer.cartItem
+    )
+
+    console.log('CART',cartItem)
+
+    const handleClick = (category: string) => {
+        dispatch(orderByCategories(category));
+    };
+
 
     const token: any = localStorage.token
         ? jwtDecode(localStorage.token)
@@ -116,14 +120,23 @@ function NavComponent() {
                         )}
                     </ul> */}
                     {admin ? null : (
-                        <Link to="/cart">
-                            <button
-                                className="btn font-weight-bold"
-                                id="colorButton2"
-                            >
-                                Cart
-                            </button>
-                        </Link>
+                        <div>
+                            {cartItem ? (
+                                <div className="shoppingConatiner">
+                                    <div className="counterContainer">
+                                        <span>{cartItem.length}</span>
+                                    </div>
+                                </div>
+                            ): null}
+                            <Link to="/cart">
+                                <button
+                                    className="btn font-weight-bold"
+                                    id="colorButton5"
+                                >
+                                    Cart
+                                </button>
+                            </Link>
+                        </div>
                     )}
                     {user ? <Dropdown /> : null}
                     {/* {user ? (
