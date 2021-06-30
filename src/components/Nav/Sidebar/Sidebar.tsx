@@ -64,7 +64,7 @@ function Sidebar() {
             "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
         pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
     } else {
-        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images[0]}`;
+        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images}`;
         pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
     }
 

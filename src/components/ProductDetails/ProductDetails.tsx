@@ -188,9 +188,9 @@ function ProductDetails(props: Props): ReactElement {
                                         >
                                             <Button
                                                 type="button"
-                                                className="buy-btn"
+                                                className="btn btn-success add-btn"
                                             >
-                                                <span className="buy-now">
+                                                <span className="add-span">
                                                     Buy Now
                                                 </span>
                                             </Button>
