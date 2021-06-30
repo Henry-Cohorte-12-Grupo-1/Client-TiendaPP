@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import { Container, Carousel } from "react-bootstrap";
 import { IProducts } from "../../interfaces/products";
 import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
-
+import Pagination from '../Pagination/Pagination'
 import { bringProducts } from "../../redux/products/productsActions";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
 import { getCategories } from "../../redux/categories/categoriesActions";
 import CategorySearch from "./CategorySearch";
+import { IPaginationProps } from "../Pagination/Pagination";
+
 
 function Home() {
     const producto = useSelector<CombinedStores, IProducts[]>(
@@ -19,6 +21,10 @@ function Home() {
     const wishlist = useSelector<CombinedStores, IProducts[]>(
         (state) => state.wishlistReducer.wishlist
     );
+    //PAGINADO
+    const [page,setPage] = useState<number>(1)
+
+    //////////
     const dispatch = useDispatch();
     const token: any = localStorage.token
         ? jwtDecode(localStorage.token)
@@ -80,10 +86,9 @@ function Home() {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-            <div className='w-25'>
-            <CategorySearch></CategorySearch>
+            <div id='categoriesDD'>
+                <CategorySearch></CategorySearch>
             </div>
-
             <div id="separation">
                 <Container
                     id="homeContainer"
@@ -110,6 +115,11 @@ function Home() {
                                 );
                             })}
                 </Container>
+            </div>
+            <div>
+                <Pagination direction={'left'} callback={()=>console.log('Left funk')}/>
+
+                <Pagination direction={'right'} callback={()=>console.log('Right funk')}/>
             </div>
         </div>
     );

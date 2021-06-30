@@ -61,7 +61,7 @@ const CategorySearch = () => {
     
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault()
-
+        setOpen(true)
         setSearching(event.target.value);
         console.log(event.target.value);
     }
@@ -69,7 +69,7 @@ const CategorySearch = () => {
 
     
     return (
-        <div className="searchDropdown">
+        <div id='categoriesComponent' className="searchDropdown mt-3 ml-3">
             <div className="searchControl" onClick={() => handleOpen()}>
                 <div className="searchSelected-value" >
                     <input type="text" 

@@ -1,13 +1,12 @@
 #firstDiv {
-    width: 18rem;
-    margin-right: 2rem; 
-    margin-bottom: 1rem;
+    width: 16rem;
+    margin-right: 1rem; 
     box-shadow: 0 2px rgba(0, 0, 0, 0.2);
-    margin-top: 5rem;
+    margin-top: 2rem;
 }
 
 #firstDiv:hover {
-    transform: translateY(-15px);
+    transform: translateY(-2px) ;
     box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -16,6 +15,9 @@
     height:150px;
     margin-left: 1rem;
     margin-top: 0.5rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #eeeeee;
 }
 
 #colorB {

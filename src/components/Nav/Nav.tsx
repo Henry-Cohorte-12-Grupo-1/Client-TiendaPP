@@ -1,26 +1,26 @@
 import SearchBar from "./SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import "./Nav.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+// import { useDispatch, useSelector } from "react-redux";
+// import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
 import { Navbar, Nav, Form } from "react-bootstrap";
-import { orderByCategories } from "../../redux/categories/categoriesActions";
-import { bringProducts } from "../../redux/products/productsActions";
-import { ICategory } from "../../interfaces/products";
+// import { orderByCategories } from "../../redux/categories/categoriesActions";
+// import { bringProducts } from "../../redux/products/productsActions";
+// import { ICategory } from "../../interfaces/products";
 import jwtDecode from "jwt-decode";
 import Dropdown from "../Dropdown/Dropdown";
 
 import Sidebar from "./Sidebar/Sidebar";
 
 function NavComponent() {
-    const categories = useSelector<CombinedStores, ICategory[]>(
-        (s) => s.categoriesReducer.filter
-    );
-    const dispatch = useDispatch();
+    // const categories = useSelector<CombinedStores, ICategory[]>(
+    //     (s) => s.categoriesReducer.filter
+    // );
+    // const dispatch = useDispatch();
 
-    const handleClick = (category: string) => {
-        dispatch(orderByCategories(category));
-    };
+    // const handleClick = (category: string) => {
+    //     dispatch(orderByCategories(category));
+    // };
 
     const token: any = localStorage.token
         ? jwtDecode(localStorage.token)
@@ -78,7 +78,7 @@ function NavComponent() {
                         </Link>
                     )}
 
-                    <ul>
+                    {/* <ul>
                         {categories && (
                             <li
                                 className="btn font-weight-bold"
@@ -114,7 +114,7 @@ function NavComponent() {
                                 </ul>
                             </li>
                         )}
-                    </ul>
+                    </ul> */}
                     {admin ? null : (
                         <Link to="/cart">
                             <button
