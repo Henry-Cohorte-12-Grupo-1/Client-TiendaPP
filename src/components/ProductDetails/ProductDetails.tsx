@@ -164,13 +164,6 @@ function ProductDetails(props: Props): ReactElement {
                                             {details?.User.username}
                                         </a>
                                     </p>
-                                    {hasProfile ? (
-                                        <Button
-                                            href={`/seller/${details?.User.username}`}
-                                        >
-                                            Seller Profile
-                                        </Button>
-                                    ) : null}
                                 </div>
                             </div>
 
