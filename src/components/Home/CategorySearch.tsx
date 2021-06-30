@@ -39,14 +39,13 @@ const CategorySearch = () => {
         )
     }, [searching])
 
-    useEffect(() => {
-        if(page!==1){
+    useEffect(() => {     
+        if(page!==1 && selected!==null){
             dispatch(resetPage())
         }
     },[selected])
     
-    // console.log('initial categories',initialCategories);
-    // console.log('searched', searched)
+
     
     const handleClick = (category:string) => {
         if(category==='reset'){
@@ -54,7 +53,6 @@ const CategorySearch = () => {
             setSelected(null)
             
         } else {
-            console.log(category)
             setSelected(category)
             // setSelected(category)
             dispatch(orderByCategories(category));
@@ -63,18 +61,12 @@ const CategorySearch = () => {
     };
 
     const handleOpen = () => {
-        
         setOpen(!open)
-        console.log(open)
-        console.log(initialCategories)
-        console.log(searched)
     }
     
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault()
-
         setSearching(event.target.value);
-        console.log(event.target.value);
     }
 
 
