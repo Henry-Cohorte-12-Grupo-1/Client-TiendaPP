@@ -46,10 +46,8 @@ function AddButton(props: Props): ReactElement {
         (async () => {
             await dispatch(addProductToCart(userId, productId));
             swal("The product was added to your cart");
-            console.log("CARTSS BEFORE CHECKING: ", cart);
         })().then(() => {
             checkInCart();
-            console.log("CARTS AFTER CHECKING: ", cart);
         });
     };
 

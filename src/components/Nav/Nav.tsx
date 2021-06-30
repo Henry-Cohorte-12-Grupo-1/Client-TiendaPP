@@ -1,13 +1,15 @@
 import SearchBar from "./SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import "./Nav.scss";
-import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { Navbar, Nav, Form } from "react-bootstrap";
 import { orderByCategories } from "../../redux/categories/categoriesActions";
 import { bringProducts } from "../../redux/products/productsActions";
 import { ICategory } from "../../interfaces/products";
 import { IProduct } from "../../interfaces/product";
+import { loadCartFromDB, loadGuestCart } from "../../redux/cart/cartActions";
 import jwtDecode from "jwt-decode";
 import Dropdown from "../Dropdown/Dropdown";
 
@@ -25,12 +27,26 @@ function NavComponent() {
         dispatch(orderByCategories(category));
     };
 
+    useEffect(() => {
+        if (userId !== "guest") {
+            (async () => {
+                dispatch(loadCartFromDB(userId));
+            })(); 
+        } else {
+            const localCart: IProduct[] = JSON.parse(
+                localStorage.getItem("cart") || "[]"
+            );
+            dispatch(loadGuestCart(localCart));
+        }
+    }, []);
+
 
     const token: any = localStorage.token
         ? jwtDecode(localStorage.token)
         : false;
     const admin: boolean = token.admin;
     const user: boolean = token.user;
+    const userId = token ? token.id : "guest";
 
     return (
         <Navbar bg="primary" expand="lg">
