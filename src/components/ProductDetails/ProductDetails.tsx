@@ -19,6 +19,10 @@ import { Button, Carousel, Container } from "react-bootstrap";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { url } from "../../api";
 
+//icons
+import { IconContext } from "react-icons";
+import * as AiIcons from "react-icons/ai";
+
 //for the add to cart button
 import AddButton from "../Cart/CartButtons/AddButton";
 import axios from "axios";
@@ -182,8 +186,13 @@ function ProductDetails(props: Props): ReactElement {
                                             to={"/payment"}
                                             onClick={handleBuyNow}
                                         >
-                                            <Button type="button">
-                                                Buy Now
+                                            <Button
+                                                type="button"
+                                                className="buy-btn"
+                                            >
+                                                <span className="buy-now">
+                                                    Buy Now
+                                                </span>
                                             </Button>
                                         </Link>
                                         <AddButton
