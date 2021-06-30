@@ -35,6 +35,7 @@ export const initialState: StoreType = {
     userOrders: [],
     filterOrders: [],
     cart: [],
+    cartItem: [],
     totalAmount: 0,
     wishlist: [],
     sellerProfile: {
