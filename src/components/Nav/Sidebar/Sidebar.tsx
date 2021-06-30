@@ -11,7 +11,20 @@ import { IconContext } from "react-icons";
 import { useState } from "react";
 import { SidebarData, UserStatus } from "./SidebarData";
 
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import { CombinedStores } from "../../../redux/interfaces/reduxStore";
+import SellerProfile from "../../../interfaces/sellerProfile";
+import { bringSellerProfile } from "../../../redux/seller/sellerActions";
+import { useEffect } from "react";
+
 function Sidebar() {
+    //redux
+    const dispatch = useDispatch();
+    const seller = useSelector<CombinedStores, SellerProfile>(
+        (state) => state.sellerReducer.sellerProfile
+    );
+
     //STATES
     const [sidebar, setSidebar] = useState(false);
 
@@ -33,10 +46,25 @@ function Sidebar() {
         : UserStatus.guest;
 
     const username = token.username;
-    const cover_URL =
-        "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
+    const userId = token.id;
+    useEffect(() => {
+        dispatch(bringSellerProfile(username));
+    });
 
-    const pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
+    //SET IMAGES URL
+    let cover_URL: string;
+    let pfp_URL: string;
+    if (seller.error && !seller.images?.length) {
+        cover_URL =
+            "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
+
+        pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
+    } else {
+        console.log("SELLER:", seller);
+        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images[0]}`;
+
+        pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
+    }
 
     const sidebarBody = SidebarData.filter((item) => {
         return (
