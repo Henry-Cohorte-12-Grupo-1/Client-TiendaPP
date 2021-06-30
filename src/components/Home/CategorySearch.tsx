@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import {  orderByCategories } from '../../redux/categories/categoriesActions';
+import {  orderByCategories, resetCategoriesFilter} from '../../redux/categories/categoriesActions';
+
 import "./CategorySearch.scss";
 import { url } from '../../api';
 import { useRef } from 'react';
@@ -37,14 +38,21 @@ const CategorySearch = () => {
     // console.log('searched', searched)
     
     const handleClick = (category:string) => {
-        console.log(category)
-        setSelected(category)
-        // setSelected(category)
+        if(category==='reset'){
+            dispatch(resetCategoriesFilter())
+            setSelected(null)
+            
+        } else {
+            console.log(category)
+            setSelected(category)
+            // setSelected(category)
+            dispatch(orderByCategories(category));
+        }
         setOpen(false);
-        // dispatch(orderByCategories(category));
     };
 
     const handleOpen = () => {
+        
         setOpen(!open)
         console.log(open)
         console.log(initialCategories)
@@ -53,20 +61,23 @@ const CategorySearch = () => {
     
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault()
+
         setSearching(event.target.value);
+        console.log(event.target.value);
     }
-     
+
+
     
     return (
         <div className="searchDropdown">
             <div className="searchControl" onClick={() => handleOpen()}>
                 <div className="searchSelected-value" >
                     <input type="text" 
-                        defaultValue={selected?selected:''}
+                        value={selected?selected:undefined}
                         // placeholder={selected ? selected : 'Select a category'}
-                        placeholder={selected !== null ? selected : 'Select a categlrh'}
+                        placeholder={selected !== null ? selected : 'Select category'}
                         onChange={handleChange}
-                        // onBlur={() => setOpen(!open)}
+                        onClick={()=> setSelected(null)}
                         // onClick={() => setOpen(!open)}
                     />
                 </div>
@@ -82,6 +93,7 @@ const CategorySearch = () => {
                     >
                             {element.name}</li>)
                     )}
+                    <li className='searchOption' onClick={() => handleClick('reset')}>Reset Filter</li>
                     </ul>
             </div>
         </div>

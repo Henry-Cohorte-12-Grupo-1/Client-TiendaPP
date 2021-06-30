@@ -8,13 +8,6 @@ export function categoriesReducer(
     action: IAction
 ) {
     switch (action.type) {
-        case CATEGORIES_ACTIONS.ORDER_BY_CATEGORY:
-            return {
-                ...state,
-                filterProducts: state.productList.filter(
-                    (c) => c.Category?.name === action.order
-                ),
-            };
         case CATEGORIES_ACTIONS.GET_CATEGORIES:
             return {
                 ...state,

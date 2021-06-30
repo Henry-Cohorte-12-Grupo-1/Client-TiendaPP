@@ -42,6 +42,18 @@ export function productsReducer(
                 ...state,
                 productQuestions: action.payload,
             };
+        case PRODUCTS_ACTIONS.ORDER_BY_CATEGORY:
+            return {
+                ...state,
+                filterProducts: state.productList.filter(
+                    (c) => c.Category?.name === action.order
+                ),
+            };
+        case PRODUCTS_ACTIONS.RESET_CATEGORIES_FILTER:
+            return {
+                ...state,
+                filterProducts: state.productList,
+            };
         default:
             return state;
     }
