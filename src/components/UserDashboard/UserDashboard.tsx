@@ -1,8 +1,9 @@
 import jwtDecode from 'jwt-decode';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CombinedStores } from '../../redux/interfaces/reduxStore';
+import { bringProfilePic } from '../../redux/profile/profilePicActions';
 import UpdatePhoto from '../ProfilePic/UpdatePhoto';
 import './UserDashboard.scss'
 
@@ -10,12 +11,18 @@ import './UserDashboard.scss'
 function UserDashboard() {
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
+    const userId = token?.id ? token.id : null
+    const dispatch = useDispatch()
 
     const [editPic, setEditPic] = useState<boolean>(false)
 
     const userPic = useSelector<CombinedStores, string>(
         (state) => state.profilePicReducer.profilePic
     );
+
+    useEffect(() => {
+        dispatch(bringProfilePic(userId))
+    }, [])//eslint-disable-line
 
     const handleProfilePic = (e: any) => {
         e.preventDefault();
