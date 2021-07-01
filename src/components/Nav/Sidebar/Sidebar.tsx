@@ -23,7 +23,7 @@ import { bringProfilePic } from "../../../redux/profile/profilePicActions";
 function Sidebar() {
     //redux
     const dispatch = useDispatch();
-    const seller = useSelector<CombinedStores, SellerProfile>(
+    const sellerProfile = useSelector<CombinedStores, SellerProfile>(
         (state) => state.sellerReducer.sellerProfile
     );
     const userPic = useSelector<CombinedStores, string>(
@@ -52,6 +52,7 @@ function Sidebar() {
     const userId = token.id;
 
     const username = token.username ? token.username : "Guest";
+    console.log("username --->", username)
 
     useEffect(() => {
         if (token) {
@@ -63,11 +64,11 @@ function Sidebar() {
     //SET IMAGES URL
     let cover_URL: string;
     let pfp_URL: string;
-    if (seller.error || !seller.images?.length || !seller) {
+    if (sellerProfile.error || !sellerProfile.images?.length || !sellerProfile) {
         cover_URL =
             "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
     } else {
-        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images}`;
+        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${sellerProfile.images}`;
     }
     pfp_URL = userPic ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${userPic}` : profileIcon;
 
