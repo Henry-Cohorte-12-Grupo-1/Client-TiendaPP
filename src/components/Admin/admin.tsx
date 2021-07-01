@@ -32,7 +32,7 @@ function Admin() {
             setInitial(categoriesArray);
             console.log(categoriesArray);
 
-            const rusers = await axios.get(`${url}/user/getallusers`);
+            const rusers = await axios.get(`${url}/user/getallusers`, {headers: { Authorization: `Bearer ${localStorage.token}`}} );
             const users = rusers.data.map((user: any) => ({
                 username: user.username,
                 userId: user.userId,
@@ -137,13 +137,13 @@ function Admin() {
             oldCategories: oldCategories
         }
 
-        await axios.put(`${url}/updateCategories`, sendObject)
+        await axios.put(`${url}/updateCategories`, sendObject, {headers: { Authorization: `Bearer ${localStorage.token}`}})
             .catch(() => swal('request failed'))
         console.log("userSubmit",userSubmit)
         if (userSubmit.passReset) {
             if (userSubmit.role === 2) {
                 console.log(userSubmit)
-                const resp = await axios.put(`${url}/user/userUpdate`, userSubmit)
+                const resp = await axios.put(`${url}/user/userUpdate`, userSubmit, {headers: { Authorization: `Bearer ${localStorage.token}`}})
                     .catch(() => swal('request failed'))
                 if (resp?.data === 'succesfully updated') {
                     console.log('entro')
@@ -152,7 +152,7 @@ function Admin() {
             } else swal('force password is not available for Admins or Disabled accounts')
         } else {
             console.log(userSubmit)
-            let response = await axios.put(`${url}/user/userUpdate`, userSubmit)
+            let response = await axios.put(`${url}/user/userUpdate`, userSubmit, {headers: { Authorization: `Bearer ${localStorage.token}`}})
                 .catch(() => swal('request failed'))
             swal(response.data)
             .then(()=> history.go(0))
@@ -160,7 +160,7 @@ function Admin() {
 
 
         console.log(userSubmit);
-        const resp = await axios.put(`${url}/user/userUpdate`, userSubmit).catch(() => swal('request failed'));
+        const resp = await axios.put(`${url}/user/userUpdate`, userSubmit, {headers: { Authorization: `Bearer ${localStorage.token}`}}).catch(() => swal('request failed'));
         console.log(resp);
     };
 
