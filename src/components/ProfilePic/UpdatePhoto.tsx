@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 import swal from 'sweetalert'
 import { useDispatch } from "react-redux";
 import { bringProfilePic } from "../../redux/profile/profilePicActions";
+import Loading from "../Loading/Loading";
 
 export default function UpdatePhoto() {
 
@@ -13,7 +14,7 @@ export default function UpdatePhoto() {
     const userId = token ? token.id : null;
 
     const dispatch = useDispatch()
-
+    const [loading, setLoading] = useState<boolean>(false)
     const [image, setImage] = useState<File>()
     //const [imageUrl, setImageUrl] = useState<string>("")
     const [previewSource, setPreviewSource] = useState<any>("")
@@ -37,11 +38,16 @@ export default function UpdatePhoto() {
         if (image) {
             formData.append('file', image)
             formData.append('upload_preset', 'tiendapp')
+            setLoading(true)
             const resp = await axios.post('https://api.cloudinary.com/v1_1/tiendapp/image/upload', formData)
             await axios.post(`${url}/user/updatePic`, { userId: userId, profilePic: resp.data.public_id })
-                .then(res => swal(res.data))
+                .then(res => swal(res.data)).then(() => setLoading(false))
             dispatch(bringProfilePic(userId))
         }
+    }
+
+    if (loading) {
+        return <Loading />
     }
 
     return (

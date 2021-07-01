@@ -26,6 +26,7 @@ import * as AiIcons from "react-icons/ai";
 //for the add to cart button
 import AddButton from "../Cart/CartButtons/AddButton";
 import axios from "axios";
+import Loading from "../Loading/Loading";
 
 //defino el tipado para match.params.id
 interface MatchParams {
@@ -106,7 +107,7 @@ function ProductDetails(props: Props): ReactElement {
     }, [details]);
 
     if (loading) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
     if (!loading && !details.productId) {
         return <h1>Not Found!</h1>;
@@ -265,14 +266,14 @@ function ProductDetails(props: Props): ReactElement {
                                 <p className="mb-0">{question.question}</p>
                                 {question.answer ? (
                                     <p className="ml-3" key={i}>
-                                        {}
+                                        { }
                                         <BsArrowReturnRight />
                                         &nbsp;{question.answer}
                                     </p>
                                 ) : null}
                                 <div>
                                     {userId === questions.id &&
-                                    !question.answer ? (
+                                        !question.answer ? (
                                         <Button
                                             onClick={() => {
                                                 handleQA(
