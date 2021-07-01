@@ -45,7 +45,8 @@ function Sidebar() {
         ? UserStatus.user
         : UserStatus.guest;
 
-    const username = token.username ? token.username : "guest";
+    let username = token.username ? token.username : "guest";
+    username = admin ? "ADMINISTRATOR" : username;
 
     useEffect(() => {
         if (username !== "guest") {
@@ -61,11 +62,13 @@ function Sidebar() {
         //seller no tiene foto
         cover_URL =
             "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
-        pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
+        pfp_URL =
+            "https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg";
     } else {
         //seller tiene foto
         cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images}`;
-        pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
+        pfp_URL =
+            "https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg";
     }
 
     const sidebarBody = SidebarData.filter((item) => {
