@@ -46,8 +46,8 @@ function Sidebar() {
     const userStatus: number = admin
         ? UserStatus.admin
         : user
-        ? UserStatus.user
-        : UserStatus.guest;
+            ? UserStatus.user
+            : UserStatus.guest;
     const userId = token.id;
 
     let username = token.username ? token.username : "guest";
@@ -70,7 +70,7 @@ function Sidebar() {
     } else {
         cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${sellerProfile.images}`;
     }
-    pfp_URL = userPic ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${userPic}` : profileIcon;
+    pfp_URL = userPic ? `http://res.cloudinary.com/tiendapp/image/upload/c_scale,w_200/${userPic}` : profileIcon;
 
     const sidebarBody = SidebarData.filter((item) => {
         return (

@@ -36,7 +36,7 @@ function UserDashboard() {
                     onClick={handleProfilePic}>
                     <div className="circle">
                         <img
-                            src={userPic ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${userPic}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnNKg_7pKXEr8Wyd9HFNBLB3LEno62rqXME_UL3mzuxwyZ6j1gmAV55FYfubxwu2GAqEk&usqp=CAU"}
+                            src={userPic ? `http://res.cloudinary.com/tiendapp/image/upload/c_scale,w_200/${userPic}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnNKg_7pKXEr8Wyd9HFNBLB3LEno62rqXME_UL3mzuxwyZ6j1gmAV55FYfubxwu2GAqEk&usqp=CAU"}
                             className="pfp" alt="profile"></img>
                     </div>
                 </button>
