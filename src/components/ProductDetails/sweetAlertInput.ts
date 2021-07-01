@@ -21,7 +21,7 @@ async function sweetAlertInput(
   } as any);
 
   const request = async (name: any) => {
-    if (!name) throw null;
+    if (!name) throw new Error();
     console.log(name);
     if (userId) {
       return await axios.post(path, {

@@ -7,7 +7,6 @@ import {
 } from "../../../redux/products/productsActions";
 import { useHistory } from "react-router-dom";
 import {
-    StoreType,
     CombinedStores,
 } from "../../../redux/interfaces/reduxStore";
 

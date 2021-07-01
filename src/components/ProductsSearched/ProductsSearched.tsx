@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { searchProduct } from "../../redux/products/productsActions";
-import { StoreType, CombinedStores } from '../../redux/interfaces/reduxStore'
+import { StoreType } from '../../redux/interfaces/reduxStore'
 import { Container } from 'react-bootstrap'
 import ProductsCards from '../ProductsCards/ProductsCards';
 import Pagination from "../Nav/SearchBar/ProductsSearched/parts/Pagination/Pagination";
 import './ProductsSearched.css'
-import Order from "../Nav/SearchBar/ProductsSearched/parts/Order"
 import { IProductsType } from '../../interfaces/search';
 
 
@@ -28,7 +27,7 @@ export default function ProductsSearched() {
       {/* Cantidad de items */}
       <div className="d-flex justify-content-center mt-3 mb-5">
         <div className="pagesS mr-3">
-        <label className="text-light ml-2 mr-2">Pages: </label>
+          <label className="text-light ml-2 mr-2">Pages: </label>
           <select id="selectS" className="form-select form-select-lg py-1 mr-2" aria-label="Default select example" onChange={
             (e) => {
               if (e.target.value === '5') {
@@ -54,11 +53,11 @@ export default function ProductsSearched() {
               value='20'>20</option>
           </select>
         </div>
-     
-      {/* Price or Name */}
-      <div className="pagesS mr-3">
+
+        {/* Price or Name */}
+        <div className="pagesS mr-3">
           <label className="text-light ml-2 mr-2">Order by:</label>
-          <select id="selectS" className="form-select py-1" aria-label="Default select example"  onChange={
+          <select id="selectS" className="form-select py-1" aria-label="Default select example" onChange={
             (e) => {
               if (e.target.value === 'name') {
                 setOption('name')
@@ -78,13 +77,13 @@ export default function ProductsSearched() {
             <option
               value='price'>Price</option>
           </select>
-       
-      </div>
 
-      {/* Orden */}
-      <div className="pagesS">     
+        </div>
+
+        {/* Orden */}
+        <div className="pagesS">
           <label className="text-light ml-2 mr-2">Type:</label>
-          <select id="selectS" className="form-select py-1" aria-label="Default select example"  onChange={
+          <select id="selectS" className="form-select py-1" aria-label="Default select example" onChange={
             (e) => {
               if (e.target.value === 'lower-higher') {
                 dispatch(
@@ -106,8 +105,8 @@ export default function ProductsSearched() {
               value='lower-higher'>{option && option === 'name' ? 'A - Z' : 'Lower to Higher'}</option>
             <option
               value='higher-lower'>{option && option === 'name' ? 'Z - A' : 'Higher to Lower'}</option>
-          </select>     
-      </div>
+          </select>
+        </div>
       </div>
 
       <Container id="homeContainer" className='d-flex justify-content-center flex-wrap ml-0 mr-0'>

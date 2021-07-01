@@ -1,10 +1,4 @@
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Footer from "../Footer/Footer";
-
-import sell from "./sell.svg";
-import buy from "./buy.svg";
-import enjoy from "./enjoy.svg";
 
 function NotFound() {
     return (

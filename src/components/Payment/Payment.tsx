@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { loadCartFromDB } from "../../redux/cart/cartActions";
 
 // Make sure to call loadStripe outside of a component’s render to avoid

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { useEffect, useState } from "react";
 import IUserOrders from "../../interfaces/userOrders";
 import { Container } from "react-bootstrap";
@@ -38,9 +38,9 @@ export default function UserSales() {
     !orders.length || typeof orders === "string"
         ? (currentOrders = [])
         : (currentOrders = [
-              ...currentOrders,
-              ...orders.slice(firstIndex, lastIndex),
-          ]);
+            ...currentOrders,
+            ...orders.slice(firstIndex, lastIndex),
+        ]);
     console.log("currentOrders --> ", currentOrders);
     console.log("reduxOrders -->", orders);
 
@@ -119,40 +119,40 @@ export default function UserSales() {
             {currentOrders.length < 1 ? <h4>Nothing Found</h4> : null}
             {!filter
                 ? orders.map((o) => {
-                      return (
-                          <OrderListItem
-                              name={o.Product.name}
-                              price={o.Product.price}
-                              images={o.Product.Images}
-                              productId={o.Product.productId}
-                              seller={o.User.username}
-                              quantity={o.quantity}
-                              status={o.status}
-                              reviews={o.Product.Reviews}
-                              user={userName}
-                              role="to"
-                              id={o.id}
-                          />
-                      );
-                  })
+                    return (
+                        <OrderListItem
+                            name={o.Product.name}
+                            price={o.Product.price}
+                            images={o.Product.Images}
+                            productId={o.Product.productId}
+                            seller={o.User.username}
+                            quantity={o.quantity}
+                            status={o.status}
+                            reviews={o.Product.Reviews}
+                            user={userName}
+                            role="to"
+                            id={o.id}
+                        />
+                    );
+                })
                 : currentOrders.length > 0 &&
-                  currentOrders.map((o) => {
-                      return (
-                          <OrderListItem
-                              name={o.Product.name}
-                              price={o.Product.price}
-                              images={o.Product.Images}
-                              productId={o.Product.productId}
-                              seller={o.User.username}
-                              quantity={o.quantity}
-                              status={o.status}
-                              reviews={o.Product.Reviews}
-                              user={userName}
-                              role="to"
-                              id={o.id}
-                          />
-                      );
-                  })}
+                currentOrders.map((o) => {
+                    return (
+                        <OrderListItem
+                            name={o.Product.name}
+                            price={o.Product.price}
+                            images={o.Product.Images}
+                            productId={o.Product.productId}
+                            seller={o.User.username}
+                            quantity={o.quantity}
+                            status={o.status}
+                            reviews={o.Product.Reviews}
+                            user={userName}
+                            role="to"
+                            id={o.id}
+                        />
+                    );
+                })}
             {currentPage < lastPage ? (
                 <div className="d-flex justify-content-center mb-4">
                     {" "}
