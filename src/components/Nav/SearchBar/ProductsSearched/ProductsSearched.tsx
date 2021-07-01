@@ -1,4 +1,4 @@
-import "./ProductsSearched";
+import "./ProductsSearched.scss";
 import ProductsCards from "../../../ProductsCards/ProductsCards";
 import Pagination from "./parts/Pagination/Pagination";
 import Order from "./parts/Order";
@@ -18,10 +18,12 @@ export default function ProductsSearched() {
     return (
         <div id="home-container">
             <Order />
-            <SellerSearchBar />
+            <div className="sellerBar">
+                <SellerSearchBar />
+            </div>
             <Container
                 id="homeContainer"
-                className="d-flex justify-content-center flex-wrap ml-0 mr-0"
+                className="d-flex justify-content-center flex-wrap ml-0 mr-0 mt-5"
             >
                 {products.products && products.products.length === 0 ? (
                     <h1>No Products to show</h1>
@@ -42,7 +44,9 @@ export default function ProductsSearched() {
                     </div>
                 )}
             </Container>
-            <Pagination />
+            <div className="mt-5">
+                <Pagination />
+            </div>
         </div>
     );
 }
