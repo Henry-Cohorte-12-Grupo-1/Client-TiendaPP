@@ -87,6 +87,21 @@ function NavComponent() {
                         </Link>
                     ) : null}
 
+                    {admin ? (
+                            <div>
+                                <a
+                                    className="btn font-weight-bold"
+                                    id="colorButton2"
+                                    onClick={() => {
+                                        localStorage.removeItem("token");
+                                    }}
+                                    href="/"
+                                >
+                                    Log out
+                                </a>
+                            </div>
+                    ) : null} 
+
                     {localStorage.token ? null : (
                         <Link to="/sign-up">
                             <button
