@@ -10,6 +10,8 @@ import { ICategory } from "../../interfaces/products";
 import { IProduct } from "../../interfaces/product";
 import jwtDecode from "jwt-decode";
 import Dropdown from "../Dropdown/Dropdown";
+import * as AiIcons from "react-icons/ai";
+import { IconContext } from "react-icons";
 
 import Sidebar from "./Sidebar/Sidebar";
 
@@ -19,7 +21,7 @@ function NavComponent() {
         (c) => c.cartReducer.cartItem
     )
 
-    console.log('CART',cartItem)
+    console.log('CART', cartItem)
 
     const handleClick = (category: string) => {
         dispatch(orderByCategories(category));
@@ -45,7 +47,7 @@ function NavComponent() {
                             className="btn font-weight-bold"
                             id="colorButton"
                         >
-                            Home
+                            TiendApp
                         </button>
                     </Link>
 
@@ -120,25 +122,26 @@ function NavComponent() {
                         )}
                     </ul> */}
                     {admin ? null : (
-                        <div>
+                        <IconContext.Provider value={{ color: "#fff", size: "2rem" }}>
+
                             {cartItem ? (
                                 <div className="shoppingConatiner">
                                     <div className="counterContainer">
                                         <span>{cartItem.length}</span>
                                     </div>
                                 </div>
-                            ): null}
-                            <Link to="/cart">
-                                <button
-                                    className="btn font-weight-bold"
-                                    id="colorButton5"
-                                >
-                                    Cart
-                                </button>
-                            </Link>
-                        </div>
+                            ) : null}
+                            <div className="d-flex">
+                                <a href="/cart">
+                                    <AiIcons.AiOutlineShoppingCart />
+                                </a>
+                            </div>
+
+                        </IconContext.Provider>
                     )}
-                    {user ? <Dropdown /> : null}
+                    <div className="ml-3">
+                        {user ? <Dropdown /> : null}
+                    </div>
                     {/* {user ? (
                         <Link to="/user">
                             <button

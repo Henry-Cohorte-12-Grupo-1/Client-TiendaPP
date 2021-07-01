@@ -66,7 +66,7 @@ function Sidebar() {
     let pfp_URL: string;
     if (sellerProfile.error || !sellerProfile.images?.length || !sellerProfile) {
         cover_URL =
-            "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
+            "https://cartcraze.com/sites/default/files/assets/images/blog-images/visual-inspiration-15-e-commerce-websites-with-beautiful-clean-design.jpg"
     } else {
         cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${sellerProfile.images}`;
     }
@@ -120,7 +120,7 @@ function Sidebar() {
                     <div className="profile-overlay"></div>
                     <a href={`/seller/${username}`}>
                         <div className="circle">
-                            <img src={`${pfp_URL}`} className="pfp"></img>
+                            <img src={`${pfp_URL}`} className="pfp" alt="profile"></img>
                         </div>
                     </a>
                     <div className="username">
