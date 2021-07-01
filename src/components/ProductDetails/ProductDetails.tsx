@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import SweetAlertInput from "./sweetAlertInput";
 import IQuestAndId from "../../interfaces/questions";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { ReactElement, useEffect, useState } from "react";
 
 import { loadCartBuyNow, buyNow } from "../../redux/cart/cartActions";
@@ -20,8 +20,7 @@ import { BsArrowReturnRight } from "react-icons/bs";
 import { url } from "../../api";
 
 //icons
-import { IconContext } from "react-icons";
-import * as AiIcons from "react-icons/ai";
+
 
 //for the add to cart button
 import AddButton from "../Cart/CartButtons/AddButton";
@@ -38,7 +37,6 @@ function ProductDetails(props: Props): ReactElement {
     const history = useHistory();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
-    const [hasProfile, setHasProfile] = useState<boolean>(false);
     const id = props.match.params.id;
     //Selectors
     const details = useSelector<CombinedStores, detailedProduct>(
@@ -93,9 +91,6 @@ function ProductDetails(props: Props): ReactElement {
                         `${url}/seller/${details.User.username}`
                     );
                     console.log("aaaaa", profile);
-                    if (profile.data.header) {
-                        setHasProfile(true);
-                    }
                 } catch (e) {
                     console.error(e);
                 }
@@ -265,14 +260,14 @@ function ProductDetails(props: Props): ReactElement {
                                 <p className="mb-0">{question.question}</p>
                                 {question.answer ? (
                                     <p className="ml-3" key={i}>
-                                        {}
+                                        { }
                                         <BsArrowReturnRight />
                                         &nbsp;{question.answer}
                                     </p>
                                 ) : null}
                                 <div>
                                     {userId === questions.id &&
-                                    !question.answer ? (
+                                        !question.answer ? (
                                         <Button
                                             onClick={() => {
                                                 handleQA(

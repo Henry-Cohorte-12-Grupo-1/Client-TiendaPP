@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { Navbar, Nav, Form } from "react-bootstrap";
-import { orderByCategories } from "../../redux/categories/categoriesActions";
-import { bringProducts } from "../../redux/products/productsActions";
-import { ICategory } from "../../interfaces/products";
+//import { orderByCategories } from "../../redux/categories/categoriesActions";
 import { IProduct } from "../../interfaces/product";
 import { loadCartFromDB, loadGuestCart } from "../../redux/cart/cartActions";
 import jwtDecode from "jwt-decode";
@@ -25,22 +23,22 @@ function NavComponent() {
 
     console.log('CART', cartItem)
 
-    const handleClick = (category: string) => {
-        dispatch(orderByCategories(category));
-    };
+    // const handleClick = (category: string) => {
+    //     dispatch(orderByCategories(category));
+    // };
 
     useEffect(() => {
         if (userId !== "guest") {
             (async () => {
                 dispatch(loadCartFromDB(userId));
-            })(); 
+            })();
         } else {
             const localCart: IProduct[] = JSON.parse(
                 localStorage.getItem("cart") || "[]"
             );
             dispatch(loadGuestCart(localCart));
         }
-    }, []);
+    }, []);//eslint-disable-line
 
 
     const token: any = localStorage.token
@@ -90,19 +88,19 @@ function NavComponent() {
                     ) : null}
 
                     {admin ? (
-                            <div>
-                                <a
-                                    className="btn font-weight-bold"
-                                    id="colorButton2"
-                                    onClick={() => {
-                                        localStorage.removeItem("token");
-                                    }}
-                                    href="/"
-                                >
-                                    Log out
-                                </a>
-                            </div>
-                    ) : null} 
+                        <div>
+                            <a
+                                className="btn font-weight-bold"
+                                id="colorButton2"
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+                                }}
+                                href="/"
+                            >
+                                Log out
+                            </a>
+                        </div>
+                    ) : null}
 
                     {localStorage.token ? null : (
                         <Link to="/sign-up">

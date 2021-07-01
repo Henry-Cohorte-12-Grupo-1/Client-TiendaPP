@@ -1,9 +1,8 @@
 import { ReactElement, useState } from "react";
 import { IProduct } from "../../interfaces/product";
-import { url as URL } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartItemQuantity } from "../../redux/cart/cartActions";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { StoreType } from "../../redux/interfaces/reduxStore";
 import DeleteButton from "../Cart/CartButtons/DeleteButton";
 import './CartCard.scss'
 import { Container } from "react-bootstrap";
@@ -16,7 +15,7 @@ interface Props {
 
 function CartCard(props: Props): ReactElement {
     //CONSTANTS
-    const URL_CART_SET_QUANTITY = URL + "/cart/setCartItemQuantity";
+    //const URL_CART_SET_QUANTITY = URL + "/cart/setCartItemQuantity";
 
     //PROPS
     //const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
@@ -40,33 +39,33 @@ function CartCard(props: Props): ReactElement {
     }
 
     //SIN EL AWAIT NO RENDERIZA EN ORDEN -
-    async function onIncrement() {
-        if (productData.quantity + 1 <= productData.stock) {
-            await dispatch(
-                setCartItemQuantity(
-                    userId,
-                    productData.quantity + 1,
-                    productData.productId
-                )
-            );
-            setQuantity(quantityShower(productData.productId));
-            forceRender(!render);
-        }
-    }
+    // async function onIncrement() {
+    //     if (productData.quantity + 1 <= productData.stock) {
+    //         await dispatch(
+    //             setCartItemQuantity(
+    //                 userId,
+    //                 productData.quantity + 1,
+    //                 productData.productId
+    //             )
+    //         );
+    //         setQuantity(quantityShower(productData.productId));
+    //         forceRender(!render);
+    //     }
+    // }
 
-    async function onDecrement() {
-        if (productData.quantity - 1 > 0) {
-            await dispatch(
-                setCartItemQuantity(
-                    userId,
-                    productData.quantity - 1,
-                    productData.productId
-                )
-            );
-            setQuantity(quantityShower(productData.productId));
-            forceRender(!render);
-        }
-    }
+    // async function onDecrement() {
+    //     if (productData.quantity - 1 > 0) {
+    //         await dispatch(
+    //             setCartItemQuantity(
+    //                 userId,
+    //                 productData.quantity - 1,
+    //                 productData.productId
+    //             )
+    //         );
+    //         setQuantity(quantityShower(productData.productId));
+    //         forceRender(!render);
+    //     }
+    // }
 
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

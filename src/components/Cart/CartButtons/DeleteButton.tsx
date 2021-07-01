@@ -1,7 +1,6 @@
-import axios from "axios";
+
 import { ReactElement } from "react";
 import { useDispatch } from "react-redux";
-import { url as URL } from "../../../api";
 import { deleteItemFromCart } from "../../../redux/cart/cartActions";
 interface Props {
     userId: string | undefined;

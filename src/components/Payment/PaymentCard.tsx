@@ -1,8 +1,8 @@
 import { IProduct } from "../../interfaces/product";
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import { Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { useSelector } from "react-redux";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import "./PaymentCard.scss";
 
 interface Props {
@@ -14,22 +14,25 @@ interface Props {
 
 export default function PaymentCard(props: Props): ReactElement {
     //CONSTANTS
-    const URL_CART_SET_QUANTITY = URL + "/cart/setCartItemQuantity";
+    //const URL_CART_SET_QUANTITY = URL + "/cart/setCartItemQuantity";
 
     //PROPS
     //const userId = '6d2ba377-b219-4925-b6df-4cbc8575ce50';
-    const { userId, productData, forceRender, render } = props;
+    //const { userId, productData, forceRender, render } = props;
+    const { productData } = props;
 
     //redux store
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     const cart = useSelector<CombinedStores, IProduct[]>(
         (state) => state.cartReducer.cart
     );
 
     //STATES
-    const [quantity, setQuantity] = useState(
-        quantityShower(productData.productId)
-    );
+    // const [quantity, setQuantity] = useState(
+    //     quantityShower(productData.productId)
+    // );
+
+    const quantity = quantityShower(productData.productId)
 
     function quantityShower(productId: any) {
         for (const each of cart) {

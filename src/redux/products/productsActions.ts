@@ -1,7 +1,6 @@
 import { Dispatch } from "redux";
 import axios from "axios";
 import { url } from "../../api";
-import { IProduct } from "../../interfaces/product";
 import { IProducts } from "../../interfaces/products";
 
 export const PRODUCTS_ACTIONS = {
@@ -51,7 +50,7 @@ export const bringProducts = () => {
 
 export const bringUserProducts = (userName: string | null) => {
     return async (dispatch: Dispatch) => {
-        const userProducts = await axios.get(`${url}/username/${userName}`, {headers: { Authorization: `Bearer ${localStorage.token}`}});
+        const userProducts = await axios.get(`${url}/username/${userName}`, { headers: { Authorization: `Bearer ${localStorage.token}` } });
         dispatch<BringUserProducts>({
             type: PRODUCTS_ACTIONS.GET_USER_PRODUCTS,
             payload: userProducts.data,

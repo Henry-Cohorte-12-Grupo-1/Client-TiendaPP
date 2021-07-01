@@ -4,7 +4,6 @@ import Pagination from "./parts/Pagination/Pagination";
 import Order from "./parts/Order";
 import { useSelector } from "react-redux";
 import {
-    StoreType,
     CombinedStores,
 } from "../../../../redux/interfaces/reduxStore";
 import { IProductsType } from "../../../../interfaces/search";

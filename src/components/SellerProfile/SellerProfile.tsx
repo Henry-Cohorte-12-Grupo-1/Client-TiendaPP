@@ -1,5 +1,4 @@
 import "./style.scss";
-import SellerProfile from "../../interfaces/sellerProfile";
 import IUserProduct from "../../interfaces/userProducts";
 import ProductsCards from "../ProductsCards/ProductsCards";
 import jwtDecode from "jwt-decode";
@@ -8,8 +7,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Carousel } from "react-bootstrap";
 import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { IProducts } from "../../interfaces/products";
-
-import { bringSellerProfile } from "../../redux/seller/sellerActions";
 import { bringUserProducts } from "../../redux/products/productsActions";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
 import axios from "axios";

@@ -85,7 +85,7 @@ function Login() {
         });
       }
     }
-  }, [email]);
+  }, [email]);//eslint-disable-line
 
   useEffect(() => {
     if (password) {
@@ -101,7 +101,7 @@ function Login() {
         });
       }
     }
-  }, [password]);
+  }, [password]);//eslint-disable-line
 
   /*
     const handleSubmitTest = async () => {

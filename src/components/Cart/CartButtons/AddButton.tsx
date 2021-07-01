@@ -11,7 +11,6 @@ import "./CartButtons.scss";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-    StoreType,
     CombinedStores,
 } from "../../../redux/interfaces/reduxStore";
 import {
@@ -70,7 +69,7 @@ function AddButton(props: Props): ReactElement {
             dispatch(loadGuestCart(localCart));
             checkInCart();
         }
-    }, []);
+    }, []);//eslint-disable-line
 
     ///////////////////////////////////////
     //The render/////////////

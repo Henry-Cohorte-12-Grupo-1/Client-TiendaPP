@@ -6,7 +6,7 @@ import { IProduct } from "../../interfaces/product";
 //redux stuff
 import jwtDecode from "jwt-decode";
 import { useSelector, useDispatch } from "react-redux";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { loadCartFromDB, loadGuestCart } from "../../redux/cart/cartActions";
 
 function Cart(): ReactElement {
@@ -47,7 +47,7 @@ function Cart(): ReactElement {
             );
             dispatch(loadGuestCart(localCart));
         }
-    }, [render]);
+    }, [render]);//eslint-disable-line
 
     ///////////////////////////////////////
     //The render/////////////

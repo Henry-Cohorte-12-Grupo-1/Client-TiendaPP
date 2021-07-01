@@ -5,6 +5,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { url } from "../../api";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import swal from "sweetalert";
+import { useHistory } from "react-router";
 
 export default function CheckoutForm() {
     const token = localStorage.token ? jwtDecode(localStorage.token) : false;
@@ -17,6 +19,7 @@ export default function CheckoutForm() {
     //const [email, setEmail] = useState("");
     const stripe = useStripe();
     const elements = useElements();
+    const history = useHistory()
 
     const isBuyNow = useSelector((state) => state.cartReducer.buyNow);
     const totalPriceState = useSelector(
@@ -87,7 +90,9 @@ export default function CheckoutForm() {
             setSucceeded(true);
 
             //ACA LE PEGA A LA API
-            await axios.post(`${url}/payment/post-pay`, toSend);
+            await axios.post(`${url}/payment/post-pay`, toSend)
+                .then(() => swal("Payment completed!")
+                    .then(() => history.push('/home')));
         }
     };
 
