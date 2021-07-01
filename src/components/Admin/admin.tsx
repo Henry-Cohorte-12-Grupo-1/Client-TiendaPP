@@ -32,7 +32,7 @@ function Admin() {
             setInitial(categoriesArray);
             console.log(categoriesArray);
 
-            const rusers = await axios.get(`${url}/user/getallusers`);
+            const rusers = await axios.get(`${url}/user/getallusers`, {headers: { Authorization: `Bearer ${localStorage.token}`}} );
             const users = rusers.data.map((user: any) => ({
                 username: user.username,
                 userId: user.userId,
