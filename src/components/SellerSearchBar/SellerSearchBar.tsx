@@ -10,6 +10,7 @@ import {
     StoreType,
     CombinedStores,
 } from "../../redux/interfaces/reduxStore";
+import './SellerSearchBar.css'
 
 // Interfaces
 

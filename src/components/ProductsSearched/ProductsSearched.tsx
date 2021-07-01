@@ -125,7 +125,9 @@ export default function ProductsSearched() {
           </div>
         )}
       </Container>
-      <Pagination />
+      <div className="mt-5">
+        <Pagination />
+      </div>
     </div>
   );
 }
