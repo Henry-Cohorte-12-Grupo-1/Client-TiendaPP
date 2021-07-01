@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { IErrorUser } from "../../interfaces/forms";
 import { useHistory } from "react-router-dom";
-import twitterImage from '../../assets/twitterImage.png';
 import githubImage from '../../assets/githubImage.png';
 
 
@@ -177,10 +176,6 @@ function Login() {
     window.open(`${URL}/auth/google`, "_self");
   };
 
-  const twitterLogin = () => {
-    window.location.href = `${URL}/auth/twitter`
-  }
-
   const githubLogin = () => {
     window.open(`${URL}/auth/github`, "_self");
   }
@@ -237,11 +232,6 @@ function Login() {
           <div className={styles.googleContainer} onClick={googleLogin}>
             <img src={glogo} alt="Google Icon" />
             <p>Login With Google</p>
-          </div>
-          <h5> Or Twitter </h5>
-          <div className={`${styles.googleContainer} ${styles.twitterContainer}`} onClick={twitterLogin}>
-            <img src={twitterImage} alt="Twitter Icon" />
-            <p>Login With Twitter</p>
           </div>
           <h5> Or GitHub </h5>
           <div className={`${styles.googleContainer} ${styles.githubContainer}`} onClick={githubLogin}>
