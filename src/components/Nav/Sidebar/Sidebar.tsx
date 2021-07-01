@@ -7,6 +7,7 @@ import "./Sidebar.scss";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { IconContext } from "react-icons";
+import profileIcon from "../../Dropdown/profile-icon.jpeg"
 
 import { useState } from "react";
 import { SidebarData, UserStatus } from "./SidebarData";
@@ -17,6 +18,7 @@ import { CombinedStores } from "../../../redux/interfaces/reduxStore";
 import SellerProfile from "../../../interfaces/sellerProfile";
 import { bringSellerProfile } from "../../../redux/seller/sellerActions";
 import { useEffect } from "react";
+import { bringProfilePic } from "../../../redux/profile/profilePicActions";
 
 function Sidebar() {
     //redux
@@ -24,7 +26,9 @@ function Sidebar() {
     const seller = useSelector<CombinedStores, SellerProfile>(
         (state) => state.sellerReducer.sellerProfile
     );
-
+    const userPic = useSelector<CombinedStores, string>(
+        (state) => state.profilePicReducer.profilePic
+    );
     //STATES
     const [sidebar, setSidebar] = useState(false);
 
@@ -43,30 +47,29 @@ function Sidebar() {
     const userStatus: number = admin
         ? UserStatus.admin
         : user
-        ? UserStatus.user
-        : UserStatus.guest;
+            ? UserStatus.user
+            : UserStatus.guest;
     const userId = token.id;
-        
-    const username = token.username ? token.username :  "Guest";
-    
+
+    const username = token.username ? token.username : "Guest";
+
     useEffect(() => {
-        if(token){
-            
+        if (token) {
+            dispatch(bringProfilePic(userId))
             dispatch(bringSellerProfile(username));
         }
-    }, []);
+    }, []);//eslint-disable-line
 
     //SET IMAGES URL
     let cover_URL: string;
     let pfp_URL: string;
-    if (seller.error || seller.images?.length || !seller) {
+    if (seller.error || !seller.images?.length || !seller) {
         cover_URL =
             "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
-        pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
     } else {
         cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images}`;
-        pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
     }
+    pfp_URL = userPic ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${userPic}` : profileIcon;
 
     const sidebarBody = SidebarData.filter((item) => {
         return (
