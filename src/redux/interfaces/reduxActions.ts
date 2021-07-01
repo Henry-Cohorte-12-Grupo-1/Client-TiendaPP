@@ -16,4 +16,5 @@ export interface IAction {
     addedCartProduct: IReducer.IProduct;
     wishlist: IReducer.IProducts[];
     productQuestions: IReducer.IQuestAndId[];
+    profilePic: string
 }

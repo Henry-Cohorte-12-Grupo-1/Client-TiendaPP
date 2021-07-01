@@ -29,7 +29,7 @@ export const initialState: StoreType = {
         price: 0,
         productId: "",
         userId: "",
-        User: {username: ""}
+        User: { username: "" }
     },
     userProducts: [],
     userOrders: [],
@@ -49,5 +49,6 @@ export const initialState: StoreType = {
         id: "",
     },
     buyNow: false,
-    actualPage:1
+    actualPage: 1,
+    profilePic: "",
 };
