@@ -1,0 +1,56 @@
+#cardWidth{
+    width: 20rem;
+    margin-bottom: 2rem;
+}
+
+#cardsHeight{
+    height: 150px;
+}
+
+#containerUser{
+    margin-left: 4rem;
+}
+
+#mButtonU{
+    margin-left: 5rem;
+}
+
+#usernameD{
+    margin-left: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+#displayUserBoard{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.circle {
+    z-index: 9;
+    position: relative;
+    // position: absolute;
+    // align-self: center;
+    $circle-d: 100px;
+    height: $circle-d;
+    width: $circle-d;
+    //margin-left: 1rem;
+
+    -webkit-border-radius: 63px;
+    -moz-border-radius: 63px;
+    border-radius: 50%;
+    background: #eaeaea;
+    display: flex;
+    justify-content: center;
+    .pfp {
+        z-index: 9;
+        position: relative;
+        align-self: center;
+        height: $circle-d - 5px;
+        width: $circle-d - 5px;
+        -webkit-border-radius: 63px;
+        -moz-border-radius: 63px;
+        border-radius: 50%;
+    }
+}

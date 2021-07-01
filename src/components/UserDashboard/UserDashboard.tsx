@@ -1,15 +1,49 @@
 import jwtDecode from 'jwt-decode';
-import { Container } from 'react-bootstrap'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import './UserDashboard.css'
+import { CombinedStores } from '../../redux/interfaces/reduxStore';
+import { bringProfilePic } from '../../redux/profile/profilePicActions';
+import UpdatePhoto from '../ProfilePic/UpdatePhoto';
+import './UserDashboard.scss'
 
 
 function UserDashboard() {
     const token: any = localStorage ? jwtDecode(localStorage.token) : false;
     let userName = token.username;
+    const userId = token?.id ? token.id : null
+    const dispatch = useDispatch()
+
+    const [editPic, setEditPic] = useState<boolean>(false)
+
+    const userPic = useSelector<CombinedStores, string>(
+        (state) => state.profilePicReducer.profilePic
+    );
+
+    useEffect(() => {
+        dispatch(bringProfilePic(userId))
+    }, [])//eslint-disable-line
+
+    const handleProfilePic = (e: any) => {
+        e.preventDefault();
+        setEditPic(!editPic)
+    }
     return (
         <div>
-            <h1 id="usernameD">{userName.length < 18 ? userName : null} Dashboard</h1>
+            <div className="d-flex row m-3 align-items-center justify-content-center">
+                <button
+                    style={{ border: "none", backgroundColor: "transparent" }}
+                    onClick={handleProfilePic}>
+                    <div className="circle">
+                        <img
+                            src={userPic ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${userPic}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnNKg_7pKXEr8Wyd9HFNBLB3LEno62rqXME_UL3mzuxwyZ6j1gmAV55FYfubxwu2GAqEk&usqp=CAU"}
+                            className="pfp" alt="profile"></img>
+                    </div>
+                </button>
+                <p className="h3 text-center" id="usernameD">{userName.length < 18 ? userName : null}</p>
+            </div>
+            {editPic && <div className="d-flex row m-3 justify-content-center"><UpdatePhoto /></div>}
+
             {/* <div className="d-flex justify-content-around m-5">
                 <a className="btn btn-primary" id='colorB' href={`/user/activeProducts`}>Active sales</a>
                 <a className="btn btn-primary" id='colorB' href="/user/create">Create New</a>
@@ -62,7 +96,7 @@ function UserDashboard() {
                         <img src="https://www.torodigital.com.au/wp-content/uploads/2018/10/Lawyers-Profile-Page.jpg" className="card-img-top" id="cardsHeight" alt="not found" />
                     </Link>
                     <div className="card-body">
-                        <a className="btn btn-primary ml-3" href={`/seller/edit/${userName}`}>Create / Update Seller Profile</a>
+                        <a className="btn btn-primary ml-3" href={`/seller/edit/${userName}`}>Edit my Site</a>
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">
@@ -70,11 +104,11 @@ function UserDashboard() {
                         <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fGxpbmtlZGluJTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" className="card-img-top" id="cardsHeight" alt="not found" />
                     </Link>
                     <div className="card-body">
-                        <a className="btn btn-primary" id="mButtonU" href={`/seller/${userName}`}>My Seller Profile</a>
+                        <a className="btn btn-primary" id="mButtonU" href={`/seller/${userName}`}>My Seller Site</a>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 export default UserDashboard

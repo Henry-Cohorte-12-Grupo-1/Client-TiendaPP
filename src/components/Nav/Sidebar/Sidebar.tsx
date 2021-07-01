@@ -6,6 +6,7 @@ import "./Sidebar.scss";
 //ICONS
 import * as FaIcons from "react-icons/fa";
 import { IconContext } from "react-icons";
+import profileIcon from "../../Dropdown/profile-icon.jpeg"
 
 import { useState } from "react";
 import { SidebarData, UserStatus } from "./SidebarData";
@@ -16,14 +17,17 @@ import { CombinedStores } from "../../../redux/interfaces/reduxStore";
 import SellerProfile from "../../../interfaces/sellerProfile";
 import { bringSellerProfile } from "../../../redux/seller/sellerActions";
 import { useEffect } from "react";
+import { bringProfilePic } from "../../../redux/profile/profilePicActions";
 
 function Sidebar() {
     //redux
     const dispatch = useDispatch();
-    const seller = useSelector<CombinedStores, SellerProfile>(
+    const sellerProfile = useSelector<CombinedStores, SellerProfile>(
         (state) => state.sellerReducer.sellerProfile
     );
-
+    const userPic = useSelector<CombinedStores, string>(
+        (state) => state.profilePicReducer.profilePic
+    );
     //STATES
     const [sidebar, setSidebar] = useState(false);
 
@@ -44,6 +48,7 @@ function Sidebar() {
         : user
         ? UserStatus.user
         : UserStatus.guest;
+    const userId = token.id;
 
     let username = token.username ? token.username : "guest";
     username = admin ? "ADMINISTRATOR" : username;
@@ -51,25 +56,21 @@ function Sidebar() {
     useEffect(() => {
         if (username !== "guest") {
             dispatch(bringSellerProfile(username));
+            dispatch(bringProfilePic(userId))
         }
-    }, []);
+    }, []);//eslint-disable-line
 
     //SET IMAGES URL
     let cover_URL: string;
     let pfp_URL: string;
 
-    if (!seller.images?.length) {
-        //seller no tiene foto
+    if (sellerProfile.error || !sellerProfile.images?.length || !sellerProfile) {
         cover_URL =
-            "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
-        pfp_URL =
-            "https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg";
+            "https://cartcraze.com/sites/default/files/assets/images/blog-images/visual-inspiration-15-e-commerce-websites-with-beautiful-clean-design.jpg"
     } else {
-        //seller tiene foto
-        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images}`;
-        pfp_URL =
-            "https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg";
+        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${sellerProfile.images}`;
     }
+    pfp_URL = userPic ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${userPic}` : profileIcon;
 
     const sidebarBody = SidebarData.filter((item) => {
         return (
@@ -121,7 +122,7 @@ function Sidebar() {
 
                     <a href={user ? `/seller/${username}` : "#"}>
                         <div className="circle">
-                            <img src={`${pfp_URL}`} className="pfp"></img>
+                            <img src={`${pfp_URL}`} className="pfp" alt="profile"></img>
                         </div>
                     </a>
 
