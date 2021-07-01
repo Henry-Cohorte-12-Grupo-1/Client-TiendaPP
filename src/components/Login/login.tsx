@@ -150,12 +150,13 @@ function Login() {
           history.push("/login/passReset")
         );
       } else {
-        localStorage.setItem("token", resp.data.token);
         if (resp.data.message === "User") {
+          localStorage.setItem("token", resp.data.token);
           swal("Welcome");
           history.push("/home");
         }
         if (resp.data.message === "Admin") {
+          localStorage.setItem("token", resp.data.token);
           console.log("entro admin");
           history.push("/adminValidation");
         }
