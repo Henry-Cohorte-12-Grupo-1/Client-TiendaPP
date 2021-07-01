@@ -16,8 +16,9 @@ export default function ProductsSearched() {
     );
     return (
         <div id="home-container">
+
             <Order />
-            <div className="sellerBar">
+            <div className="sellerBar mt-5">
                 <SellerSearchBar />
             </div>
             <Container

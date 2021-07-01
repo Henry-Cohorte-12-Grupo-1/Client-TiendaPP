@@ -2,6 +2,7 @@ import "../ProductsSearched";
 import React, { useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { searchProduct } from "../../../../../redux/products/productsActions";
+import {Form} from 'react-bootstrap'
 
 export default function Order() {
     //Store
@@ -25,29 +26,31 @@ export default function Order() {
     );
     return (
         <div className="d-flex justify-content-center mt-3 mb-5">
+
             <div className="pagesS mr-3">
                 {/* Cantidad de items */}
                 <label className="text-light ml-2 mr-2">Pages: </label>
-                <select
+
+                <Form.Control as="select"
                     id="selectS"
                     className="form-select form-select-lg py-1 mr-2"
                     aria-label="Default select example"
                     onChange={(e) => {
-                        if (e.target.value === "5") {
+                        if (e.target.value === "4") {
                             dispatch(
                                 searchProduct(
                                     nameState,
-                                    5,
+                                    4,
                                     0,
                                     tagState,
                                     orderState
                                 )
                             );
-                        } else if (e.target.value === "10") {
+                        } else if (e.target.value === "8") {
                             dispatch(
                                 searchProduct(
                                     nameState,
-                                    10,
+                                    8,
                                     0,
                                     tagState,
                                     orderState
@@ -57,7 +60,7 @@ export default function Order() {
                             dispatch(
                                 searchProduct(
                                     nameState,
-                                    20,
+                                    16,
                                     0,
                                     tagState,
                                     orderState
@@ -66,16 +69,16 @@ export default function Order() {
                         }
                     }}
                 >
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                </select>
+                    <option value="4">4</option>
+                    <option value="8">8</option>
+                    <option value="16">16</option>
+                </Form.Control>
             </div>
 
             <div className="pagesS mr-3">
                 {/* Price or Name */}
                 <label className="text-light ml-2 mr-2">Order by:</label>
-                <select
+                <Form.Control as="select"
                     id="selectS"
                     className="form-select py-1"
                     aria-label="Default select example"
@@ -107,13 +110,13 @@ export default function Order() {
                 >
                     <option value="name">Name</option>
                     <option value="price">Price</option>
-                </select>
+                </Form.Control>
             </div>
 
             <div className="pagesS">
                 {/* Orden */}
                 <label className="text-light ml-2 mr-2">Type:</label>
-                <select
+                <Form.Control as="select"
                     id="selectS"
                     className="form-select py-1"
                     aria-label="Default select example"
@@ -164,7 +167,7 @@ export default function Order() {
                             ? "Z - A"
                             : "Higher to Lower"}
                     </option>
-                </select>
+                </Form.Control>
             </div>
         </div>
     );
