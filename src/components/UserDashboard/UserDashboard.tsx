@@ -25,7 +25,7 @@ function UserDashboard() {
                         <img src="https://image.shutterstock.com/image-vector/thin-line-black-camera-logo-260nw-627479624.jpg" className="pfp" alt="profile"></img>
                     </div>
                 </button>
-                <p className="h3 color text-center" id="usernameD">{userName.length < 18 ? userName : null}</p>
+                <p className="h3 text-center" id="usernameD">{userName.length < 18 ? userName : null}</p>
             </div>
             {editPic && <div className="d-flex row m-3 justify-content-center"><UpdatePhoto /></div>}
 

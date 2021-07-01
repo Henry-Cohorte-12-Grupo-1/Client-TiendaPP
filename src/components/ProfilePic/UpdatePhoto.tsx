@@ -1,10 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
+import { url } from "../../api";
+import jwtDecode from "jwt-decode";
+import swal from 'sweetalert'
 
 export default function UpdatePhoto() {
 
+
+    const token: any = localStorage ? jwtDecode(localStorage.token) : false;
+    const userId = token ? token.id : null;
+
     const [image, setImage] = useState<File>()
-    const [imageUrl, setImageUrl] = useState<string>("")
+    //const [imageUrl, setImageUrl] = useState<string>("")
     const [previewSource, setPreviewSource] = useState<any>("")
 
     const handleImageState = (e: any) => {
@@ -26,11 +33,9 @@ export default function UpdatePhoto() {
         if (image) {
             formData.append('file', image)
             formData.append('upload_preset', 'tiendapp')
-            await axios.post('https://api.cloudinary.com/v1_1/tiendapp/image/upload', formData)
-                .then(resp => setImageUrl(`http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${resp.data.public_id}`))
-
-
-
+            const resp = await axios.post('https://api.cloudinary.com/v1_1/tiendapp/image/upload', formData)
+            await axios.post(`${url}/user/updatePic`, { userId: userId, profilePic: resp.data.public_id })
+                .then(res => swal(res.data))
         }
     }
 
