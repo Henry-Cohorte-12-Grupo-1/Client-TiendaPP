@@ -7,6 +7,7 @@ export interface CombinedStores {
     productsReducer: StoreType;
     sellerReducer: StoreType;
     wishlistReducer: StoreType;
+    profilePicReducer: StoreType;
 }
 // Interface de Store NO CAMBIAR DE LUGAR  filter: IReducer.ICategory
 export interface StoreType {

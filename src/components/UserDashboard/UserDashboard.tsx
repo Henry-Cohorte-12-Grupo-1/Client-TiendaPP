@@ -1,6 +1,8 @@
 import jwtDecode from 'jwt-decode';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { CombinedStores } from '../../redux/interfaces/reduxStore';
 import UpdatePhoto from '../ProfilePic/UpdatePhoto';
 import './UserDashboard.scss'
 
@@ -10,6 +12,10 @@ function UserDashboard() {
     let userName = token.username;
 
     const [editPic, setEditPic] = useState<boolean>(false)
+
+    const userPic = useSelector<CombinedStores, string>(
+        (state) => state.profilePicReducer.profilePic
+    );
 
     const handleProfilePic = (e: any) => {
         e.preventDefault();
@@ -22,7 +28,9 @@ function UserDashboard() {
                     style={{ border: "none", backgroundColor: "transparent" }}
                     onClick={handleProfilePic}>
                     <div className="circle">
-                        <img src="https://image.shutterstock.com/image-vector/thin-line-black-camera-logo-260nw-627479624.jpg" className="pfp" alt="profile"></img>
+                        <img
+                            src={userPic ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${userPic}` : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnNKg_7pKXEr8Wyd9HFNBLB3LEno62rqXME_UL3mzuxwyZ6j1gmAV55FYfubxwu2GAqEk&usqp=CAU"}
+                            className="pfp" alt="profile"></img>
                     </div>
                 </button>
                 <p className="h3 text-center" id="usernameD">{userName.length < 18 ? userName : null}</p>
