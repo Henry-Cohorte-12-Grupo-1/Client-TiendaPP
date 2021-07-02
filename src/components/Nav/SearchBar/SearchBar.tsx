@@ -108,7 +108,7 @@ export default function SearchBar() {
       acList: e.target.value,
       //[e.target.name]: e.target.value
     });
-    dispatch(searchProductAC(e.target.value));
+    dispatch(searchProductAC(e.target.value, sellerState));
   };
 
   // Función que realiza el dispatch de la action con el valor del input almacenado en el estado

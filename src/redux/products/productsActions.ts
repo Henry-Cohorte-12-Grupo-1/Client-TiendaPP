@@ -99,11 +99,11 @@ export const searchProduct = (
   };
 };
 
-export const searchProductAC = (name: string, seller = "") => {
+export const searchProductAC = (name: string, username = "") => {
   const URL = `${url}/search`;
   const params = {
     name,
-    seller,
+    username,
   };
   return async function (dispatch: Dispatch) {
     try {
@@ -113,6 +113,7 @@ export const searchProductAC = (name: string, seller = "") => {
         type: PRODUCTS_ACTIONS.SEARCH_PRODUCT_AC,
         acList: productData.data,
       });
+        console.log("🚀 ~ file: productsActions.ts ~ line 116 ~ productData.data", productData.data)
     } catch (error) {
       return console.log("No se pudo realizar la busqueda");
     }
