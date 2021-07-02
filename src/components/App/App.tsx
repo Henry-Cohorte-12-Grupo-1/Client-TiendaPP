@@ -1,5 +1,4 @@
 //import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 // import "../../styles/App/App.css";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
@@ -10,14 +9,13 @@ import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 
 //redux stuff
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
 //import { masUno } from "../../redux/actions/index";
 
 import "./style.scss";
 
 function App() {
     //const counter = useSelector<CombinedStores, number>((state) => state.counter); //redux store counter varible
-    const dispatch = useDispatch(); //redux dispatch
+
 
     // const onButtonClick = (event: any): void => {
     //     event.preventDefault();

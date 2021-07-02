@@ -3,13 +3,14 @@ import ProductsCards from "../ProductsCards/ProductsCards";
 import jwtDecode from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Container, Carousel, Button } from "react-bootstrap";
+import { Container, Carousel } from "react-bootstrap";
 import { IProducts } from "../../interfaces/products";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { bringProducts } from "../../redux/products/productsActions";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
 import { decreasePage, getCategories, increasePage } from "../../redux/categories/categoriesActions";
 import CategorySearch from "./CategorySearch";
+import { bringProfilePic } from "../../redux/profile/profilePicActions";
 
 
 function Home() {
@@ -36,8 +37,8 @@ function Home() {
     useEffect(() => {
         dispatch(bringProducts());
         dispatch(getCategories());
-
         if (userId !== "guest") {
+            dispatch(bringProfilePic(userId))
             dispatch(bringWishlist(userId));
         }
     }, []); //eslint-disable-line

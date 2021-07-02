@@ -1,6 +1,5 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Footer from "../Footer/Footer";
 import "./Landing.scss";
 import sell from "./sell.svg";
 import buy from "./buy.svg";
@@ -8,7 +7,7 @@ import enjoy from "./enjoy.svg";
 
 function Landing() {
     return (
-        <div style={{backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems:'center'}}>
+        <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <header className="hero">
                 <div className="textos-hero">
                     <h1>Welcome to TiendApp</h1>
@@ -35,20 +34,20 @@ function Landing() {
                     </svg>
                 </div>
             </header>
-            <section className="cardsL contenedor"> 
-            <div className="content-cardsL">
+            <section className="cardsL contenedor">
+                <div className="content-cardsL">
                     <article className="cardL">
                         <img className='cardL-img' src={sell} alt="" />
                         <h3>Sell</h3>
                         <p>Sell your products without worries.</p>
                     </article>
                     <article className="cardL">
-                    <img className='cardL-img' src={buy} alt="" />
+                        <img className='cardL-img' src={buy} alt="" />
                         <h3>Buy</h3>
                         <p>Buy quickly and easily.</p>
                     </article>
                     <article className="cardL">
-                    <img className='cardL-img' src={enjoy} alt="" />
+                        <img className='cardL-img' src={enjoy} alt="" />
                         <h3>Enjoy</h3>
                         <p>Enjoy your product in the comfort of your home.</p>
                     </article>

@@ -255,34 +255,33 @@ export default function SearchBar() {
       );
     }
   }
-
-  // Form con el input y el botón de submit
-  return (
-    <form className="d-flex">
-      <input
-        autoComplete="off"
-        className="form-control"
-        id="inputS"
-        type="search"
-        aria-label="Search"
-        placeholder="Search by seller"
-        name="seller"
-        value={state.seller}
-        onChange={handleInputChange}
-        onKeyDown={onKeyDown}
-      />
-      {suggestionsListComponent}
-      {errors.seller && <p className="SBerror">{errors.seller}</p>}
-      <button
-        id="buttonSearch"
-        className="btn btn-outline-primary font-weight-bold"
-        type="submit"
-        value="Search"
-        onClick={(e: any) => handleSubmit(e)}
-      >
-        {" "}
-        Search{" "}
-      </button>
-    </form>
-  );
+    // Form con el input y el botón de submit
+    return (
+        <form className="d-flex justify-content-center">
+            <input
+                autoComplete="off"
+                className="form-control"
+                id="inputS"
+                type="search"
+                aria-label="Search"
+                placeholder="Search by seller"
+                name="product"
+                value={state.product}
+                onChange={handleInputChange}
+                onKeyDown={onKeyDown}
+            />
+            {suggestionsListComponent}
+            {errors.product && <p className="SBerror">{errors.product}</p>}
+            <button
+                id="buttonSearch"
+                className="btn btn-outline-primary font-weight-bold"
+                type="submit"
+                value="Search"
+                onClick={(e: any) => handleSubmit(e)}
+            >
+                {" "}
+                Search{" "}
+            </button>
+        </form>
+    );
 }

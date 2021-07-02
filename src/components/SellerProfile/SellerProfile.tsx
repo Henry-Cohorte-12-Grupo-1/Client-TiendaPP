@@ -1,5 +1,4 @@
 import "./style.scss";
-import SellerProfile from "../../interfaces/sellerProfile";
 import IUserProduct from "../../interfaces/userProducts";
 import ProductsCards from "../ProductsCards/ProductsCards";
 import jwtDecode from "jwt-decode";
@@ -8,10 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Carousel } from "react-bootstrap";
 import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { IProducts } from "../../interfaces/products";
-
-import { bringSellerProfile } from "../../redux/seller/sellerActions";
 import { bringUserProducts } from "../../redux/products/productsActions";
 import { bringWishlist } from "../../redux/wishlist/wishlistActions";
+import axios from "axios";
+import { url } from "../../api";
 
 function SellerProfileForm(props: any): ReactElement {
     const userName = props.match.params.userName;
@@ -22,9 +21,9 @@ function SellerProfileForm(props: any): ReactElement {
 
     const dispatch = useDispatch();
 
-    const seller = useSelector<CombinedStores, SellerProfile>(
-        (state) => state.sellerReducer.sellerProfile
-    );
+    // const seller = useSelector<CombinedStores, SellerProfile>(
+    //     (state) => state.sellerReducer.sellerProfile
+    // );
 
     const userProducts = useSelector<CombinedStores, IUserProduct[]>(
         (state) => state.productsReducer.userProducts
@@ -33,15 +32,25 @@ function SellerProfileForm(props: any): ReactElement {
         (state) => state.wishlistReducer.wishlist
     );
     const [index, setIndex] = useState(0);
+    const [seller, setSeller] = useState<any>({})
+
+    //let seller: any;
+    //async (() => {
+    //    seller = await axios.get<any>(`${url}/seller/${userName}`)
+    // })();
 
     useEffect(() => {
-        dispatch(bringSellerProfile(userName));
+        (async () => {
+            let resp = await axios.get<any>(`${url}/seller/${userName}`);
+            setSeller(resp.data)
+        })()
+        //dispatch(bringSellerProfile(userName));
         dispatch(bringUserProducts(userName));
         if (userId !== "guest") {
             dispatch(bringWishlist(userId));
         }
     }, []); //eslint-disable-line
-
+    console.log("seller --->", seller)
     if (seller.error) {
         return (
             <div className="container ml-auto mr-auto mt-4 bg-light border shadow p-5 rounded-lg m-3">

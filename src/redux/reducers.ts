@@ -10,6 +10,7 @@ import { orderReducer } from "./order/orderReducer";
 import { productsReducer } from "./products/productsReducer";
 import { sellerReducer } from "./seller/sellerReducer";
 import { wishlistReducer } from "./wishlist/wishlistReducer";
+import { profilePicReducer } from "./profile/profilePicReducer"
 
 const rootReducer = combineReducers({
     cartReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     productsReducer,
     sellerReducer,
     wishlistReducer,
+    profilePicReducer
 });
 
 ///////////////////////////////////////

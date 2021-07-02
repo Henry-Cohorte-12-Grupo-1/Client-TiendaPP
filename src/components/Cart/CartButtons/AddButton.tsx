@@ -11,7 +11,6 @@ import "./CartButtons.scss";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-    StoreType,
     CombinedStores,
 } from "../../../redux/interfaces/reduxStore";
 import {
@@ -46,10 +45,8 @@ function AddButton(props: Props): ReactElement {
         (async () => {
             await dispatch(addProductToCart(userId, productId));
             swal("The product was added to your cart");
-            console.log("CARTSS BEFORE CHECKING: ", cart);
         })().then(() => {
             checkInCart();
-            console.log("CARTS AFTER CHECKING: ", cart);
         });
     };
 
@@ -72,7 +69,7 @@ function AddButton(props: Props): ReactElement {
             dispatch(loadGuestCart(localCart));
             checkInCart();
         }
-    }, []);
+    }, []);//eslint-disable-line
 
     ///////////////////////////////////////
     //The render/////////////

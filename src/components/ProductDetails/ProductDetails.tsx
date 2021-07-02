@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import SweetAlertInput from "./sweetAlertInput";
 import IQuestAndId from "../../interfaces/questions";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreType, CombinedStores } from "../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { ReactElement, useEffect, useState } from "react";
 
 import { loadCartBuyNow, buyNow } from "../../redux/cart/cartActions";
@@ -20,12 +20,11 @@ import { BsArrowReturnRight } from "react-icons/bs";
 import { url } from "../../api";
 
 //icons
-import { IconContext } from "react-icons";
-import * as AiIcons from "react-icons/ai";
 
 //for the add to cart button
 import AddButton from "../Cart/CartButtons/AddButton";
 import axios from "axios";
+import Loading from "../Loading/Loading";
 
 //defino el tipado para match.params.id
 interface MatchParams {
@@ -38,7 +37,6 @@ function ProductDetails(props: Props): ReactElement {
     const history = useHistory();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
-    const [hasProfile, setHasProfile] = useState<boolean>(false);
     const id = props.match.params.id;
     //Selectors
     const details = useSelector<CombinedStores, detailedProduct>(
@@ -47,29 +45,36 @@ function ProductDetails(props: Props): ReactElement {
     const questions = useSelector<CombinedStores, IQuestAndId>(
         (state) => state.productsReducer.productQuestions
     );
-    //Handlers
-    //Funcion que maneja preguntas y respuestas
-    async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
-        const questId = qoA === "Answer" ? quest : "";
-        const routePath = qoA === "Answer" ? "answer" : "new";
-        const uId = qoA === "Question" ? userId : undefined;
-        const paramId = qoA === "Question" ? id : undefined;
-        await SweetAlertInput(
-            `Your ${qoA}:`,
-            `Send ${qoA}:`,
-            `${url}/questions/${routePath}`,
-            questId,
-            uId,
-            paramId
-        );
-        dispatch(productQuestions(id));
-    }
 
     //GETTING USER ID FROM LOCAL STORAGE
     const token: Storage | false = localStorage.token
         ? jwtDecode(localStorage.token)
         : false;
+
     const userId: string = token ? token.id : "guest";
+
+    //Handlers
+    //Funcion que maneja preguntas y respuestas
+    async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
+        if (userId != "guest") {
+            const questId = qoA === "Answer" ? quest : "";
+            const routePath = qoA === "Answer" ? "answer" : "new";
+            const uId = qoA === "Question" ? userId : undefined;
+            const paramId = qoA === "Question" ? id : undefined;
+            await SweetAlertInput(
+                `Your ${qoA}:`,
+                `Send ${qoA}:`,
+                `${url}/questions/${routePath}`,
+                questId,
+                uId,
+                paramId
+            );
+            dispatch(productQuestions(id));
+        } else {
+            history.push("/login");
+        }
+    }
+
     const handleBuyNow = (e: any) => {
         e.preventDefault();
         dispatch(buyNow());
@@ -93,9 +98,6 @@ function ProductDetails(props: Props): ReactElement {
                         `${url}/seller/${details.User.username}`
                     );
                     console.log("aaaaa", profile);
-                    if (profile.data.header) {
-                        setHasProfile(true);
-                    }
                 } catch (e) {
                     console.error(e);
                 }
@@ -106,7 +108,7 @@ function ProductDetails(props: Props): ReactElement {
     }, [details]);
 
     if (loading) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
     if (!loading && !details.productId) {
         return <h1>Not Found!</h1>;
@@ -164,13 +166,6 @@ function ProductDetails(props: Props): ReactElement {
                                             {details?.User.username}
                                         </a>
                                     </p>
-                                    {hasProfile ? (
-                                        <Button
-                                            href={`/seller/${details?.User.username}`}
-                                        >
-                                            Seller Profile
-                                        </Button>
-                                    ) : null}
                                 </div>
                             </div>
 
@@ -188,9 +183,9 @@ function ProductDetails(props: Props): ReactElement {
                                         >
                                             <Button
                                                 type="button"
-                                                className="buy-btn"
+                                                className="btn btn-success add-btn"
                                             >
-                                                <span className="buy-now">
+                                                <span className="add-span">
                                                     Buy Now
                                                 </span>
                                             </Button>

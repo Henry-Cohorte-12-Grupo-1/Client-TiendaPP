@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { IErrorUser } from "../../interfaces/forms";
 import { useHistory } from "react-router-dom";
-import twitterImage from '../../assets/twitterImage.png';
 import githubImage from '../../assets/githubImage.png';
 
 
@@ -86,7 +85,7 @@ function Login() {
         });
       }
     }
-  }, [email]);
+  }, [email]);//eslint-disable-line
 
   useEffect(() => {
     if (password) {
@@ -102,7 +101,7 @@ function Login() {
         });
       }
     }
-  }, [password]);
+  }, [password]);//eslint-disable-line
 
   /*
     const handleSubmitTest = async () => {
@@ -150,12 +149,13 @@ function Login() {
           history.push("/login/passReset")
         );
       } else {
-        localStorage.setItem("token", resp.data.token);
         if (resp.data.message === "User") {
+          localStorage.setItem("token", resp.data.token);
           swal("Welcome");
           history.push("/home");
         }
         if (resp.data.message === "Admin") {
+          localStorage.setItem("token", resp.data.token);
           console.log("entro admin");
           history.push("/adminValidation");
         }
@@ -175,10 +175,6 @@ function Login() {
   const googleLogin = () => {
     window.open(`${URL}/auth/google`, "_self");
   };
-
-  const twitterLogin = () => {
-    window.location.href = `${URL}/auth/twitter`
-  }
 
   const githubLogin = () => {
     window.open(`${URL}/auth/github`, "_self");
@@ -236,11 +232,6 @@ function Login() {
           <div className={styles.googleContainer} onClick={googleLogin}>
             <img src={glogo} alt="Google Icon" />
             <p>Login With Google</p>
-          </div>
-          <h5> Or Twitter </h5>
-          <div className={`${styles.googleContainer} ${styles.twitterContainer}`} onClick={twitterLogin}>
-            <img src={twitterImage} alt="Twitter Icon" />
-            <p>Login With Twitter</p>
           </div>
           <h5> Or GitHub </h5>
           <div className={`${styles.googleContainer} ${styles.githubContainer}`} onClick={githubLogin}>

@@ -7,6 +7,7 @@ export interface CombinedStores {
     productsReducer: StoreType;
     sellerReducer: StoreType;
     wishlistReducer: StoreType;
+    profilePicReducer: StoreType;
 }
 // Interface de Store NO CAMBIAR DE LUGAR  filter: IReducer.ICategory
 export interface StoreType {
@@ -27,7 +28,8 @@ export interface StoreType {
     sellerProfile: IReducer.ISellerProfile;
     productQuestions: IReducer.IQuestAndId;
     buyNow: boolean;
-    actualPage:number
+    actualPage: number
+    profilePic: string
 }
 
 //Esta es la estructura del Store. Cambiar aca si le agregan mas cosas (y el state inicial tambien)

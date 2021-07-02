@@ -5,8 +5,8 @@ import "./Sidebar.scss";
 
 //ICONS
 import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
 import { IconContext } from "react-icons";
+import profileIcon from "../../Dropdown/profile-icon.jpeg"
 
 import { useState } from "react";
 import { SidebarData, UserStatus } from "./SidebarData";
@@ -17,14 +17,17 @@ import { CombinedStores } from "../../../redux/interfaces/reduxStore";
 import SellerProfile from "../../../interfaces/sellerProfile";
 import { bringSellerProfile } from "../../../redux/seller/sellerActions";
 import { useEffect } from "react";
+import { bringProfilePic } from "../../../redux/profile/profilePicActions";
 
 function Sidebar() {
     //redux
     const dispatch = useDispatch();
-    const seller = useSelector<CombinedStores, SellerProfile>(
+    const sellerProfile = useSelector<CombinedStores, SellerProfile>(
         (state) => state.sellerReducer.sellerProfile
     );
-
+    const userPic = useSelector<CombinedStores, string>(
+        (state) => state.profilePicReducer.profilePic
+    );
     //STATES
     const [sidebar, setSidebar] = useState(false);
 
@@ -43,30 +46,31 @@ function Sidebar() {
     const userStatus: number = admin
         ? UserStatus.admin
         : user
-        ? UserStatus.user
-        : UserStatus.guest;
+            ? UserStatus.user
+            : UserStatus.guest;
     const userId = token.id;
-        
-    const username = token.username ? token.username :  "Guest";
-    
+
+    let username = token.username ? token.username : "guest";
+    username = admin ? "ADMINISTRATOR" : username;
+
     useEffect(() => {
-        if(token){
-            
+        if (username !== "guest") {
             dispatch(bringSellerProfile(username));
+            dispatch(bringProfilePic(userId))
         }
-    }, []);
+    }, []);//eslint-disable-line
 
     //SET IMAGES URL
     let cover_URL: string;
     let pfp_URL: string;
-    if (seller.error || seller.images?.length || !seller) {
+
+    if (sellerProfile.error || !sellerProfile.images?.length || !sellerProfile) {
         cover_URL =
-            "https://prod-virtuoso.dotcmscloud.com/dA/e53bd89c-d52f-45b0-a2e3-238f1e2cef3d/heroImage1/DowntownLA_hero.jpg";
-        pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
+            "https://cartcraze.com/sites/default/files/assets/images/blog-images/visual-inspiration-15-e-commerce-websites-with-beautiful-clean-design.jpg"
     } else {
-        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${seller.images[0]}`;
-        pfp_URL = "https://avatars.githubusercontent.com/u/26018920?v=4";
+        cover_URL = `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${sellerProfile.images}`;
     }
+    pfp_URL = userPic ? `http://res.cloudinary.com/tiendapp/image/upload/c_scale,w_200/${userPic}` : profileIcon;
 
     const sidebarBody = SidebarData.filter((item) => {
         return (
@@ -107,6 +111,7 @@ function Sidebar() {
                     </Link>
                 </div>
 
+                {/*PROFILE PIC*/}
                 <div
                     className="nav-profile"
                     style={{
@@ -114,11 +119,13 @@ function Sidebar() {
                     }}
                 >
                     <div className="profile-overlay"></div>
-                    <a href={`/seller/${username}`}>
+
+                    <a href={user ? `/seller/${username}` : "#"}>
                         <div className="circle">
-                            <img src={`${pfp_URL}`} className="pfp"></img>
+                            <img src={`${pfp_URL}`} className="pfp" alt="profile"></img>
                         </div>
                     </a>
+
                     <div className="username">
                         <p>{username}</p>
                     </div>

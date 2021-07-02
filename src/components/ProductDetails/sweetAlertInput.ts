@@ -2,38 +2,49 @@ import axios from "axios";
 import swal from "sweetalert";
 
 async function sweetAlertInput(
-  title: string,
-  buttonTxt: string,
-  path: string,
-  questionId?: string,
-  userId?: string,
-  productId?: string
+    title: string,
+    buttonTxt: string,
+    path: string,
+    questionId?: string,
+    userId?: string,
+    productId?: string
 ) {
-  const alert = await swal({
-    text: title,
-    content: {
-      element: "input",
-    },
-    button: {
-      text: buttonTxt,
-      closeModal: true,
-    },
-  } as any);
+    console.log("inside sweetAlert");
+    const alert = await swal({
+        text: title,
+        content: {
+            element: "input",
+        },
+        button: {
+            text: buttonTxt,
+            closeModal: true,
+        },
+    } as any);
 
-  const request = async (name: any) => {
-    if (!name) throw null;
-    console.log(name);
-    if (userId) {
-      return await axios.post(path, {
-        question: name,
-        userId: userId,
-        productId: productId,
-      });
-    } else {
-      return await axios.post(path, { answer: name, questionId: questionId });
+    const request = async (name: any) => {
+        /*
+        if (!name) {
+            console.log("name is:", name);
+            throw new Error();
+        }
+        */
+        if (userId) {
+            return await axios.post(path, {
+                question: name,
+                userId: userId,
+                productId: productId,
+            });
+        } else {
+            return await axios.post(path, {
+                answer: name,
+                questionId: questionId,
+            });
+        }
+    };
+
+    if (alert) {
+        return await request(alert);
     }
-  };
-  return await request(alert);
 }
 
 export default sweetAlertInput;

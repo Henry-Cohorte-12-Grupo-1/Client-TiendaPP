@@ -1,15 +1,17 @@
 import SearchBar from "./SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import "./Nav.scss";
-import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { CombinedStores } from "../../redux/interfaces/reduxStore";
 import { Navbar, Nav, Form } from "react-bootstrap";
-import { orderByCategories } from "../../redux/categories/categoriesActions";
-import { bringProducts } from "../../redux/products/productsActions";
-import { ICategory } from "../../interfaces/products";
+//import { orderByCategories } from "../../redux/categories/categoriesActions";
 import { IProduct } from "../../interfaces/product";
+import { loadCartFromDB, loadGuestCart } from "../../redux/cart/cartActions";
 import jwtDecode from "jwt-decode";
 import Dropdown from "../Dropdown/Dropdown";
+import * as AiIcons from "react-icons/ai";
+import { IconContext } from "react-icons";
 
 import Sidebar from "./Sidebar/Sidebar";
 
@@ -19,11 +21,24 @@ function NavComponent() {
         (c) => c.cartReducer.cartItem
     )
 
-    console.log('CART',cartItem)
+    console.log('CART', cartItem)
 
-    const handleClick = (category: string) => {
-        dispatch(orderByCategories(category));
-    };
+    // const handleClick = (category: string) => {
+    //     dispatch(orderByCategories(category));
+    // };
+
+    useEffect(() => {
+        if (userId !== "guest") {
+            (async () => {
+                dispatch(loadCartFromDB(userId));
+            })();
+        } else {
+            const localCart: IProduct[] = JSON.parse(
+                localStorage.getItem("cart") || "[]"
+            );
+            dispatch(loadGuestCart(localCart));
+        }
+    }, []);//eslint-disable-line
 
 
     const token: any = localStorage.token
@@ -31,6 +46,7 @@ function NavComponent() {
         : false;
     const admin: boolean = token.admin;
     const user: boolean = token.user;
+    const userId = token ? token.id : "guest";
 
     return (
         <Navbar bg="primary" expand="lg">
@@ -45,7 +61,7 @@ function NavComponent() {
                             className="btn font-weight-bold"
                             id="colorButton"
                         >
-                            Home
+                            TiendApp
                         </button>
                     </Link>
 
@@ -69,6 +85,21 @@ function NavComponent() {
                                 Admin
                             </button>
                         </Link>
+                    ) : null}
+
+                    {admin ? (
+                        <div>
+                            <a
+                                className="btn font-weight-bold"
+                                id="colorButton2"
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+                                }}
+                                href="/"
+                            >
+                                Log out
+                            </a>
+                        </div>
                     ) : null}
 
                     {localStorage.token ? null : (
@@ -120,25 +151,26 @@ function NavComponent() {
                         )}
                     </ul> */}
                     {admin ? null : (
-                        <div>
+                        <IconContext.Provider value={{ color: "#fff", size: "2rem" }}>
+
                             {cartItem ? (
                                 <div className="shoppingConatiner">
                                     <div className="counterContainer">
                                         <span>{cartItem.length}</span>
                                     </div>
                                 </div>
-                            ): null}
-                            <Link to="/cart">
-                                <button
-                                    className="btn font-weight-bold"
-                                    id="colorButton5"
-                                >
-                                    Cart
-                                </button>
-                            </Link>
-                        </div>
+                            ) : null}
+                            <div className="d-flex">
+                                <a href="/cart">
+                                    <AiIcons.AiOutlineShoppingCart />
+                                </a>
+                            </div>
+
+                        </IconContext.Provider>
                     )}
-                    {user ? <Dropdown /> : null}
+                    <div className="ml-3">
+                        {user ? <Dropdown /> : null}
+                    </div>
                     {/* {user ? (
                         <Link to="/user">
                             <button

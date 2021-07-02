@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
-import { textChangeRangeIsUnchanged } from 'typescript'
 import jwtDecode from 'jwt-decode';
 import isStrongPassword from 'validator/lib/isStrongPassword'
 import { url } from "../../api";
@@ -69,7 +68,7 @@ function Login() {
             setErrors({ ...errors, rpass: true })
         }
 
-    }, [passwords])
+    }, [passwords])//eslint-disable-line
 
 
 

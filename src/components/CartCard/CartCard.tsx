@@ -1,13 +1,11 @@
-import "./CartCard.scss";
-import DeleteButton from "../CartButtons/DeleteButton";
 import { ReactElement, useState } from "react";
+import { IProduct } from "../../interfaces/product";
 import { useDispatch, useSelector } from "react-redux";
-import { setCartItemQuantity } from "../../../redux/cart/cartActions";
-import {
-    CombinedStores,
-} from "../../../redux/interfaces/reduxStore";
+import { setCartItemQuantity } from "../../redux/cart/cartActions";
+import { StoreType } from "../../redux/interfaces/reduxStore";
+import DeleteButton from "../Cart/CartButtons/DeleteButton";
+import './CartCard.scss'
 import { Container } from "react-bootstrap";
-import { IProduct } from "../../../interfaces/product";
 interface Props {
     userId?: string;
     productData: IProduct;
@@ -17,7 +15,6 @@ interface Props {
 
 function CartCard(props: Props): ReactElement {
     //CONSTANTS
-    //URL_CART_SET_QUANTITY NO SE LLAMA EN NINGUN LADO
     //const URL_CART_SET_QUANTITY = URL + "/cart/setCartItemQuantity";
 
     //PROPS
@@ -26,9 +23,7 @@ function CartCard(props: Props): ReactElement {
 
     //redux store
     const dispatch = useDispatch();
-    const cart = useSelector<CombinedStores, IProduct[]>(
-        (state) => state.cartReducer.cart
-    );
+    const cart = useSelector<StoreType, IProduct[]>((state) => state.cart);
 
     //STATES
     const [quantity, setQuantity] = useState(
@@ -44,10 +39,6 @@ function CartCard(props: Props): ReactElement {
     }
 
     //SIN EL AWAIT NO RENDERIZA EN ORDEN -
-
-    ////////////////////////////////////////////////////
-    ////onIncrement declarado pero nunca usado /////////
-    ////////////////////////////////////////////////////
     // async function onIncrement() {
     //     if (productData.quantity + 1 <= productData.stock) {
     //         await dispatch(
@@ -61,9 +52,7 @@ function CartCard(props: Props): ReactElement {
     //         forceRender(!render);
     //     }
     // }
-    /////////////////////////////////////////////////////
-    ////onDecrement es declarado pero no usado///////////
-    /////////////////////////////////////////////////////
+
     // async function onDecrement() {
     //     if (productData.quantity - 1 > 0) {
     //         await dispatch(
@@ -77,6 +66,7 @@ function CartCard(props: Props): ReactElement {
     //         forceRender(!render);
     //     }
     // }
+
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
@@ -170,40 +160,3 @@ function CartCard(props: Props): ReactElement {
 }
 
 export default CartCard;
-
-// <div className="card" id="firstDiv">
-//     <div id="imageSize">
-//         <img
-//             className="card-img-top"
-//             src={
-//                 productData.images
-//                     ? `http://res.cloudinary.com/tiendapp/image/upload/w_400,h_300,c_scale/${productData.images[0]}`
-//                     : 'https://media.istockphoto.com/vectors/no-image-available-sign-vector-id922962354?k=6&m=922962354&s=612x612&w=0&h=_KKNzEwxMkutv-DtQ4f54yA5nc39Ojb_KPvoV__aHyU='
-//             }
-//             alt="not found"
-//             id="image"
-//         />
-//     </div>
-//     <div className="card-body">
-//         <h5 className="card-title">{productData.name}</h5>
-//         <p className="card-text">${`${productData.price}`}</p>
-//         <a href={`/product/${props?.productData.productId}`} className="btn btn-primary" id="colorB">
-//             Details
-//         </a>
-//     </div>
-//     <div>
-//         <button onClick={onDecrement}> - </button>
-//         <h6>{quantity}</h6>
-//         <button onClick={onIncrement}> + </button>
-//         <DeleteButton
-//             userId={userId}
-//             productId={productData.productId}
-//             forceRender={forceRender}
-//             render={render}
-//         />
-//     </div>
-// </div>
-
-// <div className="row">
-//     <div className="col d-flex justify-content-evenly">
-//         <div className="card-body p-5 m-4 border">

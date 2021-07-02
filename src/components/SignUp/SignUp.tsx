@@ -32,20 +32,20 @@ function Signup() {
             firstName: errors.firstName
                 ? "secondary"
                 : user?.firstName
-                    ? "primary"
-                    : "",
+                ? "primary"
+                : "",
             lastName: errors.lastName
                 ? "secondary"
                 : user?.lastName
-                    ? "primary"
-                    : "",
+                ? "primary"
+                : "",
             email: errors.email ? "secondary" : user?.email ? "primary" : "",
             pass: errors.pass ? "secondary" : user?.pass ? "primary" : "",
             username: errors.username
                 ? "secondary"
                 : user?.username
-                    ? "primary"
-                    : "",
+                ? "primary"
+                : "",
         });
     }, [errors]); // eslint-disable-line
 
@@ -124,12 +124,11 @@ function Signup() {
     };
 
     const handleSubmit = async () => {
-
         console.log(user);
         let resp = await axios.post(`${url}/user/usercreate`, user);
         console.log(resp.data);
         if (resp.data === "successfully created") {
-            swal('Account Created, check your email to validate it')
+            swal("Account Created, check your email to validate it");
             history.push(`/login`);
         }
         if (resp.data === "username must be unique") {
@@ -181,7 +180,7 @@ function Signup() {
                     <Form.Control
                         className={`border-${colors.username} border-2`}
                         type="email"
-                        placeholder="Enter email"
+                        placeholder="Enter username"
                         name="username"
                         onChange={handleChange}
                     />
@@ -197,12 +196,14 @@ function Signup() {
                             name="pass"
                             onChange={handleChange}
                         />
-                        {errors?.pass ?
-                            <Form.Label className='mt-1'>Password is too short (Make sure it's at least 8 characters)</Form.Label>
-                            : null}
+                        {errors?.pass ? (
+                            <Form.Label className="mt-1">
+                                Password is too short (Make sure it's at least 8
+                                characters)
+                            </Form.Label>
+                        ) : null}
                     </Col>
                     <Col>
-
                         <Form.Label>Repeat Password</Form.Label>
                         <Form.Control
                             className={`border-${colors.repeatPass} border-2`}
@@ -210,9 +211,11 @@ function Signup() {
                             name="repeatPass"
                             onChange={handleChange}
                         />
-                        {colors?.repeatPass==='secondary' ?
-                            <Form.Label className='mt-1'>Passwords do not match</Form.Label>
-                            : null}
+                        {colors?.repeatPass === "secondary" ? (
+                            <Form.Label className="mt-1">
+                                Passwords do not match
+                            </Form.Label>
+                        ) : null}
                     </Col>
                 </Form.Group>
 
@@ -229,30 +232,25 @@ function Signup() {
 
                 <div className="d-flex justify-content-center">
                     <ReCAPTCHA
-
                         sitekey="6LfoLjYbAAAAACmIqXq5XgsgJMLxiwGMcw1OMhMk"
-
-
-
                         onChange={onCaptchaChange}
                     />
                 </div>
 
                 <div className="d-flex justify-content-center">
-
                     {errors?.firstName === true ||
-                        errors?.lastName === true ||
-                        errors?.repeatPass === true ||
-                        errors?.email === true ||
-                        errors?.pass === true ||
-                        errors?.captcha === true ||
-                        errors?.username === true ||
-                        !user?.firstName ||
-                        !user?.lastName ||
-                        !user?.email ||
-                        !user?.pass ||
-                        !user?.repeatPass ||
-                        user?.pass !== user?.repeatPass ? (
+                    errors?.lastName === true ||
+                    errors?.repeatPass === true ||
+                    errors?.email === true ||
+                    errors?.pass === true ||
+                    errors?.captcha === true ||
+                    errors?.username === true ||
+                    !user?.firstName ||
+                    !user?.lastName ||
+                    !user?.email ||
+                    !user?.pass ||
+                    !user?.repeatPass ||
+                    user?.pass !== user?.repeatPass ? (
                         <div className="text-center">
                             <Button
                                 className="mt-3 column"
@@ -282,9 +280,6 @@ function Signup() {
                             Sign Up
                         </Button>
                     )}
-
-
-
                 </div>
             </Form>
         </Container>
