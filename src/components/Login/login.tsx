@@ -21,13 +21,16 @@ function Login() {
 
   const history = useHistory();
 
-  let [email, setEmail] = useState<string>();
-  let [password, setPassword] = useState<string>();
-  let [invalid, setInvalid] = useState<boolean>();
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [invalid, setInvalid] = useState<boolean>();
+
+  const [emailInitialState, setEmailInitialState] =useState<boolean>(true)
+  const [passInitialState, setPassInitialState] =useState<boolean>(true)
 
   const [errors, setErrors] = useState<IErrorUser>({
-    email: true,
-    pass: true,
+    email: false,
+    pass: false,
   });
 
   const [colors, setColors] = useState<IColors>({});
@@ -70,8 +73,8 @@ function Login() {
   };
 
   useEffect(() => {
-    console.log("aca", email, password);
     if (email) {
+      setEmailInitialState(false)
       if (errors?.email === true) {
         console.log("entro", colors);
         setColors({
@@ -89,6 +92,7 @@ function Login() {
 
   useEffect(() => {
     if (password) {
+      setPassInitialState(false)
       if (errors?.pass === true) {
         setColors({
           ...colors,
@@ -214,7 +218,7 @@ function Login() {
           ) : null}
         </Form.Group>
 
-        {errors?.email === true || errors?.pass === true || invalid === true ? (
+        {errors?.email === true || errors?.pass === true || invalid === true || emailInitialState === true || passInitialState === true ? (
           <Button className="mt-3" variant="info" disabled>
             Log In
           </Button>
