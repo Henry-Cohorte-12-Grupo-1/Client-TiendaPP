@@ -2,6 +2,7 @@ import "../ProductsSearched";
 import React, { useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { searchProduct } from "../../../../../redux/products/productsActions";
+import {Form} from 'react-bootstrap'
 
 export default function Order() {
     //Store
@@ -24,30 +25,33 @@ export default function Order() {
         (store: RootStateOrAny) => store.productsReducer.products.order
     );
     return (
-        <div className="d-flex justify-content-center mt-3 mb-5">
-            <div className="pagesS mr-3">
+        // <div className="d-flex justify-content-center mt-3 mb-5">
+        <div className="pagesContainer">
+            <div className="pagesS pageSize mr-3">
                 {/* Cantidad de items */}
-                <label className="text-light ml-2 mr-2">Pages: </label>
-                <select
+                <label className="optionLabels text-light">Pages: </label>
+
+                <Form.Control as="select"
                     id="selectS"
-                    className="form-select form-select-lg py-1 mr-2"
+                    size="sm"
+                    className="form-select form-select-lg w-50 py-1 mt-0"
                     aria-label="Default select example"
                     onChange={(e) => {
-                        if (e.target.value === "5") {
+                        if (e.target.value === "4") {
                             dispatch(
                                 searchProduct(
                                     nameState,
-                                    5,
+                                    4,
                                     0,
                                     tagState,
                                     orderState
                                 )
                             );
-                        } else if (e.target.value === "10") {
+                        } else if (e.target.value === "8") {
                             dispatch(
                                 searchProduct(
                                     nameState,
-                                    10,
+                                    8,
                                     0,
                                     tagState,
                                     orderState
@@ -57,7 +61,7 @@ export default function Order() {
                             dispatch(
                                 searchProduct(
                                     nameState,
-                                    20,
+                                    16,
                                     0,
                                     tagState,
                                     orderState
@@ -66,18 +70,19 @@ export default function Order() {
                         }
                     }}
                 >
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                </select>
+                    <option value="4">4</option>
+                    <option value="8">8</option>
+                    <option value="16">16</option>
+                </Form.Control>
             </div>
 
-            <div className="pagesS mr-3">
+            <div className="pagesS orderSize mr-3">
                 {/* Price or Name */}
-                <label className="text-light ml-2 mr-2">Order by:</label>
-                <select
+                <label className="optionLabels text-light">Order by:</label>
+                <Form.Control as="select"
                     id="selectS"
-                    className="form-select py-1"
+                    size="sm"
+                    className="form-select w-50 py-1 mt-0"
                     aria-label="Default select example"
                     onChange={(e) => {
                         if (e.target.value === "name") {
@@ -107,15 +112,16 @@ export default function Order() {
                 >
                     <option value="name">Name</option>
                     <option value="price">Price</option>
-                </select>
+                </Form.Control>
             </div>
 
-            <div className="pagesS">
+            <div className="pagesS typeSize">
                 {/* Orden */}
-                <label className="text-light ml-2 mr-2">Type:</label>
-                <select
+                <label className="optionLabels text-light">Type:</label>
+                <Form.Control as="select"
                     id="selectS"
-                    className="form-select py-1"
+                    size="sm"
+                    className="form-select w-50 py-1 mt-0"
                     aria-label="Default select example"
                     onChange={(e) => {
                         if (e.target.value === "lower-higher") {
@@ -164,7 +170,7 @@ export default function Order() {
                             ? "Z - A"
                             : "Higher to Lower"}
                     </option>
-                </select>
+                </Form.Control>
             </div>
         </div>
     );

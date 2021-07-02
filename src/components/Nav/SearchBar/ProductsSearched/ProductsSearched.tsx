@@ -16,9 +16,14 @@ export default function ProductsSearched() {
     );
     return (
         <div id="home-container">
-            <Order />
-            <div className="sellerBar">
-                <SellerSearchBar />
+
+            <div className="sellerBar mt-5">
+                <div className="sellerSearchContainer">
+                    <SellerSearchBar/>
+                </div>
+                <div className="orderContainer">
+                    <Order />
+                </div>
             </div>
             <Container
                 id="homeContainer"

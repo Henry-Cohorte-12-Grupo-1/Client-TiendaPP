@@ -3,6 +3,10 @@ import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { searchProduct } from "../../../../../../redux/products/productsActions";
 
 function Pagination() {
+
+    var page = 1
+    var totalPages = 2
+
     const dispatch = useDispatch();
     const nameState = useSelector(
         (store: RootStateOrAny) => store.productsReducer.name
@@ -26,42 +30,43 @@ function Pagination() {
     const hasNextPage = pagState < pagesState - 1;
     return (
         <div>
-            <button
-                className="btn btn-primary py-2 px-5 mr-3"
-                id="bPagination"
-                disabled={!hasPreviousPage}
-                onClick={() => {
-                    dispatch(
-                        searchProduct(
-                            nameState,
-                            itemsState,
-                            pagState - 1,
-                            tagState,
-                            orderState
-                        )
-                    );
-                }}
-            >
-                {"Prev"}
-            </button>
-            <button
-                className="btn btn-primary py-2 px-5 ml-3"
-                id="bPagination"
-                disabled={!hasNextPage}
-                onClick={() => {
-                    dispatch(
-                        searchProduct(
-                            nameState,
-                            itemsState,
-                            pagState + 1,
-                            tagState,
-                            orderState
-                        )
-                    );
-                }}
-            >
-                {"Next"}
-            </button>
+            <div className="allmightContainer mb-4">
+                <div className="paginationContainer">
+                    {hasPreviousPage ? (
+                        <button className="paginationPrev prev page-numbers" onClick={() => {
+                            dispatch(
+                                searchProduct(
+                                    nameState,
+                                    itemsState,
+                                    pagState - 1,
+                                    tagState,
+                                    orderState
+                                )
+                            );
+                        }}>{'< Prev'}</button>
+                    ) : (
+                        <button className="disabled paginationPrev">{'< Prev'}</button>
+                    )}
+                    <button className="paginationPage page-numbers current">{pagState+1}</button>
+                    {hasNextPage ? (
+                        <button className="paginationNext next page-numbers"                 
+                            onClick={() => {
+                            dispatch(
+                                searchProduct(
+                                    nameState,
+                                    itemsState,
+                                    pagState + 1,
+                                    tagState,
+                                    orderState
+                                )
+                            );
+                        }}>{'Next >'}</button>
+                    ) : (
+                        <button className='disabled paginationNext' >{'Next >'}</button>
+                    )}
+                </div>
+            </div>
+
         </div>
     );
 }
