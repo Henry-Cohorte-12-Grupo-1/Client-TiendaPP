@@ -217,7 +217,7 @@ export default function SearchBar() {
 
     // Form con el input y el botón de submit
     return (
-        <form className="d-flex">
+        <form className="d-flex justify-content-center">
             <input
                 autoComplete="off"
                 className="form-control"

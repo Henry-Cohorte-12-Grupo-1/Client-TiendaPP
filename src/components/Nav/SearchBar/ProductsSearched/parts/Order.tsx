@@ -25,15 +25,16 @@ export default function Order() {
         (store: RootStateOrAny) => store.productsReducer.products.order
     );
     return (
-        <div className="d-flex justify-content-center mt-3 mb-5">
-
-            <div className="pagesS mr-3">
+        // <div className="d-flex justify-content-center mt-3 mb-5">
+        <div className="pagesContainer">
+            <div className="pagesS pageSize mr-3">
                 {/* Cantidad de items */}
-                <label className="text-light ml-2 mr-2">Pages: </label>
+                <label className="optionLabels text-light">Pages: </label>
 
                 <Form.Control as="select"
                     id="selectS"
-                    className="form-select form-select-lg py-1 mr-2"
+                    size="sm"
+                    className="form-select form-select-lg w-50 py-1 mt-0"
                     aria-label="Default select example"
                     onChange={(e) => {
                         if (e.target.value === "4") {
@@ -75,12 +76,13 @@ export default function Order() {
                 </Form.Control>
             </div>
 
-            <div className="pagesS mr-3">
+            <div className="pagesS orderSize mr-3">
                 {/* Price or Name */}
-                <label className="text-light ml-2 mr-2">Order by:</label>
+                <label className="optionLabels text-light">Order by:</label>
                 <Form.Control as="select"
                     id="selectS"
-                    className="form-select py-1"
+                    size="sm"
+                    className="form-select w-50 py-1 mt-0"
                     aria-label="Default select example"
                     onChange={(e) => {
                         if (e.target.value === "name") {
@@ -113,12 +115,13 @@ export default function Order() {
                 </Form.Control>
             </div>
 
-            <div className="pagesS">
+            <div className="pagesS typeSize">
                 {/* Orden */}
-                <label className="text-light ml-2 mr-2">Type:</label>
+                <label className="optionLabels text-light">Type:</label>
                 <Form.Control as="select"
                     id="selectS"
-                    className="form-select py-1"
+                    size="sm"
+                    className="form-select w-50 py-1 mt-0"
                     aria-label="Default select example"
                     onChange={(e) => {
                         if (e.target.value === "lower-higher") {
