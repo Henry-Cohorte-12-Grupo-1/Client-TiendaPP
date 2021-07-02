@@ -5,10 +5,9 @@ import { searchProduct } from "../../../../../redux/products/productsActions";
 import {Form} from 'react-bootstrap'
 
 export default function Order() {
-    //Store
-    const [option, setOption] = useState<string>("name");
-    const dispatch = useDispatch();
-
+  //Store
+  const [option, setOption] = useState<string>("name");
+  const dispatch = useDispatch();
     const nameState = useSelector(
         (store: RootStateOrAny) => store.productsReducer.products.name
     );

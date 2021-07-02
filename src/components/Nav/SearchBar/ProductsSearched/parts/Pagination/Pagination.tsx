@@ -3,7 +3,6 @@ import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { searchProduct } from "../../../../../../redux/products/productsActions";
 
 function Pagination() {
-
     var page = 1
     var totalPages = 2
 

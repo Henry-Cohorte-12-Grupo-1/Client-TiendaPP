@@ -2,13 +2,11 @@ import "./ProductsSearched.scss";
 import ProductsCards from "../../../ProductsCards/ProductsCards";
 import Pagination from "./parts/Pagination/Pagination";
 import Order from "./parts/Order";
+import SellerSearchBar from "../../../SellerSearchBar/SellerSearchBar";
 import { useSelector } from "react-redux";
-import {
-    CombinedStores,
-} from "../../../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../../../redux/interfaces/reduxStore";
 import { IProductsType } from "../../../../interfaces/search";
 import { Container } from "react-bootstrap";
-import SellerSearchBar from '../../../SellerSearchBar/SellerSearchBar';
 
 export default function ProductsSearched() {
     const products = useSelector<CombinedStores, IProductsType>(
