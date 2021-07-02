@@ -25,8 +25,8 @@ function Login() {
   const [password, setPassword] = useState<string>();
   const [invalid, setInvalid] = useState<boolean>();
 
-  const [emailInitialState, setEmailInitialState] =useState<boolean>(true)
-  const [passInitialState, setPassInitialState] =useState<boolean>(true)
+  const [emailInitialState, setEmailInitialState] = useState<boolean>(true)
+  const [passInitialState, setPassInitialState] = useState<boolean>(true)
 
   const [errors, setErrors] = useState<IErrorUser>({
     email: false,
@@ -185,27 +185,28 @@ function Login() {
   }
 
   return (
-    <Container className="p-4">
+    <Container className="p-4 ">
       <h2 className="text-center">Login</h2>
-      <Form className="bg-light border shadow p-5 mb-4 rounded">
+      <Form className="bg-light border shadow p-5 mb-4 rounded ">
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className='d-flex justify-content-center'>Email</Form.Label>
+
           <Form.Control
-            className={`border-${colors.email} border-2`}
+            className={`border-${colors.email} border-2 w-75 ml-auto mr-auto`}
             type="text"
             placeholder="Enter email"
             name="email"
             onChange={handleChange}
-          />
+            />
           {errors?.email ? (
             <Form.Label className="mt-1">Email is invalid</Form.Label>
-          ) : null}
+            ) : null}
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className='d-flex justify-content-center'>Password</Form.Label>
           <Form.Control
-            className={`border-${colors.pass} border-2`}
+            className={`border-${colors.pass} border-2 w-75 ml-auto mr-auto`}
             type="password"
             placeholder="Enter Password"
             name="pass"
@@ -218,6 +219,7 @@ function Login() {
           ) : null}
         </Form.Group>
 
+        <div className='row justify-content-center'>
         {errors?.email === true || errors?.pass === true || invalid === true || emailInitialState === true || passInitialState === true ? (
           <Button className="mt-3" variant="info" disabled>
             Log In
@@ -227,20 +229,26 @@ function Login() {
             Log In
           </Button>
         )}
+        </div>
+        <br></br>
+        <hr></hr>
         <br></br>
         {invalid ? (
-          <label className="mt-3">Invalid email or password </label>
+          <label className="">Invalid email or password </label>
         ) : null}
-        <div className={styles.loginForm} id="containerGoogle">
-          <h5> Or Login With Google </h5>
-          <div className={styles.googleContainer} onClick={googleLogin}>
-            <img src={glogo} alt="Google Icon" />
-            <p>Login With Google</p>
-          </div>
-          <h5> Or GitHub </h5>
-          <div className={`${styles.googleContainer} ${styles.githubContainer}`} onClick={githubLogin}>
-            <img src={githubImage} alt="Github Icon" />
-            <p>Login With Github</p>
+
+        <div className=''>
+          <div className={styles.loginForm} id="containerGoogle">
+            {/* <h5> Or Login With Google </h5> */}
+            <div className={styles.googleContainer} onClick={googleLogin}>
+              <img src={glogo} alt="Google Icon" />
+              <p>Login With Google</p>
+            </div>
+            {/* <h5> Or GitHub </h5> */}
+            <div className={`${styles.googleContainer} ${styles.githubContainer}`} onClick={githubLogin}>
+              <img src={githubImage} alt="Github Icon" />
+              <p>Login With Github</p>
+            </div>
           </div>
         </div>
       </Form>
