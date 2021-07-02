@@ -72,7 +72,7 @@ function UserDashboard() {
                         <img src="https://thenewdaily.com.au/wp-content/uploads/2019/10/1572243151-online-shopping-edm-960x540.jpg" className="card-img-top" id="cardsHeight" alt="not found" />
                     </Link>
                     <div className="card-body">
-                        <a className="btn btn-primary" id="mButtonU" href={`/user/orders`}>My orders</a>
+                        <a className="btn btn-primary" id="mButtonU" href={`/user/orders`}>Bought products</a>
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">
@@ -96,7 +96,7 @@ function UserDashboard() {
                         <img src="https://www.torodigital.com.au/wp-content/uploads/2018/10/Lawyers-Profile-Page.jpg" className="card-img-top" id="cardsHeight" alt="not found" />
                     </Link>
                     <div className="card-body">
-                        <a className="btn btn-primary ml-3" href={`/seller/edit/${userName}`}>Edit my Site</a>
+                        <a className="btn btn-primary ml-3" id="mButtonU" href={`/seller/edit/${userName}`}>Edit my Site</a>
                     </div>
                 </div>
                 <div className="card mr-5" id="cardWidth">
