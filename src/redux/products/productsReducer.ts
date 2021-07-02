@@ -16,7 +16,7 @@ export function productsReducer(
             };
 
         case PRODUCTS_ACTIONS.SEARCH_PRODUCT:
-            console.log("products actions ", action.products);
+            console.log("!!!!!!!!products actions ", action.products);
             return {
                 ...state,
                 products: action.products,
