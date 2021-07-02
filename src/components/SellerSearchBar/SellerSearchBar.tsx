@@ -86,7 +86,7 @@ export default function SearchBar() {
   useEffect(() => {
     return () => {
       dispatch(
-        searchProduct("", itemsState, pagState, tagState, orderState, "")
+        searchProduct("", itemsState, 0, tagState, orderState, "")
       );
     };
   }, []);
@@ -147,7 +147,7 @@ export default function SearchBar() {
       temp
     );
     dispatch(
-      searchProduct(nameState, itemsState, pagState, tagState, orderState, temp)
+      searchProduct(nameState, itemsState, 0, tagState, orderState, temp)
     );
   };
 

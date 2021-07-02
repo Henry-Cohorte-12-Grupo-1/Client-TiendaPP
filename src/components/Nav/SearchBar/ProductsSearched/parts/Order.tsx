@@ -31,7 +31,7 @@ export default function Order() {
     <div className="pagesContainer">
       <div className="pagesS pageSize mr-3">
         {/* Cantidad de items */}
-        <label className="optionLabels text-light">Pages: </label>
+        <label className="optionLabels text-light">Items: </label>
 
         <Form.Control
           as="select"

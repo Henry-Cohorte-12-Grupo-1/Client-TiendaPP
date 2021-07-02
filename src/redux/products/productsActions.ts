@@ -58,7 +58,7 @@ export const bringUserProducts = (userName: string | null) => {
 
 export const searchProduct = (
   name: string,
-  items = 5,
+  items = 4,
   pag = 0,
   tag = "name",
   order = "ASC",
