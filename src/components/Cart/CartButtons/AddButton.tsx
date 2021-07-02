@@ -10,14 +10,13 @@ import "./CartButtons.scss";
 //redux stuff
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-    CombinedStores,
-} from "../../../redux/interfaces/reduxStore";
+import { CombinedStores } from "../../../redux/interfaces/reduxStore";
 import {
     loadCartFromDB,
     loadGuestCart,
     addProductToCart,
 } from "../../../redux/cart/cartActions";
+import { useHistory } from "react-router";
 
 interface Props {
     userId: string;
@@ -38,13 +37,16 @@ function AddButton(props: Props): ReactElement {
     let inCart = cart.some((product: IProduct) => {
         return product.productId === productId;
     });
+    const history = useHistory();
 
     //FUNCTIONALITY
     const onClick = () => {
         //dispatch
         (async () => {
             await dispatch(addProductToCart(userId, productId));
-            swal("The product was added to your cart");
+            swal("The product was added to your cart").then(() =>
+                history.go(0)
+            );
         })().then(() => {
             checkInCart();
         });
@@ -69,7 +71,7 @@ function AddButton(props: Props): ReactElement {
             dispatch(loadGuestCart(localCart));
             checkInCart();
         }
-    }, []);//eslint-disable-line
+    }, []); //eslint-disable-line
 
     ///////////////////////////////////////
     //The render/////////////

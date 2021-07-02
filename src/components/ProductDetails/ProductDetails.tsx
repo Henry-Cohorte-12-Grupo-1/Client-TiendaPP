@@ -56,7 +56,7 @@ function ProductDetails(props: Props): ReactElement {
     //Handlers
     //Funcion que maneja preguntas y respuestas
     async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
-        if (userId != "guest") {
+        if (userId !== "guest") {
             const questId = qoA === "Answer" ? quest : "";
             const routePath = qoA === "Answer" ? "answer" : "new";
             const uId = qoA === "Question" ? userId : undefined;

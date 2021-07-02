@@ -16,30 +16,22 @@ import { IconContext } from "react-icons";
 import Sidebar from "./Sidebar/Sidebar";
 
 function NavComponent() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const cartItem = useSelector<CombinedStores, IProduct[]>(
         (c) => c.cartReducer.cartItem
-    )
+    );
 
-    console.log('CART', cartItem)
+    const cartLength = useSelector<CombinedStores, IProduct[]>(
+        (c) => c.cartReducer.cart
+    ).length;
+
+    console.log("CART", cartItem);
 
     // const handleClick = (category: string) => {
     //     dispatch(orderByCategories(category));
     // };
 
-    useEffect(() => {
-        if (userId !== "guest") {
-            (async () => {
-                dispatch(loadCartFromDB(userId));
-            })();
-        } else {
-            const localCart: IProduct[] = JSON.parse(
-                localStorage.getItem("cart") || "[]"
-            );
-            dispatch(loadGuestCart(localCart));
-        }
-    }, []);//eslint-disable-line
-
+    useEffect(() => {}, [cartLength]); //eslint-disable-line
 
     const token: any = localStorage.token
         ? jwtDecode(localStorage.token)
@@ -151,12 +143,13 @@ function NavComponent() {
                         )}
                     </ul> */}
                     {admin ? null : (
-                        <IconContext.Provider value={{ color: "#fff", size: "2rem" }}>
-
+                        <IconContext.Provider
+                            value={{ color: "#fff", size: "2rem" }}
+                        >
                             {cartItem ? (
                                 <div className="shoppingConatiner">
                                     <div className="counterContainer">
-                                        <span>{cartItem.length}</span>
+                                        <span>{cartLength}</span>
                                     </div>
                                 </div>
                             ) : null}
@@ -165,12 +158,9 @@ function NavComponent() {
                                     <AiIcons.AiOutlineShoppingCart />
                                 </a>
                             </div>
-
                         </IconContext.Provider>
                     )}
-                    <div className="ml-3">
-                        {user ? <Dropdown /> : null}
-                    </div>
+                    <div className="ml-3">{user ? <Dropdown /> : null}</div>
                     {/* {user ? (
                         <Link to="/user">
                             <button
