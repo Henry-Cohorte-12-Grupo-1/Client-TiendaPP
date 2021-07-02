@@ -40,7 +40,7 @@ function validate(state: localState) {
   let errors: errorState = {
     seller: "",
   };
-  if (!/^[a-zA-Z0-9 ]*$/.test(state.seller)) {
+  if (!/^[a-zA-Z0-9_ ]*$/.test(state.seller)) {
     errors.seller = "Use only alphanumeric characters";
   }
   return errors;
@@ -73,9 +73,9 @@ export default function SearchBar() {
     (state) => state.productsReducer.acList
   );
   const [state, setState]: any = useState({
-    activeSuggestion: 0,
-    filteredSuggestions: [],
-    showSuggestions: false,
+    //activeSuggestion: 0,
+    //filteredSuggestions: [],
+   // showSuggestions: false,
     seller: "",
     acList: "",
   });
@@ -106,7 +106,7 @@ export default function SearchBar() {
     setState({
       ...state,
       activeSuggestion: 0,
-      showSuggestions: true,
+      //showSuggestions: true,
       seller: e.target.value,
     });
 
@@ -123,7 +123,7 @@ export default function SearchBar() {
     setState({
       ...state,
       acList: respuesta.data,
-      seller: e.target.value,
+      seller: e.target.value,     
     });
     console.log(
       "🚀 ~ file: SellerSearchBar.tsx ~ line 119 ~ handleInputChange ~ acList",
@@ -274,7 +274,7 @@ export default function SearchBar() {
             {errors.seller && <p className="SBerror">{errors.seller}</p>}
             <button
                 id="buttonSearch"
-                className="btn btn-outline-primary font-weight-bold"
+                className="btn btn-primary font-weight-bold"
                 type="submit"
                 value="Search"
                 onClick={(e: any) => handleSubmit(e)}
