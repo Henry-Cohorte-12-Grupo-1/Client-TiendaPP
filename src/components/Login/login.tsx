@@ -199,7 +199,7 @@ function Login() {
             onChange={handleChange}
             />
           {errors?.email ? (
-            <Form.Label className="mt-1">Email is invalid</Form.Label>
+            <Form.Label className="mt-1 d-flex justify-content-center">Email is invalid</Form.Label>
             ) : null}
         </Form.Group>
 
@@ -213,7 +213,7 @@ function Login() {
             onChange={handleChange}
           />
           {errors?.pass ? (
-            <Form.Label className="mt-1">
+            <Form.Label className="mt-1 d-flex justify-content-center">
               Password is too short (Make sure it's at least 8 characters)
             </Form.Label>
           ) : null}
