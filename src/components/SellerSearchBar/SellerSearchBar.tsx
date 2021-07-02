@@ -271,7 +271,7 @@ export default function SearchBar() {
                 onKeyDown={onKeyDown}
             />
             {suggestionsListComponent}
-            {errors.product && <p className="SBerror">{errors.product}</p>}
+            {errors.seller && <p className="SBerror">{errors.seller}</p>}
             <button
                 id="buttonSearch"
                 className="btn btn-outline-primary font-weight-bold"
