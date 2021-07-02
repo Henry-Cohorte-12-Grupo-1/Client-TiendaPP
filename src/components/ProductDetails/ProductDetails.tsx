@@ -50,6 +50,7 @@ function ProductDetails(props: Props): ReactElement {
     const token: Storage | false = localStorage.token
         ? jwtDecode(localStorage.token)
         : false;
+
     const userId: string = token ? token.id : "guest";
 
     //Handlers
