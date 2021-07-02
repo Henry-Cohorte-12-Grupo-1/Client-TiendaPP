@@ -21,7 +21,6 @@ import { url } from "../../api";
 
 //icons
 
-
 //for the add to cart button
 import AddButton from "../Cart/CartButtons/AddButton";
 import axios from "axios";
@@ -46,29 +45,35 @@ function ProductDetails(props: Props): ReactElement {
     const questions = useSelector<CombinedStores, IQuestAndId>(
         (state) => state.productsReducer.productQuestions
     );
-    //Handlers
-    //Funcion que maneja preguntas y respuestas
-    async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
-        const questId = qoA === "Answer" ? quest : "";
-        const routePath = qoA === "Answer" ? "answer" : "new";
-        const uId = qoA === "Question" ? userId : undefined;
-        const paramId = qoA === "Question" ? id : undefined;
-        await SweetAlertInput(
-            `Your ${qoA}:`,
-            `Send ${qoA}:`,
-            `${url}/questions/${routePath}`,
-            questId,
-            uId,
-            paramId
-        );
-        dispatch(productQuestions(id));
-    }
 
     //GETTING USER ID FROM LOCAL STORAGE
     const token: Storage | false = localStorage.token
         ? jwtDecode(localStorage.token)
         : false;
     const userId: string = token ? token.id : "guest";
+
+    //Handlers
+    //Funcion que maneja preguntas y respuestas
+    async function handleQA(qoA: string, quest: IQuestAndId["id"]) {
+        if (userId != "guest") {
+            const questId = qoA === "Answer" ? quest : "";
+            const routePath = qoA === "Answer" ? "answer" : "new";
+            const uId = qoA === "Question" ? userId : undefined;
+            const paramId = qoA === "Question" ? id : undefined;
+            await SweetAlertInput(
+                `Your ${qoA}:`,
+                `Send ${qoA}:`,
+                `${url}/questions/${routePath}`,
+                questId,
+                uId,
+                paramId
+            );
+            dispatch(productQuestions(id));
+        } else {
+            history.push("/login");
+        }
+    }
+
     const handleBuyNow = (e: any) => {
         e.preventDefault();
         dispatch(buyNow());
@@ -261,14 +266,14 @@ function ProductDetails(props: Props): ReactElement {
                                 <p className="mb-0">{question.question}</p>
                                 {question.answer ? (
                                     <p className="ml-3" key={i}>
-                                        { }
+                                        {}
                                         <BsArrowReturnRight />
                                         &nbsp;{question.answer}
                                     </p>
                                 ) : null}
                                 <div>
                                     {userId === questions.id &&
-                                        !question.answer ? (
+                                    !question.answer ? (
                                         <Button
                                             onClick={() => {
                                                 handleQA(
