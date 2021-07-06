@@ -1,19 +1,29 @@
 # TiendaPP-Client
 
+TiendApp is a market place website where you can buy and sell products.
 
-Alcance de la Pagina Web:
-Market Place en el cual existan usuarios, los cuales pueden publicar productos que esten a la venta, con información, imagen, precio, etc. de los mismos.
-Estos productos van a estar visibles por los otros usuarios e invitados.
-El comprador y el vendedor (ambos usuarios) pueden realizar la transacción de un producto específico con medios de pago a definir.
+You can publish your products to sell listing them with images, description, stock and price.
 
-Desde invitado (generales):
-- Link principal: con productos y categorias. Con personalizacion para usuario (en el caso que este loggueado)
-- Link de registro de usuario
-- Link con carrito de compras
-- Links para busquedas de productos
+Besides selling, you can also buy products from different sellers/categories. 
 
-Desde usuario:
-- Link principal: con productos y categorias. Con personalizacion para usuario (en el caso que este loggueado)
-- Link con favoritos
-- Link con historial de compras
-- Link con historial de ventas
+Features:
+
+
+![Landing Page](https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/landing.png)
+![Home Page](https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/home.png)
+![Wishlist](https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/wishlist.png)
+![Reviews](https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/reviews.png)
+
+<kbd>
+    <img src="https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/dashboard.png" style="border: 1px solid black" />
+</kbd>
+
+
+<kbd>
+    <img src="https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/sidebar.png" style="border: 1px solid black"/>
+</kbd>
+
+
+<kbd>
+    <img src="https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/create%20product.png = " style="border: 1px solid black"/>
+</kbd>
