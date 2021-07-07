@@ -25,6 +25,33 @@ Front End repo: https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP
 Back End repo: https://github.com/Henry-Cohorte-12-Grupo-1/Api-TiendaPP
 
 
+## Features
+* Unlimited product listing
+   * Product detail editing
+   * Product stock managing
+* Product search
+* User search
+* Cart managing
+* Wishlist
+* Checkout (Credit card payment via Stripe)
+* Account creation
+   * Two-Factor authentication
+   * Email login
+   * Google login
+   * GitHub login
+   * Twitter login
+* Admin priviliges
+   * Category managing
+   * User managing
+* Custom profile
+   * Profile pic
+   * Cover pic
+* Email notifications
+* Object-relational database system
+* Route protection
+   * Encrypted Token Access
+* Dynamic mobile display
+
 ## Preview <a name='id4'></a>
 
 ### Landing Page
