@@ -14,9 +14,10 @@
 
 ## Project Overview <a name='id1'></a>
 
-TiendApp is a market place website where you can buy and sell products.\
+TiendApp is a MARKET PLACE website where you can buy and sell products.\
 You can publish your products listing them with images, description, stock and price.\
-Besides selling, you can also buy products from different sellers/categories. 
+Besides selling, you can also buy products from different sellers/categories. \
+Customizing your profile to show your potential customers is also a feature. \
 
 
 Front End repo: https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP
