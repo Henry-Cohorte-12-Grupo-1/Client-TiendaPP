@@ -77,7 +77,7 @@ Back End repo: https://github.com/Henry-Cohorte-12-Grupo-1/Api-TiendaPP
     * Nginx
     * AWS
 
-## About Us <a name='id2'></a>
+## About Us <a name='id3'></a>
 
 - [Juan Cruz Becerra](https://github.com/lib76)
 - [Pedro Escuredo](https://github.com/Edropem)
