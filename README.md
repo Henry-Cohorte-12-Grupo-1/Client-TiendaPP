@@ -26,11 +26,19 @@ Back End repo: https://github.com/Henry-Cohorte-12-Grupo-1/Api-TiendaPP
 
 ## Preview <a name='id4'></a>
 
+### Landing Page
 ![Landing Page](https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/landing.png)
+
+### Home Page
 ![Home Page](https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/home.png)
+
+### Wishlisted items
 ![Wishlist](https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/wishlist.png)
+
+### Product Details, Reviews, Q&A
 ![Reviews](https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/reviews.png)
 
+### Mobile friendly
 <kbd>
     <img src="https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/dashboard.png" style="border: 1px solid black" />
 </kbd>
@@ -42,7 +50,7 @@ Back End repo: https://github.com/Henry-Cohorte-12-Grupo-1/Api-TiendaPP
 
 
 <kbd>
-    <img src="https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/create%20product.png = " style="border: 1px solid black"/>
+    <img src="https://github.com/Henry-Cohorte-12-Grupo-1/Client-TiendaPP/blob/Client-Development/readme-images/create%20product.png" style="border: 1px solid black"/>
 </kbd>
 
 
@@ -59,6 +67,7 @@ Back End repo: https://github.com/Henry-Cohorte-12-Grupo-1/Api-TiendaPP
     * HTML
 
 * Back End <a name='id6'></a>
+    * NODE Js 
     * Express Js 
     * TypeScript
     * Sequelize
