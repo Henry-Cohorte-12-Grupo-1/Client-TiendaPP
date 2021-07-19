@@ -1,5 +1,7 @@
 # TiendApp-Client
 
+*Deploy* : http://tiendapp.servebeer.com/
+
 **Index** 
 1. [Project Overview](#id1)
 2. [Technologies](#id2)
